@@ -5,7 +5,7 @@
 
 from abc import abstractmethod
 import random
-from typing import Tuple
+from typing import Any, Tuple
 import numpy as np
 from common.utll.enums import SetType
 
@@ -18,13 +18,16 @@ class DatasetLoaderBase:
 
     def __init__(
         self,
-        train_size: float = 0.7,
-        validation_size: float = 0.1,
+        included_portion: float,
+        isDatasetAlreadySplit: bool = False,
+        train_portion: float = 0.7,
+        validation_portion: float = 0.1,
     ) -> None:
-        self.train_portion: float = train_size
-        self.validation_portion: float = validation_size
-        self.test_portion: float = 1 - train_size - validation_size
-        self.all_files: list[DatasetObject] = self.get_files()
+        self.train_portion: float = train_portion
+        self.validation_portion: float = validation_portion
+        self.test_portion: float = 1 - train_portion - validation_portion
+        self.included_portion: float = included_portion
+        self.is_dataset_already_split: bool = isDatasetAlreadySplit
         self.files: dict[SetType, list[DatasetObject]] = {}
 
     @abstractmethod
@@ -37,30 +40,45 @@ class DatasetLoaderBase:
         """Returns dataset's name"""
         raise NotImplementedError()
 
-    def _convert_to_tf_dataset(self, data_list: list[DatasetObject]) -> list[np.ndarray]:
+    def _convert_to_numpy_dataset(self, data_list: list[DatasetObject]) -> list[np.ndarray]:
+        pre_processed_data: list[DatasetObject] = []
         t_size = 0
         for i, data in enumerate(data_list):
-            data_list[i] = self.pre_process(data)
-            t_size = len(data_list[i])
+            pre_processed_data.append(self.pre_process(data))
+            t_size = len(pre_processed_data[i])
         dataset = []
         for i in range(t_size):
-            dataset.append(np.stack([data[i] for data in data_list]))
+            dataset.append(np.stack([data[i] for data in pre_processed_data]))
         return dataset
 
     def compile_sets(self) -> dict[SetType, list[np.ndarray]]:
         """Compiles train test and validation sets"""
-        if not self.all_files:
-            self.files[SetType.TRAIN] = self.get_train_files()
-            self.files[SetType.TEST] = self.get_test_files()
-            self.files[SetType.VALIDATION] = self.get_validation_files()
+        if self.is_dataset_already_split:
+            self._populate_datasets_from_individual_pipelines()
         else:
-            self._populate_train_test_validation_files()
-        return {dataset_type: self._convert_to_tf_dataset(files) for dataset_type, files in self.files.items()}
+            self._populate_datasets_from_all_files()
 
-    def _populate_train_test_validation_files(self):
+        result: dict[SetType, list[np.ndarray]] = {}
+        for dataset_type, files in self.files.items():
+            converted_dataset = self._convert_to_numpy_dataset(files)
+            if converted_dataset:
+                result[dataset_type] = converted_dataset
+        return result
+
+    def _sample(self, data: list[Any], portion: float):
+        return random.sample(data, k=int(portion * len(data)))
+
+    def _populate_datasets_from_individual_pipelines(self):
+        self.files[SetType.TRAIN] = self._sample(self.get_train_files(), self.included_portion)
+        self.files[SetType.TEST] = self._sample(self.get_test_files(), self.included_portion)
+        self.files[SetType.VALIDATION] = self._sample(self.get_validation_files(), self.included_portion)
+
+    def _populate_datasets_from_all_files(self):
         """Pupulates train and test files from all_files"""
-        self.files = self._split_train_test_validation(self.all_files)
-        assert len(self.all_files) == (
+        self.all_files = self.get_files()
+        included_files = self._sample(self.all_files, self.included_portion)
+        self.files = self._split_train_test_validation(included_files)
+        assert len(included_files) == (
             len(self.files[SetType.TRAIN]) + len(self.files[SetType.TEST]) + len(self.files[SetType.VALIDATION])
         )
 
@@ -83,13 +101,11 @@ class DatasetLoaderBase:
     def _split_train_test_validation(self, data: list[DatasetObject]) -> dict[SetType, list[DatasetObject]]:
         """Splits data into train test and validation sets."""
         result: dict[SetType, list[DatasetObject]] = {}
-        number_of_train_samples = int(len(data) * self.train_portion)
         remaining_portions = self.test_portion + self.validation_portion
         remaining_portions = remaining_portions if remaining_portions else 1
-        number_of_test_samples = int((self.test_portion / remaining_portions) * (len(data) - number_of_train_samples))
-        result[SetType.TRAIN] = random.sample(data, k=number_of_train_samples)
+        result[SetType.TRAIN] = self._sample(data, self.train_portion)
         temp = [x for x in data if x not in result[SetType.TRAIN]]
-        result[SetType.TEST] = random.sample(temp, k=number_of_test_samples)
+        result[SetType.TEST] = self._sample(temp, (self.test_portion / remaining_portions))
         result[SetType.VALIDATION] = [x for x in temp if x not in result[SetType.TEST]]
         return result
 

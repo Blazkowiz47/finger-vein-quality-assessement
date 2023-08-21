@@ -20,12 +20,15 @@ class DatasetLoader(DatasetLoaderBase):
 
     def __init__(
         self,
+        included_portion: float = 1.0,
         train_size: float = 0.7,
         validation_size: float = 0.1,
     ) -> None:
         self.fingers = ["Fore", "Middle", "Ring"]
         self.hands = ["L", "R"]
-        super().__init__(train_size=train_size, validation_size=validation_size)
+        super().__init__(
+            included_portion=included_portion, train_portion=train_size, validation_portion=validation_size
+        )
 
     def get_directory(self) -> str:
         return "./datasets/MMCBNU_6000"
