@@ -11,34 +11,11 @@ COMMON_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 
 
 def init(
-    default_path: str = "logging.yaml",
     default_level: int = logging.INFO,
-    env_key: str = "LOG_CFG",
 ) -> None:
     """Sets up logging with config file, if present or basic config otherwise"""
     # basicConfig is no-op if handlers already exists for root logger
-    global is_init  # pylint: disable=global-statement
-    if is_init:
-        return
-    path = default_path
-    value = os.getenv(env_key, None)
-    if value:
-        path = value
-    if os.path.exists(path):
-        with open(path, "rt", encoding="utf-8") as f:
-            try:
-                config = yaml.safe_load(f.read())
-                logging.config.dictConfig(config)
-            except Exception as e:
-                # pylint: disable-next=no-print
-                print(f"Error in log config {path}: {e}. Using default configs")
-                _set_basic_logging_cfg(default_level)
-
-    else:
-        # pylint: disable-next=no-print
-        print("Failed to load log config file. Using default configs")
-        _set_basic_logging_cfg(default_level)
-    is_init = True
+    _set_basic_logging_cfg(default_level)
 
 
 def _set_basic_logging_cfg(level: int) -> None:

@@ -8,8 +8,8 @@ import cv2
 from PIL import Image
 import numpy as np
 from common.data_pipeline.base.base import DatasetLoaderBase
-from common.utll.decorators import reflected
-from common.utll.models.dataset_models import DatasetObject
+from common.util.decorators import reflected
+from common.util.models.dataset_models import DatasetObject
 
 
 @reflected

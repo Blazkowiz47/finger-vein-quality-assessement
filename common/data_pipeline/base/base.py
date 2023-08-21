@@ -7,9 +7,10 @@ from abc import abstractmethod
 import random
 from typing import Any, Tuple
 import numpy as np
-from common.utll.enums import SetType
+from common.util.enums import SetType
 
-from common.utll.models.dataset_models import DatasetObject
+from common.util.logger import logger
+from common.util.models.dataset_models import DatasetObject
 
 
 class DatasetLoaderBase:
@@ -63,6 +64,7 @@ class DatasetLoaderBase:
             converted_dataset = self._convert_to_numpy_dataset(files)
             if converted_dataset:
                 result[dataset_type] = converted_dataset
+        logger.info(f"Compiled train/test/validation split for {self.get_name()}")
         return result
 
     def _sample(self, data: list[Any], portion: float):

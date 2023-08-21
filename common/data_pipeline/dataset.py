@@ -5,9 +5,9 @@
 import numpy as np
 import tensorflow as tf
 from common.data_pipeline.base.base import DatasetLoaderBase
-from common.utll.enums import SetType
-from common.utll.models.dataset_models import DatasetObject
-from common.utll.logger import logger
+from common.util.enums import SetType
+from common.util.models.dataset_models import DatasetObject
+from common.util.logger import logger
 
 
 class DatasetCompiler:
