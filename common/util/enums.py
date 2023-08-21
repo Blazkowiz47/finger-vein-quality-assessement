@@ -2,7 +2,7 @@
 from enum import Enum
 
 
-class SetType(Enum):
+class DatasetSplitType(Enum):
     """Enum for dataset type, i.e. train/test/validation"""
 
     TRAIN = "train"

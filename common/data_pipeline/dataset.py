@@ -5,7 +5,7 @@
 import numpy as np
 import tensorflow as tf
 from common.data_pipeline.base.base import DatasetLoaderBase
-from common.util.enums import SetType
+from common.util.enums import DatasetSplitType
 from common.util.models.dataset_models import DatasetObject
 from common.util.logger import logger
 
@@ -18,11 +18,13 @@ class DatasetCompiler:
 
     def __init__(self, datasets: list[DatasetLoaderBase]) -> None:
         self.datasets = datasets
-        self.files: dict[SetType, list[DatasetObject]] = {set_type: [] for set_type in SetType}
+        self.files: dict[DatasetSplitType, list[DatasetObject]] = {set_type: [] for set_type in DatasetSplitType}
 
-    def compile_datasets(self) -> dict[SetType, tf.data.Dataset]:
+    def compile_datasets(self) -> dict[DatasetSplitType, tf.data.Dataset]:
         """Compiles all the datasets together"""
-        compiled_datasets: dict[SetType, list[tf.data.Dataset]] = {set_type: [] for set_type in SetType}
+        compiled_datasets: dict[DatasetSplitType, list[tf.data.Dataset]] = {
+            set_type: [] for set_type in DatasetSplitType
+        }
         for dataset in self.datasets:
             sets = dataset.compile_sets()
             for set_type, data in sets.items():
@@ -34,7 +36,7 @@ class DatasetCompiler:
         }
         return result
 
-    def concatenate_datasets(self, set_type: SetType, datasets: list[np.ndarray]) -> tf.data.Dataset:
+    def concatenate_datasets(self, set_type: DatasetSplitType, datasets: list[np.ndarray]) -> tf.data.Dataset:
         """Concatenates all the datasets"""
         logger.info(f"Concatenating {set_type.value} set")
         t_size = 0

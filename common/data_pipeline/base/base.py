@@ -7,7 +7,7 @@ from abc import abstractmethod
 import random
 from typing import Any, Tuple
 import numpy as np
-from common.util.enums import SetType
+from common.util.enums import DatasetSplitType
 
 from common.util.logger import logger
 from common.util.models.dataset_models import DatasetObject
@@ -29,7 +29,7 @@ class DatasetLoaderBase:
         self.test_portion: float = 1 - train_portion - validation_portion
         self.included_portion: float = included_portion
         self.is_dataset_already_split: bool = isDatasetAlreadySplit
-        self.files: dict[SetType, list[DatasetObject]] = {}
+        self.files: dict[DatasetSplitType, list[DatasetObject]] = {}
 
     @abstractmethod
     def get_directory(self) -> str:
@@ -52,14 +52,14 @@ class DatasetLoaderBase:
             dataset.append(np.stack([data[i] for data in pre_processed_data]))
         return dataset
 
-    def compile_sets(self) -> dict[SetType, list[np.ndarray]]:
+    def compile_sets(self) -> dict[DatasetSplitType, list[np.ndarray]]:
         """Compiles train test and validation sets"""
         if self.is_dataset_already_split:
             self._populate_datasets_from_individual_pipelines()
         else:
             self._populate_datasets_from_all_files()
 
-        result: dict[SetType, list[np.ndarray]] = {}
+        result: dict[DatasetSplitType, list[np.ndarray]] = {}
         for dataset_type, files in self.files.items():
             converted_dataset = self._convert_to_numpy_dataset(files)
             if converted_dataset:
@@ -71,9 +71,9 @@ class DatasetLoaderBase:
         return random.sample(data, k=int(portion * len(data)))
 
     def _populate_datasets_from_individual_pipelines(self):
-        self.files[SetType.TRAIN] = self._sample(self.get_train_files(), self.included_portion)
-        self.files[SetType.TEST] = self._sample(self.get_test_files(), self.included_portion)
-        self.files[SetType.VALIDATION] = self._sample(self.get_validation_files(), self.included_portion)
+        self.files[DatasetSplitType.TRAIN] = self._sample(self.get_train_files(), self.included_portion)
+        self.files[DatasetSplitType.TEST] = self._sample(self.get_test_files(), self.included_portion)
+        self.files[DatasetSplitType.VALIDATION] = self._sample(self.get_validation_files(), self.included_portion)
 
     def _populate_datasets_from_all_files(self):
         """Pupulates train and test files from all_files"""
@@ -81,7 +81,9 @@ class DatasetLoaderBase:
         included_files = self._sample(self.all_files, self.included_portion)
         self.files = self._split_train_test_validation(included_files)
         assert len(included_files) == (
-            len(self.files[SetType.TRAIN]) + len(self.files[SetType.TEST]) + len(self.files[SetType.VALIDATION])
+            len(self.files[DatasetSplitType.TRAIN])
+            + len(self.files[DatasetSplitType.TEST])
+            + len(self.files[DatasetSplitType.VALIDATION])
         )
 
     def get_files(self) -> list[DatasetObject]:
@@ -100,15 +102,15 @@ class DatasetLoaderBase:
         """Gets list of all the validation files"""
         return []
 
-    def _split_train_test_validation(self, data: list[DatasetObject]) -> dict[SetType, list[DatasetObject]]:
+    def _split_train_test_validation(self, data: list[DatasetObject]) -> dict[DatasetSplitType, list[DatasetObject]]:
         """Splits data into train test and validation sets."""
-        result: dict[SetType, list[DatasetObject]] = {}
+        result: dict[DatasetSplitType, list[DatasetObject]] = {}
         remaining_portions = self.test_portion + self.validation_portion
         remaining_portions = remaining_portions if remaining_portions else 1
-        result[SetType.TRAIN] = self._sample(data, self.train_portion)
-        temp = [x for x in data if x not in result[SetType.TRAIN]]
-        result[SetType.TEST] = self._sample(temp, (self.test_portion / remaining_portions))
-        result[SetType.VALIDATION] = [x for x in temp if x not in result[SetType.TEST]]
+        result[DatasetSplitType.TRAIN] = self._sample(data, self.train_portion)
+        temp = [x for x in data if x not in result[DatasetSplitType.TRAIN]]
+        result[DatasetSplitType.TEST] = self._sample(temp, (self.test_portion / remaining_portions))
+        result[DatasetSplitType.VALIDATION] = [x for x in temp if x not in result[DatasetSplitType.TEST]]
         return result
 
     @abstractmethod
