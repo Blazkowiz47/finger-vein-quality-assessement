@@ -87,8 +87,8 @@ class DatasetLoaderBase:
         remaining_portions = self.test_portion + self.validation_portion
         remaining_portions = remaining_portions if remaining_portions else 1
         number_of_test_samples = int((self.test_portion / remaining_portions) * (len(data) - number_of_train_samples))
-        result[SetType.TRAIN] = random.sample(self.all_files, k=number_of_train_samples)
-        temp = [x for x in self.all_files if x not in self.files[SetType.TRAIN]]
+        result[SetType.TRAIN] = random.sample(data, k=number_of_train_samples)
+        temp = [x for x in data if x not in result[SetType.TRAIN]]
         result[SetType.TEST] = random.sample(temp, k=number_of_test_samples)
         result[SetType.VALIDATION] = [x for x in temp if x not in result[SetType.TEST]]
         return result
