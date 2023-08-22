@@ -7,6 +7,7 @@ from abc import abstractmethod
 import random
 from typing import Any, Tuple
 import numpy as np
+from tqdm import tqdm
 from common.util.enums import DatasetSplitType
 
 from common.util.logger import logger
@@ -41,10 +42,13 @@ class DatasetLoaderBase:
         """Returns dataset's name"""
         raise NotImplementedError()
 
-    def _convert_to_numpy_dataset(self, data_list: list[DatasetObject]) -> list[np.ndarray]:
+    def _convert_to_numpy_dataset(
+        self, data_list: list[DatasetObject], split_type: DatasetSplitType
+    ) -> list[np.ndarray]:
         pre_processed_data: list[DatasetObject] = []
         t_size = 0
-        for i, data in enumerate(data_list):
+        logger.info(f"Preprocessing {self.get_name()} dataset for {split_type.value} split.")
+        for i, data in enumerate(tqdm(data_list)):
             pre_processed_data.append(self.pre_process(data))
             t_size = len(pre_processed_data[i])
         dataset = []
@@ -60,11 +64,10 @@ class DatasetLoaderBase:
             self._populate_datasets_from_all_files()
 
         result: dict[DatasetSplitType, list[np.ndarray]] = {}
-        for dataset_type, files in self.files.items():
-            converted_dataset = self._convert_to_numpy_dataset(files)
+        for dataset_split_type, files in self.files.items():
+            converted_dataset = self._convert_to_numpy_dataset(files, dataset_split_type)
             if converted_dataset:
-                result[dataset_type] = converted_dataset
-        logger.info(f"Compiled train/test/validation split for {self.get_name()}")
+                result[dataset_split_type] = converted_dataset
         return result
 
     def _sample(self, data: list[Any], portion: float):

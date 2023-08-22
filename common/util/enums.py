@@ -13,3 +13,4 @@ class DatasetSplitType(Enum):
 class EnvironmentType(Enum):
     TENSORFLOW = "tensorflow"
     PYTORCH = "pytorch"
+    NUMPY = "numpy"
