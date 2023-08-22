@@ -8,7 +8,7 @@ import random
 from typing import Any, Tuple
 import numpy as np
 from tqdm import tqdm
-from common.util.enums import DatasetSplitType
+from common.util.enums import DatasetSplitType, EnvironmentType
 
 from common.util.logger import logger
 from common.util.models.dataset_models import DatasetObject
@@ -24,7 +24,9 @@ class DatasetLoaderBase:
         isDatasetAlreadySplit: bool = False,
         train_portion: float = 0.7,
         validation_portion: float = 0.1,
+        environment_type: EnvironmentType = EnvironmentType.NUMPY,
     ) -> None:
+        self.environment_type: EnvironmentType = environment_type
         self.train_portion: float = train_portion
         self.validation_portion: float = validation_portion
         self.test_portion: float = 1 - train_portion - validation_portion
@@ -118,5 +120,17 @@ class DatasetLoaderBase:
 
     @abstractmethod
     def pre_process(self, data: DatasetObject) -> Tuple[np.ndarray, np.ndarray]:
-        """Using the data, load the tensorflow image, along with labels/masks"""
+        """
+        Using the data, load the tensorflow image, along with labels/masks.
+        To Remember:
+        output of pre-process should be in following format:
+
+        Example:
+        def pre_process(self, data:DatasetObject):
+            x = open(data.path)
+            y = open(data.mask_path)
+            x = _process(x)
+            y = _process(y)
+            return x,y
+        """
         raise NotImplementedError()

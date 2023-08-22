@@ -9,6 +9,7 @@ from PIL import Image
 import numpy as np
 from common.util.data_pipeline.dataset_loader import DatasetLoaderBase
 from common.util.decorators import reflected
+from common.util.enums import EnvironmentType
 from common.util.models.dataset_models import DatasetObject
 
 
@@ -20,13 +21,17 @@ class DatasetLoader(DatasetLoaderBase):
 
     def __init__(
         self,
+        environment_type: EnvironmentType = EnvironmentType.TENSORFLOW,
         included_portion: float = 1.0,
         train_size: float = 0.7,
         validation_size: float = 0.1,
     ) -> None:
         self.images = ["01", "02", "03", "04", "05", "06"]
         super().__init__(
-            included_portion=included_portion, train_portion=train_size, validation_portion=validation_size
+            environment_type=environment_type,
+            included_portion=included_portion,
+            train_portion=train_size,
+            validation_portion=validation_size,
         )
 
     def get_directory(self) -> str:
@@ -68,4 +73,10 @@ class DatasetLoader(DatasetLoaderBase):
         image = Image.open(data.path)
         image = np.asarray(image)
         image = cv2.resize(image, dsize=(10, 10))
-        return (image, np.array([1]).reshape((1, 1)))
+        image = (image - image.min()) / (image.max() - image.min())
+        image = image.astype("float")
+        if EnvironmentType.PYTORCH == self.environment_type:
+            image = image.reshape((1, 10, 10))
+        elif EnvironmentType.TENSORFLOW == self.environment_type:
+            image = image.reshape((10, 10, 1))
+        return image, np.array([1.0])

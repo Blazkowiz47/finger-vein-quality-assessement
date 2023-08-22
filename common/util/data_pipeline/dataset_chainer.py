@@ -52,7 +52,7 @@ class DatasetChainer:
         module = import_module(f"common.util.environment.{dataset_type.value}.dataset")
         return getattr(module, "generate_dataset", None)
 
-    def _get_splits(self, dataset_type: EnvironmentType, batch_size: int = 10, shuffle: bool = False) -> Tuple[Any]:
+    def _get_splits(self, dataset_type: EnvironmentType, batch_size: int = 1, shuffle: bool = False) -> Tuple[Any]:
         dataset_converter = self._get_dataset_converter(dataset_type)
         return (
             *[

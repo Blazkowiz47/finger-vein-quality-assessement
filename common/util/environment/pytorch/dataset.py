@@ -2,5 +2,19 @@ import numpy as np
 from torch.utils.data import DataLoader
 
 
-def generate_dataset(data: list[np.ndarray], batch_size: int = 10, shuffle: bool = True) -> DataLoader:
-    return DataLoader(data, batch_size=batch_size, shuffle=shuffle)
+def generate_dataset(data: list[np.ndarray], batch_size, shuffle: bool = True) -> DataLoader:
+    dataset_generator = DatasetGenerator(data)
+    return DataLoader(dataset_generator, batch_size=batch_size, shuffle=shuffle)
+
+
+class DatasetGenerator:
+    """A generator which gives the dataset sequentially"""
+
+    def __init__(self, data: list[np.ndarray]) -> None:
+        self.data: list[np.ndarray] = data
+
+    def __len__(self):
+        return self.data[0].shape[0]
+
+    def __getitem__(self, idx: int):
+        return (*[split[idx] for split in self.data],)
