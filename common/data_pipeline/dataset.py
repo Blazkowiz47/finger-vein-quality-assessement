@@ -52,13 +52,18 @@ class DatasetChainer:
         module = import_module(f"common.environment.{dataset_type.value}.dataset")
         return getattr(module, "generate_dataset", None)
 
-    def _get_splits(self, dataset_type: EnvironmentType) -> Tuple[Any]:
+    def _get_splits(self, dataset_type: EnvironmentType, batch_size: int = 10, shuffle: bool = False) -> Tuple[Any]:
         dataset_converter = self._get_dataset_converter(dataset_type)
-        return (*[dataset_converter(self.compiled_datasets[split]) for split in self.compiled_datasets],)
+        return (
+            *[
+                dataset_converter(self.compiled_datasets[split], batch_size, shuffle)
+                for split in self.compiled_datasets
+            ],
+        )
 
-    def get_dataset(self, dataset_type: EnvironmentType) -> Any:
+    def get_dataset(self, dataset_type: EnvironmentType, batch_size: int = 10, shuffle: bool = False) -> Any:
         self._compile_all_datasets()
-        return self._get_splits(dataset_type)
+        return self._get_splits(dataset_type, batch_size, shuffle)
 
     def get_files(self, split_type: DatasetSplitType):
         return self.files.get(split_type, [])
