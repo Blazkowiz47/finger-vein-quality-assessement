@@ -7,7 +7,7 @@ from typing import Tuple
 import cv2
 from PIL import Image
 import numpy as np
-from common.data_pipeline.base.base import DatasetLoaderBase
+from common.util.data_pipeline.dataset_loader import DatasetLoaderBase
 from common.util.decorators import reflected
 from common.util.models.dataset_models import DatasetObject
 

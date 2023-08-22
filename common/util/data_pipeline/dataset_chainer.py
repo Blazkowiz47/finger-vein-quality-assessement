@@ -5,7 +5,7 @@
 from importlib import import_module
 from typing import Any, Tuple
 import numpy as np
-from common.data_pipeline.base.base import DatasetLoaderBase
+from common.util.data_pipeline.dataset_loader import DatasetLoaderBase
 from common.util.enums import DatasetSplitType, EnvironmentType
 from common.util.models.dataset_models import DatasetObject
 from common.util.logger import logger
