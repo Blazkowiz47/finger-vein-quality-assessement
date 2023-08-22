@@ -8,3 +8,8 @@ class DatasetSplitType(Enum):
     TRAIN = "train"
     TEST = "test"
     VALIDATION = "validation"
+
+
+class EnvironmentType(Enum):
+    TENSORFLOW = "tensorflow"
+    PYTORCH = "pytorch"
