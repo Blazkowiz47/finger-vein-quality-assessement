@@ -5,7 +5,7 @@
 
 from abc import abstractmethod
 import random
-from typing import Any, Tuple
+from typing import Any, Dict, Tuple, List
 import numpy as np
 from tqdm import tqdm
 from common.util.enums import DatasetSplitType, EnvironmentType
@@ -32,7 +32,7 @@ class DatasetLoaderBase:
         self.test_portion: float = 1 - train_portion - validation_portion
         self.included_portion: float = included_portion
         self.is_dataset_already_split: bool = isDatasetAlreadySplit
-        self.files: dict[DatasetSplitType, list[DatasetObject]] = {}
+        self.files: Dict[DatasetSplitType, List[DatasetObject]] = {}
 
     @abstractmethod
     def get_directory(self) -> str:
@@ -45,12 +45,12 @@ class DatasetLoaderBase:
         raise NotImplementedError()
 
     def _convert_to_numpy_dataset(
-        self, data_list: list[DatasetObject], split_type: DatasetSplitType
-    ) -> list[np.ndarray]:
-        pre_processed_data: list[DatasetObject] = []
+        self, data_List: List[DatasetObject], split_type: DatasetSplitType
+    ) -> List[np.ndarray]:
+        pre_processed_data: List[DatasetObject] = []
         t_size = 0
         logger.info(f"Preprocessing {self.get_name()} dataset for {split_type.value} split.")
-        for i, data in enumerate(tqdm(data_list)):
+        for i, data in enumerate(tqdm(data_List)):
             pre_processed_data.append(self.pre_process(data))
             t_size = len(pre_processed_data[i])
         dataset = []
@@ -58,21 +58,21 @@ class DatasetLoaderBase:
             dataset.append(np.stack([data[i] for data in pre_processed_data]))
         return dataset
 
-    def compile_sets(self) -> dict[DatasetSplitType, list[np.ndarray]]:
+    def compile_sets(self) -> Dict[DatasetSplitType, List[np.ndarray]]:
         """Compiles train test and validation sets"""
         if self.is_dataset_already_split:
             self._populate_datasets_from_individual_pipelines()
         else:
             self._populate_datasets_from_all_files()
 
-        result: dict[DatasetSplitType, list[np.ndarray]] = {}
+        result: Dict[DatasetSplitType, List[np.ndarray]] = {}
         for dataset_split_type, files in self.files.items():
             converted_dataset = self._convert_to_numpy_dataset(files, dataset_split_type)
             if converted_dataset:
                 result[dataset_split_type] = converted_dataset
         return result
 
-    def _sample(self, data: list[Any], portion: float):
+    def _sample(self, data: List[Any], portion: float):
         return random.sample(data, k=int(portion * len(data)))
 
     def _populate_datasets_from_individual_pipelines(self):
@@ -91,25 +91,25 @@ class DatasetLoaderBase:
             + len(self.files[DatasetSplitType.VALIDATION])
         )
 
-    def get_files(self) -> list[DatasetObject]:
+    def get_files(self) -> List[DatasetObject]:
         """Gets all the files at once"""
         return []
 
-    def get_train_files(self) -> list[DatasetObject]:
-        """Gets list of all the training files"""
+    def get_train_files(self) -> List[DatasetObject]:
+        """Gets List of all the training files"""
         return []
 
-    def get_test_files(self) -> list[DatasetObject]:
-        """Gets list of all the test files"""
+    def get_test_files(self) -> List[DatasetObject]:
+        """Gets List of all the test files"""
         return []
 
-    def get_validation_files(self) -> list[DatasetObject]:
-        """Gets list of all the validation files"""
+    def get_validation_files(self) -> List[DatasetObject]:
+        """Gets List of all the validation files"""
         return []
 
-    def _split_train_test_validation(self, data: list[DatasetObject]) -> dict[DatasetSplitType, list[DatasetObject]]:
+    def _split_train_test_validation(self, data: List[DatasetObject]) -> Dict[DatasetSplitType, List[DatasetObject]]:
         """Splits data into train test and validation sets."""
-        result: dict[DatasetSplitType, list[DatasetObject]] = {}
+        result: Dict[DatasetSplitType, List[DatasetObject]] = {}
         remaining_portions = self.test_portion + self.validation_portion
         remaining_portions = remaining_portions if remaining_portions else 1
         result[DatasetSplitType.TRAIN] = self._sample(data, self.train_portion)

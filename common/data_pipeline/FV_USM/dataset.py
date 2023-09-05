@@ -2,7 +2,7 @@
     Dataset loader for dataset: FV_USM
 """
 import os
-from typing import Tuple
+from typing import List, Tuple
 
 import cv2
 from PIL import Image
@@ -40,9 +40,9 @@ class DatasetLoader(DatasetLoaderBase):
     def get_name(self) -> str:
         return "FV_USM"
 
-    def get_files(self) -> list[DatasetObject]:
+    def get_files(self) -> List[DatasetObject]:
         dirs = os.listdir(self.get_directory() + "/1st_session/extractedvein")
-        result: list[DatasetObject] = []
+        result: List[DatasetObject] = []
         for sample_id in dirs:
             if "vein" != sample_id[:4]:
                 continue

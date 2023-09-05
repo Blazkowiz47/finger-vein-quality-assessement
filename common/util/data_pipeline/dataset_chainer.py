@@ -3,7 +3,7 @@
 """
 
 from importlib import import_module
-from typing import Any, Tuple
+from typing import Any, Dict, List, Tuple
 import numpy as np
 from common.util.data_pipeline.dataset_loader import DatasetLoaderBase
 from common.util.enums import DatasetSplitType, EnvironmentType
@@ -17,14 +17,14 @@ class DatasetChainer:
     Generates a Tensorflow compatible dataset.
     """
 
-    def __init__(self, datasets: list[DatasetLoaderBase]) -> None:
+    def __init__(self, datasets: List[DatasetLoaderBase]) -> None:
         self.datasets = datasets
-        self.files: dict[DatasetSplitType, list[DatasetObject]] = {set_type: [] for set_type in DatasetSplitType}
-        self.compiled_datasets: dict[DatasetSplitType, list[np.ndarray]] = {}
+        self.files: Dict[DatasetSplitType, List[DatasetObject]] = {set_type: [] for set_type in DatasetSplitType}
+        self.compiled_datasets: Dict[DatasetSplitType, List[np.ndarray]] = {}
 
     def _compile_all_datasets(self) -> None:
         """Compiles all the datasets together"""
-        compiled_datasets: dict[DatasetSplitType, list[list[np.ndarray]]] = {
+        compiled_datasets: Dict[DatasetSplitType, List[List[np.ndarray]]] = {
             set_type: [] for set_type in DatasetSplitType
         }
         for dataset in self.datasets:
@@ -36,14 +36,14 @@ class DatasetChainer:
             set_type: self._concatenate_datasets(set_type, dataset) for set_type, dataset in compiled_datasets.items()
         }
 
-    def _concatenate_datasets(self, set_type: DatasetSplitType, datasets: list[Tuple[np.ndarray]]) -> list[np.ndarray]:
+    def _concatenate_datasets(self, set_type: DatasetSplitType, datasets: List[Tuple[np.ndarray]]) -> List[np.ndarray]:
         """Concatenates all the datasets"""
         logger.info(f"Concatenating {set_type.value} set")
         t_size = 0
         for dataset in datasets:
             t_size = len(dataset)
             break
-        compiled_dataset: list[np.ndarray] = []
+        compiled_dataset: List[np.ndarray] = []
         for i in range(t_size):
             compiled_dataset.append(np.concatenate([dataset[i] for dataset in datasets], axis=0))
         return compiled_dataset

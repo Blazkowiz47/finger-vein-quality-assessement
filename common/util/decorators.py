@@ -3,7 +3,7 @@
 """
 
 
-from typing import Any, Callable, TypeVar, Union, overload
+from typing import Any, Callable, Type, TypeVar, Union, overload
 
 
 TFUNC2 = TypeVar("TFUNC2", bound=Callable[[Any], Any])
@@ -11,7 +11,7 @@ TCls = TypeVar("TCls")
 
 
 @overload
-def reflected(sub: type[TCls]) -> type[TCls]:
+def reflected(sub: Type[TCls]) -> Type[TCls]:
     ...
 
 

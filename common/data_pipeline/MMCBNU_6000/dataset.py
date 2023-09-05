@@ -2,7 +2,7 @@
     Dataset loader for dataset: MMCBNU_6000
 """
 import os
-from typing import Tuple
+from typing import List, Tuple
 
 import cv2
 from PIL import Image
@@ -33,6 +33,7 @@ class DatasetLoader(DatasetLoaderBase):
             included_portion=included_portion,
             train_portion=train_size,
             validation_portion=validation_size,
+            isDatasetAlreadySplit=True,
         )
 
     def get_directory(self) -> str:
@@ -41,9 +42,68 @@ class DatasetLoader(DatasetLoaderBase):
     def get_name(self) -> str:
         return "MMCBNU6000"
 
-    def get_files(self) -> list[DatasetObject]:
+    def get_train_files(self) -> List[DatasetObject]:
         dirs = os.listdir(self.get_directory() + "/ROIs")
-        result: list[DatasetObject] = []
+        result: List[DatasetObject] = []
+        for sample_id in dirs:
+            for hand in self.hands:
+                for finger in self.fingers:
+                    for image in range(1, 8):
+                        result.append(
+                            DatasetObject(
+                                path=f"{self.get_directory()}/ROIs/{sample_id}/{hand}_{finger}/0{image}.bmp",
+                                name=f"{sample_id}/{hand}_{finger}/0{image}",
+                                metadata={
+                                    "finger": finger.lower(),
+                                    "hand": "left" if hand == "L" else "right",
+                                    "is_augmented": False,
+                                },
+                            )
+                        )
+        return result
+
+    def get_test_files(self) -> List[DatasetObject]:
+        dirs = os.listdir(self.get_directory() + "/ROIs")
+        result: List[DatasetObject] = []
+        for sample_id in dirs:
+            for hand in self.hands:
+                for finger in self.fingers:
+                    for image in range(8, 10):
+                        result.append(
+                            DatasetObject(
+                                path=f"{self.get_directory()}/ROIs/{sample_id}/{hand}_{finger}/0{image}.bmp",
+                                name=f"{sample_id}/{hand}_{finger}/0{image}",
+                                metadata={
+                                    "finger": finger.lower(),
+                                    "hand": "left" if hand == "L" else "right",
+                                    "is_augmented": False,
+                                },
+                            )
+                        )
+        return result
+
+    def get_validation_files(self) -> List[DatasetObject]:
+        dirs = os.listdir(self.get_directory() + "/ROIs")
+        result: List[DatasetObject] = []
+        for sample_id in dirs:
+            for hand in self.hands:
+                for finger in self.fingers:
+                    result.append(
+                        DatasetObject(
+                            path=f"{self.get_directory()}/ROIs/{sample_id}/{hand}_{finger}/10.bmp",
+                            name=f"{sample_id}/{hand}_{finger}/10",
+                            metadata={
+                                "finger": finger.lower(),
+                                "hand": "left" if hand == "L" else "right",
+                                "is_augmented": False,
+                            },
+                        )
+                    )
+        return result
+
+    def get_files(self) -> List[DatasetObject]:
+        dirs = os.listdir(self.get_directory() + "/ROIs")
+        result: List[DatasetObject] = []
         for sample_id in dirs:
             for hand in self.hands:
                 for finger in self.fingers:
@@ -65,11 +125,14 @@ class DatasetLoader(DatasetLoaderBase):
     def pre_process(self, data: DatasetObject) -> Tuple[np.ndarray, np.ndarray]:
         image = Image.open(data.path)
         image = np.asarray(image)
-        image = cv2.resize(image, dsize=(10, 10))
+        # image = cv2.resize(image, dsize=(10, 10))
         image = (image - image.min()) / (image.max() - image.min())
         image = image.astype("float")
         if EnvironmentType.PYTORCH == self.environment_type:
-            image = image.reshape((1, 10, 10))
+            image = image.reshape((1, 60, 128))
         elif EnvironmentType.TENSORFLOW == self.environment_type:
-            image = image.reshape((10, 10, 1))
-        return image, np.array([1.0])
+            image = image.reshape((128, 60, 1))
+        label = np.zeros((100, 1))
+        sample: int = int(data.name.split("/")[-1])
+        label[sample - 1] = 1
+        return image, label
