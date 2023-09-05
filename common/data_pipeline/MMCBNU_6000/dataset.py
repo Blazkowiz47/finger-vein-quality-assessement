@@ -132,7 +132,7 @@ class DatasetLoader(DatasetLoaderBase):
             image = image.reshape((1, 60, 128))
         elif EnvironmentType.TENSORFLOW == self.environment_type:
             image = image.reshape((128, 60, 1))
-        label = np.zeros((100, 1))
+        label = np.zeros((100, 1, 1))
         sample: int = int(data.name.split("/")[-1])
         label[sample - 1] = 1
         return image, label
