@@ -7,6 +7,7 @@ from typing import List, Tuple
 import cv2
 from PIL import Image
 import numpy as np
+from common.data_pipeline.utils import split_image
 from common.util.data_pipeline.dataset_loader import DatasetLoaderBase
 from common.util.decorators import reflected
 from common.util.enums import EnvironmentType
@@ -123,16 +124,16 @@ class DatasetLoader(DatasetLoaderBase):
         return result
 
     def pre_process(self, data: DatasetObject) -> Tuple[np.ndarray, np.ndarray]:
-        image = Image.open(data.path)
-        image = np.asarray(image)
-        # image = cv2.resize(image, dsize=(10, 10))
+        H, W = 60, 120
+        image = cv2.imread(data.path, cv2.IMREAD_GRAYSCALE)
+        image = cv2.resize(image, (W, H))
         image = (image - image.min()) / (image.max() - image.min())
         image = image.astype("float")
         if EnvironmentType.PYTORCH == self.environment_type:
-            image = image.reshape((1, 60, 128))
+            image = np.expand_dims(image, axis=0)
         elif EnvironmentType.TENSORFLOW == self.environment_type:
-            image = image.reshape((128, 60, 1))
-        label = np.zeros((100, 1, 1))
+            image = np.expand_dims(image, axis=-1)
+        label = np.zeros((100))
         sample: int = int(data.name.split("/")[-1])
-        label[sample - 1] = 1
+        label[sample - 1] = 1  # One hot encoding
         return image, label
