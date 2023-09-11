@@ -49,7 +49,7 @@ class DatasetLoader(DatasetLoaderBase):
         for sample_id in dirs:
             for hand in self.hands:
                 for finger in self.fingers:
-                    for image in range(1, 8):
+                    for image in range(1, 9):
                         result.append(
                             DatasetObject(
                                 path=f"{self.get_directory()}/ROIs/{sample_id}/{hand}_{finger}/0{image}.bmp",
@@ -64,6 +64,7 @@ class DatasetLoader(DatasetLoaderBase):
         return result
 
     def get_test_files(self) -> List[DatasetObject]:
+        return []
         dirs = os.listdir(self.get_directory() + "/ROIs")
         result: List[DatasetObject] = []
         for sample_id in dirs:
@@ -89,6 +90,17 @@ class DatasetLoader(DatasetLoaderBase):
         for sample_id in dirs:
             for hand in self.hands:
                 for finger in self.fingers:
+                    result.append(
+                        DatasetObject(
+                            path=f"{self.get_directory()}/ROIs/{sample_id}/{hand}_{finger}/09.bmp",
+                            name=f"{sample_id}/{hand}_{finger}/10",
+                            metadata={
+                                "finger": finger.lower(),
+                                "hand": "left" if hand == "L" else "right",
+                                "is_augmented": False,
+                            },
+                        )
+                    )
                     result.append(
                         DatasetObject(
                             path=f"{self.get_directory()}/ROIs/{sample_id}/{hand}_{finger}/10.bmp",

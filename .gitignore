@@ -4,3 +4,4 @@ datasets/*/*
 *.jpg
 *.png
 *.pyc
+A100-instance/

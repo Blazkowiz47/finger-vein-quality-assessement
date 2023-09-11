@@ -31,7 +31,7 @@ def get_model(device: str = "cpu"):
 def get_dataset(environment: EnvironmentType = EnvironmentType.PYTORCH, batch_size: int = 10):
     datasets = DatasetChainer(
         datasets=[
-            mmcbnu(included_portion=1, environment_type=environment),
+            mmcbnu(included_portion=1, environment_type=environment, train_size=0.85, validation_size=0.15),
             fvusm(included_portion=0, environment_type=environment),
         ]
     )
@@ -84,6 +84,8 @@ def train(batch_size=10, epochs=1):
     # Training loop
     for epoch in range(EPOCHS):
         model.train()
+        train_total = 0
+        train_correct = 0
         for inputs, labels in tqdm(train, desc=f"Epoch {epoch}: "):
             inputs = inputs.float().to(device)
             labels = labels.float().to(device)
@@ -92,6 +94,15 @@ def train(batch_size=10, epochs=1):
             loss = train_loss_fn(outputs, labels)
             loss.backward()
             optimizer.step()
+            predicted = (outputs == outputs.max()).float()
+            predicted = predicted.to("cpu").numpy()
+            labels = labels.to("cpu").numpy()
+            for label, p in zip(labels, predicted):
+                for la, x in zip(label, p):
+                    if x == 1.0 and la == x:
+                        train_correct += 1
+                        break
+            train_total += labels.shape[0]
 
         model.eval()
         val_loss = 0.0
@@ -103,7 +114,7 @@ def train(batch_size=10, epochs=1):
                 labels = labels.float().to(device)
                 outputs = model(inputs)
                 val_loss += validate_loss_fn(outputs, labels)
-                total += labels.size(0)
+                total += labels.shape[0]
                 predicted = (outputs == outputs.max()).float()
                 predicted = predicted.to("cpu").numpy()
                 labels = labels.to("cpu").numpy()
@@ -114,6 +125,6 @@ def train(batch_size=10, epochs=1):
                             break
 
         print(
-            f"Epoch [{epoch+1}/{EPOCHS}], Loss: {loss.item():.4f}, Val Loss: {val_loss.item():.4f}, Accuracy: {(correct/total) *100:.5f}%"
+            f"Epoch [{epoch+1}/{EPOCHS}], Loss: {loss.item():.4f}, Val Loss: {val_loss.item():.4f}, Train Correct: {train_correct}, Train Total: {train_total}, Val Correct: {correct}, Val Total: {total}"
         )
     model.train()

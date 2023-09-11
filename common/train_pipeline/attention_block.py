@@ -1,8 +1,8 @@
 from typing import Optional
-from torch.nn import Conv1d, Module, MultiheadAttention
+from torch.nn import Conv1d, Linear, Module, MultiheadAttention
 
 
-class AttentionBlock(Module):
+class ConvAttentionBlock(Module):
     """
     An isotropic block with attention mechanism.
     """
@@ -22,7 +22,7 @@ class AttentionBlock(Module):
         batch_first: bool = True,
     ) -> None:
         embed_dim = embed_dim or in_channels
-        super(AttentionBlock, self).__init__()
+        super(ConvAttentionBlock, self).__init__()
         self.k = Conv1d(in_channels, kdim or in_channels, 3, 1, 1)
         self.v = Conv1d(in_channels, vdim or in_channels, 3, 1, 1)
         self.q = Conv1d(in_channels, embed_dim, 3, 1, 1)
@@ -70,3 +70,50 @@ Perform transpose and convert to (B,C,N)
 
 Reshape to (B,C,H,W)
 """
+
+
+class LinAttentionBlock(Module):
+    """
+    An isotropic block with attention mechanism.
+    """
+
+    def __init__(
+        self,
+        in_dim: int = 256,
+        nodes: int = 32,
+        num_heads: int = 2,
+        kqv_filters=3,
+        embed_dim: Optional[int] = None,
+        vdim: Optional[int] = None,
+        kdim: Optional[int] = None,
+        out_channels: Optional[int] = None,
+        dropout: float = 0.0,
+        bias: bool = True,
+        batch_first: bool = True,
+    ) -> None:
+        embed_dim = embed_dim or in_dim
+        super(LinAttentionBlock, self).__init__()
+        self.k = Linear(in_dim, kdim or in_dim, bias)
+        self.v = Linear(in_dim, vdim or in_dim, bias)
+        self.q = Linear(in_dim, embed_dim, bias)
+        self.attention = MultiheadAttention(
+            embed_dim,
+            num_heads,
+            dropout,
+            bias,
+            kdim=kdim,
+            vdim=vdim,
+            batch_first=batch_first,
+        )
+
+    def forward(self, x):
+        B, C, H, W = x.shape
+        x = x.reshape((B, C, -1))
+        x = x.transpose(1, 2)
+        key = self.k(x)
+        value = self.v(x)
+        query = self.q(x)
+        o, w = self.attention(query, key, value)
+        o = o.transpose(1, 2)
+        o = o.reshape((B, C, H, W))
+        return o

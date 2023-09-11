@@ -3,7 +3,7 @@ from typing import Any, List, Optional, Union
 from torch.nn import Module, Sequential
 from common.gcn_lib.torch_vertex import Grapher
 from common.train_pipeline.ffn import FFN
-from common.train_pipeline.attention_block import AttentionBlock
+from common.train_pipeline.attention_block import LinAttentionBlock
 
 
 class SelfAttention(Enum):
@@ -62,20 +62,20 @@ class IsotropicBackBone(Module):
         for i in range(self.n_blocks):
             layers.append(
                 Sequential(
-                    AttentionBlock(256, 32, 2),
-                    Grapher(
-                        self.channels,
-                        self.num_knn[i],
-                        1,
-                        self.conv,
-                        self.act,
-                        self.norm,
-                        self.bias,
-                        self.stochastic,
-                        self.epsilon,
-                        1,
-                        drop_path=self.dpr[i],
-                    ),
+                    # Grapher(
+                    #     self.channels,
+                    #     self.num_knn[i],
+                    #     1,
+                    #     self.conv,
+                    #     self.act,
+                    #     self.norm,
+                    #     self.bias,
+                    #     self.stochastic,
+                    #     self.epsilon,
+                    #     1,
+                    #     drop_path=self.dpr[i],
+                    # ),
+                    LinAttentionBlock(256, 32, 4),
                     FFN(
                         self.channels,
                         self.channels * 4,
@@ -91,20 +91,20 @@ class IsotropicBackBone(Module):
         for i in range(self.n_blocks):
             layers.append(
                 Sequential(
-                    AttentionBlock(256, 32, 2),
-                    Grapher(
-                        self.channels,
-                        self.num_knn[i],
-                        min(i // 4 + 1, self.max_dilation),
-                        self.conv,
-                        self.act,
-                        self.norm,
-                        self.bias,
-                        self.stochastic,
-                        self.epsilon,
-                        1,
-                        drop_path=self.dpr[i],
-                    ),
+                    # Grapher(
+                    #     self.channels,
+                    #     self.num_knn[i],
+                    #     min(i // 4 + 1, self.max_dilation),
+                    #     self.conv,
+                    #     self.act,
+                    #     self.norm,
+                    #     self.bias,
+                    #     self.stochastic,
+                    #     self.epsilon,
+                    #     1,
+                    #     drop_path=self.dpr[i],
+                    # ),
+                    LinAttentionBlock(256, 32, 4),
                     FFN(
                         self.channels,
                         self.channels * 4,
