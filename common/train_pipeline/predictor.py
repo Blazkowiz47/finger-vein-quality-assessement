@@ -1,9 +1,10 @@
+from torch.nn.functional import adaptive_avg_pool2d
 from torch.nn import BatchNorm2d, Conv2d, Dropout, Module, Sequential
 
 from common.gcn_lib.torch_nn import act_layer
 
 
-class Predictor(Module):
+class ConvPredictor(Module):
     def __init__(
         self,
         channels=256,
@@ -12,7 +13,7 @@ class Predictor(Module):
         act="relu",
         dropout=0,
     ):
-        super(Predictor, self).__init__()
+        super(ConvPredictor, self).__init__()
         self.predictor = Sequential(
             Conv2d(channels, hidden_channels, 1, bias=True),
             BatchNorm2d(hidden_channels),
@@ -22,4 +23,18 @@ class Predictor(Module):
         )
 
     def forward(self, x):
+        x = adaptive_avg_pool2d(x, 1)
         return self.predictor(x).squeeze(-1).squeeze(-1)
+
+
+class LinPredictor(Module):
+    def __init__(
+        self,
+        channels=256,
+        hdim=128,
+        n_classes=100,
+    ) -> None:
+        super(LinPredictor, self).__init__()
+
+    def forward(self, x):
+        return x

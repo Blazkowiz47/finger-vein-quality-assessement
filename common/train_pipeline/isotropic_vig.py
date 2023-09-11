@@ -1,10 +1,9 @@
 import torch
 from torch.nn import Conv2d, Module, Parameter
 from common.train_pipeline.backbone import IsotropicBackBone
-from common.train_pipeline.predictor import Predictor
+from common.train_pipeline.predictor import ConvPredictor
 
 from common.train_pipeline.stem import Stem
-from torch.nn.functional import adaptive_avg_pool2d
 from timm.data import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD
 from timm.models.registry import register_model
 
@@ -48,7 +47,7 @@ class IsoTropicVIG(Module):
             dpr=dpr,
             max_dilation=max_dilation,
         )
-        self.predictor = Predictor(
+        self.predictor = ConvPredictor(
             channels=channels,
             hidden_channels=opt_cfg.predictor_hidden_channels,
             act=act,
@@ -69,9 +68,7 @@ class IsoTropicVIG(Module):
     def forward(self, inputs):
         x = self.stem(inputs)
         x = x + self.pos_embed
-        B, C, H, W = x.shape
         x = self.backbone(x)
-        x = adaptive_avg_pool2d(x, 1)
         x = self.predictor(x)
         return x
 

@@ -1,7 +1,15 @@
+from enum import Enum
 from typing import Any, List, Optional, Union
 from torch.nn import Module, Sequential
 from common.gcn_lib.torch_vertex import Grapher
 from common.train_pipeline.ffn import FFN
+from common.train_pipeline.attention_block import AttentionBlock
+
+
+class SelfAttention(Enum):
+    BEFORE = "before"
+    AFTER = "after"
+    BOTH = "both"
 
 
 class IsotropicBackBone(Module):
@@ -18,6 +26,7 @@ class IsotropicBackBone(Module):
         bias: bool = True,
         dpr: Optional[List[float]] = None,
         max_dilation: float = 0,
+        add_self_attention: Optional[SelfAttention] = None,
         conv="edge",
     ) -> None:
         super(IsotropicBackBone, self).__init__()
@@ -31,6 +40,7 @@ class IsotropicBackBone(Module):
         self.stochastic = stochastic
         self.channels = channels
         self.conv = conv
+        self.attention = add_self_attention
         if isinstance(num_knn, list):
             self.num_knn = num_knn
         else:
@@ -52,6 +62,7 @@ class IsotropicBackBone(Module):
         for i in range(self.n_blocks):
             layers.append(
                 Sequential(
+                    AttentionBlock(256, 32, 2),
                     Grapher(
                         self.channels,
                         self.num_knn[i],
@@ -80,6 +91,7 @@ class IsotropicBackBone(Module):
         for i in range(self.n_blocks):
             layers.append(
                 Sequential(
+                    AttentionBlock(256, 32, 2),
                     Grapher(
                         self.channels,
                         self.num_knn[i],
