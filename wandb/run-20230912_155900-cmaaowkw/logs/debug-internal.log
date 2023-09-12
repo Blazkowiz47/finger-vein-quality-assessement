@@ -1,0 +1,5 @@
+2023-09-12 15:59:00,468 INFO    StreamThr :8448 [internal.py:wandb_internal():86] W&B internal server running at pid: 8448, started at: 2023-09-12 15:59:00.468110
+2023-09-12 15:59:00,468 DEBUG   HandlerThread:8448 [handler.py:handle_request():144] handle_request: status
+2023-09-12 15:59:00,483 INFO    WriterThread:8448 [datastore.py:open_for_write():85] open: G:\finger-vein-quality-assessement\wandb\run-20230912_155900-cmaaowkw\run-cmaaowkw.wandb
+2023-09-12 15:59:00,483 DEBUG   SenderThread:8448 [sender.py:send():379] send: header
+2023-09-12 15:59:00,552 DEBUG   SenderThread:8448 [sender.py:send():379] send: run

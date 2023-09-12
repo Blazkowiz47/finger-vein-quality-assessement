@@ -56,8 +56,8 @@ class DatasetChainer:
         dataset_converter = self._get_dataset_converter(dataset_type)
         return (
             *[
-                dataset_converter(self.compiled_datasets[split], batch_size, shuffle)
-                for split in self.compiled_datasets
+                dataset_converter(self.compiled_datasets[split], batch_size, shuffle if not i else None)
+                for i, split in enumerate(self.compiled_datasets)
             ],
         )
 
