@@ -1,9 +1,8 @@
 """
 Trains everything
 """
-from sklearn.metrics import confusion_matrix
 import torch
-import torch.optim as optim
+from torch import optim
 from torch.nn import CrossEntropyLoss
 from tqdm import tqdm
 
@@ -16,52 +15,74 @@ from common.train_pipeline.isotropic_vig import isotropic_vig_ti_224_gelu
 
 # To watch nvidia-smi continuously after every 2 seconds: watch -n 2 nvidia-smi
 
-BATCH_SIZE = 20
-EPOCHS = 20
-ENVIRONMENT = EnvironmentType.PYTORCH
-
 
 def get_model(device: str = "cpu"):
+    """
+    Gives back a predefined model, sepcified in the config.
+    """
     model = isotropic_vig_ti_224_gelu()
     model.to(device)
     print()
     return model
 
 
-def get_dataset(environment: EnvironmentType = EnvironmentType.PYTORCH, batch_size: int = 10):
+def get_dataset(
+    environment: EnvironmentType = EnvironmentType.PYTORCH,
+    batch_size: int = 10,
+):
+    """
+    Get's specific dataset within the provided environment.
+    Change the datasets using config.
+    """
     datasets = DatasetChainer(
         datasets=[
-            mmcbnu(included_portion=1, environment_type=environment, train_size=0.85, validation_size=0.15),
+            mmcbnu(
+                included_portion=1,
+                environment_type=environment,
+                train_size=0.85,
+                validation_size=0.15,
+            ),
             fvusm(included_portion=0, environment_type=environment),
         ]
     )
-    return datasets.get_dataset(environment, batch_size=BATCH_SIZE)
+    return datasets.get_dataset(environment, batch_size=batch_size)
 
 
 def get_train_loss(device: str = "cpu"):
+    """
+    Gets a loss function for training.
+    """
     if device == "cuda":
         return CrossEntropyLoss().cuda()
-    else:
-        return CrossEntropyLoss()
+    return CrossEntropyLoss()
 
 
 def get_test_loss(device: str = "cpu"):
+    """
+    Gets a loss function for training.
+    """
     if device == "cuda":
         return CrossEntropyLoss().cuda()
-    else:
-        return CrossEntropyLoss()
+    return CrossEntropyLoss()
 
 
 def get_val_loss(device: str = "cpu"):
+    """
+    Gets a loss function for validation.
+    """
     if device == "cuda":
         return CrossEntropyLoss().cuda()
-    else:
-        return CrossEntropyLoss()
+    return CrossEntropyLoss()
 
 
-def train(batch_size=10, epochs=1):
-    BATCH_SIZE = batch_size
-    EPOCHS = epochs
+def train(
+    batch_size: int = 10,
+    epochs: int = 1,
+    environment: EnvironmentType = EnvironmentType.PYTORCH,
+):
+    """
+    Contains the training loop.
+    """
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print("Using device:", device)
 
@@ -74,7 +95,7 @@ def train(batch_size=10, epochs=1):
 
     model = get_model(device)
     print(model)
-    train, test, validation = get_dataset(ENVIRONMENT, BATCH_SIZE)
+    train_dataset, _, validation_dataset = get_dataset(environment, batch_size)
 
     optimizer = optim.Adam(model.parameters(), lr=0.0001)
 
@@ -82,11 +103,11 @@ def train(batch_size=10, epochs=1):
     validate_loss_fn = get_val_loss(device)
 
     # Training loop
-    for epoch in range(EPOCHS):
+    for epoch in range(epochs):
         model.train()
         train_total = 0
         train_correct = 0
-        for inputs, labels in tqdm(train, desc=f"Epoch {epoch}: "):
+        for inputs, labels in tqdm(train_dataset, desc=f"Epoch {epoch}: "):
             inputs = inputs.float().to(device)
             labels = labels.float().to(device)
             optimizer.zero_grad()
@@ -97,9 +118,9 @@ def train(batch_size=10, epochs=1):
             predicted = (outputs == outputs.max()).float()
             predicted = predicted.to("cpu").numpy()
             labels = labels.to("cpu").numpy()
-            for label, p in zip(labels, predicted):
-                for la, x in zip(label, p):
-                    if x == 1.0 and la == x:
+            for label, pred in zip(labels, predicted):
+                for class_label, predicted_class in zip(label, pred):
+                    if predicted_class == 1.0 and class_label == predicted_class:
                         train_correct += 1
                         break
             train_total += labels.shape[0]
@@ -109,7 +130,7 @@ def train(batch_size=10, epochs=1):
         total = 0
         correct = 0
         with torch.no_grad():
-            for inputs, labels in validation:
+            for inputs, labels in validation_dataset:
                 inputs = inputs.float().to(device)
                 labels = labels.float().to(device)
                 outputs = model(inputs)
@@ -118,13 +139,19 @@ def train(batch_size=10, epochs=1):
                 predicted = (outputs == outputs.max()).float()
                 predicted = predicted.to("cpu").numpy()
                 labels = labels.to("cpu").numpy()
-                for label, p in zip(labels, predicted):
-                    for la, x in zip(label, p):
-                        if x == 1.0 and la == x:
+                for label, pred in zip(labels, predicted):
+                    for class_label, predicted_class in zip(label, pred):
+                        if predicted_class == 1.0 and class_label == predicted_class:
                             correct += 1
                             break
 
         print(
-            f"Epoch [{epoch+1}/{EPOCHS}], Loss: {loss.item():.4f}, Val Loss: {val_loss.item():.4f}, Train Correct: {train_correct}, Train Total: {train_total}, Val Correct: {correct}, Val Total: {total}"
+            f"Epoch [{epoch+1}/{epochs}],",
+            f"Loss: {loss.item():.4f},",
+            f"Val Loss: {val_loss.item():.4f},",
+            f"Train Correct: {train_correct},",
+            f"Train Total: {train_total},",
+            f"Val Correct: {correct},",
+            f"Val Total: {total}",
         )
     model.train()
