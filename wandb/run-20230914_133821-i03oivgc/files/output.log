@@ -1,0 +1,29 @@
+Using device: cuda
+Quadro M5000
+Memory Usage:
+Allocated: 0.0 GB
+Cached:    0.0 GB
+Traceback (most recent call last):
+  File "/home/a-150/work/finger-vein-quality-assessement/train.py", line 38, in <module>
+    main()
+  File "/home/a-150/work/finger-vein-quality-assessement/train.py", line 32, in main
+    train(BATCH_SIZE, EPOCHS, ENVIRONMENT, LOG_ON_WANDB)
+  File "/home/a-150/work/finger-vein-quality-assessement/common/train_pipeline/train.py", line 129, in train
+    stem = Stem(pretrained=True)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/a-150/work/finger-vein-quality-assessement/common/train_pipeline/stem/stem.py", line 19, in __init__
+    self.stem = self.get_pretrained_stem()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/a-150/work/finger-vein-quality-assessement/common/train_pipeline/stem/stem.py", line 27, in get_pretrained_stem
+    self.stem = torch.load("models/resnet50_pretrained.pt")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/a-150/anaconda3/envs/dl-torch/lib/python3.11/site-packages/torch/serialization.py", line 791, in load
+    with _open_file_like(f, 'rb') as opened_file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/a-150/anaconda3/envs/dl-torch/lib/python3.11/site-packages/torch/serialization.py", line 271, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/a-150/anaconda3/envs/dl-torch/lib/python3.11/site-packages/torch/serialization.py", line 252, in __init__
+    super().__init__(open(name, mode))
+                     ^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'models/resnet50_pretrained.pt'

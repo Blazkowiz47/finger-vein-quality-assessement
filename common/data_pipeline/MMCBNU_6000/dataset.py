@@ -128,7 +128,9 @@ class DatasetLoader(DatasetLoaderBase):
         for sample_id in dirs:
             for hand in self.hands:
                 for finger in self.fingers:
-                    images = os.listdir(f"{self.get_directory()}/ROIs/{sample_id}/{hand}_{finger}")
+                    images = os.listdir(
+                        f"{self.get_directory()}/ROIs/{sample_id}/{hand}_{finger}"
+                    )
                     for image in images:
                         result.append(
                             DatasetObject(
@@ -158,4 +160,5 @@ class DatasetLoader(DatasetLoaderBase):
         hand: int = self.hands.index(data.metadata["hand"])
         finger: int = self.fingers.index(data.metadata["finger"])
         label[(hand * 100 * 3) + (finger * 100) + sample] = 1  # One hot encoding
+        # return image, label
         return np.vstack([image, image, image]), label

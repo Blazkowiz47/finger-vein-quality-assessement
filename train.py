@@ -10,7 +10,7 @@ from common.util.enums import EnvironmentType
 BATCH_SIZE = 10
 EPOCHS = 1000
 ENVIRONMENT = EnvironmentType.PYTORCH
-LOG_ON_WANDB = True
+LOG_ON_WANDB = False
 
 
 def main():

@@ -32,19 +32,22 @@ class IsoTropicVIG(Module):
         self.n_blocks = opt_cfg.n_blocks
         drop_path = opt_cfg.drop_path
         num_knn = [int(x.item()) for x in torch.linspace(k, 2 * k, self.n_blocks)]
-        dpr = [x.item() for x in torch.linspace(0, drop_path, self.n_blocks)]  # stochastic depth decay rule
+        dpr = [
+            x.item() for x in torch.linspace(0, drop_path, self.n_blocks)
+        ]  # stochastic depth decay rule
         print("dpr", dpr)
-        num_knn = [int(x.item()) for x in torch.linspace(k, 2 * k, self.n_blocks)]  # number of knn's k
+        num_knn = [
+            int(x.item()) for x in torch.linspace(k, 2 * k, self.n_blocks)
+        ]  # number of knn's k
         print("num_knn", num_knn)
         max_dilation = 196 // max(num_knn)
-        self.pretrained = opt_cfg.pretrained
-        # self.stem = Stem(
-        #     img_shape=(1, 60, 120),
-        #     in_dim=1,
-        #     out_dim=channels,
-        #     act=act,
-        #     pretrained=opt_cfg.pretrained,
-        # )
+        self.stem = Stem(
+            img_shape=(3, 60, 120),
+            in_dim=3,
+            out_dim=channels,
+            act=act,
+            pretrained=opt_cfg.pretrained,
+        )
         self.backbone = IsotropicBackBone(
             n_blocks=self.n_blocks,
             channels=channels,
@@ -78,12 +81,8 @@ class IsoTropicVIG(Module):
                     m.bias.requires_grad = True
 
     def forward(self, inputs):
-        # if self.pretrained:
-        #     with torch.no_grad():
-        #         x = self.stem(inputs)
-        # else:
-        #     x = self.stem(inputs)
-        x = inputs + self.pos_embed
+        x = self.stem(inputs)
+        x = x + self.pos_embed
         x = self.backbone(x)
         x = self.predictor(x)
         return x
@@ -93,7 +92,7 @@ def _cfg(url="", **kwargs):
     return {
         "url": url,
         "num_classes": 100,
-        "input_size": (1, 60, 120),
+        "input_size": (3, 60, 120),
         "pool_size": None,
         "crop_pct": 1,
         "interpolation": "bicubic",
@@ -116,7 +115,7 @@ default_cfgs = {
 
 
 @register_model
-def isotropic_vig_ti_224_gelu(pretrained=False, **kwargs):
+def isotropic_vig_ti_224_gelu(pretrained=False, **kwargs) -> Module:
     """
     Returns Isotropic VIG Tiny model.
     If pretrained is set True, Resnet50 will be used as stem.
@@ -141,7 +140,7 @@ def isotropic_vig_ti_224_gelu(pretrained=False, **kwargs):
             self.norm = "batch"  # batch or instance normalization {batch, instance}
             self.bias = True  # bias of conv layer True or False
             self.n_blocks = 12  # number of basic blocks in the backbone
-            self.n_filters = 1024  # number of channels of deep features
+            self.n_filters = 256  # number of channels of deep features
             self.n_classes = num_classes  # Dimension of out_channels
             self.predictor_dropout = drop_rate  # dropout rate
             self.use_dilation = False  # use dilated knn or not

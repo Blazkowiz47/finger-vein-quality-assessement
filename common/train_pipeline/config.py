@@ -3,18 +3,16 @@ Contains predefined configuration classes.
 """
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 import torch
 
 from common.util.enums import EnvironmentType
 
 
-class TrainConfiguration:
+class ModelConfiguration:
     """
     COntains Default training configurations.
     """
-
-    n_classes: int = 100 * 6
 
     stem_config: Dict[str, Any] = {
         "name": "resnet50",
@@ -27,7 +25,7 @@ class TrainConfiguration:
         "out_dim": 1024,
     }
     backbone_config: Dict[str, Any] = {
-        "name": "vig",
+        "name": "isotropic_backbone",
         "train": True,
         "pretrained_model": None,
         "act": "gelu",
@@ -51,6 +49,7 @@ class TrainConfiguration:
         "bias": True,
         "in_shape": (1024, 4, 8),
         "channels": 1024,
+        "n_classes": 100 * 6,
         "hidden_channels": 2048,
     }
 
@@ -70,6 +69,7 @@ class TrainConfiguration:
     optimiser_lr: float = 1e-4
 
     number_of_augmented_images: int = 8
+    input_shape: Tuple[int, int, int] = (3, 60, 120)
     shuffle: bool = True
     dataset: str = "MMCBNU_6000"
 
@@ -98,12 +98,6 @@ class TrainConfiguration:
         if predictor_config:
             self.predictor_config = self.predictor_config | predictor_config
         self.set_device(device)
-        k = self.backbone_config["num_knn"]
-        n_blocks = self.backbone_config["n_blocks"]
-        drop_path = self.backbone_config["drop_path"]
-        self.backbone_config["num_knn"] = [int(x.item()) for x in torch.linspace(k, 2 * k, n_blocks)]
-        self.backbone_config["dpr"] = [x.item() for x in torch.linspace(0, drop_path, n_blocks)]
-        self.backbone_config["max_dilation"] = 196 // max(self.backbone_config["num_knn"])
 
     def set_device(self, device: Optional[str]):
         """
@@ -112,15 +106,25 @@ class TrainConfiguration:
         if device:
             self.device = device
         else:
-            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")  # pylint: disable=E1101
+            device = torch.device(
+                "cuda" if torch.cuda.is_available() else "cpu"
+            )  # pylint: disable=E1101
             print("Using device:", device)
 
             # Additional Info when using cuda
             if device.type == "cuda":
                 print(torch.cuda.get_device_name(0))
                 print("Memory Usage:")
-                print("Allocated:", round(torch.cuda.memory_allocated(0) / 1024**3, 1), "GB")
-                print("Cached:   ", round(torch.cuda.memory_reserved(0) / 1024**3, 1), "GB")
+                print(
+                    "Allocated:",
+                    round(torch.cuda.memory_allocated(0) / 1024**3, 1),
+                    "GB",
+                )
+                print(
+                    "Cached:   ",
+                    round(torch.cuda.memory_reserved(0) / 1024**3, 1),
+                    "GB",
+                )
 
     def get_run_name(self):
         "Compiles a run name automatically."
@@ -129,3 +133,22 @@ class TrainConfiguration:
         backbone = self.backbone_config["name"]
         predictor = self.predictor_config["name"]
         return f"{stem}_{backbone}_{predictor}_{current_time}"
+
+
+default_gcn_backbone_config = {
+    "name": "isotropic_backbone",
+    "train": True,
+    "pretrained_model": None,
+    "act": "gelu",
+    "bias": True,
+    "n_blocks": 12,
+    "in_shape": (1024, 4, 8),
+    "channels": 1024,
+    "norm": "batch",
+    "conv": "mr",
+    "stochastic": False,
+    "num_knn": 9,
+    "use_dilation": False,
+    "epsilon": 0.2,
+    "drop_path": 0.0,
+}

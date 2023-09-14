@@ -13,22 +13,13 @@ from common.data_pipeline.MMCBNU_6000.dataset import DatasetLoader as mmcbnu
 
 # from common.data_pipeline.FV_USM.dataset import DatasetLoader as fvusm
 from common.train_pipeline.metric.accuracy import Metric as Accuracy
+from common.train_pipeline.model.model import get_model
 from common.train_pipeline.stem.stem import Stem
 from common.util.data_pipeline.dataset_chainer import DatasetChainer
 from common.util.enums import EnvironmentType
 from common.train_pipeline.model.isotropic_vig import isotropic_vig_ti_224_gelu
 
 # To watch nvidia-smi continuously after every 2 seconds: watch -n 2 nvidia-smi
-
-
-def get_model(device: str = "cpu"):
-    """
-    Gives back a predefined model, sepcified in the config.
-    """
-    model = isotropic_vig_ti_224_gelu(pretrained=True)
-    model.to(device)
-    print()
-    return model
 
 
 def get_dataset(
@@ -117,7 +108,9 @@ def train(
     """
     Contains the training loop.
     """
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")  # pylint: disable=E1101
+    device = torch.device(
+        "cuda" if torch.cuda.is_available() else "cpu"
+    )  # pylint: disable=E1101
     print("Using device:", device)
 
     # Additional Info when using cuda
@@ -126,10 +119,7 @@ def train(
         print("Memory Usage:")
         print("Allocated:", round(torch.cuda.memory_allocated(0) / 1024**3, 1), "GB")
         print("Cached:   ", round(torch.cuda.memory_reserved(0) / 1024**3, 1), "GB")
-    stem = Stem(pretrained=True)
-    stem.to(device)
-    stem.eval()
-    model = get_model(device)
+    model = get_model("isotropic_vig_ti_224_gelu").to(device)
     print(model)
     train_dataset, _, validation_dataset = get_dataset(environment, batch_size)
 
@@ -148,8 +138,6 @@ def train(
             inputs = inputs.to(device).float()
             labels = labels.to(device).float()
             optimizer.zero_grad()
-            with torch.no_grad():
-                inputs = stem(inputs)
             outputs = model(inputs)
             loss = train_loss_fn(outputs, labels)
             loss.backward()
@@ -165,13 +153,14 @@ def train(
             for inputs, labels in tqdm(validation_dataset, desc="Validation:"):
                 inputs = inputs.to(device).float()
                 labels = labels.to(device).float()
-                inputs = stem(inputs)
                 outputs = model(inputs)
                 val_loss += validate_loss_fn(outputs, labels)
                 predicted = (outputs == outputs.max()).float()
                 for metric in val_metrics:
                     metric.update(predicted, labels)
-        results.extend([add_label(metric.compute(), "validation") for metric in val_metrics])
+        results.extend(
+            [add_label(metric.compute(), "validation") for metric in val_metrics]
+        )
         log = {}
         for result in results:
             log = log | result
