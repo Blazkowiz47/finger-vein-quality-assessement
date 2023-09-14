@@ -21,7 +21,7 @@ def main():
         wandb.init(
             # set the wandb project where this run will be logged
             project="finger-vein-recognition",
-            # track hyperparameters and run metadata
+            name="600-classes-without-augmentation",
             config={
                 "learning_rate": 0.0001,
                 "architecture": "ViG with self Attention",

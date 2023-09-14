@@ -5,9 +5,7 @@ import os
 from typing import List, Tuple
 
 import cv2
-from PIL import Image
 import numpy as np
-from common.data_pipeline.utils import split_image
 from common.util.data_pipeline.dataset_loader import DatasetLoaderBase
 from common.util.decorators import reflected
 from common.util.enums import EnvironmentType
@@ -49,14 +47,14 @@ class DatasetLoader(DatasetLoaderBase):
         for sample_id in dirs:
             for hand in self.hands:
                 for finger in self.fingers:
-                    for image in range(1, 9):
+                    for image in range(1, 8):
                         result.append(
                             DatasetObject(
                                 path=f"{self.get_directory()}/ROIs/{sample_id}/{hand}_{finger}/0{image}.bmp",
                                 name=f"{sample_id}/{hand}_{finger}/0{image}",
                                 metadata={
-                                    "finger": finger.lower(),
-                                    "hand": "left" if hand == "L" else "right",
+                                    "finger": finger,
+                                    "hand": hand,
                                     "is_augmented": False,
                                 },
                             )
@@ -64,20 +62,19 @@ class DatasetLoader(DatasetLoaderBase):
         return result
 
     def get_test_files(self) -> List[DatasetObject]:
-        return []
         dirs = os.listdir(self.get_directory() + "/ROIs")
         result: List[DatasetObject] = []
         for sample_id in dirs:
             for hand in self.hands:
                 for finger in self.fingers:
-                    for image in range(8, 10):
+                    for image in range(10, 10):
                         result.append(
                             DatasetObject(
                                 path=f"{self.get_directory()}/ROIs/{sample_id}/{hand}_{finger}/0{image}.bmp",
                                 name=f"{sample_id}/{hand}_{finger}/0{image}",
                                 metadata={
-                                    "finger": finger.lower(),
-                                    "hand": "left" if hand == "L" else "right",
+                                    "finger": finger,
+                                    "hand": hand,
                                     "is_augmented": False,
                                 },
                             )
@@ -92,11 +89,22 @@ class DatasetLoader(DatasetLoaderBase):
                 for finger in self.fingers:
                     result.append(
                         DatasetObject(
-                            path=f"{self.get_directory()}/ROIs/{sample_id}/{hand}_{finger}/09.bmp",
-                            name=f"{sample_id}/{hand}_{finger}/10",
+                            path=f"{self.get_directory()}/ROIs/{sample_id}/{hand}_{finger}/08.bmp",
+                            name=f"{sample_id}/{hand}_{finger}/08",
                             metadata={
-                                "finger": finger.lower(),
-                                "hand": "left" if hand == "L" else "right",
+                                "finger": finger,
+                                "hand": hand,
+                                "is_augmented": False,
+                            },
+                        )
+                    )
+                    result.append(
+                        DatasetObject(
+                            path=f"{self.get_directory()}/ROIs/{sample_id}/{hand}_{finger}/09.bmp",
+                            name=f"{sample_id}/{hand}_{finger}/09",
+                            metadata={
+                                "finger": finger,
+                                "hand": hand,
                                 "is_augmented": False,
                             },
                         )
@@ -106,8 +114,8 @@ class DatasetLoader(DatasetLoaderBase):
                             path=f"{self.get_directory()}/ROIs/{sample_id}/{hand}_{finger}/10.bmp",
                             name=f"{sample_id}/{hand}_{finger}/10",
                             metadata={
-                                "finger": finger.lower(),
-                                "hand": "left" if hand == "L" else "right",
+                                "finger": finger,
+                                "hand": hand,
                                 "is_augmented": False,
                             },
                         )
@@ -127,8 +135,8 @@ class DatasetLoader(DatasetLoaderBase):
                                 path=f"{self.get_directory()}/ROIs/{sample_id}/{hand}_{finger}/{image}",
                                 name=f"{sample_id}/{hand}_{finger}/{image}",
                                 metadata={
-                                    "finger": finger.lower(),
-                                    "hand": "left" if hand == "L" else "right",
+                                    "finger": finger,
+                                    "hand": hand,
                                     "is_augmented": False,
                                 },
                             )
@@ -145,7 +153,9 @@ class DatasetLoader(DatasetLoaderBase):
             image = np.expand_dims(image, axis=0)
         elif EnvironmentType.TENSORFLOW == self.environment_type:
             image = np.expand_dims(image, axis=-1)
-        label = np.zeros((100))
-        sample: int = int(data.name.split("/")[-1])
-        label[sample - 1] = 1  # One hot encoding
-        return image, label
+        label = np.zeros((100 * 6))
+        sample: int = int(data.name.split("/")[-1]) - 1
+        hand: int = self.hands.index(data.metadata["hand"])
+        finger: int = self.fingers.index(data.metadata["finger"])
+        label[(hand * 100 * 3) + (finger * 100) + sample] = 1  # One hot encoding
+        return np.vstack([image, image, image]), label

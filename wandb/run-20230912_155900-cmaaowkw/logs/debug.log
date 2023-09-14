@@ -16,3 +16,12 @@ config: {'learning_rate': 0.0001, 'architecture': 'ViG with self Attention', 'da
 2023-09-12 15:59:00,468 INFO    MainThread:8188 [wandb_init.py:init():624] backend started and connected
 2023-09-12 15:59:00,468 INFO    MainThread:8188 [wandb_init.py:init():715] updated telemetry
 2023-09-12 15:59:00,552 INFO    MainThread:8188 [wandb_init.py:init():748] communicating run to backend with 90.0 second timeout
+2023-09-12 15:59:01,450 INFO    MainThread:8188 [wandb_run.py:_on_init():2220] communicating current version
+2023-09-12 15:59:01,927 INFO    MainThread:8188 [wandb_run.py:_on_init():2229] got version response 
+2023-09-12 15:59:01,927 INFO    MainThread:8188 [wandb_init.py:init():799] starting run threads in backend
+2023-09-12 15:59:07,745 INFO    MainThread:8188 [wandb_run.py:_console_start():2199] atexit reg
+2023-09-12 15:59:07,745 INFO    MainThread:8188 [wandb_run.py:_redirect():2054] redirect: wrap_raw
+2023-09-12 15:59:07,745 INFO    MainThread:8188 [wandb_run.py:_redirect():2119] Wrapping output streams.
+2023-09-12 15:59:07,745 INFO    MainThread:8188 [wandb_run.py:_redirect():2144] Redirects installed.
+2023-09-12 15:59:07,745 INFO    MainThread:8188 [wandb_init.py:init():840] run started, returning control to user process
+2023-09-12 18:51:18,585 WARNING MsgRouterThr:8188 [router.py:message_loop():77] message_loop has been closed

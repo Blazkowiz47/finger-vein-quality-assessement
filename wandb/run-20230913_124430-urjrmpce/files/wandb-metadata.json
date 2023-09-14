@@ -1,0 +1,53 @@
+{
+    "os": "Windows-10-10.0.19045-SP0",
+    "python": "3.11.5",
+    "heartbeatAt": "2023-09-13T10:44:32.398052",
+    "startedAt": "2023-09-13T10:44:30.393827",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "G:\\finger-vein-quality-assessement\\train.py",
+    "codePathLocal": "train.py",
+    "codePath": "train.py",
+    "git": {
+        "remote": "git@github.com:Blazkowiz47/finger-vein-quality-assessement.git",
+        "commit": "5130ffc81fcd3fab1cbc7ccd904760e507c654d5"
+    },
+    "email": "sushrutpatwardhan@gmail.com",
+    "root": "G:/finger-vein-quality-assessement",
+    "host": "DESKTOP-54JPVN6",
+    "username": "sushr",
+    "executable": "C:\\ProgramData\\anaconda3\\envs\\dl-torch\\python.exe",
+    "cpu_count": 6,
+    "cpu_count_logical": 12,
+    "cpu_freq": {
+        "current": 2208.0,
+        "min": 0.0,
+        "max": 2208.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2208.0,
+            "min": 0.0,
+            "max": 2208.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 358.85546493530273,
+            "used": 2.4788665771484375
+        }
+    },
+    "gpu": "NVIDIA GeForce GTX 1050 Ti",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce GTX 1050 Ti",
+            "memory_total": 4294967296
+        }
+    ],
+    "memory": {
+        "total": 15.858097076416016
+    }
+}

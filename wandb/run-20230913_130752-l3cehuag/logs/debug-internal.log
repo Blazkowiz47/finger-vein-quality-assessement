@@ -1,0 +1,19 @@
+2023-09-13 13:07:52,998 INFO    StreamThr :8788 [internal.py:wandb_internal():86] W&B internal server running at pid: 8788, started at: 2023-09-13 13:07:52.998281
+2023-09-13 13:07:52,998 DEBUG   HandlerThread:8788 [handler.py:handle_request():144] handle_request: status
+2023-09-13 13:07:52,998 INFO    WriterThread:8788 [datastore.py:open_for_write():85] open: G:\finger-vein-quality-assessement\wandb\run-20230913_130752-l3cehuag\run-l3cehuag.wandb
+2023-09-13 13:07:52,998 DEBUG   SenderThread:8788 [sender.py:send():379] send: header
+2023-09-13 13:07:53,045 DEBUG   SenderThread:8788 [sender.py:send():379] send: run
+2023-09-13 13:07:54,067 DEBUG   HandlerThread:8788 [handler.py:handle_request():144] handle_request: shutdown
+2023-09-13 13:07:54,068 INFO    HandlerThread:8788 [handler.py:finish():840] shutting down handler
+2023-09-13 13:07:54,228 INFO    SenderThread:8788 [dir_watcher.py:__init__():211] watching files in: G:\finger-vein-quality-assessement\wandb\run-20230913_130752-l3cehuag\files
+2023-09-13 13:07:54,228 INFO    SenderThread:8788 [sender.py:_start_run_threads():1121] run started: l3cehuag with start time 1694603272.998281
+2023-09-13 13:07:54,228 INFO    SenderThread:8788 [sender.py:finish():1531] shutting down sender
+2023-09-13 13:07:54,228 INFO    SenderThread:8788 [dir_watcher.py:finish():358] shutting down directory watcher
+2023-09-13 13:07:55,060 INFO    WriterThread:8788 [datastore.py:close():294] close: G:\finger-vein-quality-assessement\wandb\run-20230913_130752-l3cehuag\run-l3cehuag.wandb
+2023-09-13 13:07:55,247 INFO    SenderThread:8788 [dir_watcher.py:finish():388] scan: G:\finger-vein-quality-assessement\wandb\run-20230913_130752-l3cehuag\files
+2023-09-13 13:07:55,248 INFO    SenderThread:8788 [dir_watcher.py:finish():402] scan save: G:\finger-vein-quality-assessement\wandb\run-20230913_130752-l3cehuag\files\config.yaml config.yaml
+2023-09-13 13:07:55,248 INFO    SenderThread:8788 [file_pusher.py:finish():175] shutting down file pusher
+2023-09-13 13:07:55,248 INFO    SenderThread:8788 [file_pusher.py:join():181] waiting for file pusher
+2023-09-13 13:07:56,209 INFO    wandb-upload_0:8788 [upload_job.py:push():131] Uploaded file G:\finger-vein-quality-assessement\wandb\run-20230913_130752-l3cehuag\files\config.yaml
+2023-09-13 13:07:56,752 INFO    SenderThread:8788 [file_stream.py:finish():594] file stream finish called
+2023-09-13 13:07:57,326 INFO    SenderThread:8788 [file_stream.py:finish():598] file stream finish is done

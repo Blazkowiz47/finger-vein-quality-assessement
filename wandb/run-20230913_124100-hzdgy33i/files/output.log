@@ -1,0 +1,40 @@
+Using device: cuda
+NVIDIA GeForce GTX 1050 Ti
+Memory Usage:
+Allocated: 0.0 GB
+Cached:    0.0 GB
+dpr [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+num_knn [9, 9, 10, 11, 12, 13, 13, 14, 15, 16, 17, 18]
+Traceback (most recent call last):
+  File "G:\finger-vein-quality-assessement\train.py", line 38, in <module>
+    main()
+  File "G:\finger-vein-quality-assessement\train.py", line 32, in main
+    train(BATCH_SIZE, EPOCHS, ENVIRONMENT, LOG_ON_WANDB)
+  File "G:\finger-vein-quality-assessement\common\train_pipeline\train.py", line 129, in train
+    model = get_model(device)
+            ^^^^^^^^^^^^^^^^^
+  File "G:\finger-vein-quality-assessement\common\train_pipeline\train.py", line 27, in get_model
+    model = isotropic_vig_ti_224_gelu(pretrained=True)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\finger-vein-quality-assessement\common\train_pipeline\isotropic_vig.py", line 155, in isotropic_vig_ti_224_gelu
+    model = IsoTropicVIG(opt_cfg)
+            ^^^^^^^^^^^^^^^^^^^^^
+  File "G:\finger-vein-quality-assessement\common\train_pipeline\isotropic_vig.py", line 41, in __init__
+    self.stem = Stem(
+                ^^^^^
+  File "G:\finger-vein-quality-assessement\common\train_pipeline\stem.py", line 19, in __init__
+    self.stem = self.get_pretrained_stem()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\finger-vein-quality-assessement\common\train_pipeline\stem.py", line 27, in get_pretrained_stem
+    self.stem = torch.load("self.stems/resnet50_pretrained.pt")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ProgramData\anaconda3\envs\dl-torch\Lib\site-packages\torch\serialization.py", line 791, in load
+    with _open_file_like(f, 'rb') as opened_file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ProgramData\anaconda3\envs\dl-torch\Lib\site-packages\torch\serialization.py", line 271, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ProgramData\anaconda3\envs\dl-torch\Lib\site-packages\torch\serialization.py", line 252, in __init__
+    super().__init__(open(name, mode))
+                     ^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'self.stems/resnet50_pretrained.pt'

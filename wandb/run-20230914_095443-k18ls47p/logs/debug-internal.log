@@ -1,0 +1,1205 @@
+2023-09-14 09:54:43,589 INFO    StreamThr :13024 [internal.py:wandb_internal():86] W&B internal server running at pid: 13024, started at: 2023-09-14 09:54:43.589517
+2023-09-14 09:54:43,589 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status
+2023-09-14 09:54:43,589 INFO    WriterThread:13024 [datastore.py:open_for_write():85] open: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\run-k18ls47p.wandb
+2023-09-14 09:54:43,589 DEBUG   SenderThread:13024 [sender.py:send():379] send: header
+2023-09-14 09:54:43,636 DEBUG   SenderThread:13024 [sender.py:send():379] send: run
+2023-09-14 09:54:44,559 INFO    SenderThread:13024 [dir_watcher.py:__init__():211] watching files in: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files
+2023-09-14 09:54:44,574 INFO    SenderThread:13024 [sender.py:_start_run_threads():1121] run started: k18ls47p with start time 1694678083.589517
+2023-09-14 09:54:44,574 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: check_version
+2023-09-14 09:54:44,574 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: check_version
+2023-09-14 09:54:45,163 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: run_start
+2023-09-14 09:54:45,943 DEBUG   HandlerThread:13024 [system_info.py:__init__():32] System info init
+2023-09-14 09:54:45,943 DEBUG   HandlerThread:13024 [system_info.py:__init__():47] System info init done
+2023-09-14 09:54:45,943 INFO    HandlerThread:13024 [system_monitor.py:start():181] Starting system monitor
+2023-09-14 09:54:45,943 INFO    SystemMonitor:13024 [system_monitor.py:_start():145] Starting system asset monitoring threads
+2023-09-14 09:54:45,943 INFO    HandlerThread:13024 [system_monitor.py:probe():201] Collecting system info
+2023-09-14 09:54:45,943 INFO    SystemMonitor:13024 [interfaces.py:start():190] Started cpu monitoring
+2023-09-14 09:54:45,943 INFO    SystemMonitor:13024 [interfaces.py:start():190] Started disk monitoring
+2023-09-14 09:54:45,943 INFO    SystemMonitor:13024 [interfaces.py:start():190] Started gpu monitoring
+2023-09-14 09:54:45,943 INFO    SystemMonitor:13024 [interfaces.py:start():190] Started memory monitoring
+2023-09-14 09:54:45,959 INFO    SystemMonitor:13024 [interfaces.py:start():190] Started network monitoring
+2023-09-14 09:54:45,959 DEBUG   HandlerThread:13024 [system_info.py:probe():196] Probing system
+2023-09-14 09:54:45,959 DEBUG   HandlerThread:13024 [system_info.py:_probe_git():181] Probing git
+2023-09-14 09:54:45,959 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:54:45,959 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:54:46,053 DEBUG   HandlerThread:13024 [system_info.py:_probe_git():189] Probing git done
+2023-09-14 09:54:46,053 DEBUG   HandlerThread:13024 [system_info.py:probe():244] Probing system done
+2023-09-14 09:54:46,053 DEBUG   HandlerThread:13024 [system_monitor.py:probe():210] {'os': 'Windows-10-10.0.19045-SP0', 'python': '3.11.5', 'heartbeatAt': '2023-09-14T07:54:45.959342', 'startedAt': '2023-09-14T07:54:43.574026', 'docker': None, 'cuda': None, 'args': (), 'state': 'running', 'program': 'G:\\finger-vein-quality-assessement\\train.py', 'codePathLocal': 'train.py', 'codePath': 'train.py', 'git': {'remote': 'git@github.com:Blazkowiz47/finger-vein-quality-assessement.git', 'commit': '5130ffc81fcd3fab1cbc7ccd904760e507c654d5'}, 'email': 'sushrutpatwardhan@gmail.com', 'root': 'G:/finger-vein-quality-assessement', 'host': 'DESKTOP-54JPVN6', 'username': 'sushr', 'executable': 'C:\\ProgramData\\anaconda3\\envs\\dl-torch\\python.exe', 'cpu_count': 6, 'cpu_count_logical': 12, 'cpu_freq': {'current': 2208.0, 'min': 0.0, 'max': 2208.0}, 'cpu_freq_per_core': [{'current': 2208.0, 'min': 0.0, 'max': 2208.0}], 'disk': {'/': {'total': 358.85546493530273, 'used': 2.4946556091308594}}, 'gpu': 'NVIDIA GeForce GTX 1050 Ti', 'gpu_count': 1, 'gpu_devices': [{'name': 'NVIDIA GeForce GTX 1050 Ti', 'memory_total': 4294967296}], 'memory': {'total': 15.858097076416016}}
+2023-09-14 09:54:46,053 INFO    HandlerThread:13024 [system_monitor.py:probe():211] Finished collecting system info
+2023-09-14 09:54:46,053 INFO    HandlerThread:13024 [system_monitor.py:probe():214] Publishing system info
+2023-09-14 09:54:46,053 DEBUG   HandlerThread:13024 [system_info.py:_save_pip():52] Saving list of pip packages installed into the current environment
+2023-09-14 09:54:46,053 DEBUG   HandlerThread:13024 [system_info.py:_save_pip():68] Saving pip packages done
+2023-09-14 09:54:46,053 DEBUG   HandlerThread:13024 [system_info.py:_save_conda():75] Saving list of conda packages installed into the current environment
+2023-09-14 09:54:46,585 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_created():271] file/dir created: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\conda-environment.yaml
+2023-09-14 09:54:46,585 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_created():271] file/dir created: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\requirements.txt
+2023-09-14 09:54:47,964 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Unknown Error
+2023-09-14 09:54:47,964 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Unknown Error
+2023-09-14 09:54:48,075 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:54:48,075 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:54:50,101 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Unknown Error
+2023-09-14 09:54:50,101 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Unknown Error
+2023-09-14 09:54:50,195 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:54:50,195 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:54:50,617 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\conda-environment.yaml
+2023-09-14 09:54:50,822 DEBUG   HandlerThread:13024 [system_info.py:_save_conda():87] Saving conda packages done
+2023-09-14 09:54:50,822 INFO    HandlerThread:13024 [system_monitor.py:probe():216] Finished publishing system info
+2023-09-14 09:54:50,837 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:54:50,837 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: keepalive
+2023-09-14 09:54:50,837 DEBUG   SenderThread:13024 [sender.py:send():379] send: files
+2023-09-14 09:54:50,837 INFO    SenderThread:13024 [sender.py:_save_file():1375] saving file wandb-metadata.json with policy now
+2023-09-14 09:54:50,837 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:54:50,837 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:54:50,853 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:54:51,072 DEBUG   SenderThread:13024 [sender.py:send():379] send: telemetry
+2023-09-14 09:54:51,618 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_created():271] file/dir created: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:54:51,618 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_created():271] file/dir created: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\wandb-metadata.json
+2023-09-14 09:54:52,213 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:54:52,213 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:54:52,426 INFO    wandb-upload_0:13024 [upload_job.py:push():131] Uploaded file C:\Users\sushr\AppData\Local\Temp\tmp8ulapt_awandb\gcs8wo66-wandb-metadata.json
+2023-09-14 09:54:53,636 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:54:54,180 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:54:54,225 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:54:54,225 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:54:55,665 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:54:56,234 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:54:56,234 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:54:57,669 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:54:58,236 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:54:58,236 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:54:59,687 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:54:59,689 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:00,241 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:00,241 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:01,710 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:02,253 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:02,253 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:03,727 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:04,261 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:04,261 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:05,629 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:55:05,739 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:05,862 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:55:05,862 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:55:05,864 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:55:06,270 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:06,270 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:07,771 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:08,279 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:08,279 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:09,807 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:10,298 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:10,298 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:11,561 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:55:11,843 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:12,312 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:12,312 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:13,855 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:14,315 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:14,315 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:15,868 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:16,354 ERROR   gpu       :13024 [interfaces.py:aggregate():161] Failed to serialize metric: division by zero
+2023-09-14 09:55:16,354 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:16,354 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:17,544 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:55:17,887 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:17,887 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\config.yaml
+2023-09-14 09:55:18,366 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:18,368 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:19,909 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:20,375 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:20,375 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:20,870 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:55:20,870 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:55:20,870 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:55:21,911 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:22,376 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:22,376 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:23,509 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:55:23,912 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:24,396 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:24,396 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:25,952 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:26,416 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:26,416 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:27,955 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:28,420 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:28,420 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:29,474 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:55:29,958 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:30,423 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:30,423 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:31,959 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:32,443 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:32,443 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:33,989 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:34,453 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:34,453 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:35,366 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:55:35,890 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:55:35,890 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:55:35,890 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:55:36,011 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:36,465 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:36,465 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:38,033 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:38,488 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:38,488 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:40,045 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:40,500 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:40,500 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:41,296 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:55:42,053 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:42,518 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:42,518 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:44,055 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:44,539 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:44,539 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:45,975 DEBUG   SystemMonitor:13024 [system_monitor.py:_start():159] Starting system metrics aggregation loop
+2023-09-14 09:55:45,975 DEBUG   SenderThread:13024 [sender.py:send():379] send: stats
+2023-09-14 09:55:46,076 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:46,583 ERROR   gpu       :13024 [interfaces.py:aggregate():161] Failed to serialize metric: division by zero
+2023-09-14 09:55:46,583 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:46,583 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:47,209 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:55:48,116 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:48,601 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:48,601 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:50,118 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:50,621 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:50,622 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:50,905 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:55:50,905 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:55:50,905 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:55:52,138 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:52,633 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:52,633 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:53,134 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:55:54,163 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:54,641 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:54,641 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:56,169 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:56,665 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:56,665 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:58,193 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:55:58,681 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:58,681 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:55:59,025 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:56:00,197 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:00,705 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:00,705 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:02,206 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:02,719 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:02,719 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:04,219 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:04,738 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:04,738 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:04,960 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:56:05,920 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:56:05,920 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:56:05,922 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:56:06,244 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:06,760 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:06,760 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:08,265 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:08,773 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:08,773 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:09,276 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:10,802 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:10,804 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:10,884 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:56:11,297 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:12,821 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:12,821 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:13,337 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:14,844 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:14,844 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:15,339 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:15,984 DEBUG   SenderThread:13024 [sender.py:send():379] send: stats
+2023-09-14 09:56:15,984 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:56:16,883 ERROR   gpu       :13024 [interfaces.py:aggregate():161] Failed to serialize metric: division by zero
+2023-09-14 09:56:16,885 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:16,885 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:17,359 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:18,903 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:18,903 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:19,369 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:20,915 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:20,915 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:20,925 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:56:20,925 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:56:20,925 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:56:21,119 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:56:21,380 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:22,937 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:22,937 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:23,402 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:24,961 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:24,961 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:25,414 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:26,659 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:56:26,983 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:26,983 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:27,416 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:29,006 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:29,006 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:29,429 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:31,028 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:31,028 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:31,452 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:32,617 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:56:33,043 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:33,045 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:33,481 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:35,071 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:35,071 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:35,506 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:35,941 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:56:35,941 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:56:35,943 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:56:37,083 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:37,083 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:37,517 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:38,548 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:56:39,106 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:39,106 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:39,538 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:41,126 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:41,128 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:41,540 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:43,149 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:43,149 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:43,543 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:43,566 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:56:45,171 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:45,171 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:45,552 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:45,997 DEBUG   SenderThread:13024 [sender.py:send():379] send: stats
+2023-09-14 09:56:47,206 ERROR   gpu       :13024 [interfaces.py:aggregate():161] Failed to serialize metric: division by zero
+2023-09-14 09:56:47,206 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:47,206 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:47,577 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:49,217 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:49,217 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:49,521 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:56:49,601 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:50,944 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:56:50,965 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:56:50,965 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:56:51,227 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:51,227 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:51,628 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:53,250 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:53,250 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:53,651 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:55,270 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:55,270 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:55,471 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:56:55,661 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:57,290 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:57,290 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:57,690 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:56:59,302 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:59,302 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:56:59,694 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:00,492 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:57:01,332 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:01,332 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:01,697 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:03,352 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:03,352 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:03,716 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:05,366 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:05,366 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:05,737 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:05,959 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:57:05,980 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:57:05,980 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:57:06,225 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:57:07,396 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:07,396 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:07,768 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:09,413 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:09,413 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:09,783 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:11,435 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:11,435 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:11,457 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:57:11,785 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:13,452 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:13,452 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:13,796 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:15,473 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:15,473 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:15,797 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:16,000 DEBUG   SenderThread:13024 [sender.py:send():379] send: stats
+2023-09-14 09:57:17,366 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:57:17,515 ERROR   gpu       :13024 [interfaces.py:aggregate():161] Failed to serialize metric: division by zero
+2023-09-14 09:57:17,527 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:17,527 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:17,798 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:19,546 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:19,546 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:19,819 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:20,961 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:57:21,001 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:57:21,001 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:57:21,556 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:21,556 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:21,840 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:22,376 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:57:23,570 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:23,570 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:23,854 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:25,573 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:25,573 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:25,857 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:27,587 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:27,587 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:27,870 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:28,395 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:57:29,598 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:29,598 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:29,892 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:31,621 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:31,621 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:31,915 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:33,632 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:33,632 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:33,915 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:34,331 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:57:35,653 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:35,655 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:35,937 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:35,978 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:57:36,018 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:57:36,018 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:57:37,675 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:37,675 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:37,939 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:39,699 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:39,699 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:39,942 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:40,256 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:57:41,720 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:41,720 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:41,963 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:43,736 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:43,736 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:43,992 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:45,762 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:45,762 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:46,007 DEBUG   SenderThread:13024 [sender.py:send():379] send: stats
+2023-09-14 09:57:46,007 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:57:46,009 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:47,807 ERROR   gpu       :13024 [interfaces.py:aggregate():161] Failed to serialize metric: division by zero
+2023-09-14 09:57:47,807 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:47,807 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:48,019 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:49,818 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:49,818 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:50,040 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:50,989 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:57:51,029 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:57:51,029 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:57:51,029 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:57:51,830 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:51,832 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:52,062 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:53,853 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:53,853 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:54,083 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:55,875 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:55,875 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:56,067 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:57:56,105 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:57,905 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:57,905 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:58,125 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:57:59,935 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:57:59,935 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:00,147 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:01,947 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:01,947 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:01,975 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:58:02,177 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:03,968 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:03,968 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:04,199 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:05,987 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:05,987 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:05,997 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:58:06,038 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:58:06,038 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:58:06,222 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:07,907 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:58:08,016 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:08,016 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:08,229 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:10,038 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:10,038 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:10,230 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:12,070 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:12,078 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:12,272 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:13,818 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:58:14,089 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:14,089 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:14,311 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:16,008 DEBUG   SenderThread:13024 [sender.py:send():379] send: stats
+2023-09-14 09:58:16,109 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:16,109 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:16,332 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:18,142 ERROR   gpu       :13024 [interfaces.py:aggregate():161] Failed to serialize metric: division by zero
+2023-09-14 09:58:18,142 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:18,142 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:18,355 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:18,831 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:58:19,356 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:20,152 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:20,152 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:20,999 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:58:21,046 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:58:21,046 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:58:21,394 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:22,171 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:22,171 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:23,420 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:23,896 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:58:24,188 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:24,188 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:25,432 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:26,202 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:26,204 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:27,440 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:28,218 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:28,218 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:28,940 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:58:29,456 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:30,244 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:30,244 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:31,477 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:32,267 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:32,267 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:33,480 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:34,287 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:34,287 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:34,864 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:58:35,491 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:36,004 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:58:36,064 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:58:36,064 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:58:36,307 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:36,307 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:37,502 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:38,321 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:38,321 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:39,523 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:40,341 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:40,343 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:40,827 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:58:41,563 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:42,362 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:42,362 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:43,575 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:44,383 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:44,383 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:45,595 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:46,010 DEBUG   SenderThread:13024 [sender.py:send():379] send: stats
+2023-09-14 09:58:46,010 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:58:46,407 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:46,407 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:47,608 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:48,449 ERROR   gpu       :13024 [interfaces.py:aggregate():161] Failed to serialize metric: division by zero
+2023-09-14 09:58:48,449 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:48,449 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:49,631 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:50,460 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:50,460 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:51,007 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:58:51,068 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:58:51,068 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:58:51,323 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:58:51,653 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:52,473 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:52,473 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:53,662 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:54,488 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:54,488 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:55,675 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:56,500 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:56,500 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:57,166 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:58:57,693 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:58:58,530 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:58,531 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:58:59,709 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:00,548 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:00,548 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:01,739 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:02,571 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:02,571 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:03,018 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:59:03,760 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:04,585 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:04,585 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:05,776 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:06,010 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:59:06,069 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:59:06,069 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:59:06,607 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:06,607 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:07,799 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:08,157 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:59:08,619 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:08,619 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:09,824 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:10,638 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:10,638 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:11,835 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:12,654 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:12,654 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:13,339 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:59:13,865 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:14,673 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:14,675 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:15,895 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:16,016 DEBUG   SenderThread:13024 [sender.py:send():379] send: stats
+2023-09-14 09:59:16,696 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:16,696 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:17,920 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:18,738 ERROR   gpu       :13024 [interfaces.py:aggregate():161] Failed to serialize metric: division by zero
+2023-09-14 09:59:18,738 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:18,738 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:19,294 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:59:19,938 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:20,745 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:20,745 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:21,028 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:59:21,068 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:59:21,068 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:59:21,957 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:22,765 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:22,765 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:23,986 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:24,783 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:24,785 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:25,209 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:59:26,015 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:26,803 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:26,803 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:28,036 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:28,823 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:28,823 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:30,055 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:30,855 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:30,855 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:31,147 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:59:32,074 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:32,882 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:32,884 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:34,095 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:34,906 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:34,906 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:36,034 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:59:36,086 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:59:36,086 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:59:36,124 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:36,296 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:59:36,924 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:36,924 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:38,143 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:38,955 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:38,955 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:40,145 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:40,975 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:40,975 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:42,066 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:59:42,165 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:43,005 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:43,005 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:44,193 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:45,022 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:45,024 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:46,033 DEBUG   SenderThread:13024 [sender.py:send():379] send: stats
+2023-09-14 09:59:46,200 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:47,044 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:47,044 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:48,034 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:59:48,214 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:49,084 ERROR   gpu       :13024 [interfaces.py:aggregate():161] Failed to serialize metric: division by zero
+2023-09-14 09:59:49,084 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:49,084 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:50,244 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:51,042 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 09:59:51,083 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 09:59:51,083 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 09:59:51,103 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:51,103 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:52,244 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:53,104 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:53,104 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:53,986 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 09:59:54,257 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:55,115 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:55,115 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:56,276 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:57,134 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:57,134 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:58,296 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 09:59:59,145 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:59,145 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 09:59:59,912 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:00:00,305 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:01,176 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:01,176 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:02,306 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:03,194 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:03,194 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:04,327 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:04,945 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:00:05,218 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:05,218 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:06,045 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 10:00:06,105 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 10:00:06,105 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 10:00:06,348 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:07,231 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:07,239 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:08,370 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:09,260 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:09,260 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:10,390 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:10,927 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:00:11,279 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:11,279 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:12,410 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:13,290 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:13,290 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:13,422 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:15,311 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:15,311 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:15,432 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:16,048 DEBUG   SenderThread:13024 [sender.py:send():379] send: stats
+2023-09-14 10:00:16,048 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:00:17,321 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:17,323 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:17,433 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:19,364 ERROR   gpu       :13024 [interfaces.py:aggregate():161] Failed to serialize metric: division by zero
+2023-09-14 10:00:19,364 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:19,364 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:19,453 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:21,048 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 10:00:21,108 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 10:00:21,108 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 10:00:21,354 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:00:21,382 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:21,382 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:21,483 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:23,402 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:23,402 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:23,493 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:25,413 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:25,413 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:25,515 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:26,789 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:00:27,426 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:27,426 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:27,555 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:29,445 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:29,445 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:29,574 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:31,464 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:31,464 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:31,596 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:32,739 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:00:33,486 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:33,486 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:33,607 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:35,506 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:35,506 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:35,627 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:36,052 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 10:00:36,133 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 10:00:36,133 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 10:00:37,519 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:37,519 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:37,644 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:37,760 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:00:39,542 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:39,542 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:39,646 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:41,570 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:41,570 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:41,648 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:43,589 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:43,589 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:43,669 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:43,751 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:00:45,610 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:45,610 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:45,671 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:46,055 DEBUG   SenderThread:13024 [sender.py:send():379] send: stats
+2023-09-14 10:00:47,633 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:47,633 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:47,693 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:49,683 ERROR   gpu       :13024 [interfaces.py:aggregate():161] Failed to serialize metric: division by zero
+2023-09-14 10:00:49,683 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:49,683 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:49,693 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:00:49,711 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:51,054 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 10:00:51,136 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 10:00:51,136 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 10:00:51,700 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:51,700 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:51,741 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:53,711 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:53,711 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:53,762 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:55,633 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:00:55,734 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:55,734 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:55,785 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:57,754 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:57,754 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:57,814 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:00:59,775 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:59,775 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:00:59,844 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:01,573 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:01:01,803 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:01,803 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:01,873 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:03,813 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:03,813 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:03,884 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:05,826 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:05,826 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:05,894 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:06,066 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 10:01:06,168 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 10:01:06,168 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 10:01:07,524 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:01:07,845 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:07,845 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:07,926 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:09,864 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:09,866 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:09,955 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:11,893 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:11,893 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:11,983 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:13,488 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:01:13,913 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:13,913 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:14,014 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:15,933 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:15,933 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:16,044 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:16,065 DEBUG   SenderThread:13024 [sender.py:send():379] send: stats
+2023-09-14 10:01:17,962 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:17,962 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:18,071 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:18,577 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:01:19,996 ERROR   gpu       :13024 [interfaces.py:aggregate():161] Failed to serialize metric: division by zero
+2023-09-14 10:01:19,996 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:19,996 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:20,075 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:21,067 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 10:01:21,189 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 10:01:21,189 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 10:01:21,998 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:21,998 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:22,097 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:23,655 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:01:24,019 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:24,019 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:24,108 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:26,037 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:26,037 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:26,148 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:28,058 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:28,058 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:28,149 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:29,625 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:01:30,080 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:30,080 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:30,170 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:32,106 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:32,106 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:32,197 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:34,126 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:34,128 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:34,217 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:34,654 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:01:36,077 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 10:01:36,147 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:36,149 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:36,218 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 10:01:36,218 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 10:01:36,220 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:38,168 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:38,170 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:38,239 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:39,693 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:01:40,200 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:40,200 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:40,249 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:42,221 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:42,221 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:42,271 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:44,250 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:44,250 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:44,281 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:44,848 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:01:46,070 DEBUG   SenderThread:13024 [sender.py:send():379] send: stats
+2023-09-14 10:01:46,264 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:46,264 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:46,293 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:48,283 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:48,283 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:48,314 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:50,327 ERROR   gpu       :13024 [interfaces.py:aggregate():161] Failed to serialize metric: division by zero
+2023-09-14 10:01:50,327 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:50,327 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:50,335 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:50,821 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:01:51,082 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 10:01:51,243 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 10:01:51,243 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 10:01:52,334 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:52,334 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:52,354 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:54,345 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:54,345 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:54,375 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:55,854 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:01:56,367 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:56,367 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:56,377 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:01:58,380 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:58,380 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:01:58,388 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:00,393 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:00,393 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:00,401 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:01,181 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:02:02,414 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:02,414 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:02,414 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:04,434 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:04,434 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:04,454 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:06,093 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 10:02:06,235 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:02:06,255 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 10:02:06,255 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 10:02:06,448 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:06,448 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:06,476 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:08,471 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:08,471 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:08,479 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:10,493 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:10,493 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:10,501 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:11,503 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:11,546 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:02:12,517 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:12,517 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:13,527 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:14,539 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:14,539 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:15,549 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:16,074 DEBUG   SenderThread:13024 [sender.py:send():379] send: stats
+2023-09-14 10:02:16,569 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:16,569 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:16,703 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:02:17,581 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:18,594 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:18,594 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:19,613 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:20,637 ERROR   gpu       :13024 [interfaces.py:aggregate():161] Failed to serialize metric: division by zero
+2023-09-14 10:02:20,647 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:20,647 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:21,099 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 10:02:21,272 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 10:02:21,272 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 10:02:21,633 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:21,747 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:02:22,666 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:22,666 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:23,648 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:24,670 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:24,670 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:25,680 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:26,690 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:26,690 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:26,813 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:02:27,710 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:28,710 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:28,710 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:29,712 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:30,725 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:30,725 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:31,734 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:32,030 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:02:32,738 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:32,738 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:33,747 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:34,761 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:34,761 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:35,770 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:36,104 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 10:02:36,285 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 10:02:36,285 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 10:02:36,779 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:36,779 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:37,065 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:02:37,790 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:38,803 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:38,803 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:39,809 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:40,826 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:40,826 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:41,844 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:42,149 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:02:42,868 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:42,868 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:43,877 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:44,887 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:44,887 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:45,899 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:46,082 DEBUG   SenderThread:13024 [sender.py:send():379] send: stats
+2023-09-14 10:02:46,903 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:46,903 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:47,328 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:02:47,922 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:48,925 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:48,925 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:49,925 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:50,966 ERROR   gpu       :13024 [interfaces.py:aggregate():161] Failed to serialize metric: division by zero
+2023-09-14 10:02:50,966 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:50,966 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:51,107 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 10:02:51,290 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 10:02:51,290 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 10:02:51,947 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:52,446 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:02:52,969 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:52,969 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:53,971 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:54,982 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:54,982 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:56,002 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:57,005 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:57,005 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:57,672 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:02:58,014 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:02:59,025 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:02:59,025 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:00,046 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:01,049 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:01,049 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:02,068 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:02,716 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:03:03,069 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:03,069 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:04,089 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:05,082 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:05,082 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:06,091 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:06,111 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 10:03:06,313 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 10:03:06,313 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 10:03:07,101 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:07,101 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:07,833 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:03:08,114 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:09,115 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:09,115 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:10,135 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:11,135 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:11,135 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:12,137 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:13,047 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:03:13,147 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:13,147 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:13,897 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: partial_history
+2023-09-14 10:03:13,897 DEBUG   SenderThread:13024 [sender.py:send():379] send: history
+2023-09-14 10:03:13,897 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: summary_record
+2023-09-14 10:03:13,897 INFO    SenderThread:13024 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2023-09-14 10:03:14,158 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:14,158 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_created():271] file/dir created: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\wandb-summary.json
+2023-09-14 10:03:15,157 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:15,157 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:16,085 DEBUG   SenderThread:13024 [sender.py:send():379] send: stats
+2023-09-14 10:03:16,187 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:17,176 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:17,176 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:18,216 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:18,873 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:03:19,196 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:19,196 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:20,237 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:21,114 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 10:03:21,238 ERROR   gpu       :13024 [interfaces.py:aggregate():161] Failed to serialize metric: division by zero
+2023-09-14 10:03:21,238 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:21,238 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:21,316 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 10:03:21,316 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 10:03:22,276 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:23,255 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:23,255 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:24,307 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:24,883 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:03:25,267 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:25,267 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:26,330 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:27,280 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:27,280 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:28,342 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:29,284 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:29,284 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:29,942 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:03:30,364 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:31,304 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:31,304 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:32,365 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:33,317 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:33,317 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:34,368 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:34,956 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:03:35,337 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:35,337 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:36,123 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 10:03:36,326 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 10:03:36,326 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 10:03:36,407 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:37,369 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:37,369 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:38,415 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:39,389 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:39,389 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:40,026 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:03:40,430 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:41,409 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:41,409 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:42,450 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:43,420 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:43,420 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:44,460 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:45,139 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:03:45,429 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:45,429 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:46,095 DEBUG   SenderThread:13024 [sender.py:send():379] send: stats
+2023-09-14 10:03:46,480 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:47,441 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:47,441 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:48,500 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:49,462 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:49,462 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:50,521 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:51,127 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:03:51,139 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 10:03:51,359 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 10:03:51,359 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 10:03:51,500 ERROR   gpu       :13024 [interfaces.py:aggregate():161] Failed to serialize metric: division by zero
+2023-09-14 10:03:51,503 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:51,503 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:52,551 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:53,512 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:53,512 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:54,572 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:55,514 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:55,514 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:55,574 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:57,112 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:03:57,526 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:57,526 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:57,595 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:03:59,545 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:59,545 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:03:59,606 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:01,569 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:01,569 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:01,637 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:02,255 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:04:03,587 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:03,587 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:03,658 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:05,607 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:05,607 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:05,687 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:06,153 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 10:04:06,376 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 10:04:06,376 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 10:04:07,618 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:07,618 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:07,689 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:08,217 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:04:09,630 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:09,630 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:09,691 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:11,643 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:11,643 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:11,701 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:13,674 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:13,674 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:13,723 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:14,197 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:04:15,695 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:15,695 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:15,743 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:16,106 DEBUG   SenderThread:13024 [sender.py:send():379] send: stats
+2023-09-14 10:04:17,725 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:17,725 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:17,764 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:19,745 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:19,745 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:19,785 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:20,170 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:04:21,159 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 10:04:21,402 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 10:04:21,402 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 10:04:21,778 ERROR   gpu       :13024 [interfaces.py:aggregate():161] Failed to serialize metric: division by zero
+2023-09-14 10:04:21,778 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:21,778 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:21,796 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:23,790 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:23,790 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:23,810 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:25,234 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:04:25,801 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:25,801 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:25,821 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:27,803 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:27,803 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:27,823 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:29,814 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:29,814 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:29,834 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:30,239 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:04:31,825 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:31,825 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:31,836 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:33,856 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:33,856 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:33,864 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:35,887 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:35,887 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:35,887 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:36,167 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-14 10:04:36,213 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:04:36,430 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-14 10:04:36,430 DEBUG   SenderThread:13024 [sender.py:send_request():406] send_request: stop_status
+2023-09-14 10:04:37,916 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:37,917 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:37,917 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:39,937 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:39,937 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:39,937 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:41,789 DEBUG   HandlerThread:13024 [handler.py:handle_request():144] handle_request: status_report
+2023-09-14 10:04:41,963 INFO    Thread-16 :13024 [dir_watcher.py:_on_file_modified():288] file/dir modified: G:\finger-vein-quality-assessement\wandb\run-20230914_095443-k18ls47p\files\output.log
+2023-09-14 10:04:41,963 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-14 10:04:41,963 ERROR   gpu       :13024 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
