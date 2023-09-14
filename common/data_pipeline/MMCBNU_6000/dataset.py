@@ -145,8 +145,8 @@ class DatasetLoader(DatasetLoaderBase):
 
     def pre_process(self, data: DatasetObject) -> Tuple[np.ndarray, np.ndarray]:
         H, W = 60, 120
-        image = cv2.imread(data.path, cv2.IMREAD_GRAYSCALE)
-        image = cv2.resize(image, (W, H))
+        image = cv2.imread(data.path, cv2.IMREAD_GRAYSCALE)  # pylint: disable=E1101
+        image = cv2.resize(image, (W, H))  # pylint: disable=E1101
         image = (image - image.min()) / (image.max() - image.min())
         image = image.astype("float")
         if EnvironmentType.PYTORCH == self.environment_type:
