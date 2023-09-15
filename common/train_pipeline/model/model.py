@@ -3,12 +3,12 @@ Model Factory.
 """
 
 from torch.nn import Module
-from common.train_pipeline.model.isotropic_vig import isotropic_vig_ti_224_gelu
+from common.train_pipeline.config import ModelConfig
+from common.train_pipeline.model.custom_model import CustomModel
 
 
-def get_model(model_name: str) -> Module:
+def get_model(config: ModelConfig) -> Module:
     """
     Gives back appropriate models.
     """
-    if model_name == "isotropic_vig_ti_224_gelu":
-        return isotropic_vig_ti_224_gelu()
+    return CustomModel(config=config)

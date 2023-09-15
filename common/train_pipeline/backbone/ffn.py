@@ -1,6 +1,25 @@
+"""
+FFN module declaration.
+"""
+from dataclasses import dataclass
+from typing import Optional
 from torch.nn import BatchNorm2d, Conv2d, Identity, Module, Sequential
 from timm.models.layers import DropPath
 from common.gcn_lib.torch_nn import act_layer
+
+
+@dataclass
+class FFNConfig:
+    """
+    FFN config.
+    """
+
+    in_features: int
+    hidden_features: Optional[int] = None
+    out_features: Optional[int] = None
+    act: str = "relu"
+    drop_path: float = 0.0
+    bias: bool = True
 
 
 class FFN(Module):
@@ -15,29 +34,50 @@ class FFN(Module):
     6. Droppath if mentioned
 
     Note:
-    Output of this sequential network is added to original input. (Acts as skip connection).
-    So make input of the layer can be added to output of the sequential network.
+    Output of this sequential network is added to original input. (Acts as
+    skip connection).
+    So make input of the layer can be added to output of the sequential
+    network.
     """
 
-    def __init__(self, in_features, hidden_features=None, out_features=None, act="relu", drop_path=0.0):
+    def __init__(self, config: FFNConfig):
         super().__init__()
-        out_features = out_features or in_features
-        hidden_features = hidden_features or in_features
+        out_features = config.out_features or config.in_features
+        hidden_features = config.hidden_features or config.in_features
         self.fc1 = Sequential(
-            Conv2d(in_features, hidden_features, 1, stride=1, padding=0),
+            Conv2d(
+                config.in_features,
+                hidden_features,
+                1,
+                stride=1,
+                padding=0,
+                bias=config.bias,
+            ),
             BatchNorm2d(hidden_features),
         )
-        self.act = act_layer(act)
+        self.act = act_layer(config.act)
         self.fc2 = Sequential(
-            Conv2d(hidden_features, out_features, 1, stride=1, padding=0),
+            Conv2d(
+                hidden_features,
+                out_features,
+                1,
+                stride=1,
+                padding=0,
+                bias=config.bias,
+            ),
             BatchNorm2d(out_features),
         )
-        self.drop_path = DropPath(drop_path) if drop_path > 0.0 else Identity()
+        self.drop_path = (
+            DropPath(config.drop_path) if config.drop_path > 0.0 else Identity()
+        )
 
-    def forward(self, x):
-        shortcut = x
-        x = self.fc1(x)
-        x = self.act(x)
-        x = self.fc2(x)
-        x = self.drop_path(x) + shortcut
-        return x  # .reshape(B, C, N, 1)
+    def forward(self, inputs):
+        """
+        Forward pass.
+        """
+        shortcut = inputs
+        inputs = self.fc1(inputs)
+        inputs = self.act(inputs)
+        inputs = self.fc2(inputs)
+        inputs = self.drop_path(inputs) + shortcut
+        return inputs  # .reshape(B, C, N, 1)

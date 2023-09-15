@@ -1,1 +1,1 @@
-{"train_correct": 107, "validation_correct": 0, "_timestamp": 1694679624.3478441, "_runtime": 1540.7583270072937, "_step": 2}
+{"train_correct": 275, "validation_correct": 0, "_timestamp": 1694680899.436027, "_runtime": 2815.8465099334717, "_step": 4, "_wandb": {"runtime": 3737}}
