@@ -1,0 +1,131 @@
+{
+    "os": "Linux-6.2.0-32-generic-x86_64-with-glibc2.35",
+    "python": "3.11.5",
+    "heartbeatAt": "2023-09-16T15:30:17.218706",
+    "startedAt": "2023-09-16T15:30:16.369233",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--log-on-wandb=True",
+        "--wandb-run-name=internal-db-resnet50-layer3-grapher-attention-ffn-linear-predictor"
+    ],
+    "state": "running",
+    "program": "/home/a-150/work/finger-vein-quality-assessement/train.py",
+    "codePathLocal": "train.py",
+    "codePath": "train.py",
+    "git": {
+        "remote": "git@github.com:Blazkowiz47/finger-vein-quality-assessement.git",
+        "commit": "0573e257d3033e953f83fb4cdd27b977f29150dc"
+    },
+    "email": "sushrutpatwardhan@gmail.com",
+    "root": "/home/a-150/work/finger-vein-quality-assessement",
+    "host": "A-150-Precision-Tower-7910",
+    "username": "a-150",
+    "executable": "/home/a-150/anaconda3/envs/dl-torch/bin/python",
+    "cpu_count": 8,
+    "cpu_count_logical": 16,
+    "cpu_freq": {
+        "current": 1.7349374999999996,
+        "min": 1200.0,
+        "max": 3500.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2.494,
+            "min": 1200.0,
+            "max": 3500.0
+        },
+        {
+            "current": 2.993,
+            "min": 1200.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1.2,
+            "min": 1200.0,
+            "max": 3500.0
+        },
+        {
+            "current": 2.994,
+            "min": 1200.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1.197,
+            "min": 1200.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1.2,
+            "min": 1200.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1.2,
+            "min": 1200.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1.2,
+            "min": 1200.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1.7,
+            "min": 1200.0,
+            "max": 3500.0
+        },
+        {
+            "current": 2.225,
+            "min": 1200.0,
+            "max": 3500.0
+        },
+        {
+            "current": 2.993,
+            "min": 1200.0,
+            "max": 3500.0
+        },
+        {
+            "current": 2.996,
+            "min": 1200.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1.2,
+            "min": 1200.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1.2,
+            "min": 1200.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1.197,
+            "min": 1200.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1.198,
+            "min": 1200.0,
+            "max": 3500.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 914.217887878418,
+            "used": 41.081947326660156
+        }
+    },
+    "gpu": "Quadro M5000",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "Quadro M5000",
+            "memory_total": 8589934592
+        }
+    ],
+    "memory": {
+        "total": 62.71070861816406
+    }
+}

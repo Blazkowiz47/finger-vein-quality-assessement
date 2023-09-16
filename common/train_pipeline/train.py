@@ -47,7 +47,7 @@ def get_dataset(
                 "Internal_301_DB",
                 is_dataset_already_split=True,
                 from_numpy=False,
-                augment_times=2,
+                augment_times=3,
             )
         ]
     )
