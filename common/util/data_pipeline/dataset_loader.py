@@ -21,18 +21,21 @@ class DatasetLoaderBase:
     def __init__(
         self,
         included_portion: float,
-        isDatasetAlreadySplit: bool = False,
+        is_dataset_already_split: bool = False,
         train_portion: float = 0.7,
         validation_portion: float = 0.1,
         environment_type: EnvironmentType = EnvironmentType.NUMPY,
+        augment_times: int = 0,
     ) -> None:
         self.environment_type: EnvironmentType = environment_type
         self.train_portion: float = train_portion
         self.validation_portion: float = validation_portion
         self.test_portion: float = 1 - train_portion - validation_portion
         self.included_portion: float = included_portion
-        self.is_dataset_already_split: bool = isDatasetAlreadySplit
+        self.is_dataset_already_split: bool = is_dataset_already_split
         self.files: Dict[DatasetSplitType, List[DatasetObject]] = {}
+        self.all_files = None
+        self.augment_times = augment_times
 
     @abstractmethod
     def get_directory(self) -> str:
@@ -45,17 +48,36 @@ class DatasetLoaderBase:
         raise NotImplementedError()
 
     def _convert_to_numpy_dataset(
-        self, data_List: List[DatasetObject], split_type: DatasetSplitType
+        self,
+        data_list: List[DatasetObject],
+        split_type: DatasetSplitType,
     ) -> List[np.ndarray]:
-        pre_processed_data: List[DatasetObject] = []
+        pre_processed_data: List[Tuple[np.ndarray, np.ndarray]] = []
         t_size = 0
-        logger.info(f"Preprocessing {self.get_name()} dataset for {split_type.value} split.")
-        for i, data in enumerate(tqdm(data_List)):
+        logger.info(
+            "Preprocessing %s dataset for %s split.", self.get_name(), split_type.value
+        )
+        for i, data in enumerate(tqdm(data_list)):
             pre_processed_data.append(self.pre_process(data))
             t_size = len(pre_processed_data[i])
+
+        augmented_dataset: List[Tuple[np.ndarray, np.ndarray]] = []
+        total = len(pre_processed_data) * self.augment_times
+        with tqdm(desc="Augmenting dataset", total=total) as pbar:
+            for data in pre_processed_data:
+                labels = data[1:]
+                image = data[0]
+                augmented_dataset.append(data)
+                pbar.update(1)
+                for _ in range(self.augment_times - 1):
+                    try:
+                        augmented_dataset.append((self.augment(image), *labels))
+                        pbar.update(1)
+                    except NotImplementedError:
+                        break
         dataset = []
         for i in range(t_size):
-            dataset.append(np.stack([data[i] for data in pre_processed_data]))
+            dataset.append(np.stack([data[i] for data in augmented_dataset]))
         return dataset
 
     def compile_sets(self) -> Dict[DatasetSplitType, List[np.ndarray]]:
@@ -67,7 +89,9 @@ class DatasetLoaderBase:
 
         result: Dict[DatasetSplitType, List[np.ndarray]] = {}
         for dataset_split_type, files in self.files.items():
-            converted_dataset = self._convert_to_numpy_dataset(files, dataset_split_type)
+            converted_dataset = self._convert_to_numpy_dataset(
+                files, dataset_split_type
+            )
             if converted_dataset:
                 result[dataset_split_type] = converted_dataset
         return result
@@ -76,9 +100,15 @@ class DatasetLoaderBase:
         return random.sample(data, k=int(portion * len(data)))
 
     def _populate_datasets_from_individual_pipelines(self):
-        self.files[DatasetSplitType.TRAIN] = self._sample(self.get_train_files(), self.included_portion)
-        self.files[DatasetSplitType.TEST] = self._sample(self.get_test_files(), self.included_portion)
-        self.files[DatasetSplitType.VALIDATION] = self._sample(self.get_validation_files(), self.included_portion)
+        self.files[DatasetSplitType.TRAIN] = self._sample(
+            self.get_train_files(), self.included_portion
+        )
+        self.files[DatasetSplitType.TEST] = self._sample(
+            self.get_test_files(), self.included_portion
+        )
+        self.files[DatasetSplitType.VALIDATION] = self._sample(
+            self.get_validation_files(), self.included_portion
+        )
 
     def _populate_datasets_from_all_files(self):
         """Pupulates train and test files from all_files"""
@@ -107,15 +137,21 @@ class DatasetLoaderBase:
         """Gets List of all the validation files"""
         return []
 
-    def _split_train_test_validation(self, data: List[DatasetObject]) -> Dict[DatasetSplitType, List[DatasetObject]]:
+    def _split_train_test_validation(
+        self, data: List[DatasetObject]
+    ) -> Dict[DatasetSplitType, List[DatasetObject]]:
         """Splits data into train test and validation sets."""
         result: Dict[DatasetSplitType, List[DatasetObject]] = {}
         remaining_portions = self.test_portion + self.validation_portion
         remaining_portions = remaining_portions if remaining_portions else 1
         result[DatasetSplitType.TRAIN] = self._sample(data, self.train_portion)
         temp = [x for x in data if x not in result[DatasetSplitType.TRAIN]]
-        result[DatasetSplitType.TEST] = self._sample(temp, (self.test_portion / remaining_portions))
-        result[DatasetSplitType.VALIDATION] = [x for x in temp if x not in result[DatasetSplitType.TEST]]
+        result[DatasetSplitType.TEST] = self._sample(
+            temp, (self.test_portion / remaining_portions)
+        )
+        result[DatasetSplitType.VALIDATION] = [
+            x for x in temp if x not in result[DatasetSplitType.TEST]
+        ]
         return result
 
     @abstractmethod
@@ -132,5 +168,13 @@ class DatasetLoaderBase:
             x = _process(x)
             y = _process(y)
             return x,y
+        """
+        raise NotImplementedError()
+
+    @abstractmethod
+    def augment(self, image: np.ndarray) -> np.ndarray:
+        """
+        Augment function for an image.
+        Augment the image as per you liking and return the augmented image.
         """
         raise NotImplementedError()

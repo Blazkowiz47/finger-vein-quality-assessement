@@ -12,7 +12,8 @@ import wandb
 # from common.data_pipeline.MMCBNU_6000.dataset import DatasetLoader as mmcbnu
 from common.train_pipeline.config import ModelConfig
 
-from common.data_pipeline.FV_USM.dataset import DatasetLoader as fvusm
+# from common.data_pipeline.FV_USM.dataset import DatasetLoader as fvusm
+from common.data_pipeline.dataset import DatasetLoader as common_dataset
 from common.train_pipeline.metric.accuracy import Metric as Accuracy
 
 from common.train_pipeline.model.model import get_model
@@ -38,7 +39,12 @@ def get_dataset(
             #     train_size=0.85,
             #     validation_size=0.15,
             # ),
-            fvusm(included_portion=1, environment_type=environment),
+            # fvusm(included_portion=1, environment_type=environment),
+            common_dataset(
+                "./datasets/layer3output",
+                "Resent50Layer3Output",
+                from_numpy=True,
+            )
         ]
     )
     return datasets.get_dataset(environment, batch_size=batch_size)

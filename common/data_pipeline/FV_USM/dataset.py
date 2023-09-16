@@ -5,7 +5,6 @@ import os
 from typing import List, Tuple
 
 import cv2
-from PIL import Image
 import numpy as np
 from common.util.data_pipeline.dataset_loader import DatasetLoaderBase
 from common.util.decorators import reflected

@@ -33,7 +33,7 @@ class DatasetLoader(DatasetLoaderBase):
             included_portion=included_portion,
             train_portion=train_size,
             validation_portion=validation_size,
-            isDatasetAlreadySplit=isDatasetAlreadySplit,
+            is_dataset_already_split=isDatasetAlreadySplit,
         )
 
     def get_directory(self) -> str:
@@ -147,7 +147,7 @@ class DatasetLoader(DatasetLoaderBase):
         return result
 
     def pre_process(self, data: DatasetObject) -> Tuple[np.ndarray, np.ndarray]:
-        height, width = 60, 120
+        height, width = 100, 200
         image = cv2.imread(data.path, cv2.IMREAD_GRAYSCALE)  # pylint: disable=E1101
         image = cv2.resize(image, (width, height))  # pylint: disable=E1101
         image = (image - image.min()) / (image.max() - image.min())

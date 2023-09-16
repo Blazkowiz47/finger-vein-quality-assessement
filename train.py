@@ -6,6 +6,7 @@ import wandb
 from common.train_pipeline.model.common_configs import (
     resnet50_grapher12_conv_gelu_config,
     resnet50_grapher_attention_12_conv_gelu_config,
+    grapher_attention_12_conv_gelu_config,
 )
 
 from common.train_pipeline.train import train
@@ -34,7 +35,7 @@ def main():
                 "epochs": EPOCHS,
             },
         )
-    config = resnet50_grapher_attention_12_conv_gelu_config()
+    config = grapher_attention_12_conv_gelu_config()
     train(config, BATCH_SIZE, EPOCHS, ENVIRONMENT, LOG_ON_WANDB)
     if LOG_ON_WANDB:
         wandb.finish()

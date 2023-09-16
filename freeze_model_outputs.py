@@ -98,11 +98,11 @@ def initialise_dir(
 if __name__ == "__main__":
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     train, _, _ = get_dataset()
-    model = get_model("models/resnet50_pretrained.pt").to(device)
+    MODEL = get_model("models/resnet50_pretrained.pt").to(device)
     initialise_dir()
     all_labels = []
     for inputs, labels in tqdm(train):
         inputs = inputs.float().to(device)
-        outputs = model(inputs)
+        outputs = MODEL(inputs)
         all_labels.append(labels.cpu().numpy())
         save_outputs(outputs.cpu().numpy(), labels.cpu().numpy())
