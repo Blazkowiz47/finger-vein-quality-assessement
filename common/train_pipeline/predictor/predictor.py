@@ -90,8 +90,13 @@ class LinPredictor(Module):
         Forward pass.
         """
         inputs = self.conv(inputs)
+        # print(inputs.shape)
         inputs = inputs.reshape((inputs.shape[0], -1))
+        # print(inputs.shape)
         inputs = self.lin1(inputs)
+        # print(inputs.shape)
         inputs = self.act(inputs)
+        # print(inputs.shape)
         inputs = self.lin2(inputs)
+        # print(inputs.shape)
         return inputs

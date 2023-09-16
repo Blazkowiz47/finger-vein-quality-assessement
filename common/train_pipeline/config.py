@@ -3,18 +3,12 @@ Contains predefined configuration classes.
 """
 
 from dataclasses import dataclass
-from typing import List, Optional, Tuple
-from common.gcn_lib.torch_vertex import GrapherConfig
-from common.train_pipeline.backbone.attention_block import AttentionBlockConfig
-from common.train_pipeline.backbone.ffn import FFNConfig
+from typing import List, Optional
 from common.train_pipeline.backbone.isotropic_backbone import (
     BackboneBlockConfig,
-    IsotropicBlockConfig,
 )
 from common.train_pipeline.predictor.predictor import PredictorConfig
 from common.train_pipeline.stem.stem import StemConfig
-
-from common.util.enums import EnvironmentType
 
 
 @dataclass

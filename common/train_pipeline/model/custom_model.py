@@ -36,8 +36,11 @@ class CustomModel(Module):
         """
         if self.stem:
             inputs = self.stem(inputs)
+        # print("Stem output:", inputs.shape)
         if self.backbone:
             inputs = self.backbone(inputs)
+        # print("Backbone output:", inputs.shape)
         if self.predictor:
             inputs = self.predictor(inputs)
+        # print("Predictor output:", inputs.shape)
         return inputs

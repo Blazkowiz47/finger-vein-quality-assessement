@@ -9,15 +9,15 @@ from tqdm import tqdm
 from torchmetrics import Metric
 import wandb
 
-from common.data_pipeline.MMCBNU_6000.dataset import DatasetLoader as mmcbnu
+# from common.data_pipeline.MMCBNU_6000.dataset import DatasetLoader as mmcbnu
+from common.train_pipeline.config import ModelConfig
 
-# from common.data_pipeline.FV_USM.dataset import DatasetLoader as fvusm
+from common.data_pipeline.FV_USM.dataset import DatasetLoader as fvusm
 from common.train_pipeline.metric.accuracy import Metric as Accuracy
+
 from common.train_pipeline.model.model import get_model
-from common.train_pipeline.stem.stem import Stem
 from common.util.data_pipeline.dataset_chainer import DatasetChainer
 from common.util.enums import EnvironmentType
-from common.train_pipeline.model.isotropic_vig import isotropic_vig_ti_224_gelu
 
 # To watch nvidia-smi continuously after every 2 seconds: watch -n 2 nvidia-smi
 
@@ -32,13 +32,13 @@ def get_dataset(
     """
     datasets = DatasetChainer(
         datasets=[
-            mmcbnu(
-                included_portion=1,
-                environment_type=environment,
-                train_size=0.85,
-                validation_size=0.15,
-            ),
-            # fvusm(included_portion=0, environment_type=environment),
+            # mmcbnu(
+            #     included_portion=1,
+            #     environment_type=environment,
+            #     train_size=0.85,
+            #     validation_size=0.15,
+            # ),
+            fvusm(included_portion=1, environment_type=environment),
         ]
     )
     return datasets.get_dataset(environment, batch_size=batch_size)
@@ -100,6 +100,7 @@ def add_label(metric: Dict[str, Any], label: str = "") -> Dict[str, Any]:
 
 
 def train(
+    config: ModelConfig,
     batch_size: int = 10,
     epochs: int = 1,
     environment: EnvironmentType = EnvironmentType.PYTORCH,
@@ -119,7 +120,7 @@ def train(
         print("Memory Usage:")
         print("Allocated:", round(torch.cuda.memory_allocated(0) / 1024**3, 1), "GB")
         print("Cached:   ", round(torch.cuda.memory_reserved(0) / 1024**3, 1), "GB")
-    model = get_model("isotropic_vig_ti_224_gelu").to(device)
+    model = get_model(config).to(device)
     print(model)
     train_dataset, _, validation_dataset = get_dataset(environment, batch_size)
 
@@ -138,7 +139,7 @@ def train(
             inputs = inputs.to(device).float()
             labels = labels.to(device).float()
             optimizer.zero_grad()
-            outputs = model(inputs)
+            outputs = model(inputs)  # pylint: disable=E1102
             loss = train_loss_fn(outputs, labels)
             loss.backward()
             optimizer.step()
@@ -153,7 +154,7 @@ def train(
             for inputs, labels in tqdm(validation_dataset, desc="Validation:"):
                 inputs = inputs.to(device).float()
                 labels = labels.to(device).float()
-                outputs = model(inputs)
+                outputs = model(inputs)  # pylint: disable=E1102
                 val_loss += validate_loss_fn(outputs, labels)
                 predicted = (outputs == outputs.max()).float()
                 for metric in val_metrics:

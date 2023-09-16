@@ -70,13 +70,16 @@ class DatasetLoader(DatasetLoaderBase):
         return result
 
     def pre_process(self, data: DatasetObject) -> Tuple[np.ndarray, np.ndarray]:
-        image = Image.open(data.path)
+        height, width = 100, 200
+        image = cv2.imread(data.path, cv2.IMREAD_GRAYSCALE)  # pylint: disable=E1101
+        image = cv2.resize(image, (height, width))
         image = np.asarray(image)
-        image = cv2.resize(image, dsize=(10, 10))
+        image = image.transpose()
         image = (image - image.min()) / (image.max() - image.min())
         image = image.astype("float")
         if EnvironmentType.PYTORCH == self.environment_type:
-            image = image.reshape((1, 10, 10))
+            image = image.reshape((1, height, width))
         elif EnvironmentType.TENSORFLOW == self.environment_type:
-            image = image.reshape((10, 10, 1))
-        return image, np.array([1.0])
+            image = image.reshape((height, width, 1))
+        label = np.zeros((600,))
+        return np.vstack([image, image, image]), label
