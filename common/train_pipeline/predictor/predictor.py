@@ -74,8 +74,15 @@ class LinPredictor(Module):
 
     def __init__(self, config: PredictorConfig) -> None:
         super(LinPredictor, self).__init__()
-        self.conv = Conv2d(
+        self.conv1 = Conv2d(
             config.in_channels,
+            config.conv_out_channels,
+            3,
+            1,
+            bias=config.bias,
+        )
+        self.conv2 = Conv2d(
+            config.conv_out_channels,
             config.conv_out_channels,
             3,
             1,
@@ -89,7 +96,9 @@ class LinPredictor(Module):
         """
         Forward pass.
         """
-        inputs = self.conv(inputs)
+        inputs = self.conv1(inputs)
+        # print(inputs.shape)
+        inputs = self.conv2(inputs)
         # print(inputs.shape)
         inputs = inputs.reshape((inputs.shape[0], -1))
         # print(inputs.shape)

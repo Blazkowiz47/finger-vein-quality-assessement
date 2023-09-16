@@ -62,19 +62,22 @@ class DatasetLoaderBase:
             t_size = len(pre_processed_data[i])
 
         augmented_dataset: List[Tuple[np.ndarray, np.ndarray]] = []
-        total = len(pre_processed_data) * self.augment_times
-        with tqdm(desc="Augmenting dataset", total=total) as pbar:
-            for data in pre_processed_data:
-                labels = data[1:]
-                image = data[0]
-                augmented_dataset.append(data)
-                pbar.update(1)
-                for _ in range(self.augment_times - 1):
-                    try:
-                        augmented_dataset.append((self.augment(image), *labels))
-                        pbar.update(1)
-                    except NotImplementedError:
-                        break
+        if split_type == DatasetSplitType.TRAIN:
+            total = len(pre_processed_data) * self.augment_times
+            with tqdm(desc="Augmenting dataset", total=total) as pbar:
+                for data in pre_processed_data:
+                    labels = data[1]
+                    image = data[0]
+                    augmented_dataset.append(data)
+                    pbar.update(1)
+                    for _ in range(self.augment_times - 1):
+                        try:
+                            augmented_dataset.append((self.augment(image), labels))
+                            pbar.update(1)
+                        except NotImplementedError:
+                            break
+        else:
+            augmented_dataset = pre_processed_data
         dataset = []
         for i in range(t_size):
             dataset.append(np.stack([data[i] for data in augmented_dataset]))

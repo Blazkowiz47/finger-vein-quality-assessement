@@ -115,7 +115,7 @@ class DatasetLoader(DatasetLoaderBase):
             if image.shape[0] > image.shape[1]:
                 image = image.transpose()  # pylint: disable=E1101
             image = cv2.resize(image, (width, height))
-            image = (image - image.min()) / (image.max() - image.min())
+            image = (image - image.min()) / ((image.max() - image.min()) or 1.0)
             image = image.astype("float")
             if EnvironmentType.PYTORCH == self.environment_type:
                 image = np.expand_dims(image, axis=0)
@@ -123,10 +123,10 @@ class DatasetLoader(DatasetLoaderBase):
                 image = np.expand_dims(image, axis=-1)
             image = np.vstack([image, image, image])
 
-        label = np.zeros(len(self.classes))
+        label = np.zeros((len(self.classes)))
         label[data.label - 1] = 1  # One hot encoding
         # return image, label
-        return image.astype(np.float32), label.astype(np.float32)
+        return image.astype(np.float32), label
 
     def augment(self, image: np.ndarray) -> np.ndarray:
         transform = A.Compose(

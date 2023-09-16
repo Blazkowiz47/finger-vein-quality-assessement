@@ -31,7 +31,7 @@ def resnet50_grapher12_conv_gelu_config() -> ModelConfig:
     num_knn: int = 9
     drop_path: float = 0.0
     use_dilation: bool = False
-    n_classes: int = 600
+    n_classes: int = 301
     bias: bool = True
 
     num_knn_list: List[Any] = [
@@ -110,7 +110,7 @@ def resnet50_grapher_attention_12_conv_gelu_config() -> ModelConfig:
     num_knn: int = 9
     drop_path: float = 0.0
     use_dilation: bool = False
-    n_classes: int = 600
+    n_classes: int = 301
     bias: bool = True
 
     num_knn_list: List[Any] = [
@@ -170,7 +170,7 @@ def resnet50_grapher_attention_12_conv_gelu_config() -> ModelConfig:
         predictor_config=PredictorConfig(
             predictor_type="linear",
             in_channels=in_channels,
-            linear_dims=in_channels * 5 * 11,
+            linear_dims=in_channels * 3 * 9,
             n_classes=n_classes,
             act=act,
             bias=bias,
@@ -188,14 +188,13 @@ def grapher_attention_12_conv_gelu_config() -> ModelConfig:
     Grapher followed by ffn [12 blocks]
     predictor (linear)
     """
-    resnet_layer: int = 3
     in_channels: int = 1024
     act: str = "gelu"
     n_blocks: int = 12
     num_knn: int = 9
     drop_path: float = 0.0
     use_dilation: bool = False
-    n_classes: int = 600
+    n_classes: int = 301
     bias: bool = True
 
     num_knn_list: List[Any] = [

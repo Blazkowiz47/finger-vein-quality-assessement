@@ -3,8 +3,10 @@ Main training file.
 calls the train pipeline with configs.
 """
 import argparse
+import os
 
 import wandb
+from common.util.logger import logger
 from common_configs import (
     resnet50_grapher12_conv_gelu_config,
     resnet50_grapher_attention_12_conv_gelu_config,
@@ -61,7 +63,13 @@ parser.add_argument(
     "--validate-after-epochs",
     type=int,
     default=5,
-    help="Wandb run name",
+    help="Validate after epochs.",
+)
+parser.add_argument(
+    "--learning-rate",
+    type=float,
+    default=1e-4,
+    help="Learning rate.",
 )
 
 
@@ -87,6 +95,7 @@ def main():
     log_on_wandb = args.log_on_wandb
     epochs = args.epochs
     batch_size = args.batch_size
+    logger.info("BATCHSIZE: %s", batch_size)
     environment = (
         EnvironmentType.PYTORCH
         if args.environment == "pytorch"
@@ -113,6 +122,7 @@ def main():
         environment,
         args.log_on_wandb,
         args.validate_after_epochs,
+        args.learning_rate,
     )
     if log_on_wandb:
         wandb.finish()

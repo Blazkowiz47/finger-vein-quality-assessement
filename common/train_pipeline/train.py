@@ -47,6 +47,7 @@ def get_dataset(
                 "Internal_301_DB",
                 is_dataset_already_split=True,
                 from_numpy=False,
+                augment_times=2,
             )
         ]
     )
@@ -117,17 +118,11 @@ def add_label(metric: Dict[str, Any], label: str = "") -> Dict[str, Any]:
     return {f"{label}_{k}": v for k, v in metric.items()}
 
 
-def train(
-    config: ModelConfig,
-    batch_size: int = 10,
-    epochs: int = 1,
-    environment: EnvironmentType = EnvironmentType.PYTORCH,
-    log_on_wandb: bool = False,
-    validate_after_epochs: int = 5,
-):
+def cuda_info():
     """
-    Contains the training loop.
+    Prints cuda info.
     """
+
     device = torch.device(
         "cuda" if torch.cuda.is_available() else "cpu"
     )  # pylint: disable=E1101
@@ -144,11 +139,26 @@ def train(
         logger.info(
             "Cached: %s GB", round(torch.cuda.memory_reserved(0) / 1024**3, 1)
         )
+    return device
+
+
+def train(
+    config: ModelConfig,
+    batch_size: int = 10,
+    epochs: int = 1,
+    environment: EnvironmentType = EnvironmentType.PYTORCH,
+    log_on_wandb: bool = False,
+    validate_after_epochs: int = 5,
+    learning_rate: float = 1e-4,
+):
+    """
+    Contains the training loop.
+    """
+    device = cuda_info()
+    train_dataset, validation_dataset, _ = get_dataset(environment, batch_size)
     model = get_model(config).to(device)
     logger.info(model)
-    train_dataset, _, validation_dataset = get_dataset(environment, batch_size)
-
-    optimizer = optim.AdamW(model.parameters(), lr=0.0001)
+    optimizer = optim.AdamW(model.parameters(), lr=learning_rate)
 
     train_loss_fn = get_train_loss(device)
     validate_loss_fn = get_val_loss(device)
@@ -157,11 +167,12 @@ def train(
     # test_metrics = get_test_metrics(device)
     val_metrics = get_val_metrics(device)
     # Training loop
+    _ = cuda_info()
     for epoch in range(1, epochs + 1):
         model.train()
         for inputs, labels in tqdm(train_dataset, desc=f"Epoch {epoch} Training: "):
-            inputs = inputs.to(device).float()
-            labels = labels.to(device).float()
+            inputs = inputs.cuda().float()
+            labels = labels.cuda().float()
             optimizer.zero_grad()
             outputs = model(inputs)  # pylint: disable=E1102
             loss = train_loss_fn(outputs, labels)
@@ -172,6 +183,7 @@ def train(
                 metric.update(predicted, labels)
         model.eval()
         results = [add_label(metric.compute(), "train") for metric in train_metrics]
+
         if epoch % validate_after_epochs == 0:
             val_loss = 0.0
             with torch.no_grad():
