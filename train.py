@@ -5,7 +5,6 @@ calls the train pipeline with configs.
 import argparse
 
 import wandb
-import yaml
 from common_configs import (
     resnet50_grapher12_conv_gelu_config,
     resnet50_grapher_attention_12_conv_gelu_config,
@@ -58,6 +57,12 @@ parser.add_argument(
     default=None,
     help="Wandb run name",
 )
+parser.add_argument(
+    "--validate-after-epochs",
+    type=int,
+    default=5,
+    help="Wandb run name",
+)
 
 
 def get_config(config: str):
@@ -89,7 +94,6 @@ def main():
     )
     wandb_run_name = args.wandb_run_name
     config = get_config(args.config)
-    print(log_on_wandb, epochs, batch_size, environment, wandb_run_name, args.config)
     if log_on_wandb:
         wandb.init(
             # set the wandb project where this run will be logged
@@ -102,7 +106,14 @@ def main():
             },
         )
 
-    train(config, batch_size, epochs, environment, log_on_wandb)
+    train(
+        config,
+        batch_size,
+        epochs,
+        environment,
+        args.log_on_wandb,
+        args.validate_after_epochs,
+    )
     if log_on_wandb:
         wandb.finish()
 

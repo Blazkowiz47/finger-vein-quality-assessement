@@ -15,6 +15,7 @@ from common.train_pipeline.config import ModelConfig
 # from common.data_pipeline.FV_USM.dataset import DatasetLoader as fvusm
 from common.data_pipeline.dataset import DatasetLoader as common_dataset
 from common.train_pipeline.metric.accuracy import Metric as Accuracy
+from common.train_pipeline.metric.confusion_matrix import Metric as ConfusionMatrix
 
 from common.train_pipeline.model.model import get_model
 from common.util.data_pipeline.dataset_chainer import DatasetChainer
@@ -43,7 +44,8 @@ def get_dataset(
             common_dataset(
                 "./datasets/layer3output",
                 "Resent50Layer3Output",
-                from_numpy=True,
+                is_dataset_already_split=True,
+                from_numpy=False,
             )
         ]
     )
@@ -81,21 +83,30 @@ def get_train_metrics(device: str = "cpu") -> list[Metric]:
     """
     Returns list of training metrics.
     """
-    return [Accuracy().to(device)]
+    return [
+        Accuracy().to(device),
+        ConfusionMatrix().to(device),
+    ]
 
 
 def get_test_metrics(device: str = "cpu") -> list[Metric]:
     """
     Returns list of testing metrics.
     """
-    return [Accuracy().to(device)]
+    return [
+        Accuracy().to(device),
+        ConfusionMatrix().to(device),
+    ]
 
 
 def get_val_metrics(device: str = "cpu") -> list[Metric]:
     """
     Returns list of validation metrics.
     """
-    return [Accuracy().to(device)]
+    return [
+        Accuracy().to(device),
+        ConfusionMatrix().to(device),
+    ]
 
 
 def add_label(metric: Dict[str, Any], label: str = "") -> Dict[str, Any]:
@@ -111,6 +122,7 @@ def train(
     epochs: int = 1,
     environment: EnvironmentType = EnvironmentType.PYTORCH,
     log_on_wandb: bool = False,
+    validate_after_epochs: int = 5,
 ):
     """
     Contains the training loop.
@@ -154,20 +166,20 @@ def train(
                 metric.update(predicted, labels)
         model.eval()
         results = [add_label(metric.compute(), "train") for metric in train_metrics]
-
-        val_loss = 0.0
-        with torch.no_grad():
-            for inputs, labels in tqdm(validation_dataset, desc="Validation:"):
-                inputs = inputs.to(device).float()
-                labels = labels.to(device).float()
-                outputs = model(inputs)  # pylint: disable=E1102
-                val_loss += validate_loss_fn(outputs, labels)
-                predicted = (outputs == outputs.max()).float()
-                for metric in val_metrics:
-                    metric.update(predicted, labels)
-        results.extend(
-            [add_label(metric.compute(), "validation") for metric in val_metrics]
-        )
+        if epoch % validate_after_epochs == 0:
+            val_loss = 0.0
+            with torch.no_grad():
+                for inputs, labels in tqdm(validation_dataset, desc="Validation:"):
+                    inputs = inputs.to(device).float()
+                    labels = labels.to(device).float()
+                    outputs = model(inputs)  # pylint: disable=E1102
+                    val_loss += validate_loss_fn(outputs, labels)
+                    predicted = (outputs == outputs.max()).float()
+                    for metric in val_metrics:
+                        metric.update(predicted, labels)
+            results.extend(
+                [add_label(metric.compute(), "validation") for metric in val_metrics]
+            )
         log = {}
         for result in results:
             log = log | result
