@@ -11,6 +11,7 @@ from common.util.data_pipeline.dataset_loader import DatasetLoaderBase
 from common.util.decorators import reflected
 from common.util.enums import EnvironmentType
 from common.util.models.dataset_models import DatasetObject
+from common.util.logger import logger
 
 
 @reflected
@@ -81,24 +82,28 @@ class DatasetLoader(DatasetLoaderBase):
         try:
             return self.loop_through_dir(f"{self.get_directory()}/train")
         except FileNotFoundError:
+            logger.error("Error reading train dataset.")
             return []
 
     def get_test_files(self) -> List[DatasetObject]:
         try:
             return self.loop_through_dir(f"{self.get_directory()}/test")
         except FileNotFoundError:
+            logger.error("Error reading test dataset.")
             return []
 
     def get_validation_files(self) -> List[DatasetObject]:
         try:
             return self.loop_through_dir(f"{self.get_directory()}/validation")
         except FileNotFoundError:
+            logger.error("Error reading validation dataset.")
             return []
 
     def get_files(self) -> List[DatasetObject]:
         try:
             return self.loop_through_dir(self.get_directory())
         except FileNotFoundError:
+            logger.error("Error reading datasets.")
             return []
 
     def pre_process(self, data: DatasetObject) -> Tuple[np.ndarray, np.ndarray]:
@@ -121,17 +126,17 @@ class DatasetLoader(DatasetLoaderBase):
         label = np.zeros(len(self.classes))
         label[data.label - 1] = 1  # One hot encoding
         # return image, label
-        return image, label
+        return image.astype(np.float32), label.astype(np.float32)
 
     def augment(self, image: np.ndarray) -> np.ndarray:
         transform = A.Compose(
             [
-                A.HorizontalFlip(p=0.5),
-                A.VerticalFlip(p=0.5),
+                A.HorizontalFlip(p=0.25),
+                A.VerticalFlip(p=0.25),
                 A.RandomBrightnessContrast(p=0.2),
                 A.InvertImg(p=0.05),
                 A.PixelDropout(p=0.02),
-            ]
+            ],
         )
         transformed = transform(image=image)
         transformed_image = transformed["image"]

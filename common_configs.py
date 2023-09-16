@@ -10,6 +10,7 @@ from common.train_pipeline.backbone.isotropic_backbone import IsotropicBlockConf
 from common.train_pipeline.config import BackboneConfig, ModelConfig
 from common.train_pipeline.predictor.predictor import PredictorConfig
 from common.train_pipeline.stem.stem import StemConfig
+from common.util.logger import logger
 
 # For 60*120 backbone output is 1024*4*8
 # For 100*300 backbone output is 1024*7*19
@@ -39,8 +40,8 @@ def resnet50_grapher12_conv_gelu_config() -> ModelConfig:
     dpr = [
         x.item() for x in torch.linspace(0, drop_path, n_blocks)
     ]  # stochastic depth decay rule
-    print("dpr", dpr)
-    print("Num knn:", num_knn_list)
+    logger.info(f"dpr {dpr}")
+    logger.info(f"Num knn: {num_knn_list}")
     max_dilation = 196 // max(num_knn_list)
     blocks: List[IsotropicBlockConfig] = []
 
@@ -118,8 +119,8 @@ def resnet50_grapher_attention_12_conv_gelu_config() -> ModelConfig:
     dpr = [
         x.item() for x in torch.linspace(0, drop_path, n_blocks)
     ]  # stochastic depth decay rule
-    print("dpr", dpr)
-    print("Num knn:", num_knn_list)
+    logger.info(f"dpr {dpr}")
+    logger.info(f"Num knn: {num_knn_list}")
     max_dilation = 196 // max(num_knn_list)
     blocks: List[IsotropicBlockConfig] = []
 
@@ -203,8 +204,8 @@ def grapher_attention_12_conv_gelu_config() -> ModelConfig:
     dpr = [
         x.item() for x in torch.linspace(0, drop_path, n_blocks)
     ]  # stochastic depth decay rule
-    print("dpr", dpr)
-    print("Num knn:", num_knn_list)
+    logger.info(f"dpr {dpr}")
+    logger.info(f"Num knn: {num_knn_list}")
     max_dilation = 196 // max(num_knn_list)
     blocks: List[IsotropicBlockConfig] = []
 

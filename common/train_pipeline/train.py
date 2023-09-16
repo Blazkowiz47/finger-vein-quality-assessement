@@ -18,6 +18,7 @@ from common.train_pipeline.metric.accuracy import Metric as Accuracy
 from common.train_pipeline.metric.confusion_matrix import Metric as ConfusionMatrix
 
 from common.train_pipeline.model.model import get_model
+from common.util.logger import logger
 from common.util.data_pipeline.dataset_chainer import DatasetChainer
 from common.util.enums import EnvironmentType
 
@@ -42,8 +43,8 @@ def get_dataset(
             # ),
             # fvusm(included_portion=1, environment_type=environment),
             common_dataset(
-                "./datasets/layer3output",
-                "Resent50Layer3Output",
+                "datasets/internal_301_db",
+                "Internal_301_DB",
                 is_dataset_already_split=True,
                 from_numpy=False,
             )
@@ -130,16 +131,21 @@ def train(
     device = torch.device(
         "cuda" if torch.cuda.is_available() else "cpu"
     )  # pylint: disable=E1101
-    print("Using device:", device)
+    logger.info("Using device: %s", device)
 
     # Additional Info when using cuda
     if device.type == "cuda":
-        print(torch.cuda.get_device_name(0))
-        print("Memory Usage:")
-        print("Allocated:", round(torch.cuda.memory_allocated(0) / 1024**3, 1), "GB")
-        print("Cached:   ", round(torch.cuda.memory_reserved(0) / 1024**3, 1), "GB")
+        logger.info(torch.cuda.get_device_name(0))
+        logger.info("Memory Usage:")
+        logger.info(
+            "Allocated: %s GB",
+            round(torch.cuda.memory_allocated(0) / 1024**3, 1),
+        )
+        logger.info(
+            "Cached: %s GB", round(torch.cuda.memory_reserved(0) / 1024**3, 1)
+        )
     model = get_model(config).to(device)
-    print(model)
+    logger.info(model)
     train_dataset, _, validation_dataset = get_dataset(environment, batch_size)
 
     optimizer = optim.AdamW(model.parameters(), lr=0.0001)
@@ -183,7 +189,7 @@ def train(
         log = {}
         for result in results:
             log = log | result
-        print(*[f"{k}: {v}" for k, v in log.items()])
+        logger.info(*[f"{k}: {v}" for k, v in log.items()])
         if log_on_wandb:
             wandb.log(log)
 
