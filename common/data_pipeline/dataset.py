@@ -29,7 +29,7 @@ class DatasetLoader(DatasetLoaderBase):
         validation_size: float = 0.1,
         is_dataset_already_split: bool = False,
         from_numpy: bool = True,
-        augment_times: int = 5,
+        augment_times: int = 8,
     ) -> None:
         self.directory: str = directory
         self.dataset_name: str = dataset_name
@@ -130,7 +130,7 @@ class DatasetLoader(DatasetLoaderBase):
                 A.VerticalFlip(p=0.5),
                 A.RandomBrightnessContrast(p=0.2),
                 A.InvertImg(p=0.05),
-                A.PixelDropout(p=0.1),
+                A.PixelDropout(p=0.02),
             ]
         )
         transformed = transform(image=image)
