@@ -3,7 +3,7 @@ Contains various predictors.
 """
 from dataclasses import dataclass
 from torch.nn.functional import adaptive_avg_pool2d
-from torch.nn import BatchNorm2d, Conv2d, Dropout, Linear, Module, Sequential
+from torch.nn import BatchNorm2d, Conv2d, Dropout, Linear, Module, Sequential, Softmax
 
 from common.gcn_lib.torch_nn import act_layer
 
@@ -23,6 +23,7 @@ class PredictorConfig:
     dropout: float = 0.0
     linear_dims: int = 1024 * 3
     conv_out_channels: int = 1024 // 4
+    linear_hidden_dims: int = 1024
 
 
 def get_predictor(config: PredictorConfig) -> Module:
@@ -76,21 +77,15 @@ class LinPredictor(Module):
         super(LinPredictor, self).__init__()
         self.conv1 = Conv2d(
             config.in_channels,
-            config.conv_out_channels,
+            config.linear_dims,
             3,
             1,
             bias=config.bias,
         )
-        self.conv2 = Conv2d(
-            config.conv_out_channels,
-            config.conv_out_channels,
-            3,
-            1,
-            bias=config.bias,
-        )
-        self.lin1 = Linear(config.linear_dims, config.hidden_dims)
+
+        self.lin1 = Linear(config.linear_dims, config.n_classes)
         self.act = act_layer(config.act)
-        self.lin2 = Linear(config.hidden_dims, config.n_classes)
+        self.softmax = Softmax(dim=1)
 
     def forward(self, inputs):
         """
@@ -98,14 +93,15 @@ class LinPredictor(Module):
         """
         inputs = self.conv1(inputs)
         # print(inputs.shape)
-        inputs = self.conv2(inputs)
+        inputs = adaptive_avg_pool2d(inputs, 1)
         # print(inputs.shape)
-        inputs = inputs.reshape((inputs.shape[0], -1))
+        inputs = inputs.squeeze(-1).squeeze(-1)
         # print(inputs.shape)
         inputs = self.lin1(inputs)
         # print(inputs.shape)
         inputs = self.act(inputs)
         # print(inputs.shape)
-        inputs = self.lin2(inputs)
+        # inputs = self.lin2(inputs)
         # print(inputs.shape)
+        inputs = self.softmax(inputs)
         return inputs
