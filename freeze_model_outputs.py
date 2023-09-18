@@ -11,7 +11,9 @@ from common.train_pipeline.stem.stem import StemConfig, get_stem
 from common.util.data_pipeline.dataset_chainer import DatasetChainer
 
 from common.util.enums import EnvironmentType
-from common.data_pipeline.MMCBNU_6000.dataset import DatasetLoader as mmcbnu
+
+# from common.data_pipeline.MMCBNU_6000.dataset import DatasetLoader as mmcbnu
+from common.data_pipeline.dataset import DatasetLoader as common_dataset
 
 IMAGES_DONE_PER_CLASS = {}
 
@@ -62,14 +64,21 @@ def get_dataset(
     """
     datasets = DatasetChainer(
         datasets=[
-            mmcbnu(
-                included_portion=1,
-                environment_type=environment,
-                train_size=1.0,
-                validation_size=0.0,
-                isDatasetAlreadySplit=False,
-            ),
+            # mmcbnu(
+            #     included_portion=1,
+            #     environment_type=environment,
+            #     train_size=1.0,
+            #     validation_size=0.0,
+            #     isDatasetAlreadySplit=False,
+            # ),
             # fvusm(included_portion=0, environment_type=environment),
+            common_dataset(
+                "datasets/internal_301_db",
+                "Internal_301_DB",
+                is_dataset_already_split=True,
+                from_numpy=False,
+                augment_times=3,
+            )
         ]
     )
     return datasets.get_dataset(
@@ -80,7 +89,7 @@ def get_dataset(
 
 
 def initialise_dir(
-    root_dir: str = "G:/finger-vein-quality-assessement/datasets",
+    root_dir: str = "./datasets",
     output_dataset_name: str = "layer3output",
     n_classes: int = 600,
 ):
@@ -91,17 +100,51 @@ def initialise_dir(
     os.chdir(root_dir)
     os.mkdir(output_dataset_name)
     os.chdir(output_dataset_name)
+    os.mkdir("test")
+    os.mkdir("train")
+    os.mkdir("validation")
+    os.chdir("train")
     for label in range(1, n_classes + 1):
         os.mkdir(str(label))
+    os.chdir("..")
+    os.chdir("test")
+    for label in range(1, n_classes + 1):
+        os.mkdir(str(label))
+    os.chdir("..")
+    os.chdir("validation")
+    for label in range(1, n_classes + 1):
+        os.mkdir(str(label))
+    os.chdir("..")
 
 
 if __name__ == "__main__":
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    train, _, _ = get_dataset()
+    train, test, validation = get_dataset()
     MODEL = get_model("models/resnet50_pretrained.pt").to(device)
-    initialise_dir()
+    initialise_dir(n_classes=301)
+    os.chdir("train")
     all_labels = []
     for inputs, labels in tqdm(train):
+        inputs = inputs.float().to(device)
+        outputs = MODEL(inputs)
+        all_labels.append(labels.cpu().numpy())
+        save_outputs(outputs.cpu().numpy(), labels.cpu().numpy())
+
+    os.chdir("..")
+    os.chdir("test")
+    IMAGES_DONE_PER_CLASS.clear()
+    all_labels = []
+    for inputs, labels in tqdm(test):
+        inputs = inputs.float().to(device)
+        outputs = MODEL(inputs)
+        all_labels.append(labels.cpu().numpy())
+        save_outputs(outputs.cpu().numpy(), labels.cpu().numpy())
+
+    os.chdir("..")
+    os.chdir("validation")
+    IMAGES_DONE_PER_CLASS.clear()
+    all_labels = []
+    for inputs, labels in tqdm(validation):
         inputs = inputs.float().to(device)
         outputs = MODEL(inputs)
         all_labels.append(labels.cpu().numpy())

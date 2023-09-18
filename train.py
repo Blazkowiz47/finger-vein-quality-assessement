@@ -3,11 +3,10 @@ Main training file.
 calls the train pipeline with configs.
 """
 import argparse
-import os
 
 import wandb
-from common.util.logger import logger
 from common_configs import (
+    grapher_12_conv_gelu_config,
     resnet50_grapher12_conv_gelu_config,
     resnet50_grapher_attention_12_conv_gelu_config,
     grapher_attention_12_conv_gelu_config,
@@ -15,6 +14,7 @@ from common_configs import (
 
 
 from common.train_pipeline.train import train
+from common.util.logger import logger
 from common.util.enums import EnvironmentType
 
 
@@ -83,6 +83,8 @@ def get_config(config: str):
         return resnet50_grapher_attention_12_conv_gelu_config()
     if config == "grapher_attention_12_conv_gelu_config":
         return grapher_attention_12_conv_gelu_config()
+    if config == "grapher_12_conv_gelu_config":
+        return grapher_12_conv_gelu_config()
 
     raise ValueError(f"Wrong config: {config}")
 
@@ -114,16 +116,19 @@ def main():
                 "epochs": epochs,
             },
         )
+    try:
+        train(
+            config,
+            batch_size,
+            epochs,
+            environment,
+            args.log_on_wandb,
+            args.validate_after_epochs,
+            args.learning_rate,
+        )
+    except KeyboardInterrupt:
+        pass
 
-    train(
-        config,
-        batch_size,
-        epochs,
-        environment,
-        args.log_on_wandb,
-        args.validate_after_epochs,
-        args.learning_rate,
-    )
     if log_on_wandb:
         wandb.finish()
 

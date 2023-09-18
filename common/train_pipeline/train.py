@@ -43,11 +43,11 @@ def get_dataset(
             # ),
             # fvusm(included_portion=1, environment_type=environment),
             common_dataset(
-                "datasets/internal_301_db",
-                "Internal_301_DB",
+                "datasets/layer3output",
+                "Internal_301_DB_layer3output",
                 is_dataset_already_split=True,
-                from_numpy=False,
-                augment_times=3,
+                from_numpy=True,
+                augment_times=0,
             )
         ]
     )
@@ -197,6 +197,10 @@ def train(
                         metric.update(predicted, labels)
             results.extend(
                 [add_label(metric.compute(), "validation") for metric in val_metrics]
+            )
+            torch.save(
+                model,
+                f"models/checkpoints/{config.backbone_config.backbone_type}_{epoch}.pt",
             )
         log = {}
         for result in results:

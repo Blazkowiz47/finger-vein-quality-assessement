@@ -108,7 +108,7 @@ class DatasetLoader(DatasetLoaderBase):
 
     def pre_process(self, data: DatasetObject) -> Tuple[np.ndarray, np.ndarray]:
         if self.from_numpy:
-            image = np.load(data.path)
+            image = np.load(data.path, allow_pickle=True)
         else:
             height, width = 100, 200
             image = cv2.imread(data.path, cv2.IMREAD_GRAYSCALE)  # pylint: disable=E1101

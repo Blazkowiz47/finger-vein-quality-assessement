@@ -1,0 +1,982 @@
+2023-09-18 12:24:52,264 INFO    StreamThr :458167 [internal.py:wandb_internal():86] W&B internal server running at pid: 458167, started at: 2023-09-18 12:24:52.263545
+2023-09-18 12:24:52,265 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status
+2023-09-18 12:24:52,268 INFO    WriterThread:458167 [datastore.py:open_for_write():85] open: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/run-ci6qufqc.wandb
+2023-09-18 12:24:52,268 DEBUG   SenderThread:458167 [sender.py:send():379] send: header
+2023-09-18 12:24:52,274 DEBUG   SenderThread:458167 [sender.py:send():379] send: run
+2023-09-18 12:24:52,866 INFO    SenderThread:458167 [dir_watcher.py:__init__():211] watching files in: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files
+2023-09-18 12:24:52,867 INFO    SenderThread:458167 [sender.py:_start_run_threads():1121] run started: ci6qufqc with start time 1695032692.263754
+2023-09-18 12:24:52,875 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: check_version
+2023-09-18 12:24:52,875 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: check_version
+2023-09-18 12:24:53,049 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: run_start
+2023-09-18 12:24:53,071 DEBUG   HandlerThread:458167 [system_info.py:__init__():32] System info init
+2023-09-18 12:24:53,072 DEBUG   HandlerThread:458167 [system_info.py:__init__():47] System info init done
+2023-09-18 12:24:53,072 INFO    HandlerThread:458167 [system_monitor.py:start():181] Starting system monitor
+2023-09-18 12:24:53,072 INFO    SystemMonitor:458167 [system_monitor.py:_start():145] Starting system asset monitoring threads
+2023-09-18 12:24:53,074 INFO    HandlerThread:458167 [system_monitor.py:probe():201] Collecting system info
+2023-09-18 12:24:53,074 INFO    SystemMonitor:458167 [interfaces.py:start():190] Started cpu monitoring
+2023-09-18 12:24:53,075 INFO    SystemMonitor:458167 [interfaces.py:start():190] Started disk monitoring
+2023-09-18 12:24:53,077 INFO    SystemMonitor:458167 [interfaces.py:start():190] Started gpu monitoring
+2023-09-18 12:24:53,077 INFO    SystemMonitor:458167 [interfaces.py:start():190] Started memory monitoring
+2023-09-18 12:24:53,078 INFO    SystemMonitor:458167 [interfaces.py:start():190] Started network monitoring
+2023-09-18 12:24:53,089 DEBUG   HandlerThread:458167 [system_info.py:probe():196] Probing system
+2023-09-18 12:24:53,091 DEBUG   HandlerThread:458167 [system_info.py:_probe_git():181] Probing git
+2023-09-18 12:24:53,099 DEBUG   HandlerThread:458167 [system_info.py:_probe_git():189] Probing git done
+2023-09-18 12:24:53,099 DEBUG   HandlerThread:458167 [system_info.py:probe():244] Probing system done
+2023-09-18 12:24:53,099 DEBUG   HandlerThread:458167 [system_monitor.py:probe():210] {'os': 'Linux-6.2.0-32-generic-x86_64-with-glibc2.35', 'python': '3.11.5', 'heartbeatAt': '2023-09-18T10:24:53.089468', 'startedAt': '2023-09-18T10:24:52.255057', 'docker': None, 'cuda': None, 'args': ('--log-on-wandb=False', '--wandb-run-name=internal-db-resnet50-layer3-grapher-linear-predictor', '--config=grapher_attention_12_conv_gelu_config'), 'state': 'running', 'program': '/home/a-150/work/finger-vein-quality-assessement/train.py', 'codePathLocal': 'train.py', 'codePath': 'train.py', 'git': {'remote': 'git@github.com:Blazkowiz47/finger-vein-quality-assessement.git', 'commit': 'abe59d3eaa3c390befe249507c91434f1affb0e9'}, 'email': 'sushrutpatwardhan@gmail.com', 'root': '/home/a-150/work/finger-vein-quality-assessement', 'host': 'A-150-Precision-Tower-7910', 'username': 'a-150', 'executable': '/home/a-150/anaconda3/envs/dl-torch/bin/python', 'cpu_count': 8, 'cpu_count_logical': 16, 'cpu_freq': {'current': 1.6113124999999995, 'min': 1200.0, 'max': 3500.0}, 'cpu_freq_per_core': [{'current': 2.993, 'min': 1200.0, 'max': 3500.0}, {'current': 2.699, 'min': 1200.0, 'max': 3500.0}, {'current': 2.995, 'min': 1200.0, 'max': 3500.0}, {'current': 2.294, 'min': 1200.0, 'max': 3500.0}, {'current': 1.2, 'min': 1200.0, 'max': 3500.0}, {'current': 1.2, 'min': 1200.0, 'max': 3500.0}, {'current': 1.197, 'min': 1200.0, 'max': 3500.0}, {'current': 1.2, 'min': 1200.0, 'max': 3500.0}, {'current': 2.993, 'min': 1200.0, 'max': 3500.0}, {'current': 2.613, 'min': 1200.0, 'max': 3500.0}, {'current': 1.2, 'min': 1200.0, 'max': 3500.0}, {'current': 2.294, 'min': 1200.0, 'max': 3500.0}, {'current': 1.2, 'min': 1200.0, 'max': 3500.0}, {'current': 1.2, 'min': 1200.0, 'max': 3500.0}, {'current': 1.2, 'min': 1200.0, 'max': 3500.0}, {'current': 1.2, 'min': 1200.0, 'max': 3500.0}], 'disk': {'/': {'total': 914.217887878418, 'used': 64.02167129516602}}, 'gpu': 'Quadro M5000', 'gpu_count': 1, 'gpu_devices': [{'name': 'Quadro M5000', 'memory_total': 8589934592}], 'memory': {'total': 62.71070861816406}}
+2023-09-18 12:24:53,099 INFO    HandlerThread:458167 [system_monitor.py:probe():211] Finished collecting system info
+2023-09-18 12:24:53,099 INFO    HandlerThread:458167 [system_monitor.py:probe():214] Publishing system info
+2023-09-18 12:24:53,099 DEBUG   HandlerThread:458167 [system_info.py:_save_pip():52] Saving list of pip packages installed into the current environment
+2023-09-18 12:24:53,099 DEBUG   HandlerThread:458167 [system_info.py:_save_pip():68] Saving pip packages done
+2023-09-18 12:24:53,100 DEBUG   HandlerThread:458167 [system_info.py:_save_conda():75] Saving list of conda packages installed into the current environment
+2023-09-18 12:24:53,869 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_created():271] file/dir created: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/conda-environment.yaml
+2023-09-18 12:24:53,869 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_created():271] file/dir created: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/requirements.txt
+2023-09-18 12:24:56,398 DEBUG   HandlerThread:458167 [system_info.py:_save_conda():87] Saving conda packages done
+2023-09-18 12:24:56,400 INFO    HandlerThread:458167 [system_monitor.py:probe():216] Finished publishing system info
+2023-09-18 12:24:56,404 DEBUG   SenderThread:458167 [sender.py:send():379] send: files
+2023-09-18 12:24:56,404 INFO    SenderThread:458167 [sender.py:_save_file():1375] saving file wandb-metadata.json with policy now
+2023-09-18 12:24:56,409 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:24:56,410 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:24:56,415 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:24:56,760 DEBUG   SenderThread:458167 [sender.py:send():379] send: telemetry
+2023-09-18 12:24:56,868 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/conda-environment.yaml
+2023-09-18 12:24:56,868 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_created():271] file/dir created: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:24:56,869 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_created():271] file/dir created: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/wandb-metadata.json
+2023-09-18 12:24:57,131 INFO    wandb-upload_0:458167 [upload_job.py:push():131] Uploaded file /tmp/tmp3dbugtukwandb/z78e7n5v-wandb-metadata.json
+2023-09-18 12:24:57,365 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:24:58,869 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:00,870 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:02,403 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:25:02,871 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:04,872 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:06,873 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:07,485 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:25:08,874 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:10,875 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:11,410 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:25:11,410 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:25:11,411 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:25:12,557 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:25:12,879 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:14,880 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:16,881 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:17,649 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:25:18,882 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:20,883 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:22,747 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:25:22,884 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:23,884 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/config.yaml
+2023-09-18 12:25:24,885 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:26,409 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:25:26,410 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:25:26,411 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:25:26,886 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:28,100 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:25:28,887 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:30,888 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:32,889 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:33,175 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:25:34,890 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:36,891 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:38,206 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:25:38,892 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:40,893 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:41,409 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:25:41,410 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:25:41,410 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:25:42,894 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:43,277 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:25:44,895 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:46,896 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:48,325 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:25:48,897 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:50,898 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:52,899 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:53,079 DEBUG   SystemMonitor:458167 [system_monitor.py:_start():159] Starting system metrics aggregation loop
+2023-09-18 12:25:53,080 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:25:53,393 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:25:54,900 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:56,408 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:25:56,409 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:25:56,409 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:25:56,901 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:25:58,475 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:25:58,902 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:00,903 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:02,904 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:03,611 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:26:04,905 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:06,906 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:08,706 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:26:08,907 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:10,908 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:11,409 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:26:11,410 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:26:11,410 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:26:12,909 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:13,753 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:26:14,910 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:16,911 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:18,793 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:26:18,916 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:20,917 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:22,918 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:23,081 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:26:23,910 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:26:24,919 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:26,409 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:26:26,409 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:26:26,410 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:26:26,920 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:28,922 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:28,978 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:26:30,926 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:32,928 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:34,034 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:26:34,930 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:36,933 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:38,935 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:39,095 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:26:40,942 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:41,409 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:26:41,410 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:26:41,410 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:26:42,943 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:44,167 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:26:44,943 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:46,946 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:48,948 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:49,238 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:26:50,953 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:52,955 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:53,083 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:26:54,285 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:26:54,957 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:56,409 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:26:56,410 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:26:56,410 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:26:56,961 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:58,963 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:26:59,326 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:27:00,968 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:02,970 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:04,412 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:27:04,973 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:06,975 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:08,977 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:09,433 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:27:10,984 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:11,410 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:27:11,410 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:27:11,411 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:27:12,985 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:14,464 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:27:14,987 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:16,989 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:18,992 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:19,612 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:27:20,997 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:22,998 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:23,084 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:27:24,631 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:27:24,999 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:26,410 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:27:26,410 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:27:26,411 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:27:27,001 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:29,003 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:29,661 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:27:31,008 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:33,010 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:34,723 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:27:35,013 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:37,015 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:39,018 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:39,839 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:27:41,023 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:41,409 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:27:41,410 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:27:41,411 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:27:43,024 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:44,943 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:27:45,027 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:47,029 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:49,032 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:50,015 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:27:51,037 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:53,039 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:53,085 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:27:55,041 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:55,047 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:27:56,410 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:27:56,410 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:27:56,411 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:27:57,044 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:27:59,046 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:00,121 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:28:01,053 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:03,054 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:05,055 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:05,137 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:28:07,057 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:09,059 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:10,245 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:28:11,064 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:11,410 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:28:11,411 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:28:11,414 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:28:13,066 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:15,068 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:15,336 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:28:17,071 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:19,073 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:20,358 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:28:21,078 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:23,080 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:23,086 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:28:25,082 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:25,397 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:28:26,410 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:28:26,411 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:28:26,414 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:28:27,084 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:29,086 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:30,434 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:28:31,091 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:33,094 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:35,096 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:35,526 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:28:37,099 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:39,101 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:40,589 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:28:41,106 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:41,410 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:28:41,411 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:28:41,411 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:28:43,108 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:45,110 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:45,689 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:28:47,112 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:49,115 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:50,793 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:28:51,120 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:53,087 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:28:53,122 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:55,125 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:55,806 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:28:56,410 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:28:56,411 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:28:56,412 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:28:57,127 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:28:59,130 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:00,855 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:29:01,136 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:03,137 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:05,138 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:05,906 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:29:07,140 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:09,143 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:11,032 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:29:11,147 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:11,410 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:29:11,412 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:29:11,412 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:29:13,149 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:15,152 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:16,083 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:29:17,153 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:19,156 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:21,161 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:21,184 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:29:23,088 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:29:23,163 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:25,165 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:26,255 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:29:26,411 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:29:26,412 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:29:26,415 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:29:27,168 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:29,170 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:31,176 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:31,279 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:29:33,177 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:35,178 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:36,291 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:29:37,181 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:39,183 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:41,187 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:41,321 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:29:41,411 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:29:41,412 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:29:41,412 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:29:43,189 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:45,190 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:46,338 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:29:47,193 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:49,196 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:51,206 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:51,421 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:29:53,089 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:29:53,207 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:55,208 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:56,411 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:29:56,412 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:29:56,412 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:29:56,689 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:29:57,209 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:29:59,210 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:01,210 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:01,726 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:30:03,211 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:05,214 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:06,741 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:30:07,216 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:09,220 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:11,222 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:11,411 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:30:11,412 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:30:11,413 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:30:11,837 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:30:13,226 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:15,228 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:16,923 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:30:17,229 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:19,231 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:21,236 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:22,011 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:30:23,091 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:30:23,238 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:25,239 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:26,411 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:30:26,412 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:30:26,413 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:30:27,014 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:30:27,242 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:29,244 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:31,247 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:32,099 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:30:33,249 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:35,253 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:37,143 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:30:37,255 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:39,256 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:41,257 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:41,411 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:30:41,412 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:30:41,413 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:30:42,226 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:30:43,259 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:45,260 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:47,252 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:30:47,262 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:49,263 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:51,269 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:52,343 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:30:53,092 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:30:53,271 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:55,277 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:56,413 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:30:56,414 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:30:56,414 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:30:57,275 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:30:57,402 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:30:59,278 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:01,280 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:02,465 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:31:03,283 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:05,287 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:07,289 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:07,593 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:31:09,292 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:11,294 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:11,412 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:31:11,413 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:31:11,414 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:31:12,681 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:31:13,297 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:15,299 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:17,304 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:17,707 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:31:19,304 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:21,308 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:22,762 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:31:23,093 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:31:23,309 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:25,310 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:26,412 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:31:26,413 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:31:26,417 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:31:27,312 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:27,795 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:31:29,314 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:31,317 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:32,888 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:31:33,319 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:35,321 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:37,323 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:37,927 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:31:39,326 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:41,329 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:41,412 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:31:41,413 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:31:41,413 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:31:42,962 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:31:43,331 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:45,333 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:47,337 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:48,042 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:31:49,339 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:51,346 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:53,071 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:31:53,094 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:31:53,349 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:55,352 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:56,413 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:31:56,413 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:31:56,414 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:31:57,354 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:31:58,129 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:31:59,357 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:01,357 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:03,271 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:32:03,359 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:05,361 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:07,364 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:08,313 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:32:09,366 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:11,368 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:11,413 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:32:11,414 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:32:11,414 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:32:13,370 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:13,432 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:32:15,373 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:17,376 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:18,504 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:32:19,377 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:21,385 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:23,095 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:32:23,385 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:23,522 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:32:25,386 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:26,413 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:32:26,413 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:32:26,414 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:32:27,387 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:28,553 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:32:29,389 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:31,391 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:33,394 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:33,554 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:32:35,397 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:37,399 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:38,575 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:32:39,402 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:41,404 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:41,413 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:32:41,414 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:32:41,414 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:32:43,407 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:43,578 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:32:45,409 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:47,412 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:48,673 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:32:49,415 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:51,419 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:53,096 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:32:53,421 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:53,719 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:32:55,423 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:56,413 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:32:56,414 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:32:56,414 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:32:57,426 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:32:58,755 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:32:59,429 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:01,431 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:03,433 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:03,765 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:33:05,436 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:07,439 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:08,780 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:33:09,441 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:11,413 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:33:11,415 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:33:11,415 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:33:11,445 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:13,448 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:13,886 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:33:15,449 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:17,450 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:18,965 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:33:19,455 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:21,462 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:23,097 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:33:23,463 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:23,967 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:33:25,465 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:26,414 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:33:26,415 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:33:26,415 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:33:27,469 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:28,982 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:33:29,471 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:31,473 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:33,475 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:34,034 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:33:35,481 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:37,481 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:39,045 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:33:39,482 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:41,415 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:33:41,416 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:33:41,416 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:33:41,485 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:43,486 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:44,138 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:33:45,488 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:47,490 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:49,219 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:33:49,492 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:51,499 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:53,098 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:33:53,499 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:54,313 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:33:55,503 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:56,414 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:33:56,415 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:33:56,415 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:33:57,504 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:33:59,448 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:33:59,506 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:01,508 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:03,511 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:04,492 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:34:05,512 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:07,515 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:09,517 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:09,590 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:34:11,414 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:34:11,415 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:34:11,415 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:34:11,519 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:13,520 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:14,644 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:34:15,523 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:17,525 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:19,528 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:19,747 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:34:21,533 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:23,100 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:34:23,536 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:24,850 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:34:25,538 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:26,414 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:34:26,415 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:34:26,415 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:34:27,540 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:29,543 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:29,907 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:34:31,548 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:33,549 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:35,012 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:34:35,550 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:37,553 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:39,555 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:40,096 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:34:41,415 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:34:41,415 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:34:41,416 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:34:41,556 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:43,558 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:45,120 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:34:45,558 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:47,560 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:49,563 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:50,214 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:34:51,568 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:53,101 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:34:53,569 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:55,271 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:34:55,570 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:56,415 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:34:56,416 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:34:56,416 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:34:57,575 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:34:59,580 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:00,382 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:35:01,581 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:03,583 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:05,474 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:35:05,586 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:07,587 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:09,588 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:10,481 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:35:11,415 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:35:11,415 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:35:11,417 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:35:11,589 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:13,590 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:15,489 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:35:15,591 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:17,592 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:19,593 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:20,525 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:35:21,594 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:23,102 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:35:23,595 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:25,596 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:25,659 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:35:26,415 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:35:26,416 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:35:26,420 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:35:27,598 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:29,601 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:30,728 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:35:31,603 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:33,604 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:35,606 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:35,732 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:35:37,607 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:39,608 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:40,767 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:35:41,415 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:35:41,416 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:35:41,416 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:35:41,611 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:43,613 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:45,615 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:45,817 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:35:47,616 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:49,618 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:50,891 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:35:51,623 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:53,103 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:35:53,626 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:55,627 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:56,000 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:35:56,415 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:35:56,416 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:35:56,417 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:35:57,628 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:35:59,630 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:01,063 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:36:01,631 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:03,633 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:05,637 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:06,089 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:36:07,638 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:09,639 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:11,180 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:36:11,416 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:36:11,416 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:36:11,417 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:36:11,641 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:13,642 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:15,643 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:16,241 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:36:17,645 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:19,648 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:21,349 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:36:21,655 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:23,104 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:36:23,657 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:25,658 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:26,401 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:36:26,415 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:36:26,416 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:36:26,420 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:36:27,659 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:29,662 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:31,485 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:36:31,664 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:33,666 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:35,669 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:36,500 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:36:37,671 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:39,673 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:41,416 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:36:41,417 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:36:41,417 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:36:41,596 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:36:41,676 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:43,680 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:45,681 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:46,695 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:36:47,684 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:49,685 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:51,691 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:51,752 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:36:53,105 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:36:53,692 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:55,695 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:56,416 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:36:56,417 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:36:56,417 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:36:56,825 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:36:57,697 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:36:59,699 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:01,704 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:01,869 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:37:03,704 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:05,707 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:06,871 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:37:07,709 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:09,713 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:11,416 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:37:11,417 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:37:11,417 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:37:11,714 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:12,002 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:37:13,719 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:15,720 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:17,046 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:37:17,723 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:19,726 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:21,733 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:22,081 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:37:23,106 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:37:23,735 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:25,738 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:26,416 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:37:26,417 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:37:26,418 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:37:27,136 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:37:27,739 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:29,741 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:31,744 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:32,144 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:37:33,745 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:35,748 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:37,222 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:37:37,750 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:39,753 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:41,416 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:37:41,417 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:37:41,417 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:37:41,755 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:42,303 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:37:43,758 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:45,760 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:47,358 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:37:47,761 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:49,764 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:51,772 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:52,431 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:37:53,107 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:37:53,775 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:55,779 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:56,416 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:37:56,417 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:37:56,421 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:37:57,489 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:37:57,779 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:37:59,780 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:01,783 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:02,586 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:38:03,786 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:05,788 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:07,662 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:38:07,791 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:09,793 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:11,417 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:38:11,418 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:38:11,418 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:38:11,795 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:12,696 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:38:13,797 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:15,800 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:17,702 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:38:17,802 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:19,804 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:21,811 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:22,721 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:38:23,108 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:38:23,812 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:25,814 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:26,417 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:38:26,417 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:38:26,418 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:38:27,730 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:38:27,820 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:29,822 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:31,824 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:32,758 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:38:33,827 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:35,828 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:37,822 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:38:37,830 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:39,833 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:41,417 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:38:41,418 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:38:41,418 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:38:41,835 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:42,894 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:38:43,838 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:45,840 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:47,842 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:47,918 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:38:49,847 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:51,853 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:52,974 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:38:53,110 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:38:53,853 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:55,855 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:56,417 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:38:56,419 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:38:56,419 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:38:57,857 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:38:58,145 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:38:59,859 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:39:01,860 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:39:03,640 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:39:03,862 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:39:08,641 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:39:11,419 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:39:11,433 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:39:11,434 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:39:13,649 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:39:18,650 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:39:23,242 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:39:24,243 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:39:26,418 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-18 12:39:26,418 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: stop_status
+2023-09-18 12:39:26,459 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:39:29,659 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:39:34,660 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:39:35,210 DEBUG   SenderThread:458167 [sender.py:send():379] send: exit
+2023-09-18 12:39:35,210 INFO    SenderThread:458167 [sender.py:send_exit():584] handling exit code: 1
+2023-09-18 12:39:35,211 INFO    SenderThread:458167 [sender.py:send_exit():586] handling runtime: 882
+2023-09-18 12:39:35,234 INFO    SenderThread:458167 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2023-09-18 12:39:35,234 INFO    SenderThread:458167 [sender.py:send_exit():592] send defer
+2023-09-18 12:39:35,235 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: defer
+2023-09-18 12:39:35,235 INFO    HandlerThread:458167 [handler.py:handle_request_defer():170] handle defer: 0
+2023-09-18 12:39:35,235 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: defer
+2023-09-18 12:39:35,236 INFO    SenderThread:458167 [sender.py:send_request_defer():608] handle sender defer: 0
+2023-09-18 12:39:35,236 INFO    SenderThread:458167 [sender.py:transition_state():612] send defer: 1
+2023-09-18 12:39:35,236 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: defer
+2023-09-18 12:39:35,236 INFO    HandlerThread:458167 [handler.py:handle_request_defer():170] handle defer: 1
+2023-09-18 12:39:35,236 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: defer
+2023-09-18 12:39:35,236 INFO    SenderThread:458167 [sender.py:send_request_defer():608] handle sender defer: 1
+2023-09-18 12:39:35,236 INFO    SenderThread:458167 [sender.py:transition_state():612] send defer: 2
+2023-09-18 12:39:35,237 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: defer
+2023-09-18 12:39:35,237 INFO    HandlerThread:458167 [handler.py:handle_request_defer():170] handle defer: 2
+2023-09-18 12:39:35,237 INFO    HandlerThread:458167 [system_monitor.py:finish():190] Stopping system monitor
+2023-09-18 12:39:35,238 DEBUG   SystemMonitor:458167 [system_monitor.py:_start():166] Finished system metrics aggregation loop
+2023-09-18 12:39:35,238 DEBUG   SystemMonitor:458167 [system_monitor.py:_start():170] Publishing last batch of metrics
+2023-09-18 12:39:35,239 INFO    HandlerThread:458167 [interfaces.py:finish():202] Joined cpu monitor
+2023-09-18 12:39:35,239 INFO    HandlerThread:458167 [interfaces.py:finish():202] Joined disk monitor
+2023-09-18 12:39:35,343 INFO    HandlerThread:458167 [interfaces.py:finish():202] Joined gpu monitor
+2023-09-18 12:39:35,343 INFO    HandlerThread:458167 [interfaces.py:finish():202] Joined memory monitor
+2023-09-18 12:39:35,343 INFO    HandlerThread:458167 [interfaces.py:finish():202] Joined network monitor
+2023-09-18 12:39:35,344 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: defer
+2023-09-18 12:39:35,344 INFO    SenderThread:458167 [sender.py:send_request_defer():608] handle sender defer: 2
+2023-09-18 12:39:35,344 INFO    SenderThread:458167 [sender.py:transition_state():612] send defer: 3
+2023-09-18 12:39:35,344 DEBUG   SenderThread:458167 [sender.py:send():379] send: stats
+2023-09-18 12:39:35,344 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: defer
+2023-09-18 12:39:35,345 INFO    HandlerThread:458167 [handler.py:handle_request_defer():170] handle defer: 3
+2023-09-18 12:39:35,345 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: defer
+2023-09-18 12:39:35,345 INFO    SenderThread:458167 [sender.py:send_request_defer():608] handle sender defer: 3
+2023-09-18 12:39:35,345 INFO    SenderThread:458167 [sender.py:transition_state():612] send defer: 4
+2023-09-18 12:39:35,345 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: defer
+2023-09-18 12:39:35,345 INFO    HandlerThread:458167 [handler.py:handle_request_defer():170] handle defer: 4
+2023-09-18 12:39:35,346 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: defer
+2023-09-18 12:39:35,346 INFO    SenderThread:458167 [sender.py:send_request_defer():608] handle sender defer: 4
+2023-09-18 12:39:35,346 INFO    SenderThread:458167 [sender.py:transition_state():612] send defer: 5
+2023-09-18 12:39:35,346 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: defer
+2023-09-18 12:39:35,346 INFO    HandlerThread:458167 [handler.py:handle_request_defer():170] handle defer: 5
+2023-09-18 12:39:35,347 DEBUG   SenderThread:458167 [sender.py:send():379] send: summary
+2023-09-18 12:39:35,361 INFO    SenderThread:458167 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2023-09-18 12:39:35,361 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: defer
+2023-09-18 12:39:35,361 INFO    SenderThread:458167 [sender.py:send_request_defer():608] handle sender defer: 5
+2023-09-18 12:39:35,361 INFO    SenderThread:458167 [sender.py:transition_state():612] send defer: 6
+2023-09-18 12:39:35,362 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: defer
+2023-09-18 12:39:35,362 INFO    HandlerThread:458167 [handler.py:handle_request_defer():170] handle defer: 6
+2023-09-18 12:39:35,362 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: defer
+2023-09-18 12:39:35,362 INFO    SenderThread:458167 [sender.py:send_request_defer():608] handle sender defer: 6
+2023-09-18 12:39:35,363 INFO    SenderThread:458167 [sender.py:transition_state():612] send defer: 7
+2023-09-18 12:39:35,363 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: status_report
+2023-09-18 12:39:35,363 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: defer
+2023-09-18 12:39:35,363 INFO    HandlerThread:458167 [handler.py:handle_request_defer():170] handle defer: 7
+2023-09-18 12:39:35,363 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: defer
+2023-09-18 12:39:35,363 INFO    SenderThread:458167 [sender.py:send_request_defer():608] handle sender defer: 7
+2023-09-18 12:39:35,890 INFO    SenderThread:458167 [sender.py:transition_state():612] send defer: 8
+2023-09-18 12:39:35,890 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: defer
+2023-09-18 12:39:35,890 INFO    HandlerThread:458167 [handler.py:handle_request_defer():170] handle defer: 8
+2023-09-18 12:39:35,891 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: defer
+2023-09-18 12:39:35,891 INFO    SenderThread:458167 [sender.py:send_request_defer():608] handle sender defer: 8
+2023-09-18 12:39:35,891 INFO    SenderThread:458167 [job_builder.py:build():281] Attempting to build job artifact
+2023-09-18 12:39:35,898 INFO    SenderThread:458167 [job_builder.py:_get_source_type():393] is repo sourced job
+2023-09-18 12:39:35,901 INFO    SenderThread:458167 [job_builder.py:build():369] adding wandb-job metadata file
+2023-09-18 12:39:35,918 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:39:35,918 INFO    Thread-12 :458167 [dir_watcher.py:_on_file_created():271] file/dir created: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/wandb-summary.json
+2023-09-18 12:39:36,035 INFO    SenderThread:458167 [sender.py:transition_state():612] send defer: 9
+2023-09-18 12:39:36,036 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: defer
+2023-09-18 12:39:36,036 INFO    HandlerThread:458167 [handler.py:handle_request_defer():170] handle defer: 9
+2023-09-18 12:39:36,036 DEBUG   SenderThread:458167 [sender.py:send():379] send: artifact
+2023-09-18 12:39:36,210 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: poll_exit
+2023-09-18 12:39:36,939 INFO    SenderThread:458167 [sender.py:send_artifact():1453] sent artifact job-git_github.com_Blazkowiz47_finger-vein-quality-assessement.git_train.py - {'id': 'QXJ0aWZhY3Q6NTczMjEwMzY3', 'state': 'COMMITTED', 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjk2OTEzMjAz', 'latestArtifact': {'id': 'QXJ0aWZhY3Q6NTczMjEwMzY3', 'versionIndex': 10}}}
+2023-09-18 12:39:36,940 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: defer
+2023-09-18 12:39:36,940 INFO    SenderThread:458167 [sender.py:send_request_defer():608] handle sender defer: 9
+2023-09-18 12:39:36,940 INFO    SenderThread:458167 [dir_watcher.py:finish():358] shutting down directory watcher
+2023-09-18 12:39:37,920 INFO    SenderThread:458167 [dir_watcher.py:finish():388] scan: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files
+2023-09-18 12:39:37,921 INFO    SenderThread:458167 [dir_watcher.py:finish():402] scan save: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/wandb-metadata.json wandb-metadata.json
+2023-09-18 12:39:37,921 INFO    SenderThread:458167 [dir_watcher.py:finish():402] scan save: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log output.log
+2023-09-18 12:39:37,921 INFO    SenderThread:458167 [dir_watcher.py:finish():402] scan save: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/requirements.txt requirements.txt
+2023-09-18 12:39:37,922 INFO    SenderThread:458167 [dir_watcher.py:finish():402] scan save: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/conda-environment.yaml conda-environment.yaml
+2023-09-18 12:39:37,922 INFO    SenderThread:458167 [dir_watcher.py:finish():402] scan save: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/config.yaml config.yaml
+2023-09-18 12:39:37,922 INFO    SenderThread:458167 [dir_watcher.py:finish():402] scan save: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/wandb-summary.json wandb-summary.json
+2023-09-18 12:39:37,952 INFO    SenderThread:458167 [sender.py:transition_state():612] send defer: 10
+2023-09-18 12:39:37,952 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: poll_exit
+2023-09-18 12:39:37,954 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: defer
+2023-09-18 12:39:37,955 INFO    HandlerThread:458167 [handler.py:handle_request_defer():170] handle defer: 10
+2023-09-18 12:39:37,955 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: defer
+2023-09-18 12:39:37,955 INFO    SenderThread:458167 [sender.py:send_request_defer():608] handle sender defer: 10
+2023-09-18 12:39:37,955 INFO    SenderThread:458167 [file_pusher.py:finish():175] shutting down file pusher
+2023-09-18 12:39:38,540 INFO    wandb-upload_0:458167 [upload_job.py:push():131] Uploaded file /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/output.log
+2023-09-18 12:39:38,844 INFO    wandb-upload_3:458167 [upload_job.py:push():131] Uploaded file /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/config.yaml
+2023-09-18 12:39:38,872 INFO    wandb-upload_1:458167 [upload_job.py:push():131] Uploaded file /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/requirements.txt
+2023-09-18 12:39:39,159 INFO    wandb-upload_4:458167 [upload_job.py:push():131] Uploaded file /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/wandb-summary.json
+2023-09-18 12:39:39,334 INFO    wandb-upload_2:458167 [upload_job.py:push():131] Uploaded file /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/files/conda-environment.yaml
+2023-09-18 12:39:39,534 INFO    Thread-11 (_thread_body):458167 [sender.py:transition_state():612] send defer: 11
+2023-09-18 12:39:39,535 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: defer
+2023-09-18 12:39:39,535 INFO    HandlerThread:458167 [handler.py:handle_request_defer():170] handle defer: 11
+2023-09-18 12:39:39,536 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: defer
+2023-09-18 12:39:39,536 INFO    SenderThread:458167 [sender.py:send_request_defer():608] handle sender defer: 11
+2023-09-18 12:39:39,536 INFO    SenderThread:458167 [file_pusher.py:join():181] waiting for file pusher
+2023-09-18 12:39:39,536 INFO    SenderThread:458167 [sender.py:transition_state():612] send defer: 12
+2023-09-18 12:39:39,536 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: defer
+2023-09-18 12:39:39,536 INFO    HandlerThread:458167 [handler.py:handle_request_defer():170] handle defer: 12
+2023-09-18 12:39:39,537 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: defer
+2023-09-18 12:39:39,537 INFO    SenderThread:458167 [sender.py:send_request_defer():608] handle sender defer: 12
+2023-09-18 12:39:39,537 INFO    SenderThread:458167 [file_stream.py:finish():594] file stream finish called
+2023-09-18 12:39:40,095 INFO    SenderThread:458167 [file_stream.py:finish():598] file stream finish is done
+2023-09-18 12:39:40,095 INFO    SenderThread:458167 [sender.py:transition_state():612] send defer: 13
+2023-09-18 12:39:40,096 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: defer
+2023-09-18 12:39:40,096 INFO    HandlerThread:458167 [handler.py:handle_request_defer():170] handle defer: 13
+2023-09-18 12:39:40,096 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: defer
+2023-09-18 12:39:40,096 INFO    SenderThread:458167 [sender.py:send_request_defer():608] handle sender defer: 13
+2023-09-18 12:39:40,097 INFO    SenderThread:458167 [sender.py:transition_state():612] send defer: 14
+2023-09-18 12:39:40,097 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: defer
+2023-09-18 12:39:40,097 INFO    HandlerThread:458167 [handler.py:handle_request_defer():170] handle defer: 14
+2023-09-18 12:39:40,098 DEBUG   SenderThread:458167 [sender.py:send():379] send: final
+2023-09-18 12:39:40,098 DEBUG   SenderThread:458167 [sender.py:send():379] send: footer
+2023-09-18 12:39:40,098 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: defer
+2023-09-18 12:39:40,098 INFO    SenderThread:458167 [sender.py:send_request_defer():608] handle sender defer: 14
+2023-09-18 12:39:40,099 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: poll_exit
+2023-09-18 12:39:40,100 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: poll_exit
+2023-09-18 12:39:40,100 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: server_info
+2023-09-18 12:39:40,101 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: server_info
+2023-09-18 12:39:40,104 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: get_summary
+2023-09-18 12:39:40,105 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: sampled_history
+2023-09-18 12:39:40,105 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-18 12:39:40,106 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: job_info
+2023-09-18 12:39:40,244 DEBUG   SenderThread:458167 [sender.py:send_request():406] send_request: job_info
+2023-09-18 12:39:40,245 INFO    MainThread:458167 [wandb_run.py:_footer_history_summary_info():3557] rendering history
+2023-09-18 12:39:40,245 INFO    MainThread:458167 [wandb_run.py:_footer_history_summary_info():3589] rendering summary
+2023-09-18 12:39:40,245 INFO    MainThread:458167 [wandb_run.py:_footer_sync_info():3516] logging synced files
+2023-09-18 12:39:40,246 DEBUG   HandlerThread:458167 [handler.py:handle_request():144] handle_request: shutdown
+2023-09-18 12:39:40,246 INFO    HandlerThread:458167 [handler.py:finish():840] shutting down handler
+2023-09-18 12:39:41,107 INFO    WriterThread:458167 [datastore.py:close():294] close: /home/a-150/work/finger-vein-quality-assessement/wandb/run-20230918_122452-ci6qufqc/run-ci6qufqc.wandb
+2023-09-18 12:39:41,245 INFO    SenderThread:458167 [sender.py:finish():1531] shutting down sender
+2023-09-18 12:39:41,245 INFO    SenderThread:458167 [file_pusher.py:finish():175] shutting down file pusher
+2023-09-18 12:39:41,245 INFO    SenderThread:458167 [file_pusher.py:join():181] waiting for file pusher

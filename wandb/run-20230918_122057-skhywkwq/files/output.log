@@ -1,0 +1,34 @@
+2023-09-18 12:21:00,825 - root - INFO - Using device: cuda
+2023-09-18 12:21:00,842 - root - INFO - Quadro M5000
+2023-09-18 12:21:00,842 - root - INFO - Memory Usage:
+2023-09-18 12:21:00,843 - root - INFO - Allocated: 0.0 GB
+2023-09-18 12:21:00,843 - root - INFO - Cached: 0.0 GB
+2023-09-18 12:21:00,971 - root - ERROR - Error reading validation dataset.
+2023-09-18 12:21:00,971 - root - INFO - Preprocessing Internal_301_DB_layer3output dataset for train split.
+  0%|                                                                                                                                                         | 0/63210 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/a-150/work/finger-vein-quality-assessement/train.py", line 131, in <module>
+    main()
+  File "/home/a-150/work/finger-vein-quality-assessement/train.py", line 118, in main
+    train(
+  File "/home/a-150/work/finger-vein-quality-assessement/common/train_pipeline/train.py", line 158, in train
+    train_dataset, validation_dataset, _ = get_dataset(environment, batch_size)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/a-150/work/finger-vein-quality-assessement/common/train_pipeline/train.py", line 54, in get_dataset
+    return datasets.get_dataset(environment, batch_size=batch_size)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/a-150/work/finger-vein-quality-assessement/common/util/data_pipeline/dataset_chainer.py", line 67, in get_dataset
+    self._compile_all_datasets()
+  File "/home/a-150/work/finger-vein-quality-assessement/common/util/data_pipeline/dataset_chainer.py", line 31, in _compile_all_datasets
+    sets = dataset.compile_sets()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/a-150/work/finger-vein-quality-assessement/common/util/data_pipeline/dataset_loader.py", line 95, in compile_sets
+    converted_dataset = self._convert_to_numpy_dataset(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/a-150/work/finger-vein-quality-assessement/common/util/data_pipeline/dataset_loader.py", line 61, in _convert_to_numpy_dataset
+    pre_processed_data.append(self.pre_process(data))
+                              ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/a-150/work/finger-vein-quality-assessement/common/data_pipeline/dataset.py", line 115, in pre_process
+    if image.shape[0] > image.shape[1]:
+       ^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'shape'
