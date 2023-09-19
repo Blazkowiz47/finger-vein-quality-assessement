@@ -8,6 +8,7 @@ import torch
 import wandb
 from common_configs import (
     grapher_12_conv_gelu_config,
+    grapher_6_conv_gelu_config,
     resnet50_grapher12_conv_gelu_config,
     resnet50_grapher_attention_12_conv_gelu_config,
     grapher_attention_12_conv_gelu_config,
@@ -87,7 +88,8 @@ def get_config(config: str):
         return grapher_attention_12_conv_gelu_config()
     if config == "grapher_12_conv_gelu_config":
         return grapher_12_conv_gelu_config()
-
+    if config == "grapher_6_conv_gelu_config":
+        return grapher_6_conv_gelu_config()
     raise ValueError(f"Wrong config: {config}")
 
 
