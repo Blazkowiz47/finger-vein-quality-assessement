@@ -205,7 +205,8 @@ def train(
         log = {}
         for result in results:
             log = log | result
-        logger.info(*[f"{k}: {v}" for k, v in log.items()])
+        for k, v in log.items():
+            logger.info("%s: %s", k, v)
         if log_on_wandb:
             wandb.log(log)
 
