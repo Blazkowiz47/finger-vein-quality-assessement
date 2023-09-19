@@ -1,0 +1,47 @@
+wandb_version: 1
+
+architecture:
+  desc: null
+  value: grapher_12_conv_gelu_config
+dataset:
+  desc: null
+  value: Internal.
+epochs:
+  desc: null
+  value: 10000
+_wandb:
+  desc: null
+  value:
+    python_version: 3.11.5
+    cli_version: 0.15.10
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1695129186.837499
+    t:
+      1:
+      - 1
+      - 5
+      - 41
+      - 49
+      - 53
+      - 55
+      - 63
+      - 80
+      2:
+      - 1
+      - 5
+      - 41
+      - 49
+      - 53
+      - 55
+      - 63
+      - 80
+      3:
+      - 2
+      - 16
+      - 23
+      4: 3.11.5
+      5: 0.15.10
+      8:
+      - 5

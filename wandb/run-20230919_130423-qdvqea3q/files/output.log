@@ -1,0 +1,9 @@
+2023-09-19 13:04:26,345 - root - INFO - Using device: cuda
+2023-09-19 13:04:26,356 - root - INFO - GRID A100D-20C
+2023-09-19 13:04:26,356 - root - INFO - Memory Usage:
+2023-09-19 13:04:26,356 - root - INFO - Allocated: 0.0 GB
+2023-09-19 13:04:26,357 - root - INFO - Cached: 0.0 GB
+2023-09-19 13:04:26,446 - root - INFO - Preprocessing Internal_301_DB_layer3output dataset for train split.
+
+
+ 55%|█████████████████████████████████████████████████████████████████████████████▍                                                              | 34953/63210 [00:04<00:03, 8618.30it/s]

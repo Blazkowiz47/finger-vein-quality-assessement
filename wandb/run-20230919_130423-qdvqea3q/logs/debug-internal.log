@@ -1,0 +1,194 @@
+2023-09-19 13:04:23,838 INFO    StreamThr :7682 [internal.py:wandb_internal():86] W&B internal server running at pid: 7682, started at: 2023-09-19 13:04:23.837313
+2023-09-19 13:04:23,841 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: status
+2023-09-19 13:04:23,843 INFO    WriterThread:7682 [datastore.py:open_for_write():85] open: /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/run-qdvqea3q.wandb
+2023-09-19 13:04:23,843 DEBUG   SenderThread:7682 [sender.py:send():379] send: header
+2023-09-19 13:04:23,844 DEBUG   SenderThread:7682 [sender.py:send():379] send: run
+2023-09-19 13:04:24,465 INFO    SenderThread:7682 [dir_watcher.py:__init__():211] watching files in: /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files
+2023-09-19 13:04:24,465 INFO    SenderThread:7682 [sender.py:_start_run_threads():1121] run started: qdvqea3q with start time 1695128663.836642
+2023-09-19 13:04:24,476 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: check_version
+2023-09-19 13:04:24,477 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: check_version
+2023-09-19 13:04:24,624 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: run_start
+2023-09-19 13:04:24,631 DEBUG   HandlerThread:7682 [system_info.py:__init__():32] System info init
+2023-09-19 13:04:24,632 DEBUG   HandlerThread:7682 [system_info.py:__init__():47] System info init done
+2023-09-19 13:04:24,632 INFO    HandlerThread:7682 [system_monitor.py:start():181] Starting system monitor
+2023-09-19 13:04:24,632 INFO    SystemMonitor:7682 [system_monitor.py:_start():145] Starting system asset monitoring threads
+2023-09-19 13:04:24,633 INFO    HandlerThread:7682 [system_monitor.py:probe():201] Collecting system info
+2023-09-19 13:04:24,633 INFO    SystemMonitor:7682 [interfaces.py:start():190] Started cpu monitoring
+2023-09-19 13:04:24,635 INFO    SystemMonitor:7682 [interfaces.py:start():190] Started disk monitoring
+2023-09-19 13:04:24,642 INFO    SystemMonitor:7682 [interfaces.py:start():190] Started gpu monitoring
+2023-09-19 13:04:24,644 INFO    SystemMonitor:7682 [interfaces.py:start():190] Started memory monitoring
+2023-09-19 13:04:24,645 INFO    SystemMonitor:7682 [interfaces.py:start():190] Started network monitoring
+2023-09-19 13:04:24,653 ERROR   gpu       :7682 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-19 13:04:24,653 DEBUG   HandlerThread:7682 [system_info.py:probe():196] Probing system
+2023-09-19 13:04:24,653 ERROR   gpu       :7682 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-19 13:04:24,654 ERROR   gpu       :7682 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-19 13:04:24,655 DEBUG   HandlerThread:7682 [system_info.py:_probe_git():181] Probing git
+2023-09-19 13:04:24,663 DEBUG   HandlerThread:7682 [system_info.py:_probe_git():189] Probing git done
+2023-09-19 13:04:24,663 DEBUG   HandlerThread:7682 [system_info.py:probe():244] Probing system done
+2023-09-19 13:04:24,663 DEBUG   HandlerThread:7682 [system_monitor.py:probe():210] {'os': 'Linux-5.15.0-75-generic-x86_64-with-glibc2.35', 'python': '3.11.5', 'heartbeatAt': '2023-09-19T13:04:24.653503', 'startedAt': '2023-09-19T13:04:23.830497', 'docker': None, 'cuda': None, 'args': ('--log-on-wandb=false', '--config=grapher_12_conv_gelu_config', '--batch-size=128'), 'state': 'running', 'program': '/home/ubuntu/finger-vein-quality-assessement/train.py', 'codePathLocal': 'train.py', 'codePath': 'train.py', 'git': {'remote': 'git@github.com:Blazkowiz47/finger-vein-quality-assessement.git', 'commit': 'b7c276acbad6ccfaad0641f2fe53166aff3a6d3c'}, 'email': None, 'root': '/home/ubuntu/finger-vein-quality-assessement', 'host': 'sushrut', 'username': 'ubuntu', 'executable': '/home/ubuntu/anaconda3/envs/dl-torch/bin/python', 'cpu_count': 24, 'cpu_count_logical': 24, 'cpu_freq': {'current': 2295.6880000000015, 'min': 0.0, 'max': 0.0}, 'cpu_freq_per_core': [{'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}, {'current': 2295.688, 'min': 0.0, 'max': 0.0}], 'disk': {'/': {'total': 38.584407806396484, 'used': 38.04768371582031}}, 'gpu': 'GRID A100D-20C', 'gpu_count': 1, 'gpu_devices': [{'name': 'GRID A100D-20C', 'memory_total': 21474836480}], 'memory': {'total': 117.9147834777832}}
+2023-09-19 13:04:24,664 INFO    HandlerThread:7682 [system_monitor.py:probe():211] Finished collecting system info
+2023-09-19 13:04:24,664 INFO    HandlerThread:7682 [system_monitor.py:probe():214] Publishing system info
+2023-09-19 13:04:24,664 DEBUG   HandlerThread:7682 [system_info.py:_save_pip():52] Saving list of pip packages installed into the current environment
+2023-09-19 13:04:24,664 DEBUG   HandlerThread:7682 [system_info.py:_save_pip():68] Saving pip packages done
+2023-09-19 13:04:24,664 DEBUG   HandlerThread:7682 [system_info.py:_save_conda():75] Saving list of conda packages installed into the current environment
+2023-09-19 13:04:25,467 INFO    Thread-12 :7682 [dir_watcher.py:_on_file_created():271] file/dir created: /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/conda-environment.yaml
+2023-09-19 13:04:25,468 INFO    Thread-12 :7682 [dir_watcher.py:_on_file_created():271] file/dir created: /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/requirements.txt
+2023-09-19 13:04:26,321 DEBUG   HandlerThread:7682 [system_info.py:_save_conda():87] Saving conda packages done
+2023-09-19 13:04:26,322 INFO    HandlerThread:7682 [system_monitor.py:probe():216] Finished publishing system info
+2023-09-19 13:04:26,324 DEBUG   SenderThread:7682 [sender.py:send():379] send: files
+2023-09-19 13:04:26,324 INFO    SenderThread:7682 [sender.py:_save_file():1375] saving file wandb-metadata.json with policy now
+2023-09-19 13:04:26,331 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: stop_status
+2023-09-19 13:04:26,332 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: stop_status
+2023-09-19 13:04:26,335 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-19 13:04:26,466 INFO    Thread-12 :7682 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/conda-environment.yaml
+2023-09-19 13:04:26,466 INFO    Thread-12 :7682 [dir_watcher.py:_on_file_created():271] file/dir created: /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/wandb-metadata.json
+2023-09-19 13:04:26,638 DEBUG   SenderThread:7682 [sender.py:send():379] send: telemetry
+2023-09-19 13:04:26,658 ERROR   gpu       :7682 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-19 13:04:26,658 ERROR   gpu       :7682 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-19 13:04:26,658 ERROR   gpu       :7682 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-19 13:04:27,467 INFO    Thread-12 :7682 [dir_watcher.py:_on_file_created():271] file/dir created: /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/output.log
+2023-09-19 13:04:27,545 INFO    wandb-upload_0:7682 [upload_job.py:push():131] Uploaded file /tmp/tmpm7dgtrabwandb/cx9xb4da-wandb-metadata.json
+2023-09-19 13:04:28,668 ERROR   gpu       :7682 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-19 13:04:28,668 ERROR   gpu       :7682 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-19 13:04:28,668 ERROR   gpu       :7682 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-09-19 13:04:28,863 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: status_report
+2023-09-19 13:04:29,467 INFO    Thread-12 :7682 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/output.log
+2023-09-19 13:04:30,613 DEBUG   SenderThread:7682 [sender.py:send():379] send: telemetry
+2023-09-19 13:04:30,614 DEBUG   SenderThread:7682 [sender.py:send():379] send: exit
+2023-09-19 13:04:30,614 INFO    SenderThread:7682 [sender.py:send_exit():584] handling exit code: 0
+2023-09-19 13:04:30,614 INFO    SenderThread:7682 [sender.py:send_exit():586] handling runtime: 5
+2023-09-19 13:04:30,614 INFO    SenderThread:7682 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2023-09-19 13:04:30,615 INFO    SenderThread:7682 [sender.py:send_exit():592] send defer
+2023-09-19 13:04:30,615 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: defer
+2023-09-19 13:04:30,615 INFO    HandlerThread:7682 [handler.py:handle_request_defer():170] handle defer: 0
+2023-09-19 13:04:30,615 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: defer
+2023-09-19 13:04:30,615 INFO    SenderThread:7682 [sender.py:send_request_defer():608] handle sender defer: 0
+2023-09-19 13:04:30,616 INFO    SenderThread:7682 [sender.py:transition_state():612] send defer: 1
+2023-09-19 13:04:30,616 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: defer
+2023-09-19 13:04:30,616 INFO    HandlerThread:7682 [handler.py:handle_request_defer():170] handle defer: 1
+2023-09-19 13:04:30,616 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: defer
+2023-09-19 13:04:30,616 INFO    SenderThread:7682 [sender.py:send_request_defer():608] handle sender defer: 1
+2023-09-19 13:04:30,616 INFO    SenderThread:7682 [sender.py:transition_state():612] send defer: 2
+2023-09-19 13:04:30,617 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: defer
+2023-09-19 13:04:30,617 INFO    HandlerThread:7682 [handler.py:handle_request_defer():170] handle defer: 2
+2023-09-19 13:04:30,617 INFO    HandlerThread:7682 [system_monitor.py:finish():190] Stopping system monitor
+2023-09-19 13:04:30,617 DEBUG   SystemMonitor:7682 [system_monitor.py:_start():159] Starting system metrics aggregation loop
+2023-09-19 13:04:30,617 DEBUG   SystemMonitor:7682 [system_monitor.py:_start():166] Finished system metrics aggregation loop
+2023-09-19 13:04:30,618 DEBUG   SystemMonitor:7682 [system_monitor.py:_start():170] Publishing last batch of metrics
+2023-09-19 13:04:30,619 INFO    HandlerThread:7682 [interfaces.py:finish():202] Joined cpu monitor
+2023-09-19 13:04:30,619 INFO    HandlerThread:7682 [interfaces.py:finish():202] Joined disk monitor
+2023-09-19 13:04:30,638 ERROR   gpu       :7682 [interfaces.py:aggregate():161] Failed to serialize metric: division by zero
+2023-09-19 13:04:30,638 INFO    HandlerThread:7682 [interfaces.py:finish():202] Joined gpu monitor
+2023-09-19 13:04:30,639 INFO    HandlerThread:7682 [interfaces.py:finish():202] Joined memory monitor
+2023-09-19 13:04:30,639 INFO    HandlerThread:7682 [interfaces.py:finish():202] Joined network monitor
+2023-09-19 13:04:30,639 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: defer
+2023-09-19 13:04:30,639 INFO    SenderThread:7682 [sender.py:send_request_defer():608] handle sender defer: 2
+2023-09-19 13:04:30,640 INFO    SenderThread:7682 [sender.py:transition_state():612] send defer: 3
+2023-09-19 13:04:30,640 DEBUG   SenderThread:7682 [sender.py:send():379] send: stats
+2023-09-19 13:04:30,640 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: defer
+2023-09-19 13:04:30,640 INFO    HandlerThread:7682 [handler.py:handle_request_defer():170] handle defer: 3
+2023-09-19 13:04:30,641 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: defer
+2023-09-19 13:04:30,641 INFO    SenderThread:7682 [sender.py:send_request_defer():608] handle sender defer: 3
+2023-09-19 13:04:30,641 INFO    SenderThread:7682 [sender.py:transition_state():612] send defer: 4
+2023-09-19 13:04:30,641 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: defer
+2023-09-19 13:04:30,641 INFO    HandlerThread:7682 [handler.py:handle_request_defer():170] handle defer: 4
+2023-09-19 13:04:30,642 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: defer
+2023-09-19 13:04:30,642 INFO    SenderThread:7682 [sender.py:send_request_defer():608] handle sender defer: 4
+2023-09-19 13:04:30,642 INFO    SenderThread:7682 [sender.py:transition_state():612] send defer: 5
+2023-09-19 13:04:30,642 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: defer
+2023-09-19 13:04:30,642 INFO    HandlerThread:7682 [handler.py:handle_request_defer():170] handle defer: 5
+2023-09-19 13:04:30,643 DEBUG   SenderThread:7682 [sender.py:send():379] send: summary
+2023-09-19 13:04:30,646 INFO    SenderThread:7682 [sender.py:_save_file():1375] saving file wandb-summary.json with policy end
+2023-09-19 13:04:30,646 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: defer
+2023-09-19 13:04:30,646 INFO    SenderThread:7682 [sender.py:send_request_defer():608] handle sender defer: 5
+2023-09-19 13:04:30,646 INFO    SenderThread:7682 [sender.py:transition_state():612] send defer: 6
+2023-09-19 13:04:30,646 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: defer
+2023-09-19 13:04:30,647 INFO    HandlerThread:7682 [handler.py:handle_request_defer():170] handle defer: 6
+2023-09-19 13:04:30,647 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: defer
+2023-09-19 13:04:30,647 INFO    SenderThread:7682 [sender.py:send_request_defer():608] handle sender defer: 6
+2023-09-19 13:04:30,651 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: status_report
+2023-09-19 13:04:30,854 INFO    SenderThread:7682 [sender.py:transition_state():612] send defer: 7
+2023-09-19 13:04:30,854 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: defer
+2023-09-19 13:04:30,854 INFO    HandlerThread:7682 [handler.py:handle_request_defer():170] handle defer: 7
+2023-09-19 13:04:30,855 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: defer
+2023-09-19 13:04:30,855 INFO    SenderThread:7682 [sender.py:send_request_defer():608] handle sender defer: 7
+2023-09-19 13:04:31,468 INFO    Thread-12 :7682 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/config.yaml
+2023-09-19 13:04:31,469 INFO    Thread-12 :7682 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/output.log
+2023-09-19 13:04:31,469 INFO    Thread-12 :7682 [dir_watcher.py:_on_file_created():271] file/dir created: /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/wandb-summary.json
+2023-09-19 13:04:31,614 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: poll_exit
+2023-09-19 13:04:32,646 INFO    SenderThread:7682 [sender.py:transition_state():612] send defer: 8
+2023-09-19 13:04:32,646 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: poll_exit
+2023-09-19 13:04:32,646 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: defer
+2023-09-19 13:04:32,646 INFO    HandlerThread:7682 [handler.py:handle_request_defer():170] handle defer: 8
+2023-09-19 13:04:32,649 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: defer
+2023-09-19 13:04:32,649 INFO    SenderThread:7682 [sender.py:send_request_defer():608] handle sender defer: 8
+2023-09-19 13:04:32,649 INFO    SenderThread:7682 [job_builder.py:build():281] Attempting to build job artifact
+2023-09-19 13:04:32,650 INFO    SenderThread:7682 [job_builder.py:_get_source_type():393] is repo sourced job
+2023-09-19 13:04:32,651 INFO    SenderThread:7682 [job_builder.py:build():369] adding wandb-job metadata file
+2023-09-19 13:04:32,662 INFO    SenderThread:7682 [sender.py:transition_state():612] send defer: 9
+2023-09-19 13:04:32,662 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: defer
+2023-09-19 13:04:32,662 INFO    HandlerThread:7682 [handler.py:handle_request_defer():170] handle defer: 9
+2023-09-19 13:04:32,663 DEBUG   SenderThread:7682 [sender.py:send():379] send: artifact
+2023-09-19 13:04:33,469 INFO    Thread-12 :7682 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/output.log
+2023-09-19 13:04:33,545 INFO    SenderThread:7682 [sender.py:send_artifact():1453] sent artifact job-git_github.com_Blazkowiz47_finger-vein-quality-assessement.git_train.py - {'id': 'QXJ0aWZhY3Q6NTc1MDU5MDkw', 'state': 'COMMITTED', 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjk2OTEzMjAz', 'latestArtifact': {'id': 'QXJ0aWZhY3Q6NTc1MDU5MDkw', 'versionIndex': 15}}}
+2023-09-19 13:04:33,545 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: defer
+2023-09-19 13:04:33,545 INFO    SenderThread:7682 [sender.py:send_request_defer():608] handle sender defer: 9
+2023-09-19 13:04:33,545 INFO    SenderThread:7682 [dir_watcher.py:finish():358] shutting down directory watcher
+2023-09-19 13:04:34,470 INFO    SenderThread:7682 [dir_watcher.py:finish():388] scan: /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files
+2023-09-19 13:04:34,470 INFO    SenderThread:7682 [dir_watcher.py:finish():402] scan save: /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/requirements.txt requirements.txt
+2023-09-19 13:04:34,471 INFO    SenderThread:7682 [dir_watcher.py:finish():402] scan save: /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/conda-environment.yaml conda-environment.yaml
+2023-09-19 13:04:34,471 INFO    SenderThread:7682 [dir_watcher.py:finish():402] scan save: /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/wandb-summary.json wandb-summary.json
+2023-09-19 13:04:34,472 INFO    SenderThread:7682 [dir_watcher.py:finish():402] scan save: /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/wandb-metadata.json wandb-metadata.json
+2023-09-19 13:04:34,472 INFO    SenderThread:7682 [dir_watcher.py:finish():402] scan save: /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/output.log output.log
+2023-09-19 13:04:34,472 INFO    SenderThread:7682 [dir_watcher.py:finish():402] scan save: /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/config.yaml config.yaml
+2023-09-19 13:04:34,472 INFO    SenderThread:7682 [sender.py:transition_state():612] send defer: 10
+2023-09-19 13:04:34,475 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: defer
+2023-09-19 13:04:34,475 INFO    HandlerThread:7682 [handler.py:handle_request_defer():170] handle defer: 10
+2023-09-19 13:04:34,475 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: defer
+2023-09-19 13:04:34,475 INFO    SenderThread:7682 [sender.py:send_request_defer():608] handle sender defer: 10
+2023-09-19 13:04:34,476 INFO    SenderThread:7682 [file_pusher.py:finish():175] shutting down file pusher
+2023-09-19 13:04:34,899 INFO    wandb-upload_0:7682 [upload_job.py:push():131] Uploaded file /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/requirements.txt
+2023-09-19 13:04:35,053 INFO    wandb-upload_1:7682 [upload_job.py:push():131] Uploaded file /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/conda-environment.yaml
+2023-09-19 13:04:35,263 INFO    wandb-upload_3:7682 [upload_job.py:push():131] Uploaded file /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/output.log
+2023-09-19 13:04:35,265 INFO    wandb-upload_4:7682 [upload_job.py:push():131] Uploaded file /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/config.yaml
+2023-09-19 13:04:35,308 INFO    wandb-upload_2:7682 [upload_job.py:push():131] Uploaded file /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/files/wandb-summary.json
+2023-09-19 13:04:35,509 INFO    Thread-11 (_thread_body):7682 [sender.py:transition_state():612] send defer: 11
+2023-09-19 13:04:35,509 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: defer
+2023-09-19 13:04:35,510 INFO    HandlerThread:7682 [handler.py:handle_request_defer():170] handle defer: 11
+2023-09-19 13:04:35,510 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: defer
+2023-09-19 13:04:35,510 INFO    SenderThread:7682 [sender.py:send_request_defer():608] handle sender defer: 11
+2023-09-19 13:04:35,510 INFO    SenderThread:7682 [file_pusher.py:join():181] waiting for file pusher
+2023-09-19 13:04:35,511 INFO    SenderThread:7682 [sender.py:transition_state():612] send defer: 12
+2023-09-19 13:04:35,511 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: defer
+2023-09-19 13:04:35,511 INFO    HandlerThread:7682 [handler.py:handle_request_defer():170] handle defer: 12
+2023-09-19 13:04:35,511 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: defer
+2023-09-19 13:04:35,511 INFO    SenderThread:7682 [sender.py:send_request_defer():608] handle sender defer: 12
+2023-09-19 13:04:35,511 INFO    SenderThread:7682 [file_stream.py:finish():594] file stream finish called
+2023-09-19 13:04:35,694 INFO    SenderThread:7682 [file_stream.py:finish():598] file stream finish is done
+2023-09-19 13:04:35,694 INFO    SenderThread:7682 [sender.py:transition_state():612] send defer: 13
+2023-09-19 13:04:35,694 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: defer
+2023-09-19 13:04:35,694 INFO    HandlerThread:7682 [handler.py:handle_request_defer():170] handle defer: 13
+2023-09-19 13:04:35,694 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: defer
+2023-09-19 13:04:35,695 INFO    SenderThread:7682 [sender.py:send_request_defer():608] handle sender defer: 13
+2023-09-19 13:04:35,695 INFO    SenderThread:7682 [sender.py:transition_state():612] send defer: 14
+2023-09-19 13:04:35,695 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: defer
+2023-09-19 13:04:35,695 INFO    HandlerThread:7682 [handler.py:handle_request_defer():170] handle defer: 14
+2023-09-19 13:04:35,696 DEBUG   SenderThread:7682 [sender.py:send():379] send: final
+2023-09-19 13:04:35,696 DEBUG   SenderThread:7682 [sender.py:send():379] send: footer
+2023-09-19 13:04:35,696 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: defer
+2023-09-19 13:04:35,696 INFO    SenderThread:7682 [sender.py:send_request_defer():608] handle sender defer: 14
+2023-09-19 13:04:35,697 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: internal_messages
+2023-09-19 13:04:35,698 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: poll_exit
+2023-09-19 13:04:35,698 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: poll_exit
+2023-09-19 13:04:35,699 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: server_info
+2023-09-19 13:04:35,699 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: get_summary
+2023-09-19 13:04:35,700 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: sampled_history
+2023-09-19 13:04:35,700 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: job_info
+2023-09-19 13:04:35,701 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: server_info
+2023-09-19 13:04:35,852 DEBUG   SenderThread:7682 [sender.py:send_request():406] send_request: job_info
+2023-09-19 13:04:35,853 DEBUG   HandlerThread:7682 [handler.py:handle_request():144] handle_request: shutdown
+2023-09-19 13:04:35,854 INFO    HandlerThread:7682 [handler.py:finish():840] shutting down handler
+2023-09-19 13:04:36,701 INFO    WriterThread:7682 [datastore.py:close():294] close: /home/ubuntu/finger-vein-quality-assessement/wandb/run-20230919_130423-qdvqea3q/run-qdvqea3q.wandb
+2023-09-19 13:04:36,853 INFO    SenderThread:7682 [sender.py:finish():1531] shutting down sender
+2023-09-19 13:04:36,853 INFO    SenderThread:7682 [file_pusher.py:finish():175] shutting down file pusher
+2023-09-19 13:04:36,853 INFO    SenderThread:7682 [file_pusher.py:join():181] waiting for file pusher
