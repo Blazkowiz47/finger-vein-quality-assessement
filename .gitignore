@@ -6,3 +6,4 @@ datasets/*/*
 *.pyc
 A100-instance/
 models/
+wandb/
