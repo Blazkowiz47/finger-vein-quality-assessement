@@ -26,11 +26,12 @@ def resnet50_grapher12_conv_gelu_config() -> ModelConfig:
     """
     resnet_layer: int = 3
     in_channels: int = 1024
+    linear_dims: int = 1024
     act: str = "gelu"
     n_blocks: int = 12
     num_knn: int = 9
     drop_path: float = 0.0
-    use_dilation: bool = True
+    use_dilation: bool = False
     n_classes: int = 301
     bias: bool = True
     epsilon: float = 0.2
@@ -87,15 +88,15 @@ def resnet50_grapher12_conv_gelu_config() -> ModelConfig:
             blocks=blocks,
         ),
         predictor_config=PredictorConfig(
-            predictor_type="conv",
+            predictor_type="linear",
             in_channels=in_channels,
-            linear_dims=in_channels * 5 * 11,
+            linear_dims=linear_dims,
             n_classes=n_classes,
             act=act,
             bias=bias,
-            hidden_dims=2048,
+            hidden_dims=512,
+            linear_hidden_dims=512,
             dropout=0.0,
-            conv_out_channels=in_channels,
         ),
     )
 
