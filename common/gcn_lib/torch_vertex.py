@@ -222,7 +222,7 @@ class Grapher(nn.Module):
         )
         self.graph_conv = DyGraphConv2d(
             config.in_channels,
-            config.in_channels * 2,
+            config.in_channels,
             config.kernel_size,
             config.dilation,
             config.conv,
@@ -235,7 +235,7 @@ class Grapher(nn.Module):
         )
         self.fc2 = nn.Sequential(
             nn.Conv2d(
-                config.in_channels * 2,
+                config.in_channels,
                 config.in_channels,
                 1,
                 stride=1,

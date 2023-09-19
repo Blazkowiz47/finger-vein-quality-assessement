@@ -17,6 +17,7 @@ from common.train_pipeline.train import train
 from common.util.logger import logger
 from common.util.enums import EnvironmentType
 
+# python train.py --log-on-wandb=True --config="grapher_12_conv_gelu_config" --wandb-run-name="grapher only"
 
 parser = argparse.ArgumentParser(
     description="Training Config",
@@ -37,7 +38,7 @@ parser.add_argument(
 )
 parser.add_argument(
     "--batch-size",
-    default=8,
+    default=16,
     type=int,
     help="Add batch_size.",
 )

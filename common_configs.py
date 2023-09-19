@@ -30,9 +30,12 @@ def resnet50_grapher12_conv_gelu_config() -> ModelConfig:
     n_blocks: int = 12
     num_knn: int = 9
     drop_path: float = 0.0
-    use_dilation: bool = False
+    use_dilation: bool = True
     n_classes: int = 301
     bias: bool = True
+    epsilon: float = 0.2
+    hidden_features: int = 2048
+    conv: str = "mr"
 
     num_knn_list: List[Any] = [
         int(x.item()) for x in torch.linspace(num_knn, 2 * num_knn, n_blocks)
@@ -52,8 +55,9 @@ def resnet50_grapher12_conv_gelu_config() -> ModelConfig:
                 grapher_config=GrapherConfig(
                     in_channels=in_channels,
                     act=act,
+                    conv=conv,
                     norm="batch",
-                    epsilon=0.002,
+                    epsilon=epsilon,
                     neighbour_number=num_knn_list[index],
                     drop_path=dpr[index],
                     max_dilation=max_dilation,
@@ -62,7 +66,7 @@ def resnet50_grapher12_conv_gelu_config() -> ModelConfig:
                 ),
                 ffn_config=FFNConfig(
                     in_channels,
-                    hidden_features=2048,
+                    hidden_features=hidden_features,
                     act=act,
                     drop_path=0.0,
                     bias=bias,
@@ -113,8 +117,9 @@ def resnet50_grapher_attention_12_conv_gelu_config() -> ModelConfig:
     use_dilation: bool = False
     n_classes: int = 301
     bias: bool = True
-    epsilon: float = 0.0002
+    epsilon: float = 0.2
     hidden_features: int = 2048
+    conv: str = "mr"
 
     num_knn_list: List[Any] = [
         int(x.item()) for x in torch.linspace(num_knn, 2 * num_knn, n_blocks)
@@ -134,6 +139,7 @@ def resnet50_grapher_attention_12_conv_gelu_config() -> ModelConfig:
                 grapher_config=GrapherConfig(
                     in_channels=in_channels,
                     act=act,
+                    conv=conv,
                     norm="batch",
                     epsilon=epsilon,
                     neighbour_number=num_knn_list[index],
@@ -201,8 +207,9 @@ def grapher_attention_12_conv_gelu_config() -> ModelConfig:
     use_dilation: bool = False
     n_classes: int = 301
     bias: bool = True
-    epsilon: float = 0.0002
+    epsilon: float = 0.2
     hidden_features: int = 2048
+    conv: str = "mr"
 
     num_knn_list: List[Any] = [
         int(x.item()) for x in torch.linspace(num_knn, 2 * num_knn, n_blocks)
@@ -221,6 +228,7 @@ def grapher_attention_12_conv_gelu_config() -> ModelConfig:
                 block_type="grapher_attention_ffn",
                 grapher_config=GrapherConfig(
                     in_channels=in_channels,
+                    conv=conv,
                     act=act,
                     norm="batch",
                     epsilon=epsilon,
@@ -280,11 +288,12 @@ def grapher_12_conv_gelu_config() -> ModelConfig:
     n_blocks: int = 12
     num_knn: int = 9
     drop_path: float = 0.0
-    use_dilation: bool = False
+    use_dilation: bool = True
     n_classes: int = 301
     bias: bool = True
-    epsilon: float = 0.0002
+    epsilon: float = 0.2
     hidden_features: int = 2048
+    conv: str = "mr"
 
     num_knn_list: List[Any] = [
         int(x.item()) for x in torch.linspace(num_knn, 2 * num_knn, n_blocks)
@@ -304,6 +313,7 @@ def grapher_12_conv_gelu_config() -> ModelConfig:
                 grapher_config=GrapherConfig(
                     in_channels=in_channels,
                     act=act,
+                    conv=conv,
                     norm="batch",
                     epsilon=epsilon,
                     neighbour_number=num_knn_list[index],
