@@ -4,6 +4,7 @@ calls the train pipeline with configs.
 """
 import argparse
 
+import torch
 import wandb
 from common_configs import (
     grapher_12_conv_gelu_config,
@@ -17,7 +18,7 @@ from common.train_pipeline.train import train
 from common.util.logger import logger
 from common.util.enums import EnvironmentType
 
-# python train.py --log-on-wandb=True --config="grapher_12_conv_gelu_config" --wandb-run-name="grapher only"
+# python train.py --config="grapher_12_conv_gelu_config" --wandb-run-name="grapher only"
 
 parser = argparse.ArgumentParser(
     description="Training Config",
@@ -106,7 +107,7 @@ def main():
     )
     wandb_run_name = args.wandb_run_name
     config = get_config(args.config)
-    if log_on_wandb:
+    if wandb_run_name:
         wandb.init(
             # set the wandb project where this run will be logged
             project="finger-vein-recognition",
@@ -123,7 +124,7 @@ def main():
             batch_size,
             epochs,
             environment,
-            args.log_on_wandb,
+            wandb_run_name,
             args.validate_after_epochs,
             args.learning_rate,
         )
@@ -132,6 +133,7 @@ def main():
 
     if log_on_wandb:
         wandb.finish()
+        torch.cuda.empty_cache()
 
 
 main()
