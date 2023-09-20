@@ -25,10 +25,8 @@ class Metric(metric):
     ):
         assert preds.shape == target.shape
         for batch in range(preds.shape[0]):
-            for class_id in range(preds.shape[1]):
-                if target[batch][class_id] and target[batch][class_id] == preds[batch][class_id]:
-                    self.correct += 1
-                    break
+            if torch.eq(target[batch], preds[batch]):
+                self.correct += 1
         self.total += target.shape[0]
 
     def compute(self):
