@@ -169,6 +169,7 @@ def train(
     # test_metrics = get_test_metrics(device)
     val_metrics = get_val_metrics(device)
     # Training loop
+    best_accuracy: float = 0
     _ = cuda_info()
     for epoch in range(1, epochs + 1):
         model.train()
@@ -198,7 +199,8 @@ def train(
             # logger.info("Metric. %s", str(end - start))
 
         model.eval()
-        results = [add_label(metric.compute(), "train") for metric in train_metrics]
+        computed_metrics = [metric.compute() for metric in train_metrics]
+        results = [add_label(metric, "train") for metric in computed_metrics]
 
         if epoch % validate_after_epochs == 0:
             val_loss = 0.0
@@ -214,9 +216,10 @@ def train(
             results.extend(
                 [add_label(metric.compute(), "validation") for metric in val_metrics]
             )
+        if best_accuracy < computed_metrics["correct"]:
             torch.save(
                 model,
-                f"models/checkpoints/{config.backbone_config.backbone_type}_{epoch}.pt",
+                f"models/checkpoints/{config.backbone_config.backbone_type}.pt",
             )
         log = {}
         for result in results:
