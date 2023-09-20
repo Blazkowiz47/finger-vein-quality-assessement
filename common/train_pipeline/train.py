@@ -89,7 +89,7 @@ def get_train_metrics(device: str = "cpu") -> list[Metric]:
     """
     return [
         Accuracy().to(device),
-        ConfusionMatrix().to(device),
+        # ConfusionMatrix().to(device),
     ]
 
 
@@ -99,7 +99,7 @@ def get_test_metrics(device: str = "cpu") -> list[Metric]:
     """
     return [
         Accuracy().to(device),
-        ConfusionMatrix().to(device),
+        # ConfusionMatrix().to(device),
     ]
 
 
@@ -109,7 +109,7 @@ def get_val_metrics(device: str = "cpu") -> list[Metric]:
     """
     return [
         Accuracy().to(device),
-        ConfusionMatrix().to(device),
+        # ConfusionMatrix().to(device),
     ]
 
 
@@ -173,34 +173,29 @@ def train(
     for epoch in range(1, epochs + 1):
         model.train()
         for inputs, labels in tqdm(train_dataset, desc=f"Epoch {epoch} Training: "):
-            start = time.time()
+            # start = time.time()
             # with profiler.profile(record_shapes=True) as prof:
             inputs = inputs.cuda().float()
             labels = labels.cuda().float()
-            # print(prof)
-            end = time.time()
-            logger.info("Leaded data on cuda. %s", str(end - start))
+            # end = time.time()
+            # logger.info("Leaded data on cuda. %s", str(end - start))
             optimizer.zero_grad()
-            # with profiler.profile(record_shapes=True) as prof:
-            start = time.time()
+            # start = time.time()
             outputs = model(inputs)  # pylint: disable=E1102
-            # print(prof)
-            end = time.time()
-            logger.info("Forward prop. %s", str(end - start))
+            # end = time.time()
+            # logger.info("Forward prop. %s", str(end - start))
             loss = train_loss_fn(outputs, labels)
-            # with profiler.profile(record_shapes=True) as prof:
-            start = time.time()
+            # start = time.time()
             loss.backward()
-            end = time.time()
-            logger.info("Backward prop. %s", str(end - start))
+            # end = time.time()
+            # logger.info("Backward prop. %s", str(end - start))
             optimizer.step()
-            # print(prof)
             predicted = (outputs == outputs.max()).float()
-            start = time.time()
+            # start = time.time()
             for metric in train_metrics:
                 metric.update(predicted, labels)
             end = time.time()
-            logger.info("Metric. %s", str(end - start))
+            # logger.info("Metric. %s", str(end - start))
 
         model.eval()
         results = [add_label(metric.compute(), "train") for metric in train_metrics]
