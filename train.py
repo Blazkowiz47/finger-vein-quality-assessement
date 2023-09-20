@@ -75,6 +75,13 @@ parser.add_argument(
     help="Learning rate.",
 )
 
+parser.add_argument(
+    "--continue-model",
+    type=str,
+    default=None,
+    help="Give path to the model to continue learning.",
+)
+
 
 def get_config(config: str):
     """

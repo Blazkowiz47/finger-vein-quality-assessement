@@ -2,7 +2,7 @@
 Trains everything
 """
 import time
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 import torch
 from torch import optim
 import torch.autograd.profiler as profiler
@@ -152,13 +152,17 @@ def train(
     log_on_wandb: bool = False,
     validate_after_epochs: int = 5,
     learning_rate: float = 1e-4,
+    continue_model: Optional[str] = None,
 ):
     """
     Contains the training loop.
     """
     device = cuda_info()
     train_dataset, validation_dataset, _ = get_dataset(environment, batch_size)
-    model = get_model(config).to(device)
+    if continue_model:
+        model = torch.load(continue_model).to(device)
+    else:
+        model = get_model(config).to(device)
     logger.info(model)
     optimizer = optim.AdamW(model.parameters(), lr=learning_rate)
 
