@@ -3,9 +3,22 @@ import numpy as np
 from torch.utils.data import DataLoader
 
 
-def generate_dataset(data: List[np.ndarray], batch_size, shuffle: bool = True) -> DataLoader:
+def generate_dataset(
+    data: List[np.ndarray],
+    batch_size,
+    shuffle: bool = True,
+    num_workers: int = 2,
+) -> DataLoader:
+    """
+    Creates Dataset loader.
+    """
     dataset_generator = DatasetGenerator(data)
-    return DataLoader(dataset_generator, batch_size=batch_size, shuffle=shuffle)
+    return DataLoader(
+        dataset_generator,
+        batch_size=batch_size,
+        shuffle=shuffle,
+        num_workers=num_workers,
+    )
 
 
 class DatasetGenerator:

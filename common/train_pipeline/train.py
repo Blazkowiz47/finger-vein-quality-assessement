@@ -4,6 +4,7 @@ Trains everything
 from typing import Any, Dict
 import torch
 from torch import optim
+import torch.autograd.profiler as profiler
 from torch.nn import CrossEntropyLoss
 from tqdm import tqdm
 from torchmetrics import Metric
@@ -171,13 +172,25 @@ def train(
     for epoch in range(1, epochs + 1):
         model.train()
         for inputs, labels in tqdm(train_dataset, desc=f"Epoch {epoch} Training: "):
-            inputs = inputs.cuda().float()
-            labels = labels.cuda().float()
+            # start = time.time()
+            with profiler.profile(record_shapes=True) as prof:
+                inputs = inputs.cuda().float()
+                labels = labels.cuda().float()
+            print(prof)
+            # end = time.time()
+            # logger.info("Leaded data on cuda. %s", (end - start))
             optimizer.zero_grad()
-            outputs = model(inputs)  # pylint: disable=E1102
+            with profiler.profile(record_shapes=True) as prof:
+                outputs = model(inputs)  # pylint: disable=E1102
+            print(prof)
+            # end = time.time()
+            # logger.info("Forward prop. %s", (end-start))
             loss = train_loss_fn(outputs, labels)
-            loss.backward()
-            optimizer.step()
+            with profiler.profile(record_shapes=True) as prof:
+                loss.backward()
+                # logger.info()
+                optimizer.step()
+            print(prof)
             predicted = (outputs == outputs.max()).float()
             for metric in train_metrics:
                 metric.update(predicted, labels)
