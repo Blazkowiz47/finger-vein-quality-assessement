@@ -219,7 +219,7 @@ def train(
         if best_accuracy < computed_metrics["correct"]:
             torch.save(
                 model,
-                f"models/checkpoints/{config.backbone_config.backbone_type}.pt",
+                f"models/checkpoints/{log_on_wandb}.pt",
             )
         log = {}
         for result in results:
