@@ -25,7 +25,7 @@ class Metric(metric):
     ):
         assert preds.shape == target.shape
         for batch in range(preds.shape[0]):
-            if torch.eq(target[batch], preds[batch]):
+            if torch.equal(target[batch], preds[batch]):
                 self.correct += 1
         self.total += target.shape[0]
 
