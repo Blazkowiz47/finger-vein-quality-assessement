@@ -31,7 +31,7 @@ class Metric(metric):
 
     def compute(self):
         result: Dict[str, Any] = {
-            "correct": self.correct.item(),
+            "correct": self.correct.item() / self.total.item(),
             # "total": self.total.item(),
         }
         self.reset()
