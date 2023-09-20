@@ -216,7 +216,7 @@ def train(
             results.extend(
                 [add_label(metric.compute(), "validation") for metric in val_metrics]
             )
-        if best_accuracy < computed_metrics["correct"]:
+        if best_accuracy < computed_metrics[0]["correct"]:
             torch.save(
                 model,
                 f"models/checkpoints/{log_on_wandb}.pt",
