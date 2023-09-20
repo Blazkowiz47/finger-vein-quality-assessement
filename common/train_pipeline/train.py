@@ -194,7 +194,7 @@ def train(
             # start = time.time()
             for metric in train_metrics:
                 metric.update(predicted, labels)
-            end = time.time()
+            # end = time.time()
             # logger.info("Metric. %s", str(end - start))
 
         model.eval()
