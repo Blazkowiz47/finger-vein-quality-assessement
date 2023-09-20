@@ -1,6 +1,7 @@
 """
 Trains everything
 """
+import time
 from typing import Any, Dict
 import torch
 from torch import optim
@@ -172,25 +173,26 @@ def train(
     for epoch in range(1, epochs + 1):
         model.train()
         for inputs, labels in tqdm(train_dataset, desc=f"Epoch {epoch} Training: "):
-            # start = time.time()
-            with profiler.profile(record_shapes=True) as prof:
-                inputs = inputs.cuda().float()
-                labels = labels.cuda().float()
-            print(prof)
-            # end = time.time()
-            # logger.info("Leaded data on cuda. %s", (end - start))
+            start = time.time()
+            # with profiler.profile(record_shapes=True) as prof:
+            inputs = inputs.cuda().float()
+            labels = labels.cuda().float()
+            # print(prof)
+            end = time.time()
+            logger.info("Leaded data on cuda. %s", str(end - start))
             optimizer.zero_grad()
-            with profiler.profile(record_shapes=True) as prof:
-                outputs = model(inputs)  # pylint: disable=E1102
-            print(prof)
-            # end = time.time()
-            # logger.info("Forward prop. %s", (end-start))
+            # with profiler.profile(record_shapes=True) as prof:
+            outputs = model(inputs)  # pylint: disable=E1102
+            # print(prof)
+            end = time.time()
+            logger.info("Forward prop. %s", str(end - start))
             loss = train_loss_fn(outputs, labels)
-            with profiler.profile(record_shapes=True) as prof:
-                loss.backward()
-                # logger.info()
-                optimizer.step()
-            print(prof)
+            # with profiler.profile(record_shapes=True) as prof:
+            loss.backward()
+            end = time.time()
+            logger.info("Backward prop. %s", str(end - start))
+            optimizer.step()
+            # print(prof)
             predicted = (outputs == outputs.max()).float()
             for metric in train_metrics:
                 metric.update(predicted, labels)
