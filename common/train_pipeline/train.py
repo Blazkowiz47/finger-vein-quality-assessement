@@ -182,20 +182,26 @@ def train(
             logger.info("Leaded data on cuda. %s", str(end - start))
             optimizer.zero_grad()
             # with profiler.profile(record_shapes=True) as prof:
+            start = time.time()
             outputs = model(inputs)  # pylint: disable=E1102
             # print(prof)
             end = time.time()
             logger.info("Forward prop. %s", str(end - start))
             loss = train_loss_fn(outputs, labels)
             # with profiler.profile(record_shapes=True) as prof:
+            start = time.time()
             loss.backward()
             end = time.time()
             logger.info("Backward prop. %s", str(end - start))
             optimizer.step()
             # print(prof)
             predicted = (outputs == outputs.max()).float()
+            start = time.time()
             for metric in train_metrics:
                 metric.update(predicted, labels)
+            end = time.time()
+            logger.info("Metric. %s", str(end - start))
+
         model.eval()
         results = [add_label(metric.compute(), "train") for metric in train_metrics]
 
