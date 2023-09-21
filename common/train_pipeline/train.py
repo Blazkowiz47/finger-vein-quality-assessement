@@ -48,8 +48,8 @@ def get_dataset(
                 "datasets/internal_301_db",
                 "Internal_301_DB_layer3output",
                 is_dataset_already_split=True,
-                from_numpy=True,
-                augment_times=0,
+                from_numpy=False,
+                augment_times=5,
             )
         ]
     )
