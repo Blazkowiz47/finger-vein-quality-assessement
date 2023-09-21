@@ -12,6 +12,8 @@ from common_configs import (
     resnet50_grapher12_conv_gelu_config,
     resnet50_grapher_attention_12_conv_gelu_config,
     grapher_attention_12_conv_gelu_config,
+    vig_stem_grapher12_conv_relu_config,
+    vig_stem_grapher_attention_12_conv_relu_config,
 )
 
 
@@ -97,6 +99,11 @@ def get_config(config: str):
         return grapher_12_conv_gelu_config()
     if config == "grapher_6_conv_gelu_config":
         return grapher_6_conv_gelu_config()
+    if config == "vig_stem_grapher12_conv_relu_config":
+        return vig_stem_grapher12_conv_relu_config()
+    if config == "vig_stem_grapher_attention_12_conv_relu_config":
+        return vig_stem_grapher_attention_12_conv_relu_config()
+
     raise ValueError(f"Wrong config: {config}")
 
 
@@ -136,6 +143,7 @@ def main():
             wandb_run_name,
             args.validate_after_epochs,
             args.learning_rate,
+            args.continue_model,
         )
     except KeyboardInterrupt:
         pass
