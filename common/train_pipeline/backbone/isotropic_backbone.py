@@ -1,7 +1,6 @@
 """
 Isotropic backbone.
 """
-from abc import ABC
 from dataclasses import dataclass
 from enum import Enum
 from typing import List, Optional
@@ -12,6 +11,7 @@ from common.train_pipeline.backbone.attention_block import (
     AttentionBlock,
     AttentionBlockConfig,
 )
+from common.train_pipeline.config import BackboneBlockConfig
 
 
 class SelfAttention(Enum):
@@ -22,14 +22,6 @@ class SelfAttention(Enum):
     BEFORE = "before"
     AFTER = "after"
     BOTH = "both"
-
-
-class BackboneBlockConfig(ABC):
-    """
-    Abstract base class for backbone blocks.
-    """
-
-    block_type: str
 
 
 @dataclass

@@ -12,7 +12,9 @@ from common_configs import (
     resnet50_grapher12_conv_gelu_config,
     resnet50_grapher_attention_12_conv_gelu_config,
     grapher_attention_12_conv_gelu_config,
+    vig_pyramid_tiny,
     vig_stem_grapher12_conv_relu_config,
+    vig_stem_grapher_attention_12_conv_gelu_sigmoid,
     vig_stem_grapher_attention_12_conv_relu_config,
 )
 
@@ -103,6 +105,10 @@ def get_config(config: str):
         return vig_stem_grapher12_conv_relu_config()
     if config == "vig_stem_grapher_attention_12_conv_relu_config":
         return vig_stem_grapher_attention_12_conv_relu_config()
+    if config == "vig_stem_grapher_attention_12_conv_gelu_sigmoid":
+        return vig_stem_grapher_attention_12_conv_gelu_sigmoid()
+    if config == "vig_pyramid_tiny":
+        return vig_pyramid_tiny()
 
     raise ValueError(f"Wrong config: {config}")
 

@@ -110,7 +110,7 @@ class DatasetLoader(DatasetLoaderBase):
         if self.from_numpy:
             image = np.load(data.path, allow_pickle=True)
         else:
-            height, width = 60, 120
+            height, width = 128, 256
             image = cv2.imread(data.path, cv2.IMREAD_GRAYSCALE)  # pylint: disable=E1101
             if image.shape[0] > image.shape[1]:
                 image = image.transpose()  # pylint: disable=E1101

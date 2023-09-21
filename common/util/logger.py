@@ -34,17 +34,3 @@ def get_logger(logger_name: Optional[str] = None) -> logging.Logger:
 
 
 logger = get_logger()
-
-# Create our context var - this will be filled at the start of request
-# processing in fastapi methods
-ctx_user: ContextVar[str] = ContextVar("user", default="Unknown")
-
-
-class ContextFilter(logging.Filter):
-    """
-    This is a filter which injects contextual information into the log.
-    """
-
-    def filter(self, record: Any) -> bool:  # pylint: disable=no-any
-        record.user = ctx_user.get()
-        return True

@@ -2,11 +2,12 @@
 Resnet 50 grapher.
 """
 from torch.nn import Module
-from common.train_pipeline.backbone.isotropic_backbone import IsotropicBackBone
+from common.train_pipeline.backbone.backbone import get_backbone
 
 from common.train_pipeline.config import ModelConfig
 from common.train_pipeline.predictor.predictor import get_predictor
 from common.train_pipeline.stem.stem import get_stem
+from common.util.logger import logger
 
 
 class CustomModel(Module):
@@ -22,9 +23,7 @@ class CustomModel(Module):
         if config.stem_config:
             self.stem = get_stem(config.stem_config)
         if config.backbone_config:
-            self.backbone = IsotropicBackBone(
-                config.backbone_config.blocks,
-            )
+            self.backbone = get_backbone(config.backbone_config)
         if config.predictor_config:
             self.predictor = get_predictor(
                 config.predictor_config,
@@ -36,11 +35,11 @@ class CustomModel(Module):
         """
         if self.stem:
             inputs = self.stem(inputs)
-        # print("Stem output:", inputs.shape)
+        logger.debug("Stem output: %s", inputs.shape)
         if self.backbone:
             inputs = self.backbone(inputs)
-        # print("Backbone output:", inputs.shape)
+        logger.debug("Backbone output: %s", inputs.shape)
         if self.predictor:
             inputs = self.predictor(inputs)
-        # print("Predictor output:", inputs.shape)
+        logger.debug("Predictor output: %s", inputs.shape)
         return inputs

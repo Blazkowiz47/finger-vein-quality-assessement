@@ -1,11 +1,9 @@
 """
 Trains everything
 """
-import time
 from typing import Any, Dict, Optional
 import torch
 from torch import optim
-import torch.autograd.profiler as profiler
 from torch.nn import CrossEntropyLoss
 from tqdm import tqdm
 from torchmetrics import Metric
@@ -17,7 +15,6 @@ from common.train_pipeline.config import ModelConfig
 # from common.data_pipeline.FV_USM.dataset import DatasetLoader as fvusm
 from common.data_pipeline.dataset import DatasetLoader as common_dataset
 from common.train_pipeline.metric.accuracy import Metric as Accuracy
-from common.train_pipeline.metric.confusion_matrix import Metric as ConfusionMatrix
 
 from common.train_pipeline.model.model import get_model
 from common.util.logger import logger
@@ -49,7 +46,7 @@ def get_dataset(
                 "Internal_301",
                 is_dataset_already_split=True,
                 from_numpy=False,
-                augment_times=5,
+                augment_times=0,
             )
         ]
     )
