@@ -46,7 +46,7 @@ def get_dataset(
             # fvusm(included_portion=1, environment_type=environment),
             common_dataset(
                 "datasets/internal_301_db",
-                "Internal_301_DB_layer3output",
+                "Internal_301",
                 is_dataset_already_split=True,
                 from_numpy=False,
                 augment_times=5,
