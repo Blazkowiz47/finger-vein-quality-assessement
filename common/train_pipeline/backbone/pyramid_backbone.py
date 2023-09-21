@@ -51,10 +51,6 @@ class PyramidBackbone(Module):
         """
         Forward pass.
         """
-        for layer in self.layers:
-            print(inputs.shape)
-            inputs = layer(inputs)
-        return inputs
         return self.backbone(inputs)
 
     def build_block(self, config: PyramidBlockConfig) -> Sequential:

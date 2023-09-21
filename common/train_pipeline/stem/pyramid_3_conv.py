@@ -35,8 +35,4 @@ class Pyramid3ConvStem(Module):
         """
         Forward pass.
         """
-        for i in range(8):
-            print("In stem: ", i, inputs.shape)
-            inputs = self.stem[i](inputs)
-        return inputs
         return self.stem(inputs)
