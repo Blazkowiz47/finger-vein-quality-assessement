@@ -1,11 +1,9 @@
 """
 Trains everything
 """
-import time
 from typing import Any, Dict, Optional
 import torch
 from torch import optim
-import torch.autograd.profiler as profiler
 from torch.nn import CrossEntropyLoss
 from tqdm import tqdm
 from torchmetrics import Metric
@@ -17,7 +15,6 @@ from common.train_pipeline.config import ModelConfig
 # from common.data_pipeline.FV_USM.dataset import DatasetLoader as fvusm
 from common.data_pipeline.dataset import DatasetLoader as common_dataset
 from common.train_pipeline.metric.accuracy import Metric as Accuracy
-from common.train_pipeline.metric.confusion_matrix import Metric as ConfusionMatrix
 
 from common.train_pipeline.model.model import get_model
 from common.util.logger import logger
@@ -30,6 +27,7 @@ from common.util.enums import EnvironmentType
 def get_dataset(
     environment: EnvironmentType = EnvironmentType.PYTORCH,
     batch_size: int = 10,
+    augment_times: int = 0,
 ):
     """
     Get's specific dataset within the provided environment.
@@ -49,7 +47,7 @@ def get_dataset(
                 "Internal_301",
                 is_dataset_already_split=True,
                 from_numpy=False,
-                augment_times=5,
+                augment_times=augment_times,
             )
         ]
     )
@@ -125,7 +123,7 @@ def cuda_info():
     Prints cuda info.
     """
 
-    device = torch.device(
+    device = torch.device(  # pylint: disable=E1101
         "cuda" if torch.cuda.is_available() else "cpu"
     )  # pylint: disable=E1101
     logger.info("Using device: %s", device)
@@ -153,12 +151,17 @@ def train(
     validate_after_epochs: int = 5,
     learning_rate: float = 1e-4,
     continue_model: Optional[str] = None,
+    augment_times: int = 0,
 ):
     """
     Contains the training loop.
     """
     device = cuda_info()
-    train_dataset, validation_dataset, _ = get_dataset(environment, batch_size)
+    train_dataset, validation_dataset, _ = get_dataset(
+        environment,
+        batch_size,
+        augment_times,
+    )
     if continue_model:
         model = torch.load(continue_model).to(device)
     else:

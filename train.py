@@ -12,7 +12,10 @@ from common_configs import (
     resnet50_grapher12_conv_gelu_config,
     resnet50_grapher_attention_12_conv_gelu_config,
     grapher_attention_12_conv_gelu_config,
+    vig_attention_pyramid_tiny,
+    vig_pyramid_tiny,
     vig_stem_grapher12_conv_relu_config,
+    vig_stem_grapher_attention_12_conv_gelu_sigmoid,
     vig_stem_grapher_attention_12_conv_relu_config,
 )
 
@@ -73,7 +76,7 @@ parser.add_argument(
 parser.add_argument(
     "--learning-rate",
     type=float,
-    default=1e-4,
+    default=1e-3,
     help="Learning rate.",
 )
 
@@ -82,6 +85,13 @@ parser.add_argument(
     type=str,
     default=None,
     help="Give path to the model to continue learning.",
+)
+
+parser.add_argument(
+    "--augment-times",
+    type=int,
+    default=0,
+    help="Number of augmented images per image",
 )
 
 
@@ -103,7 +113,12 @@ def get_config(config: str):
         return vig_stem_grapher12_conv_relu_config()
     if config == "vig_stem_grapher_attention_12_conv_relu_config":
         return vig_stem_grapher_attention_12_conv_relu_config()
-
+    if config == "vig_stem_grapher_attention_12_conv_gelu_sigmoid":
+        return vig_stem_grapher_attention_12_conv_gelu_sigmoid()
+    if config == "vig_pyramid_tiny":
+        return vig_pyramid_tiny()
+    if config == "vig_attention_pyramid_tiny":
+        return vig_attention_pyramid_tiny()
     raise ValueError(f"Wrong config: {config}")
 
 
@@ -144,6 +159,7 @@ def main():
             args.validate_after_epochs,
             args.learning_rate,
             args.continue_model,
+            args.augment_times,
         )
     except KeyboardInterrupt:
         pass

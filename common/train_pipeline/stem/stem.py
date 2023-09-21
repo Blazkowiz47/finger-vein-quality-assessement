@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from typing import Optional
 from torch.nn import Module
 from common.train_pipeline.stem.conv_l5 import ConvStem
+from common.train_pipeline.stem.pyramid_3_conv import Pyramid3ConvStem
 
 from common.train_pipeline.stem.resnet50_l3 import Resnet50
 
@@ -42,3 +43,11 @@ def get_stem(config: StemConfig) -> Module:
             act=config.act,
             bias=config.bias,
         )
+    if config.stem_type == "pyramid_3_conv_layer":
+        return Pyramid3ConvStem(
+            in_channels=config.in_channels,
+            out_channels=config.out_channels,
+            act=config.act,
+            bias=config.bias,
+        )
+    raise NotImplementedError("No such stem has been implemented")

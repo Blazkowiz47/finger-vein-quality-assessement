@@ -2,13 +2,19 @@
 Contains predefined configuration classes.
 """
 
+from abc import ABC
 from dataclasses import dataclass
 from typing import List, Optional
-from common.train_pipeline.backbone.isotropic_backbone import (
-    BackboneBlockConfig,
-)
 from common.train_pipeline.predictor.predictor import PredictorConfig
 from common.train_pipeline.stem.stem import StemConfig
+
+
+class BackboneBlockConfig(ABC):
+    """
+    Abstract base class for backbone blocks.
+    """
+
+    block_type: str
 
 
 @dataclass
