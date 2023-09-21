@@ -76,7 +76,7 @@ parser.add_argument(
 parser.add_argument(
     "--learning-rate",
     type=float,
-    default=1e-4,
+    default=1e-3,
     help="Learning rate.",
 )
 
@@ -85,6 +85,13 @@ parser.add_argument(
     type=str,
     default=None,
     help="Give path to the model to continue learning.",
+)
+
+parser.add_argument(
+    "--augment-times",
+    type=int,
+    default=0,
+    help="Number of augmented images per image",
 )
 
 
@@ -152,6 +159,7 @@ def main():
             args.validate_after_epochs,
             args.learning_rate,
             args.continue_model,
+            args.augment_times,
         )
     except KeyboardInterrupt:
         pass
