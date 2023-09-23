@@ -212,6 +212,7 @@ def train(
                 model,
                 f"models/checkpoints/{log_on_wandb}.pt",
             )
+            best_accuracy = results[0]["train_correct"]
         log = {}
         for result in results:
             log = log | result

@@ -128,7 +128,7 @@ class DatasetLoader(DatasetLoaderBase):
         # return image, label
         return image.astype(np.float32), label
 
-    def augment(self, image: np.ndarray) -> np.ndarray:
+    def augment(self, image: np.ndarray, label: np.ndarray) -> List[np.ndarray]:
         transform = A.Compose(
             [
                 A.HorizontalFlip(p=0.25),
@@ -138,6 +138,9 @@ class DatasetLoader(DatasetLoaderBase):
                 A.PixelDropout(p=0.02),
             ],
         )
-        transformed = transform(image=image)
-        transformed_image = transformed["image"]
-        return transformed_image
+        result: List[np.ndarray] = []
+        for _ in range(self.augment_times):
+            transformed = transform(image=image)
+            transformed_image = transformed["image"]
+            result.append(transformed_image)
+        return result

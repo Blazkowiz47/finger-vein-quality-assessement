@@ -69,7 +69,7 @@ class DatasetLoader(DatasetLoaderBase):
     def get_validation_files(self) -> List[DatasetObject]:
         return []
 
-    def augment(self, image: np.ndarray) -> np.ndarray:
+    def augment(self, image: np.ndarray, label: np.ndarray) -> List[np.ndarray]:
         transform = A.Compose(
             [
                 A.HorizontalFlip(p=0.25),
@@ -79,13 +79,19 @@ class DatasetLoader(DatasetLoaderBase):
                 A.PixelDropout(p=0.02),
             ],
         )
-        transformed = transform(image=image)
-        transformed_image = transformed["image"]
-        transformed_image = (transformed_image - transformed_image.min()) / (
-            transformed_image.max() - transformed_image.min()
-        )
-        transformed_image = transformed_image.astype(np.float32)
-        return transformed_image
+
+        result: List[np.ndarray] = []
+        for _ in range(
+            self.augment_times if label[1] == 1 else self.augment_times // 2
+        ):
+            transformed = transform(image=image)
+            transformed_image = transformed["image"]
+            transformed_image = (transformed_image - transformed_image.min()) / (
+                transformed_image.max() - transformed_image.min()
+            )
+            transformed_image = transformed_image.astype(np.float32)
+            result.append(transformed_image)
+        return result
 
     def pre_process(self, data: DatasetObject) -> Tuple[np.ndarray, np.ndarray]:
         height, width = 224, 224

@@ -63,10 +63,9 @@ class DatasetLoaderBase:
         image, label = self.pre_process(data)
         yield (image, label)
         if split_type == DatasetSplitType.TRAIN:
-            for _ in range(
-                self.augment_times if label[1] == 1 else self.augment_times // 2
-            ):
-                yield (self.augment(image), label)
+            augmented_images = self.augment(image, label)
+            for image in augmented_images:
+                yield (image, label)
 
     def _get_generator(
         self,
@@ -167,7 +166,7 @@ class DatasetLoaderBase:
         raise NotImplementedError()
 
     @abstractmethod
-    def augment(self, image: np.ndarray) -> np.ndarray:
+    def augment(self, image: np.ndarray, label: np.ndarray) -> List[np.ndarray]:
         """
         Augment function for an image.
         Augment the image as per you liking and return the augmented image.

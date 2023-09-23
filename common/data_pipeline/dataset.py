@@ -27,7 +27,7 @@ def get_dataset(
         )
     if dataset == "layer3output":
         return common_dataset(
-            "dataset/layer3output",
+            "datasets/layer3output",
             "Resnet_Layer_3_Output",
             environment_type=environment,
             is_dataset_already_split=True,
