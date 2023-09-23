@@ -98,4 +98,4 @@ class DatasetLoader(DatasetLoaderBase):
             image = image.reshape((3, height, width))
         # return image, label
         image = image.astype(np.float32)
-        return image, np.array(data.label)
+        return image, np.array(data.label).astype(np.float32)
