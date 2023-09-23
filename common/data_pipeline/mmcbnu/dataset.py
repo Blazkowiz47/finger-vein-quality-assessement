@@ -25,6 +25,7 @@ class DatasetLoader(DatasetLoaderBase):
         train_size: float = 0.7,
         validation_size: float = 0.1,
         isDatasetAlreadySplit: bool = True,
+        augment_times: int = 0,
     ) -> None:
         self.fingers = ["Fore", "Middle", "Ring"]
         self.hands = ["L", "R"]
@@ -34,6 +35,7 @@ class DatasetLoader(DatasetLoaderBase):
             train_portion=train_size,
             validation_portion=validation_size,
             is_dataset_already_split=isDatasetAlreadySplit,
+            augment_times=augment_times,
         )
 
     def get_directory(self) -> str:
@@ -51,7 +53,7 @@ class DatasetLoader(DatasetLoaderBase):
                     for image in range(1, 8):
                         result.append(
                             DatasetObject(
-                                path=f"{self.get_directory()}/ROIs/{sample_id}/{hand}_{finger}/0{image}.bmp",
+                                path=f"{self.get_directory()}/ROIs/{sample_id}/{hand}_{finger}/0{image}.bmp",  # pylint: disable=C0301
                                 name=f"{sample_id}/{hand}_{finger}/0{image}",
                                 metadata={
                                     "finger": finger,
@@ -62,6 +64,9 @@ class DatasetLoader(DatasetLoaderBase):
                         )
         return result
 
+    def augment(self, image):
+        raise NotImplementedError()
+
     def get_test_files(self) -> List[DatasetObject]:
         dirs = os.listdir(self.get_directory() + "/ROIs")
         result: List[DatasetObject] = []
@@ -71,7 +76,7 @@ class DatasetLoader(DatasetLoaderBase):
                     for image in range(10, 10):
                         result.append(
                             DatasetObject(
-                                path=f"{self.get_directory()}/ROIs/{sample_id}/{hand}_{finger}/0{image}.bmp",
+                                path=f"{self.get_directory()}/ROIs/{sample_id}/{hand}_{finger}/0{image}.bmp",  # pylint: disable=C0301
                                 name=f"{sample_id}/{hand}_{finger}/0{image}",
                                 metadata={
                                     "finger": finger,

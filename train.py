@@ -6,20 +6,7 @@ import argparse
 
 import torch
 import wandb
-from common_configs import (
-    grapher_12_conv_gelu_config,
-    grapher_6_conv_gelu_config,
-    resnet50_grapher12_conv_gelu_config,
-    resnet50_grapher_attention_12_conv_gelu_config,
-    grapher_attention_12_conv_gelu_config,
-    vig_attention_pyramid_tiny,
-    vig_pyramid_tiny,
-    vig_stem_grapher12_conv_relu_config,
-    vig_stem_grapher_attention_12_conv_gelu_sigmoid,
-    vig_stem_grapher_attention_12_conv_relu_config,
-)
-
-
+import common_configs as common_configs
 from common.train_pipeline.train import train
 from common.util.logger import logger
 from common.util.enums import EnvironmentType
@@ -94,31 +81,42 @@ parser.add_argument(
     help="Number of augmented images per image",
 )
 
+parser.add_argument(
+    "--dataset",
+    type=str,
+    default="internal_301_db",
+    help="Dataset name.",
+)
+
 
 def get_config(config: str):
     """
     Fetches appropriate config.
     """
     if config == "resnet50_grapher12_conv_gelu_config":
-        return resnet50_grapher12_conv_gelu_config()
+        return common_configs.resnet50_grapher12_conv_gelu_config()
     if config == "resnet50_grapher_attention_12_conv_gelu_config":
-        return resnet50_grapher_attention_12_conv_gelu_config()
+        return common_configs.resnet50_grapher_attention_12_conv_gelu_config()
     if config == "grapher_attention_12_conv_gelu_config":
-        return grapher_attention_12_conv_gelu_config()
+        return common_configs.grapher_attention_12_conv_gelu_config()
     if config == "grapher_12_conv_gelu_config":
-        return grapher_12_conv_gelu_config()
+        return common_configs.grapher_12_conv_gelu_config()
     if config == "grapher_6_conv_gelu_config":
-        return grapher_6_conv_gelu_config()
+        return common_configs.grapher_6_conv_gelu_config()
     if config == "vig_stem_grapher12_conv_relu_config":
-        return vig_stem_grapher12_conv_relu_config()
+        return common_configs.vig_stem_grapher12_conv_relu_config()
     if config == "vig_stem_grapher_attention_12_conv_relu_config":
-        return vig_stem_grapher_attention_12_conv_relu_config()
+        return common_configs.vig_stem_grapher_attention_12_conv_relu_config()
     if config == "vig_stem_grapher_attention_12_conv_gelu_sigmoid":
-        return vig_stem_grapher_attention_12_conv_gelu_sigmoid()
+        return common_configs.vig_stem_grapher_attention_12_conv_gelu_sigmoid()
     if config == "vig_pyramid_tiny":
-        return vig_pyramid_tiny()
+        return common_configs.vig_pyramid_tiny()
     if config == "vig_attention_pyramid_tiny":
-        return vig_attention_pyramid_tiny()
+        return common_configs.vig_attention_pyramid_tiny()
+    if config == "vig_pyramid_tiny_classification":
+        return common_configs.vig_pyramid_tiny_classification()
+    if config == "vig_attention_pyramid_tiny_classification":
+        return common_configs.vig_attention_pyramid_tiny_classification()
     raise ValueError(f"Wrong config: {config}")
 
 
@@ -145,13 +143,14 @@ def main():
             name=wandb_run_name,
             config={
                 "architecture": args.config,
-                "dataset": "Internal.",
+                "dataset": args.dataset,
                 "epochs": epochs,
             },
         )
     try:
         train(
             config,
+            args.dataset,
             batch_size,
             epochs,
             environment,

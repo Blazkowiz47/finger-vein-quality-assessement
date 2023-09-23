@@ -9,11 +9,11 @@ from tqdm import tqdm
 from torchmetrics import Metric
 import wandb
 
-# from common.data_pipeline.MMCBNU_6000.dataset import DatasetLoader as mmcbnu
+# from common.data_pipeline.mmcbnu.dataset import DatasetLoader as mmcbnu
 from common.train_pipeline.config import ModelConfig
 
-# from common.data_pipeline.FV_USM.dataset import DatasetLoader as fvusm
-from common.data_pipeline.dataset import DatasetLoader as common_dataset
+# from common.data_pipeline.fvusm.dataset import DatasetLoader as fvusm
+from common.data_pipeline.dataset import get_dataset
 from common.train_pipeline.metric.accuracy import Metric as Accuracy
 
 from common.train_pipeline.model.model import get_model
@@ -22,36 +22,6 @@ from common.util.data_pipeline.dataset_chainer import DatasetChainer
 from common.util.enums import EnvironmentType
 
 # To watch nvidia-smi continuously after every 2 seconds: watch -n 2 nvidia-smi
-
-
-def get_dataset(
-    environment: EnvironmentType = EnvironmentType.PYTORCH,
-    batch_size: int = 10,
-    augment_times: int = 0,
-):
-    """
-    Get's specific dataset within the provided environment.
-    Change the datasets using config.
-    """
-    datasets = DatasetChainer(
-        datasets=[
-            # mmcbnu(
-            #     included_portion=1,
-            #     environment_type=environment,
-            #     train_size=0.85,
-            #     validation_size=0.15,
-            # ),
-            # fvusm(included_portion=1, environment_type=environment),
-            common_dataset(
-                "datasets/internal_301_db",
-                "Internal_301",
-                is_dataset_already_split=True,
-                from_numpy=False,
-                augment_times=augment_times,
-            )
-        ]
-    )
-    return datasets.get_dataset(environment, batch_size=batch_size)
 
 
 def get_train_loss(device: str = "cpu"):
@@ -144,6 +114,7 @@ def cuda_info():
 
 def train(
     config: ModelConfig,
+    dataset: str,
     batch_size: int = 10,
     epochs: int = 1,
     environment: EnvironmentType = EnvironmentType.PYTORCH,
@@ -157,11 +128,19 @@ def train(
     Contains the training loop.
     """
     device = cuda_info()
-    train_dataset, validation_dataset, _ = get_dataset(
-        environment,
-        batch_size,
-        augment_times,
+    train_dataset, validation_dataset, _ = DatasetChainer(
+        datasets=[
+            get_dataset(
+                dataset,
+                environment=environment,
+                augment_times=augment_times,
+            ),
+        ],
+    ).get_dataset(
+        batch_size=batch_size,
+        dataset_type=environment,
     )
+
     if continue_model:
         model = torch.load(continue_model).to(device)
     else:

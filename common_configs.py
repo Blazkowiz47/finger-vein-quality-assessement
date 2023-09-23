@@ -858,3 +858,175 @@ def vig_attention_pyramid_tiny() -> ModelConfig:
             dropout=0.0,
         ),
     )
+
+
+def vig_pyramid_tiny_classification() -> ModelConfig:
+    """
+    Module architecture:
+    Resnet50 till layer 3 (Output 1024*4*8) [FROZEN]
+    Grapher followed by ffn [12 blocks]
+    predictor (linear)
+    """
+    channels: List[int] = [48, 96, 240, 384]
+    num_of_grapher_units: List[int] = [2, 2, 6, 2]
+    act: str = "gelu"
+    num_knn: int = 9
+    drop_path: float = 0.0
+    use_dilation: bool = True
+    n_classes: int = 1
+    bias: bool = True
+    epsilon: float = 0.2
+    conv: str = "mr"
+    linear_dims: int = 19200
+
+    num_knn_list: List[Any] = [int(x.item()) for x in torch.linspace(4, 2 * num_knn, 4)]
+    num_knn_list.reverse()
+    logger.info("KNNs: %s", num_knn_list)
+    max_dilation = 196 // num_knn
+    H = 128
+    W = 256
+    blocks: List[PyramidBlockConfig] = []
+    for i in range(4):
+        blocks.append(
+            PyramidBlockConfig(
+                in_channels=channels[i],
+                out_channels=channels[i + 1] if i + 1 < len(channels) else channels[i],
+                hidden_dimensions_in_ratio=4,
+                number_of_grapher_ffn_units=num_of_grapher_units[i],
+                grapher_config=GrapherConfig(
+                    in_channels=channels[i],
+                    act=act,
+                    conv=conv,
+                    norm="batch",
+                    epsilon=epsilon,
+                    neighbour_number=num_knn_list[i],
+                    drop_path=drop_path,
+                    max_dilation=max_dilation,
+                    dilation=1.0,
+                    bias=bias,
+                    n=H * W,
+                ),
+                ffn_config=FFNConfig(
+                    channels[i],
+                    hidden_features=channels[i] * 4,
+                    act=act,
+                    drop_path=drop_path,
+                    bias=bias,
+                ),
+            )
+        )
+        H = H // 4
+        W = W // 4
+
+    return ModelConfig(
+        stem_config=StemConfig(
+            stem_type="pyramid_3_conv_layer",
+            in_channels=3,
+            out_channels=channels[0],
+            act=act,
+            bias=bias,
+        ),
+        backbone_config=BackboneConfig(
+            backbone_type="pyramid_backbone",
+            blocks=blocks,
+        ),
+        predictor_config=PredictorConfig(
+            predictor_type="linear",
+            in_channels=channels[-1],
+            linear_dims=linear_dims,
+            n_classes=n_classes,
+            act=act,
+            bias=bias,
+            hidden_dims=channels[-1] * 2,
+            dropout=0.0,
+        ),
+    )
+
+
+def vig_attention_pyramid_tiny_classification() -> ModelConfig:
+    """
+    Module architecture:
+    Resnet50 till layer 3 (Output 1024*4*8) [FROZEN]
+    Grapher followed by ffn [12 blocks]
+    predictor (linear)
+    """
+    channels: List[int] = [48, 96, 240, 384]
+    num_of_grapher_units: List[int] = [2, 2, 6, 2]
+    act: str = "gelu"
+    num_knn: int = 9
+    drop_path: float = 0.0
+    use_dilation: bool = True
+    n_classes: int = 1
+    bias: bool = True
+    epsilon: float = 0.2
+    conv: str = "mr"
+    linear_dims: int = 19200
+
+    num_knn_list: List[Any] = [int(x.item()) for x in torch.linspace(4, 2 * num_knn, 4)]
+    num_knn_list.reverse()
+    logger.info("KNNs: %s", num_knn_list)
+    max_dilation = 196 // num_knn
+    H = 128
+    W = 256
+    blocks: List[PyramidBlockConfig] = []
+    for i in range(4):
+        blocks.append(
+            PyramidBlockConfig(
+                in_channels=channels[i],
+                out_channels=channels[i + 1] if i + 1 < len(channels) else channels[i],
+                hidden_dimensions_in_ratio=4,
+                number_of_grapher_ffn_units=num_of_grapher_units[i],
+                grapher_config=GrapherConfig(
+                    in_channels=channels[i],
+                    act=act,
+                    conv=conv,
+                    norm="batch",
+                    epsilon=epsilon,
+                    neighbour_number=num_knn_list[i],
+                    drop_path=drop_path,
+                    max_dilation=max_dilation,
+                    dilation=1.0,
+                    bias=bias,
+                    n=H * W,
+                ),
+                attention_config=AttentionBlockConfig(
+                    in_dim=channels[i],
+                    num_heads=4,
+                    bias=bias,
+                    dropout=0,
+                ),
+                ffn_config=FFNConfig(
+                    channels[i],
+                    hidden_features=channels[i] * 4,
+                    act=act,
+                    drop_path=drop_path,
+                    bias=bias,
+                ),
+            )
+        )
+        H = H // 4
+        W = W // 4
+
+    return ModelConfig(
+        stem_config=StemConfig(
+            stem_type="pyramid_3_conv_layer",
+            in_channels=3,
+            out_channels=channels[0],
+            act=act,
+            bias=bias,
+        ),
+        backbone_config=BackboneConfig(
+            backbone_type="pyramid_backbone",
+            blocks=blocks,
+        ),
+        predictor_config=PredictorConfig(
+            predictor_type="linear",
+            in_channels=channels[-1],
+            linear_dims=linear_dims,
+            n_classes=n_classes,
+            act=act,
+            bias=bias,
+            hidden_dims=channels[-1] * 2,
+            dropout=0.0,
+        ),
+    )
