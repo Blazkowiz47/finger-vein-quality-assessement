@@ -873,7 +873,7 @@ def vig_pyramid_tiny_classification() -> ModelConfig:
     num_knn: int = 9
     drop_path: float = 0.0
     use_dilation: bool = True
-    n_classes: int = 1
+    n_classes: int = 2
     bias: bool = True
     epsilon: float = 0.2
     conv: str = "mr"
@@ -956,7 +956,7 @@ def vig_attention_pyramid_tiny_classification() -> ModelConfig:
     num_knn: int = 9
     drop_path: float = 0.0
     use_dilation: bool = True
-    n_classes: int = 1
+    n_classes: int = 2
     bias: bool = True
     epsilon: float = 0.2
     conv: str = "mr"
@@ -1045,7 +1045,7 @@ def vig_pyramid_tiny_conv_classification() -> ModelConfig:
     num_knn: int = 9
     drop_path: float = 0.0
     use_dilation: bool = True
-    n_classes: int = 1
+    n_classes: int = 2
     bias: bool = True
     epsilon: float = 0.2
     conv: str = "mr"
@@ -1128,7 +1128,7 @@ def vig_attention_pyramid_tiny_conv_classification() -> ModelConfig:
     num_knn: int = 9
     drop_path: float = 0.0
     use_dilation: bool = True
-    n_classes: int = 1
+    n_classes: int = 2
     bias: bool = True
     epsilon: float = 0.2
     conv: str = "mr"
