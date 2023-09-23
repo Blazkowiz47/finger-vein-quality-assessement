@@ -63,7 +63,9 @@ class DatasetLoaderBase:
         image, label = self.pre_process(data)
         yield (image, label)
         if split_type == DatasetSplitType.TRAIN:
-            for _ in range(self.augment_times if label else self.augment_times // 2):
+            for _ in range(
+                self.augment_times if label[1] == 1 else self.augment_times // 2
+            ):
                 yield (self.augment(image), label)
 
     def _get_generator(

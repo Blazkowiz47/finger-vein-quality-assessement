@@ -70,6 +70,7 @@ class ConvPredictor(Module):
                 bias=config.bias,
             ),
         )
+        self.softmax = Softmax(dim=1)
 
     def forward(self, inputs):
         """Forward pass."""
@@ -77,7 +78,9 @@ class ConvPredictor(Module):
         inputs = self.bn1(inputs)
         inputs = self.act(inputs)
         inputs = adaptive_avg_pool2d(inputs, 1)
-        return self.predictor(inputs).squeeze(-1).squeeze(-1)
+        inputs = self.predictor(inputs).squeeze(-1).squeeze(-1)
+        inputs = self.softmax(inputs)
+        return inputs
 
 
 class LinPredictor(Module):
