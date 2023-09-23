@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 import numpy as np
 from torch.utils.data import DataLoader
 
@@ -24,11 +24,12 @@ def generate_dataset(
 class DatasetGenerator:
     """A generator which gives the dataset sequentially"""
 
-    def __init__(self, data: List[np.ndarray]) -> None:
-        self.data: List[np.ndarray] = data
+    def __init__(self, data: List[Tuple[np.ndarray, np.ndarray]]) -> None:
+        self.data: List[Tuple[np.ndarray, np.ndarray]] = data
 
     def __len__(self):
-        return self.data[0].shape[0]
+        return len(self.data)
 
     def __getitem__(self, idx: int):
-        return (*[split[idx] for split in self.data],)
+        return self.data[idx]
+        # return (*[split[idx] for split in self.data],)

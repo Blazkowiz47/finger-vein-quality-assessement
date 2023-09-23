@@ -4,6 +4,7 @@
 
 
 from abc import abstractmethod
+from itertools import chain
 import random
 from typing import Any, Dict, Tuple, List
 import numpy as np
@@ -51,37 +52,46 @@ class DatasetLoaderBase:
         self,
         data_list: List[DatasetObject],
         split_type: DatasetSplitType,
-    ) -> List[np.ndarray]:
-        pre_processed_data: List[Tuple[np.ndarray, np.ndarray]] = []
-        t_size = 0
+    ) -> List[Tuple[np.ndarray, np.ndarray]]:
+        # pre_processed_data: List[Tuple[np.ndarray, np.ndarray]] = []
+        # t_size = 0
         logger.info(
             "Preprocessing %s dataset for %s split.", self.get_name(), split_type.value
         )
-        for i, data in enumerate(tqdm(data_list)):
-            pre_processed_data.append(self.pre_process(data))
-            t_size = len(pre_processed_data[i])
+        # for i, data in enumerate(tqdm(data_list)):
+        #     pre_processed_data.append(self.pre_process(data))
+        #     t_size = len(pre_processed_data[i])
 
-        augmented_dataset: List[Tuple[np.ndarray, np.ndarray]] = []
-        if split_type == DatasetSplitType.TRAIN:
-            total = len(pre_processed_data) * self.augment_times
-            with tqdm(desc="Augmenting dataset", total=total) as pbar:
-                for data in pre_processed_data:
-                    labels = data[1]
-                    image = data[0]
-                    augmented_dataset.append(data)
-                    pbar.update(1)
-                    for _ in range(self.augment_times - 1):
-                        try:
-                            augmented_dataset.append((self.augment(image), labels))
-                            pbar.update(1)
-                        except NotImplementedError:
-                            break
-        else:
-            augmented_dataset = pre_processed_data
-        dataset = []
-        for i in range(t_size):
-            dataset.append(np.stack([data[i] for data in augmented_dataset]))
-        return dataset
+        # augmented_dataset: List[Tuple[np.ndarray, np.ndarray]] = []
+        # if split_type == DatasetSplitType.TRAIN:
+        #     total = len(pre_processed_data) * self.augment_times
+        #     with tqdm(desc="Augmenting dataset", total=total) as pbar:
+        #         for data in pre_processed_data:
+        #             labels = data[1]
+        #             image = data[0]
+        #             augmented_dataset.append(data)
+        #             pbar.update(1)
+        #             for _ in range(self.augment_times - 1):
+        #                 try:
+        #                     augmented_dataset.append((self.augment(image), labels))
+        #                     pbar.update(1)
+        #                 except NotImplementedError:
+        #                     break
+        # else:
+        #     augmented_dataset = pre_processed_data
+        # dataset = []
+        # for i in range(t_size):
+        #     dataset.append(np.stack([data[i] for data in augmented_dataset]))
+        return self._get_generator(data_list)
+
+    def _convert_to_numpy(self, data: DatasetObject):
+        image, label = self.pre_process(data)
+        yield (image, label)
+        for _ in range(self.augment_times - 1):
+            yield (self.augment(image), label)
+
+    def _get_generator(self, data_list: List[DatasetObject]):
+        return chain(*[self._convert_to_numpy(data) for data in data_list])
 
     def compile_sets(self) -> Dict[DatasetSplitType, List[np.ndarray]]:
         """Compiles train test and validation sets"""

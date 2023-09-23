@@ -9,10 +9,10 @@ from tqdm import tqdm
 from torchmetrics import Metric
 import wandb
 
-# from common.data_pipeline.MMCBNU_6000.dataset import DatasetLoader as mmcbnu
+# from common.data_pipeline.mmcbnu.dataset import DatasetLoader as mmcbnu
 from common.train_pipeline.config import ModelConfig
 
-# from common.data_pipeline.FV_USM.dataset import DatasetLoader as fvusm
+# from common.data_pipeline.fvusm.dataset import DatasetLoader as fvusm
 from common.data_pipeline.dataset import DatasetLoader as common_dataset
 from common.train_pipeline.metric.accuracy import Metric as Accuracy
 

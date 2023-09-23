@@ -7,6 +7,8 @@ from typing import List, Tuple
 import albumentations as A
 import cv2
 import numpy as np
+from common.data_pipeline.fvusm.dataset import DatasetLoader as fvusm
+from common.data_pipeline.mmcbnu.dataset import DatasetLoader as mmcbnu
 from common.util.data_pipeline.dataset_loader import DatasetLoaderBase
 from common.util.decorators import reflected
 from common.util.enums import EnvironmentType
@@ -141,3 +143,39 @@ class DatasetLoader(DatasetLoaderBase):
         transformed = transform(image=image)
         transformed_image = transformed["image"]
         return transformed_image
+
+
+def get_dataset(
+    dataset: str,
+    environment: EnvironmentType = EnvironmentType.PYTORCH,
+    augment_times: int = 2,
+):
+    """
+    Dataset Factory.
+    """
+    if dataset == "mmcbnu":
+        return mmcbnu(
+            environment_type=environment,
+        )
+
+    if dataset == "fvusm":
+        return fvusm(
+            environment_type=environment,
+        )
+    if dataset == "layer3output":
+        return DatasetLoader(
+            "dataset/layer3output",
+            "Resnet_Layer_3_Output",
+            environment_type=environment,
+            is_dataset_already_split=True,
+            augment_times=augment_times,
+        )
+
+    if dataset == "dnp":
+        return DatasetLoader(
+            "dataset/dnp",
+            "DNP",
+            environment_type=environment,
+            is_dataset_already_split=True,
+            augment_times=augment_times,
+        )
