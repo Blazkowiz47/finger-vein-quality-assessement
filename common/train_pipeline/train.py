@@ -177,7 +177,7 @@ def train(
             # end = time.time()
             # logger.info("Backward prop. %s", str(end - start))
             optimizer.step()
-            predicted = (outputs == outputs.max()).float()
+            predicted = (outputs > 0.9).float()
             # start = time.time()
             for metric in train_metrics:
                 metric.update(predicted, labels)
