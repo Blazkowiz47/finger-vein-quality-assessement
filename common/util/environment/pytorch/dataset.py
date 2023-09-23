@@ -1,3 +1,6 @@
+"""
+Dataset generator for pytorch
+"""
 from typing import List, Tuple
 import numpy as np
 from torch.utils.data import DataLoader
