@@ -27,7 +27,7 @@ def resnet50_grapher12_conv_gelu_config() -> ModelConfig:
     """
     resnet_layer: int = 3
     in_channels: int = 1024
-    linear_dims: int = 1024
+    linear_dims: int = 24576
     act: str = "gelu"
     n_blocks: int = 12
     num_knn: int = 9
@@ -89,14 +89,13 @@ def resnet50_grapher12_conv_gelu_config() -> ModelConfig:
             blocks=blocks,
         ),
         predictor_config=PredictorConfig(
-            predictor_type="linear",
+            predictor_type="conv",
             in_channels=in_channels,
             linear_dims=linear_dims,
             n_classes=n_classes,
             act=act,
             bias=bias,
             hidden_dims=512,
-            linear_hidden_dims=512,
             dropout=0.0,
         ),
     )
@@ -200,7 +199,7 @@ def grapher_attention_12_conv_gelu_config() -> ModelConfig:
     """
     resnet_layer: int = 3
     in_channels: int = 1024
-    linear_dims: int = 1024
+    linear_dims: int = 24576
     act: str = "gelu"
     n_blocks: int = 12
     num_knn: int = 9
@@ -283,7 +282,7 @@ def grapher_12_conv_gelu_config() -> ModelConfig:
 
     resnet_layer: int = 3
     in_channels: int = 1024
-    linear_dims: int = 1024
+    linear_dims: int = 24576
     act: str = "gelu"
     n_blocks: int = 12
     num_knn: int = 9

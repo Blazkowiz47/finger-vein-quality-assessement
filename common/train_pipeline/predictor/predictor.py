@@ -52,7 +52,7 @@ class ConvPredictor(Module):
             1,
             bias=config.bias,
         )
-        self.bn1 = BatchNorm2d(config.hidden_dims)
+        self.bn1 = BatchNorm2d(config.in_channels * 2)
         self.act = act_layer(config.act)
 
         self.predictor = Sequential(
