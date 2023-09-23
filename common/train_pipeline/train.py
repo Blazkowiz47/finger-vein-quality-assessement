@@ -177,13 +177,8 @@ def train(
             # end = time.time()
             # logger.info("Backward prop. %s", str(end - start))
             optimizer.step()
-            predicted = (
-                outputs
-                == outputs.max(
-                    axis=1,
-                    keepdims=True,
-                )
-            ) * 1.0
+            predicted = outputs.argmax(dim=1)
+            labels = labels.argmax(dim=1)
             # start = time.time()
             for metric in train_metrics:
                 metric.update(predicted, labels)
@@ -191,8 +186,10 @@ def train(
             # logger.info("Metric. %s", str(end - start))
 
         model.eval()
-        computed_metrics = [metric.compute() for metric in train_metrics]
-        results = [add_label(metric, "train") for metric in computed_metrics]
+        results = []
+        for metric in train_metrics:
+            results.append(add_label(metric.compute(), "train"))
+            metric.reset()
 
         if epoch % validate_after_epochs == 0:
             val_loss = 0.0
@@ -202,13 +199,15 @@ def train(
                     labels = labels.to(device).float()
                     outputs = model(inputs)  # pylint: disable=E1102
                     val_loss += validate_loss_fn(outputs, labels)
-                    predicted = (outputs == outputs.max()).float()
+                    predicted = outputs.argmax(dim=1)
+                    labels = labels.argmax(dim=1)
                     for metric in val_metrics:
                         metric.update(predicted, labels)
-            results.extend(
-                [add_label(metric.compute(), "validation") for metric in val_metrics]
-            )
-        if best_accuracy < computed_metrics[0]["correct"]:
+                for metric in val_metrics:
+                    results.append(add_label(metric.compute(), "validation"))
+                    metric.reset()
+
+        if best_accuracy < results[0]["train_correct"]:
             torch.save(
                 model,
                 f"models/checkpoints/{log_on_wandb}.pt",

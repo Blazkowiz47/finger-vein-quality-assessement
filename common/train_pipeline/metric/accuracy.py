@@ -24,9 +24,7 @@ class Metric(metric):
         target: Tensor,
     ):
         assert preds.shape == target.shape
-        for batch in range(preds.shape[0]):
-            if torch.equal(target[batch], preds[batch]):
-                self.correct += 1
+        self.correct += torch.sum((preds == target) * 1)
         self.total += target.shape[0]
 
     def compute(self):
@@ -34,5 +32,4 @@ class Metric(metric):
             "correct": self.correct.item() / self.total.item(),
             # "total": self.total.item(),
         }
-        self.reset()
         return result
