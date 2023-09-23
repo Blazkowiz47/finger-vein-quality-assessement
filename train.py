@@ -117,6 +117,10 @@ def get_config(config: str):
         return common_configs.vig_pyramid_tiny_classification()
     if config == "vig_attention_pyramid_tiny_classification":
         return common_configs.vig_attention_pyramid_tiny_classification()
+    if config == "vig_pyramid_tiny_conv_classification":
+        return common_configs.vig_pyramid_tiny_conv_classification()
+    if config == "vig_attention_pyramid_tiny_conv_classification":
+        return common_configs.vig_attention_pyramid_tiny_conv_classification()
     raise ValueError(f"Wrong config: {config}")
 
 

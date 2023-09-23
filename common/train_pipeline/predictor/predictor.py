@@ -44,15 +44,24 @@ class ConvPredictor(Module):
 
     def __init__(self, config: PredictorConfig):
         super(ConvPredictor, self).__init__()
+
+        self.conv1 = Conv2d(
+            config.in_channels,
+            config.in_channels * 2,
+            3,
+            1,
+            bias=config.bias,
+        )
+        self.bn1 = BatchNorm2d(config.hidden_dims)
+        self.act = act_layer(config.act)
+
         self.predictor = Sequential(
             Conv2d(
-                config.in_channels,
+                config.in_channels * 2,
                 config.hidden_dims,
                 1,
                 bias=config.bias,
             ),
-            BatchNorm2d(config.hidden_dims),
-            act_layer(config.act),
             Dropout(config.dropout),
             Conv2d(
                 config.hidden_dims,
@@ -64,6 +73,9 @@ class ConvPredictor(Module):
 
     def forward(self, inputs):
         """Forward pass."""
+        inputs = self.conv1(inputs)
+        inputs = self.bn1(inputs)
+        inputs = self.act(inputs)
         inputs = adaptive_avg_pool2d(inputs, 1)
         return self.predictor(inputs).squeeze(-1).squeeze(-1)
 
