@@ -869,7 +869,7 @@ def vig_pyramid_tiny_classification() -> ModelConfig:
     """
     channels: List[int] = [48, 96, 240, 384]
     num_of_grapher_units: List[int] = [2, 2, 6, 2]
-    act: str = "relu"
+    act: str = "gelu"
     num_knn: int = 9
     drop_path: float = 0.0
     use_dilation: bool = True
@@ -952,7 +952,7 @@ def vig_attention_pyramid_tiny_classification() -> ModelConfig:
     """
     channels: List[int] = [48, 96, 240, 384]
     num_of_grapher_units: List[int] = [2, 2, 6, 2]
-    act: str = "relu"
+    act: str = "gelu"
     num_knn: int = 9
     drop_path: float = 0.0
     use_dilation: bool = True
