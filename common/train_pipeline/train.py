@@ -7,6 +7,7 @@ from torch import optim
 from torch.nn import CrossEntropyLoss
 from tqdm import tqdm
 from torchmetrics import Metric
+from torchmetrics.classification import Accuracy
 import wandb
 
 # from common.data_pipeline.mmcbnu.dataset import DatasetLoader as mmcbnu
@@ -14,7 +15,6 @@ from common.train_pipeline.config import ModelConfig
 
 # from common.data_pipeline.fvusm.dataset import DatasetLoader as fvusm
 from common.data_pipeline.dataset import get_dataset
-from common.train_pipeline.metric.accuracy import Metric as Accuracy
 
 from common.train_pipeline.model.model import get_model
 from common.util.logger import logger
@@ -56,7 +56,10 @@ def get_train_metrics(device: str = "cpu") -> list[Metric]:
     Returns list of training metrics.
     """
     return [
-        Accuracy().to(device),
+        Accuracy(
+            task="multiclass",
+            num_classes=301,
+        ).to(device),
         # ConfusionMatrix().to(device),
     ]
 
@@ -66,7 +69,10 @@ def get_test_metrics(device: str = "cpu") -> list[Metric]:
     Returns list of testing metrics.
     """
     return [
-        Accuracy().to(device),
+        Accuracy(
+            task="multiclass",
+            num_classes=301,
+        ).to(device),
         # ConfusionMatrix().to(device),
     ]
 
@@ -76,7 +82,10 @@ def get_val_metrics(device: str = "cpu") -> list[Metric]:
     Returns list of validation metrics.
     """
     return [
-        Accuracy().to(device),
+        Accuracy(
+            task="multiclass",
+            num_classes=301,
+        ).to(device),
         # ConfusionMatrix().to(device),
     ]
 
@@ -177,9 +186,8 @@ def train(
             # end = time.time()
             # logger.info("Backward prop. %s", str(end - start))
             optimizer.step()
-            predicted = outputs.argmax(dim=1)
-            labels = labels.argmax(dim=1)
             # start = time.time()
+            predicted = (outputs == outputs[outputs.argmax(dim=1)]) * 1
             for metric in train_metrics:
                 metric.update(predicted, labels)
             # end = time.time()
@@ -188,7 +196,7 @@ def train(
         model.eval()
         results = []
         for metric in train_metrics:
-            results.append(add_label(metric.compute(), "train"))
+            results.append(add_label({"accuracy": metric.compute()}, "train"))
             metric.reset()
 
         if epoch % validate_after_epochs == 0:
@@ -199,12 +207,14 @@ def train(
                     labels = labels.to(device).float()
                     outputs = model(inputs)  # pylint: disable=E1102
                     val_loss += validate_loss_fn(outputs, labels)
-                    predicted = outputs.argmax(dim=1)
+                    predicted = (outputs == outputs[outputs.argmax(dim=1)]) * 1
                     labels = labels.argmax(dim=1)
                     for metric in val_metrics:
                         metric.update(predicted, labels)
                 for metric in val_metrics:
-                    results.append(add_label(metric.compute(), "validation"))
+                    results.append(
+                        add_label({"accuracy": metric.compute()}, "validation")
+                    )
                     metric.reset()
 
         if best_accuracy < results[0]["train_correct"]:
