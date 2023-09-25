@@ -47,40 +47,40 @@ def get_val_loss() -> Module:
     return SoftTargetCrossEntropy()
 
 
-def get_train_metrics() -> list[Metric]:
+def get_train_metrics(n_classes: int) -> list[Metric]:
     """
     Returns list of training metrics.
     """
     return [
         Accuracy(
             task="multiclass",
-            num_classes=301,
+            num_classes=n_classes,
         ),
         # ConfusionMatrix().to(device),
     ]
 
 
-def get_test_metrics() -> list[Metric]:
+def get_test_metrics(n_classes: int) -> list[Metric]:
     """
     Returns list of testing metrics.
     """
     return [
         Accuracy(
             task="multiclass",
-            num_classes=301,
+            num_classes=n_classes,
         ),
         # ConfusionMatrix().to(device),
     ]
 
 
-def get_val_metrics() -> list[Metric]:
+def get_val_metrics(n_classes: int) -> list[Metric]:
     """
     Returns list of validation metrics.
     """
     return [
         Accuracy(
             task="multiclass",
-            num_classes=301,
+            num_classes=n_classes,
         ),
         # ConfusionMatrix().to(device),
     ]
@@ -128,6 +128,7 @@ def train(
     learning_rate: float = 1e-4,
     continue_model: Optional[str] = None,
     augment_times: int = 0,
+    n_classes: int = 301,
 ):
     """
     Contains the training loop.
@@ -156,9 +157,9 @@ def train(
     train_loss_fn = get_train_loss().to(device)
     validate_loss_fn = get_val_loss().to(device)
 
-    train_metrics = [metric.to(device) for metric in get_train_metrics()]
+    train_metrics = [metric.to(device) for metric in get_train_metrics(n_classes)]
     # test_metrics = get_test_metrics(device)
-    val_metrics = [metric.to(device) for metric in get_val_metrics()]
+    val_metrics = [metric.to(device) for metric in get_val_metrics(n_classes)]
     # Training loop
     best_accuracy: float = 0
     _ = cuda_info()
