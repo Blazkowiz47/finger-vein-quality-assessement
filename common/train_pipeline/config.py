@@ -27,17 +27,15 @@ class BackboneConfig:
     blocks: List[BackboneBlockConfig] = None
 
 
+@dataclass
 class ModelConfig:
     """
     COntains Default training configurations.
     """
 
-    def __init__(
-        self,
-        stem_config: Optional[StemConfig] = None,
-        backbone_config: Optional[BackboneConfig] = None,
-        predictor_config: Optional[PredictorConfig] = None,
-    ):
-        self.stem_config: Optional[StemConfig] = stem_config
-        self.backbone_config: Optional[BackboneConfig] = backbone_config
-        self.predictor_config: Optional[PredictorConfig] = predictor_config
+    stem_config: Optional[StemConfig] = None
+    backbone_config: Optional[BackboneConfig] = None
+    predictor_config: Optional[PredictorConfig] = None
+
+    height: int = 60
+    width: int = 120

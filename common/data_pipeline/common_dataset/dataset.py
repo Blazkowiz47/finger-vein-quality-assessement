@@ -31,10 +31,14 @@ class DatasetLoader(DatasetLoaderBase):
         is_dataset_already_split: bool = False,
         from_numpy: bool = True,
         augment_times: int = 8,
+        height: int = 60,
+        width: int = 120,
     ) -> None:
         self.directory: str = directory
         self.dataset_name: str = dataset_name
         self.from_numpy = from_numpy
+        self.height = height
+        self.width = width
         self.classes: List[str] = self.get_classes()
         super().__init__(
             environment_type=environment_type,
@@ -110,11 +114,12 @@ class DatasetLoader(DatasetLoaderBase):
         if self.from_numpy:
             image = np.load(data.path, allow_pickle=True)
         else:
-            height, width = 128, 256
             image = cv2.imread(data.path, cv2.IMREAD_GRAYSCALE)  # pylint: disable=E1101
             if image.shape[0] > image.shape[1]:
                 image = image.transpose()  # pylint: disable=E1101
-            image = cv2.resize(image, (width, height))  # pylint: disable=E1101
+            image = cv2.resize(  # pylint: disable=E1101
+                image, (self.width, self.height)
+            )
             image = (image - image.min()) / ((image.max() - image.min()) or 1.0)
             image = image.astype("float")
             if EnvironmentType.PYTORCH == self.environment_type:

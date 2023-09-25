@@ -31,7 +31,10 @@ class CustomModel(Module):
             )
         self.pos_embed = Parameter(
             torch.zeros(  # pylint: disable=E1101
-                1, config.stem_config.out_channels, 224 // 4, 224 // 4
+                1,
+                config.stem_config.out_channels,
+                config.height // 4,
+                config.width // 4,
             )
         )
         self.model_init()
@@ -41,7 +44,7 @@ class CustomModel(Module):
         Forward pass.
         """
         if self.stem:
-            inputs = self.stem(inputs)
+            inputs = self.stem(inputs) + self.pos_embed
         logger.debug("Stem output: %s", inputs.shape)
         if self.backbone:
             inputs = self.backbone(inputs)

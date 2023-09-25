@@ -6,7 +6,7 @@ import argparse
 
 import torch
 import wandb
-import common_configs as common_configs
+import common_configs as cfgs
 from common.train_pipeline.train import train
 from common.util.logger import logger
 from common.util.enums import EnvironmentType
@@ -117,6 +117,20 @@ parser.add_argument(
     help="Defines total number of heads in attention.",
 )
 
+parser.add_argument(
+    "--height",
+    type=int,
+    default=60,
+    help="Defines height of the image.",
+)
+
+parser.add_argument(
+    "--width",
+    type=int,
+    default=120,
+    help="Defines width of the image.",
+)
+
 
 def get_config(
     config: str,
@@ -124,25 +138,60 @@ def get_config(
     pred_type: str,
     n_classes: int,
     num_heads: int,
+    height: int,
+    width: int,
 ):
     """
     Fetches appropriate config.
     """
     if config == "resnet50_grapher_12_conv_config":
-        return common_configs.resnet50_grapher_12_conv_config(act, pred_type, n_classes)
+        return cfgs.resnet50_grapher_12_conv_config(
+            act,
+            pred_type,
+            n_classes,
+            height,
+            width,
+        )
     if config == "resnet50_grapher_attention_12_conv_config":
-        return common_configs.resnet50_grapher_attention_12_conv_config(
-            act, pred_type, n_classes
+        return cfgs.resnet50_grapher_attention_12_conv_config(
+            act,
+            pred_type,
+            n_classes,
+            height,
+            width,
         )
     if config == "grapher_6_conv_config":
-        return common_configs.grapher_6_conv_config(act, pred_type, n_classes)
+        return cfgs.grapher_6_conv_config(
+            act,
+            pred_type,
+            n_classes,
+            height,
+            width,
+        )
     if config == "grapher_12_conv_config":
-        return common_configs.grapher_12_conv_config(act, pred_type, n_classes)
+        return cfgs.grapher_12_conv_config(
+            act,
+            pred_type,
+            n_classes,
+            height,
+            width,
+        )
     if config == "vig_pyramid_tiny":
-        return common_configs.vig_pyramid_tiny(act, pred_type, n_classes)
+        return cfgs.vig_pyramid_tiny(
+            act,
+            pred_type,
+            n_classes,
+            height,
+            width,
+        )
     if config == "vig_attention_pyramid_tiny":
-        return common_configs.vig_attention_pyramid_tiny(
-            act, pred_type, n_classes, num_heads
+        return cfgs.vig_attention_pyramid_tiny(
+            act,
+            pred_type,
+            n_classes,
+            num_heads,
+            height,
+            width,
         )
 
     raise ValueError(f"Wrong config: {config}")
@@ -164,7 +213,13 @@ def main():
     )
     wandb_run_name = args.wandb_run_name
     config = get_config(
-        args.config, args.act, args.pred_type, args.n_classes, args.num_heads
+        args.config,
+        args.act,
+        args.pred_type,
+        args.n_classes,
+        args.num_heads,
+        args.height,
+        args.width,
     )
     if wandb_run_name:
         wandb.init(
@@ -192,6 +247,8 @@ def main():
             args.continue_model,
             args.augment_times,
             args.n_classes,
+            args.height,
+            args.width,
         )
     except KeyboardInterrupt:
         pass
