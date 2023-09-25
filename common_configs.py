@@ -22,6 +22,8 @@ def resnet50_grapher_12_conv_config(
     act: str,
     pred_type: str,
     n_classes: int,
+    height: int,
+    width: int,
 ) -> ModelConfig:
     """
     Module architecture:
@@ -79,6 +81,8 @@ def resnet50_grapher_12_conv_config(
         )
 
     return ModelConfig(
+        height=height,
+        width=width,
         stem_config=StemConfig(
             stem_type="pretrained_resnet50",
             pretrained="models/resnet50_pretrained.pt",
@@ -106,6 +110,8 @@ def resnet50_grapher_attention_12_conv_config(
     act: str,
     pred_type: str,
     n_classes: int,
+    height: int,
+    width: int,
 ) -> ModelConfig:
     """
     Module architecture:
@@ -169,6 +175,8 @@ def resnet50_grapher_attention_12_conv_config(
         )
 
     return ModelConfig(
+        height=height,
+        width=width,
         stem_config=StemConfig(
             stem_type="pretrained_resnet50",
             pretrained="models/resnet50_pretrained.pt",
@@ -196,6 +204,8 @@ def grapher_attention_12_conv_config(
     act: str,
     pred_type: str,
     n_classes: int,
+    height: int,
+    width: int,
 ) -> ModelConfig:
     """
     Module architecture:
@@ -259,6 +269,8 @@ def grapher_attention_12_conv_config(
         )
 
     return ModelConfig(
+        height=height,
+        width=width,
         backbone_config=BackboneConfig(
             backbone_type="isotropic_backbone",
             blocks=blocks,
@@ -279,6 +291,8 @@ def grapher_12_conv_config(
     act: str,
     pred_type: str,
     n_classes: int,
+    height: int,
+    width: int,
 ) -> ModelConfig:
     """
     Module architecture:
@@ -337,6 +351,8 @@ def grapher_12_conv_config(
         )
 
     return ModelConfig(
+        height=height,
+        width=width,
         backbone_config=BackboneConfig(
             backbone_type="isotropic_backbone",
             blocks=blocks,
@@ -357,6 +373,8 @@ def grapher_6_conv_config(
     act: str,
     pred_type: str,
     n_classes: int,
+    height: int,
+    width: int,
 ) -> ModelConfig:
     """
     Module architecture:
@@ -365,9 +383,7 @@ def grapher_6_conv_config(
     predictor (linear)
     """
 
-    resnet_layer: int = 3
     in_channels: int = 1024
-    linear_dims: int = 1024
     n_blocks: int = 6
     num_knn: int = 9
     drop_path: float = 0.0
@@ -415,6 +431,8 @@ def grapher_6_conv_config(
         )
 
     return ModelConfig(
+        height=height,
+        width=width,
         backbone_config=BackboneConfig(
             backbone_type="isotropic_backbone",
             blocks=blocks,
@@ -435,6 +453,8 @@ def vig_pyramid_tiny(
     act: str,
     pred_type: str,
     n_classes: int,
+    height: int,
+    width: int,
 ) -> ModelConfig:
     """
     Module architecture:
@@ -452,9 +472,9 @@ def vig_pyramid_tiny(
     reduce_ratios: List[int] = [4, 2, 1, 1]
 
     max_dilation = 196 // num_knn
-    height = 224
-    width = 224
     blocks: List[PyramidBlockConfig] = []
+    original_height, original_width = height, width
+
     for i in range(4):
         blocks.append(
             PyramidBlockConfig(
@@ -468,7 +488,7 @@ def vig_pyramid_tiny(
                     conv=conv,
                     norm="batch",
                     epsilon=epsilon,
-                    neighbour_number=num_knn,
+                    neighbour_number=min(num_knn, width * height),
                     drop_path=drop_path,
                     max_dilation=max_dilation,
                     dilation=1.0,
@@ -489,6 +509,8 @@ def vig_pyramid_tiny(
         width = width // 4
 
     return ModelConfig(
+        height=original_height,
+        width=original_width,
         stem_config=StemConfig(
             stem_type="pyramid_3_conv_layer",
             in_channels=3,
@@ -517,6 +539,8 @@ def vig_attention_pyramid_tiny(
     pred_type: str,
     n_classes: int,
     num_heads: int,
+    height: int,
+    width: int,
 ) -> ModelConfig:
     """
     Module architecture:
@@ -536,8 +560,8 @@ def vig_attention_pyramid_tiny(
     num_knn_list.reverse()
     logger.info("KNNs: %s", num_knn_list)
     max_dilation = 196 // num_knn
-    H = 128
-    W = 256
+    original_height, original_width = height, width
+
     blocks: List[PyramidBlockConfig] = []
     for i in range(4):
         blocks.append(
@@ -558,7 +582,7 @@ def vig_attention_pyramid_tiny(
                     dilation=1.0,
                     bias=bias,
                     r=reduce_ratios[i],
-                    n=H * W,
+                    n=height * width,
                 ),
                 attention_config=AttentionBlockConfig(
                     in_dim=channels[i],
@@ -575,10 +599,12 @@ def vig_attention_pyramid_tiny(
                 ),
             )
         )
-        H = H // 4
-        W = W // 4
+        height = height // 4
+        width = width // 4
 
     return ModelConfig(
+        height=original_height,
+        width=original_width,
         stem_config=StemConfig(
             stem_type="pyramid_3_conv_layer",
             in_channels=3,

@@ -12,6 +12,8 @@ def get_dataset(
     dataset: str,
     environment: EnvironmentType = EnvironmentType.PYTORCH,
     augment_times: int = 2,
+    height: int = 60,
+    width: int = 120,
 ):
     """
     Dataset Factory.
@@ -32,6 +34,8 @@ def get_dataset(
             environment_type=environment,
             is_dataset_already_split=True,
             augment_times=augment_times,
+            height=height,
+            width=width,
         )
 
     if dataset == "dnp_lma":
@@ -67,4 +71,6 @@ def get_dataset(
             is_dataset_already_split=True,
             from_numpy=False,
             augment_times=augment_times,
+            height=height,
+            width=width,
         )

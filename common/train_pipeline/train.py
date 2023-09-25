@@ -129,6 +129,8 @@ def train(
     continue_model: Optional[str] = None,
     augment_times: int = 0,
     n_classes: int = 301,
+    height: int = 60,
+    width: int = 120,
 ):
     """
     Contains the training loop.
@@ -140,6 +142,8 @@ def train(
                 dataset,
                 environment=environment,
                 augment_times=augment_times,
+                height=height,
+                width=width,
             ),
         ],
     ).get_dataset(
