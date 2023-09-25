@@ -199,7 +199,7 @@ def train(
         results = []
 
         for metric in train_metrics:
-            results.append(add_label({"accuracy": metric.compute()}, "train"))
+            results.append(add_label({"accuracy": metric.compute().item()}, "train"))
             results.append(add_label({"loss": np.mean(training_loss)}, "train"))
             metric.reset()
 
@@ -223,7 +223,7 @@ def train(
                     results.append(
                         add_label(
                             {
-                                "accuracy": metric.compute(),
+                                "accuracy": metric.compute().item(),
                                 "loss": np.mean(val_loss),
                             },
                             "validation",
