@@ -1,7 +1,8 @@
 """
 Resnet 50 grapher.
 """
-from torch.nn import Module
+import torch
+from torch.nn import Conv2d, Module, Parameter
 from common.train_pipeline.backbone.backbone import get_backbone
 
 from common.train_pipeline.config import ModelConfig
@@ -12,7 +13,7 @@ from common.util.logger import logger
 
 class CustomModel(Module):
     """
-    Resnet 50 Grapher.
+    Model Wrapper
     """
 
     def __init__(self, config: ModelConfig) -> None:
@@ -28,6 +29,12 @@ class CustomModel(Module):
             self.predictor = get_predictor(
                 config.predictor_config,
             )
+        self.pos_embed = Parameter(
+            torch.zeros(  # pylint: disable=E1101
+                1, config.stem_config.out_channels, 224 // 4, 224 // 4
+            )
+        )
+        self.model_init()
 
     def forward(self, inputs):
         """
@@ -43,3 +50,15 @@ class CustomModel(Module):
             inputs = self.predictor(inputs)
         logger.debug("Predictor output: %s", inputs.shape)
         return inputs
+
+    def model_init(self):
+        """
+        Model init.
+        """
+        for module in self.modules():
+            if isinstance(module, Conv2d):
+                torch.nn.init.kaiming_normal_(module.weight)
+                module.weight.requires_grad = True
+                if module.bias is not None:
+                    module.bias.data.zero_()
+                    module.bias.requires_grad = True
