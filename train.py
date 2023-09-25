@@ -88,39 +88,51 @@ parser.add_argument(
     help="Dataset name.",
 )
 
+parser.add_argument(
+    "--act",
+    type=str,
+    default="gelu",
+    help="Defines activation function.",
+)
 
-def get_config(config: str):
+parser.add_argument(
+    "--pred-type",
+    type=str,
+    default="conv",
+    help="Defines predictor type.",
+)
+
+
+def get_config(
+    config: str,
+    act: str,
+    pred_type: str,
+):
     """
     Fetches appropriate config.
     """
-    if config == "resnet50_grapher12_conv_gelu_config":
-        return common_configs.resnet50_grapher12_conv_gelu_config()
-    if config == "resnet50_grapher_attention_12_conv_gelu_config":
-        return common_configs.resnet50_grapher_attention_12_conv_gelu_config()
-    if config == "grapher_attention_12_conv_gelu_config":
-        return common_configs.grapher_attention_12_conv_gelu_config()
-    if config == "grapher_12_conv_gelu_config":
-        return common_configs.grapher_12_conv_gelu_config()
-    if config == "grapher_6_conv_gelu_config":
-        return common_configs.grapher_6_conv_gelu_config()
-    if config == "vig_stem_grapher12_conv_relu_config":
-        return common_configs.vig_stem_grapher12_conv_relu_config()
-    if config == "vig_stem_grapher_attention_12_conv_relu_config":
-        return common_configs.vig_stem_grapher_attention_12_conv_relu_config()
-    if config == "vig_stem_grapher_attention_12_conv_gelu_sigmoid":
-        return common_configs.vig_stem_grapher_attention_12_conv_gelu_sigmoid()
+    if config == "resnet50_grapher_12_conv_config":
+        return common_configs.resnet50_grapher_12_conv_config(act, pred_type)
+    if config == "resnet50_grapher_attention_12_conv_config":
+        return common_configs.resnet50_grapher_attention_12_conv_config(act, pred_type)
+    if config == "grapher_6_conv_config":
+        return common_configs.grapher_6_conv_config(act, pred_type)
+    if config == "grapher_12_conv_config":
+        return common_configs.grapher_12_conv_config(act, pred_type)
     if config == "vig_pyramid_tiny":
-        return common_configs.vig_pyramid_tiny()
+        return common_configs.vig_pyramid_tiny(act, pred_type)
     if config == "vig_attention_pyramid_tiny":
-        return common_configs.vig_attention_pyramid_tiny()
+        return common_configs.vig_attention_pyramid_tiny(act, pred_type)
     if config == "vig_pyramid_tiny_classification":
-        return common_configs.vig_pyramid_tiny_classification()
+        return common_configs.vig_pyramid_tiny_classification(act, pred_type)
     if config == "vig_attention_pyramid_tiny_classification":
-        return common_configs.vig_attention_pyramid_tiny_classification()
+        return common_configs.vig_attention_pyramid_tiny_classification(act, pred_type)
     if config == "vig_pyramid_tiny_conv_classification":
-        return common_configs.vig_pyramid_tiny_conv_classification()
+        return common_configs.vig_pyramid_tiny_conv_classification(act, pred_type)
     if config == "vig_attention_pyramid_tiny_conv_classification":
-        return common_configs.vig_attention_pyramid_tiny_conv_classification()
+        return common_configs.vig_attention_pyramid_tiny_conv_classification(
+            act, pred_type
+        )
     raise ValueError(f"Wrong config: {config}")
 
 
@@ -139,7 +151,7 @@ def main():
         else EnvironmentType.TENSORFLOW
     )
     wandb_run_name = args.wandb_run_name
-    config = get_config(args.config)
+    config = get_config(args.config, args.act, args.pred_type)
     if wandb_run_name:
         wandb.init(
             # set the wandb project where this run will be logged
@@ -149,6 +161,8 @@ def main():
                 "architecture": args.config,
                 "dataset": args.dataset,
                 "epochs": epochs,
+                "activation": args.act,
+                "predictor_type": args.pred_type,
             },
         )
     try:
