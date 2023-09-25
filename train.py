@@ -102,37 +102,49 @@ parser.add_argument(
     help="Defines predictor type.",
 )
 
+parser.add_argument(
+    "--n-classes",
+    type=int,
+    default=301,
+    help="Defines total classes to predict.",
+)
+
+
+parser.add_argument(
+    "--num-heads",
+    type=int,
+    default=4,
+    help="Defines total number of heads in attention.",
+)
+
 
 def get_config(
     config: str,
     act: str,
     pred_type: str,
+    n_classes: int,
+    num_heads: int,
 ):
     """
     Fetches appropriate config.
     """
     if config == "resnet50_grapher_12_conv_config":
-        return common_configs.resnet50_grapher_12_conv_config(act, pred_type)
+        return common_configs.resnet50_grapher_12_conv_config(act, pred_type, n_classes)
     if config == "resnet50_grapher_attention_12_conv_config":
-        return common_configs.resnet50_grapher_attention_12_conv_config(act, pred_type)
-    if config == "grapher_6_conv_config":
-        return common_configs.grapher_6_conv_config(act, pred_type)
-    if config == "grapher_12_conv_config":
-        return common_configs.grapher_12_conv_config(act, pred_type)
-    if config == "vig_pyramid_tiny":
-        return common_configs.vig_pyramid_tiny(act, pred_type)
-    if config == "vig_attention_pyramid_tiny":
-        return common_configs.vig_attention_pyramid_tiny(act, pred_type)
-    if config == "vig_pyramid_tiny_classification":
-        return common_configs.vig_pyramid_tiny_classification(act, pred_type)
-    if config == "vig_attention_pyramid_tiny_classification":
-        return common_configs.vig_attention_pyramid_tiny_classification(act, pred_type)
-    if config == "vig_pyramid_tiny_conv_classification":
-        return common_configs.vig_pyramid_tiny_conv_classification(act, pred_type)
-    if config == "vig_attention_pyramid_tiny_conv_classification":
-        return common_configs.vig_attention_pyramid_tiny_conv_classification(
-            act, pred_type
+        return common_configs.resnet50_grapher_attention_12_conv_config(
+            act, pred_type, n_classes
         )
+    if config == "grapher_6_conv_config":
+        return common_configs.grapher_6_conv_config(act, pred_type, n_classes)
+    if config == "grapher_12_conv_config":
+        return common_configs.grapher_12_conv_config(act, pred_type, n_classes)
+    if config == "vig_pyramid_tiny":
+        return common_configs.vig_pyramid_tiny(act, pred_type, n_classes)
+    if config == "vig_attention_pyramid_tiny":
+        return common_configs.vig_attention_pyramid_tiny(
+            act, pred_type, n_classes, num_heads
+        )
+
     raise ValueError(f"Wrong config: {config}")
 
 
@@ -151,7 +163,9 @@ def main():
         else EnvironmentType.TENSORFLOW
     )
     wandb_run_name = args.wandb_run_name
-    config = get_config(args.config, args.act, args.pred_type)
+    config = get_config(
+        args.config, args.act, args.pred_type, args.n_classes, args.num_heads
+    )
     if wandb_run_name:
         wandb.init(
             # set the wandb project where this run will be logged
@@ -177,6 +191,7 @@ def main():
             args.learning_rate,
             args.continue_model,
             args.augment_times,
+            args.n_classes,
         )
     except KeyboardInterrupt:
         pass
