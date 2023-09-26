@@ -108,7 +108,7 @@ def evaluate(
     )
 
     model = torch.load(model).to(device)
-    logger.info(model)
+    # logger.info(model)
     loss_fn = get_loss().to(device)
 
     metrics = [metric.to(device) for metric in get_metrics(n_classes)]
