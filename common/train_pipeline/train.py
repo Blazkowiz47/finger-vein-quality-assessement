@@ -165,7 +165,8 @@ def train(
     # test_metrics = get_test_metrics(device)
     val_metrics = [metric.to(device) for metric in get_val_metrics(n_classes)]
     # Training loop
-    best_accuracy: float = 0
+    best_train_accuracy: float = 0
+    best_test_accuracy: float = 0
     _ = cuda_info()
     for epoch in range(1, epochs + 1):
         model.train()
@@ -204,8 +205,15 @@ def train(
         results = []
 
         for metric in train_metrics:
-            results.append(add_label({"accuracy": metric.compute().item()}, "train"))
-            results.append(add_label({"loss": np.mean(training_loss)}, "train"))
+            results.append(
+                add_label(
+                    {
+                        "accuracy": metric.compute().item(),
+                        "loss": np.mean(training_loss),
+                    },
+                    "train",
+                )
+            )
             metric.reset()
 
         if epoch % validate_after_epochs == 0:
@@ -231,17 +239,24 @@ def train(
                                 "accuracy": metric.compute().item(),
                                 "loss": np.mean(val_loss),
                             },
-                            "validation",
+                            "test",
                         )
                     )
                     metric.reset()
 
-        if best_accuracy < results[0]["train_accuracy"]:
+        if best_train_accuracy < results[0]["train_accuracy"]:
             torch.save(
                 model,
-                f"models/checkpoints/{log_on_wandb}.pt",
+                f"models/checkpoints/best_train_{log_on_wandb}.pt",
             )
-            best_accuracy = results[0]["train_accuracy"]
+            best_train_accuracy = results[0]["train_accuracy"]
+
+        if best_test_accuracy < results[1]["test_accuracy"]:
+            torch.save(
+                model,
+                f"models/checkpoints/best_test_{log_on_wandb}.pt",
+            )
+            best_test_accuracy = results[1]["test_accuracy"]
         log = {}
         for result in results:
             log = log | result
