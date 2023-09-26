@@ -115,7 +115,7 @@ def evaluate(
     # Training loop
     _ = cuda_info()
     with torch.no_grad():
-        loss = []
+        all_loss = []
         results = []
         for inputs, labels in tqdm(
             train_dataset if train_dataset else [], desc="Train:"
@@ -127,7 +127,7 @@ def evaluate(
             labels = labels.to(device).float()
             outputs = model(inputs)  # pylint: disable=E1102
             loss = loss_fn(outputs, labels)  # pylint: disable=E1102
-            loss.append(loss.item())
+            all_loss.append(loss.item())
             predicted = outputs.argmax(dim=1)
             labels = labels.argmax(dim=1)
             for metric in metrics:
@@ -137,7 +137,7 @@ def evaluate(
                 add_label(
                     {
                         "accuracy": metric.compute().item(),
-                        "loss": np.mean(loss),
+                        "loss": np.mean(all_loss),
                     },
                     "evaluation",
                 )
