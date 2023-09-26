@@ -108,7 +108,7 @@ def evaluate(
     )
 
     model = torch.load(model).to(device)
-    # logger.info(model)
+    logger.info(model)
     loss_fn = get_loss().to(device)
 
     metrics = [metric.to(device) for metric in get_metrics(n_classes)]
@@ -121,6 +121,8 @@ def evaluate(
         ):
             all_loss = []
             results = []
+            if not dataset:
+                continue
             for inputs, labels in tqdm(dataset if dataset else [], desc="Train:"):
                 if inputs.shape[0] == 1:
                     inputs = torch.cat((inputs, inputs), 0)  # pylint: disable=E1101
@@ -148,5 +150,5 @@ def evaluate(
             log = {}
             for result in results:
                 log = log | result
-            for keys, values in log.items():
-                logger.info("%s: %s", keys, values)
+            for k, v in log.items():
+                logger.info("%s: %s", k, v)
