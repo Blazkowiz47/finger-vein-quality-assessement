@@ -81,7 +81,7 @@ def main():
     )
     try:
         evaluate(
-            args.dataset,
+            [args.dataset],
             args.model_path,
             batch_size,
             environment,
