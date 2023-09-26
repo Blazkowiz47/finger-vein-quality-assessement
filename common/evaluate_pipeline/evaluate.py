@@ -115,102 +115,38 @@ def evaluate(
     # Training loop
     _ = cuda_info()
     with torch.no_grad():
-        all_loss = []
-        results = []
-        for inputs, labels in tqdm(
-            train_dataset if train_dataset else [], desc="Train:"
+        datasets = ["train", "test", "validation"]
+        for index, dataset in enumerate(
+            [train_dataset, test_dataset, validation_dataset]
         ):
-            if inputs.shape[0] == 1:
-                inputs = torch.cat((inputs, inputs), 0)  # pylint: disable=E1101
-                labels = torch.cat((labels, labels), 0)  # pylint: disable=E1101
-            inputs = inputs.to(device).float()
-            labels = labels.to(device).float()
-            outputs = model(inputs)  # pylint: disable=E1102
-            loss = loss_fn(outputs, labels)  # pylint: disable=E1102
-            all_loss.append(loss.item())
-            predicted = outputs.argmax(dim=1)
-            labels = labels.argmax(dim=1)
+            all_loss = []
+            results = []
+            for inputs, labels in tqdm(dataset if dataset else [], desc="Train:"):
+                if inputs.shape[0] == 1:
+                    inputs = torch.cat((inputs, inputs), 0)  # pylint: disable=E1101
+                    labels = torch.cat((labels, labels), 0)  # pylint: disable=E1101
+                inputs = inputs.to(device).float()
+                labels = labels.to(device).float()
+                outputs = model(inputs)  # pylint: disable=E1102
+                loss = loss_fn(outputs, labels)  # pylint: disable=E1102
+                all_loss.append(loss.item())
+                predicted = outputs.argmax(dim=1)
+                labels = labels.argmax(dim=1)
+                for metric in metrics:
+                    metric.update(predicted, labels)
             for metric in metrics:
-                metric.update(predicted, labels)
-        for metric in metrics:
-            results.append(
-                add_label(
-                    {
-                        "accuracy": metric.compute().item(),
-                        "loss": np.mean(all_loss),
-                    },
-                    "evaluation",
+                results.append(
+                    add_label(
+                        {
+                            "accuracy": metric.compute().item(),
+                            "loss": np.mean(all_loss),
+                        },
+                        datasets[index],
+                    )
                 )
-            )
-            metric.reset()
-        log = {}
-        for result in results:
-            log = log | result
-        for k, v in log.items():
-            logger.info("%s: %s", k, v)
-
-        loss = []
-        results = []
-        for inputs, labels in tqdm(test_dataset if test_dataset else [], desc="Test:"):
-            if inputs.shape[0] == 1:
-                inputs = torch.cat((inputs, inputs), 0)  # pylint: disable=E1101
-                labels = torch.cat((labels, labels), 0)  # pylint: disable=E1101
-            inputs = inputs.to(device).float()
-            labels = labels.to(device).float()
-            outputs = model(inputs)  # pylint: disable=E1102
-            loss = loss_fn(outputs, labels)  # pylint: disable=E1102
-            loss.append(loss.item())
-            predicted = outputs.argmax(dim=1)
-            labels = labels.argmax(dim=1)
-            for metric in metrics:
-                metric.update(predicted, labels)
-        for metric in metrics:
-            results.append(
-                add_label(
-                    {
-                        "accuracy": metric.compute().item(),
-                        "loss": np.mean(loss),
-                    },
-                    "evaluation",
-                )
-            )
-            metric.reset()
-        log = {}
-        for result in results:
-            log = log | result
-        for k, v in log.items():
-            logger.info("%s: %s", k, v)
-
-        loss = []
-        results = []
-        for inputs, labels in tqdm(
-            validation_dataset if validation_dataset else [], desc="Validation:"
-        ):
-            if inputs.shape[0] == 1:
-                inputs = torch.cat((inputs, inputs), 0)  # pylint: disable=E1101
-                labels = torch.cat((labels, labels), 0)  # pylint: disable=E1101
-            inputs = inputs.to(device).float()
-            labels = labels.to(device).float()
-            outputs = model(inputs)  # pylint: disable=E1102
-            loss = loss_fn(outputs, labels)  # pylint: disable=E1102
-            loss.append(loss.item())
-            predicted = outputs.argmax(dim=1)
-            labels = labels.argmax(dim=1)
-            for metric in metrics:
-                metric.update(predicted, labels)
-        for metric in metrics:
-            results.append(
-                add_label(
-                    {
-                        "accuracy": metric.compute().item(),
-                        "loss": np.mean(loss),
-                    },
-                    "evaluation",
-                )
-            )
-            metric.reset()
-        log = {}
-        for result in results:
-            log = log | result
-        for k, v in log.items():
-            logger.info("%s: %s", k, v)
+                metric.reset()
+            log = {}
+            for result in results:
+                log = log | result
+            for keys, values in log.items():
+                logger.info("%s: %s", keys, values)
