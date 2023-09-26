@@ -244,6 +244,13 @@ def train(
                     )
                     metric.reset()
 
+                if best_test_accuracy < results[1]["test_accuracy"]:
+                    torch.save(
+                        model,
+                        f"models/checkpoints/best_test_{log_on_wandb}.pt",
+                    )
+                    best_test_accuracy = results[1]["test_accuracy"]
+
         if best_train_accuracy < results[0]["train_accuracy"]:
             torch.save(
                 model,
@@ -251,12 +258,6 @@ def train(
             )
             best_train_accuracy = results[0]["train_accuracy"]
 
-        if best_test_accuracy < results[1]["test_accuracy"]:
-            torch.save(
-                model,
-                f"models/checkpoints/best_test_{log_on_wandb}.pt",
-            )
-            best_test_accuracy = results[1]["test_accuracy"]
         log = {}
         for result in results:
             log = log | result
