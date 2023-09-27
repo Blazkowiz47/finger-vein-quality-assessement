@@ -9,7 +9,7 @@ from tqdm import tqdm
 from timm.loss import SoftTargetCrossEntropy
 from torchmetrics import Metric
 from torchmetrics.classification import Accuracy
-
+from scipy.io import savemat
 # from common.data_pipeline.mmcbnu.dataset import DatasetLoader as mmcbnu
 from common.train_pipeline.config import ModelConfig
 
@@ -153,4 +153,4 @@ def evaluate(
                 log = log | result
             for k, v in log.items():
                 logger.info("%s: %s", k, v)
-            np.save(f"results/{dataset_names[index]}_{datasets[0]}.npy",scores )
+            savemat(f"results/{dataset_names[index]}_{datasets[0]}.npy",np.array(scores ))
