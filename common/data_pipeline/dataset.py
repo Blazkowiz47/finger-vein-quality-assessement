@@ -1,7 +1,6 @@
 """
     Default dataset loader.
 """
-from common.util.data_pipeline.dataset_loader import DatasetLoaderBase
 from common.data_pipeline.dnp.dataset import DatasetLoader as dnp
 from common.data_pipeline.fvusm.dataset import DatasetLoader as fvusm
 from common.data_pipeline.mmcbnu.dataset import DatasetLoader as mmcbnu
