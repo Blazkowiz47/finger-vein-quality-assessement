@@ -153,4 +153,4 @@ def evaluate(
                 log = log | result
             for k, v in log.items():
                 logger.info("%s: %s", k, v)
-            np.save(f"{dataset_names[index]}_{datasets[0]}.npy", allow_pickle=True)
+            np.save(f"{dataset_names[index]}_{datasets[0]}.npy",scores,  allow_pickle=True)
