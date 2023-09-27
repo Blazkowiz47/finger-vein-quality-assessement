@@ -1,27 +1,29 @@
 """
     Default dataset loader.
 """
+from common.util.data_pipeline.dataset_loader import DatasetLoaderBase
 from common.data_pipeline.dnp.dataset import DatasetLoader as dnp
 from common.data_pipeline.fvusm.dataset import DatasetLoader as fvusm
 from common.data_pipeline.mmcbnu.dataset import DatasetLoader as mmcbnu
 from common.data_pipeline.common_dataset.dataset import DatasetLoader as common_dataset
+from common.util.data_pipeline.dataset_loader import DatasetLoaderBase
 from common.util.enums import EnvironmentType
 
 
 def get_dataset(
-    dataset: str,
-    environment: EnvironmentType = EnvironmentType.PYTORCH,
-    augment_times: int = 2,
-    height: int = 60,
-    width: int = 120,
-):
+        dataset: str,
+        environment: EnvironmentType = EnvironmentType.PYTORCH,
+        augment_times: int = 2,
+        height: int = 60,
+        width: int = 120,
+        ) -> DatasetLoaderBase:
     """
     Dataset Factory.
     """
     if dataset == "mmcbnu":
         return mmcbnu(
-            environment_type=environment,
-        )
+                environment_type=environment,
+                )
 
     if dataset == "fvusm":
         return fvusm(
@@ -74,3 +76,4 @@ def get_dataset(
             height=height,
             width=width,
         )
+    raise ValueError("Dataset Not Implemented")
