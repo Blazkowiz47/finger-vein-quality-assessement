@@ -153,4 +153,4 @@ def evaluate(
                 log = log | result
             for k, v in log.items():
                 logger.info("%s: %s", k, v)
-            np.save(f"results/{model_path.split('/')[-1]}_{dataset_names[index]}_{datasets[0]}.npy",scores )
+            np.save(f"results/{model_path.split('/')[-1].split('.')[0]}_{dataset_names[index]}_{datasets[0]}.npy",scores )
