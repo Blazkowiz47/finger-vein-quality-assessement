@@ -150,6 +150,7 @@ def train(
         batch_size=batch_size,
         dataset_type=environment,
     )
+    
 
     if continue_model:
         model = torch.load(continue_model).to(device)

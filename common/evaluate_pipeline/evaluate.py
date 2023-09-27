@@ -1,16 +1,14 @@
 """
 evaluates everything
 """
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List 
 import numpy as np
 import torch
-from torch import optim
 from torch.nn import Module
 from tqdm import tqdm
 from timm.loss import SoftTargetCrossEntropy
 from torchmetrics import Metric
 from torchmetrics.classification import Accuracy
-import wandb
 
 # from common.data_pipeline.mmcbnu.dataset import DatasetLoader as mmcbnu
 from common.train_pipeline.config import ModelConfig
@@ -107,7 +105,7 @@ def evaluate(
         dataset_type=environment,
     )
 
-    model = torch.load(model).to(device)
+    model: Module = torch.load(model).to(device)
     # logger.info(model)
     loss_fn = get_loss().to(device)
 
@@ -115,12 +113,13 @@ def evaluate(
     # Training loop
     _ = cuda_info()
     with torch.no_grad():
-        datasets = ["train", "test", "validation"]
+        dataset_names = ["train", "test", "validation"]
         for index, dataset in enumerate(
             [train_dataset, test_dataset, validation_dataset]
         ):
             all_loss = []
             results = []
+            scores:List[List[float]] = []
             if not dataset:
                 continue
             for inputs, labels in tqdm(dataset if dataset else [], desc="Train:"):
@@ -132,6 +131,8 @@ def evaluate(
                 outputs = model(inputs)  # pylint: disable=E1102
                 loss = loss_fn(outputs, labels)  # pylint: disable=E1102
                 all_loss.append(loss.item())
+                for label, output in zip(labels, outputs):
+                    scores.append([label[0].item(), label[1].item(), output[0].item(), output[1].item()])
                 predicted = outputs.argmax(dim=1)
                 labels = labels.argmax(dim=1)
                 for metric in metrics:
@@ -143,7 +144,7 @@ def evaluate(
                             "accuracy": metric.compute().item(),
                             "loss": np.mean(all_loss),
                         },
-                        datasets[index],
+                        dataset_names[index],
                     )
                 )
                 metric.reset()
@@ -152,3 +153,4 @@ def evaluate(
                 log = log | result
             for k, v in log.items():
                 logger.info("%s: %s", k, v)
+            np.save(f"{dataset_names[index]}_{datasets[0]}.npy", allow_pickle=True)
