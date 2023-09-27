@@ -77,7 +77,7 @@ def cuda_info():
 
 def evaluate(
     datasets: List[str],
-    model: str,
+    model_path: str,
     batch_size: int = 10,
     environment: EnvironmentType = EnvironmentType.PYTORCH,
     augment_times: int = 0,
@@ -105,7 +105,7 @@ def evaluate(
         dataset_type=environment,
     )
 
-    model: Module = torch.load(model).to(device)
+    model: Module = torch.load(model_path).to(device)
     # logger.info(model)
     loss_fn = get_loss().to(device)
 
@@ -153,4 +153,4 @@ def evaluate(
                 log = log | result
             for k, v in log.items():
                 logger.info("%s: %s", k, v)
-            np.save(f"results/{dataset_names[index]}_{datasets[0]}.npy",scores )
+            np.save(f"results/{model_path.split('/')[-1]}_{dataset_names[index]}_{datasets[0]}.npy",scores )
