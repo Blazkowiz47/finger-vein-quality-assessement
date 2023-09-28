@@ -257,5 +257,5 @@ def main():
         wandb.finish()
         torch.cuda.empty_cache()
 
-
-main()
+if __name__ == '__main__':
+    main()

@@ -12,7 +12,7 @@ def main():
         wandb_run_name = f"{model_name}_{dataset}"
         act = 'gelu'
         pred_type = 'conv'
-        epochs = 40
+        epochs = 25 
         n_classes = 2
         height = 224
         width = 224
@@ -30,6 +30,7 @@ def main():
             height,
             width,
         )
+        
         if wandb_run_name:
             wandb.init(
                 # set the wandb project where this run will be logged
@@ -62,7 +63,7 @@ def main():
         except KeyboardInterrupt:
             pass
 
-        if log_on_wandb:
+        if wandb_run_name:
             wandb.finish()
             torch.cuda.empty_cache()
 
