@@ -8,6 +8,8 @@ def main():
         for model in model_type:
             model = f"models/checkpoints/best_{model}_vig_pyramid_{dataset}.pt"
             try:
+                print("Model:", model)
+                print("Dataset:", dataset)
                 evaluate(
                         ["dnp_"+dataset],
                         model,
@@ -19,3 +21,5 @@ def main():
                         )
             except:
                 ...
+
+main()
