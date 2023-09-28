@@ -12,13 +12,13 @@ def main():
         wandb_run_name = f"{model_name}_{dataset}"
         act = 'gelu'
         pred_type = 'conv'
-        epochs = 50
+        epochs = 40
         n_classes = 2
         height = 224
         width = 224
         batch_size = 192 
         validate_after_epochs = 5
-        learning_rate = 1e-3
+        learning_rate = 1e-4
         num_heads = 2
         augment_times = 19
         config = get_config(
