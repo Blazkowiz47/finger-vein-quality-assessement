@@ -8,3 +8,5 @@ A100-instance/
 models/
 wandb/
 *.npy
+*.mat
+results/*.m
