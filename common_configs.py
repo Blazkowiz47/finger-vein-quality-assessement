@@ -8,7 +8,7 @@ from common.train_pipeline.backbone.attention_block import AttentionBlockConfig
 from common.train_pipeline.backbone.ffn import FFNConfig
 from common.train_pipeline.backbone.isotropic_backbone import IsotropicBlockConfig
 from common.train_pipeline.backbone.pyramid_backbone import PyramidBlockConfig
-from common.train_pipeline.config import BackboneConfig, ModelConfig
+from common.train_pipeline.config import BackboneBlockConfig, BackboneConfig, ModelConfig
 from common.train_pipeline.predictor.predictor import PredictorConfig
 from common.train_pipeline.stem.stem import StemConfig
 from common.util.logger import logger
@@ -556,13 +556,11 @@ def vig_attention_pyramid_tiny(
     epsilon: float = 0.2
     conv: str = "mr"
     reduce_ratios: List[int] = [4, 2, 1, 1]
-    num_knn_list: List[Any] = [int(x.item()) for x in torch.linspace(4, 2 * num_knn, 4)]
-    num_knn_list.reverse()
-    logger.info("KNNs: %s", num_knn_list)
+
     max_dilation = 196 // num_knn
     original_height, original_width = height, width
 
-    blocks: List[PyramidBlockConfig] = []
+    blocks: List[BackboneBlockConfig] = []
     for i in range(4):
         blocks.append(
             PyramidBlockConfig(
@@ -576,7 +574,7 @@ def vig_attention_pyramid_tiny(
                     conv=conv,
                     norm="batch",
                     epsilon=epsilon,
-                    neighbour_number=num_knn_list[i],
+                    neighbour_number=min(num_knn, width * height),
                     drop_path=drop_path,
                     max_dilation=max_dilation,
                     dilation=1.0,
@@ -626,3 +624,4 @@ def vig_attention_pyramid_tiny(
             dropout=0.0,
         ),
     )
+
