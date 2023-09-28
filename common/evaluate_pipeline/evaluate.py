@@ -8,7 +8,7 @@ from torch.nn import Module
 from tqdm import tqdm
 from timm.loss import SoftTargetCrossEntropy
 from torchmetrics import Metric
-from torchmetrics.classification import Accuracy
+from torchmetrics.classification import Accuracy, MulticlassPrecision, MulticlassRecall
 from scipy.io import savemat
 # from common.data_pipeline.mmcbnu.dataset import DatasetLoader as mmcbnu
 from common.train_pipeline.config import ModelConfig
@@ -148,9 +148,20 @@ def evaluate(
                     )
                 )
                 metric.reset()
+            scores = np.array(scores)
+            precision = MulticlassPrecision(num_classes=2)
+            recall = MulticlassRecall(num_classes=2)
+            precision = precision(torch.from_numpy(scores[:,2:]), torch.from_numpy(scores[:,:2]))
+            recall = recall(torch.from_numpy(scores[:,2:]), torch.from_numpy(scores[:,:2]))
             log = {}
             for result in results:
                 log = log | result
             for k, v in log.items():
                 logger.info("%s: %s", k, v)
-            savemat(f"results/{dataset_names[index]}_{datasets[0]}.npy",np.array(scores ))
+            logger.info("Precision: %s", precision.item())
+            logger.info("Recall: %s", recall.item())
+            data = scores
+            genuine = data[data[:,1] == 1.0]
+            imposter = data[data[:,0] == 1.0 ] 
+            savemat(f"results/{model_path.split('/')[-1].split('.')[0]}_{dataset_names[index]}_{datasets[0]}.mat", {"genuine": genuine[:,3], "morphed": imposter[:, 3]})
+ 
