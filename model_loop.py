@@ -16,7 +16,7 @@ def main():
         n_classes = 2
         height = 224
         width = 224
-        batch_size = 8
+        batch_size = 24 
         validate_after_epochs = 5
         learning_rate = 1e-3
         num_heads = 2
