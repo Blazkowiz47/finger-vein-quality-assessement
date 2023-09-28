@@ -582,7 +582,7 @@ def vig_attention_pyramid_tiny(
                     r=reduce_ratios[i],
                     n=height * width,
                 ),
-                attention_config=AttentionBlockConfig(
+                attention_config=None if i < 3 else AttentionBlockConfig(
                     in_dim=channels[i],
                     num_heads=num_heads,
                     bias=bias,
