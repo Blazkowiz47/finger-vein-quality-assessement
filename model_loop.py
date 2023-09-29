@@ -80,7 +80,7 @@ def main():
                 try:
                     print("Model:", model)
                     print("Dataset:", dataset)
-                     all_results[model_name][model] = evaluate(
+                    all_results[model_name][model] = evaluate(
                             ["dnp_"+dataset],
                             model,
                             512,

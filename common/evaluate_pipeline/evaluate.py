@@ -169,7 +169,7 @@ def evaluate(
             savemat(f"results/{model_path.split('/')[-1].split('.')[0]}_{dataset_names[index]}_{datasets[0]}.mat", {"genuine": genuine[:,3], "morphed": imposter[:, 3]})
             all_results[dataset_names[index]] = {
                 'accuracy':accuracy,
-                'precision':precision,
-                'recall':recall,
+                'precision':precision.item(),
+                'recall':recall.item(),
                     } 
         return all_results
