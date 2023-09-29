@@ -11,30 +11,30 @@ dataset_list = ["lma", "mipgan_1", "mipgan_2", "stylegan_iwbf"]
 model_type = ["train", "test"]
 all_results = {}
 def main(train_models:bool = False):
+    act = 'gelu'
+    epochs = 25 
+    pred_type = 'conv'
+    n_classes = 2
+    height = 224
+    width = 224
+    batch_size = 192 
+    validate_after_epochs = 5
+    learning_rate = 1e-4
+    num_heads = 2
+    augment_times = 19
     if train_models:
         for dataset in dataset_list:
             wandb_run_name = f"{model_name}_{dataset}"
-            act = 'gelu'
-            pred_type = 'conv'
-            epochs = 25 
-            n_classes = 2
-            height = 224
-            width = 224
-            batch_size = 192 
-            validate_after_epochs = 5
-            learning_rate = 1e-4
-            num_heads = 2
-            augment_times = 19
             config = get_config(
-                model_name,
-                act,
-                pred_type,
-                n_classes,
-                num_heads,
-                height,
-                width,
-            )
-            
+                    model_name,
+                    act,
+                    pred_type,
+                    n_classes,
+                    num_heads,
+                    height,
+                    width,
+                    )
+
             if wandb_run_name:
                 wandb.init(
                     # set the wandb project where this run will be logged
@@ -93,6 +93,7 @@ def main(train_models:bool = False):
                             width,
                             )
                 except:
+                    print("Error while evaluating")
                     ...
     with open(f"results/{model_name}.json", "w+") as fp:
         json.dump(all_results, fp) 
