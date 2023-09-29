@@ -1,3 +1,4 @@
+import json
 import wandb
 from train import get_config
 from common.util.enums import EnvironmentType
@@ -7,6 +8,7 @@ from common.evaluate_pipeline.evaluate import evaluate
 model_name = "vig_attention_pyramid_tiny"
 dataset_list = ["lma", "mipgan_1", "mipgan_2", "stylegan_iwbf"]
 model_type = ["train", "test"]
+all_results = {}
 def main():
     for dataset in dataset_list:
         wandb_run_name = f"{model_name}_{dataset}"
@@ -70,13 +72,14 @@ def main():
     print("Starting evaluation")
 
     for dataset_model in dataset_list:
+        all_results[model_name] = {}
         for model in model_type:
             model = f"models/checkpoints/best_{model}_{model_name}_{dataset_model}.pt"
             for dataset in dataset_list:
                 try:
                     print("Model:", model)
                     print("Dataset:", dataset)
-                    evaluate(
+                     all_results[model_name][model] = evaluate(
                             ["dnp_"+dataset],
                             model,
                             512,
@@ -87,5 +90,6 @@ def main():
                             )
                 except:
                     ...
-
+    with open("results/loop_result.json", "w+") as fp:
+        json.dump(all_results, fp) 
 main()

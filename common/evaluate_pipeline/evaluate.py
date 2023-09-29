@@ -84,7 +84,7 @@ def evaluate(
     n_classes: int = 301,
     height: int = 60,
     width: int = 120,
-):
+)-> Dict[str, Any]:
     """
     Contains the training loop.
     """
@@ -113,6 +113,7 @@ def evaluate(
     # Training loop
     _ = cuda_info()
     with torch.no_grad():
+        all_results:Dict[str, Any]={}
         dataset_names = ["train", "test", "validation"]
         for index, dataset in enumerate(
             [train_dataset, test_dataset, validation_dataset]
@@ -137,11 +138,13 @@ def evaluate(
                 labels = labels.argmax(dim=1)
                 for metric in metrics:
                     metric.update(predicted, labels)
+            accuracy = None
             for metric in metrics:
+                accuracy = metric.compute().item()
                 results.append(
                     add_label(
                         {
-                            "accuracy": metric.compute().item(),
+                            "accuracy": accuracy ,
                             "loss": np.mean(all_loss),
                         },
                         dataset_names[index],
@@ -164,4 +167,9 @@ def evaluate(
             genuine = data[data[:,1] == 1.0]
             imposter = data[data[:,0] == 1.0 ] 
             savemat(f"results/{model_path.split('/')[-1].split('.')[0]}_{dataset_names[index]}_{datasets[0]}.mat", {"genuine": genuine[:,3], "morphed": imposter[:, 3]})
- 
+            all_results[dataset_names[index]] = {
+                'accuracy':accuracy,
+                'precision':precision,
+                'recall':recall,
+                    } 
+        return all_results
