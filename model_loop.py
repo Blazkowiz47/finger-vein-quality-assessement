@@ -1,5 +1,6 @@
 import json
 import wandb
+import torch
 from train import get_config
 from common.util.enums import EnvironmentType
 from common.train_pipeline.train import train
