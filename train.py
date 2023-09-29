@@ -184,6 +184,16 @@ def get_config(
             height,
             width,
         )
+        
+    if config == "vig_attention_at_last_pyramid_tiny":
+        return cfgs.vig_attention_at_last_pyramid_tiny(
+            act,
+            pred_type,
+            n_classes,
+            num_heads,
+            height,
+            width,
+        )
     if config == "vig_attention_pyramid_tiny":
         return cfgs.vig_attention_pyramid_tiny(
             act,
