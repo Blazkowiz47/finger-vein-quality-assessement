@@ -6,18 +6,55 @@ from common.util.enums import EnvironmentType
 from common.train_pipeline.train import train
 from common.evaluate_pipeline.evaluate import evaluate
 
+
+def prettier(data):
+    """
+    Converts into better json format
+    """
+    results = {}
+    metrics = ["accuracy", "precision", "recall"]
+    dataset_type = ["train", "test"]
+    model_types = ["besttrain", "besttest"]
+    datasets = ["lma", "mipgan_1", "mipgan_2", "stylegan_iwbf"]
+
+    model_name = "vig_attention_pyramid_tiny"
+
+    model_data = data[model_name]
+    for metric in metrics:
+        results[metric] = {}
+        for trained_on in datasets:
+            results[metric][trained_on] = {}
+            for model_type in model_types:
+                results[metric][trained_on][model_type] = {}
+                for split_type in dataset_type:
+                    results[metric][trained_on][model_type][split_type] = {}
+                    for evaluated_on in datasets:
+                        results[metric][trained_on][model_type][split_type][
+                            evaluated_on
+                        ] = round(
+                            model_data[model_type][trained_on][evaluated_on][
+                                split_type
+                            ][metric]
+                            * 100,
+                            3,
+                        )
+    return results
+
+
 model_name = "vig_attention_pyramid_tiny"
 dataset_list = ["lma", "mipgan_1", "mipgan_2", "stylegan_iwbf"]
 model_type = ["train", "test"]
 all_results = {}
-def main(train_models:bool = False):
-    act = 'gelu'
-    epochs = 25 
-    pred_type = 'conv'
+
+
+def main(train_models: bool = False):
+    act = "gelu"
+    epochs = 25
+    pred_type = "conv"
     n_classes = 2
     height = 224
     width = 224
-    batch_size = 192 
+    batch_size = 192
     validate_after_epochs = 5
     learning_rate = 1e-4
     num_heads = 2
@@ -26,14 +63,14 @@ def main(train_models:bool = False):
         for dataset in dataset_list:
             wandb_run_name = f"{model_name}_{dataset}"
             config = get_config(
-                    model_name,
-                    act,
-                    pred_type,
-                    n_classes,
-                    num_heads,
-                    height,
-                    width,
-                    )
+                model_name,
+                act,
+                pred_type,
+                n_classes,
+                num_heads,
+                height,
+                width,
+            )
 
             if wandb_run_name:
                 wandb.init(
@@ -44,7 +81,7 @@ def main(train_models:bool = False):
                         "architecture": model_name,
                         "dataset": dataset,
                         "epochs": epochs,
-                        "activation":act ,
+                        "activation": act,
                         "predictor_type": pred_type,
                     },
                 )
@@ -83,18 +120,23 @@ def main(train_models:bool = False):
                 try:
                     print("Model:", model)
                     print("Dataset:", dataset)
-                    all_results[model_name]["best" + model_t][dataset_model][dataset] = evaluate(
-                            ["dnp_"+dataset],
-                            model,
-                            512,
-                            EnvironmentType.PYTORCH,
-                            n_classes,
-                            height,
-                            width,
-                            )
+                    all_results[model_name]["best" + model_t][dataset_model][
+                        dataset
+                    ] = evaluate(
+                        ["dnp_" + dataset],
+                        model,
+                        512,
+                        EnvironmentType.PYTORCH,
+                        n_classes,
+                        height,
+                        width,
+                    )
                 except:
                     print("Error while evaluating")
-                    ...
+
+    formatted_results = prettier(all_results)
     with open(f"results/{model_name}.json", "w+") as fp:
-        json.dump(all_results, fp) 
+        json.dump(formatted_results, fp)
+
+
 main()

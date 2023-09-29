@@ -1,7 +1,7 @@
 """
 evaluates everything
 """
-from typing import Any, Dict, List 
+from typing import Any, Dict, List
 import numpy as np
 import torch
 from torch.nn import Module
@@ -10,13 +10,11 @@ from timm.loss import SoftTargetCrossEntropy
 from torchmetrics import Metric
 from torchmetrics.classification import Accuracy, MulticlassPrecision, MulticlassRecall
 from scipy.io import savemat
-# from common.data_pipeline.mmcbnu.dataset import DatasetLoader as mmcbnu
-from common.train_pipeline.config import ModelConfig
 
+# from common.data_pipeline.mmcbnu.dataset import DatasetLoader as mmcbnu
 # from common.data_pipeline.fvusm.dataset import DatasetLoader as fvusm
 from common.data_pipeline.dataset import get_dataset
 
-from common.train_pipeline.model.model import get_model
 from common.util.logger import logger
 from common.util.data_pipeline.dataset_chainer import DatasetChainer
 from common.util.enums import EnvironmentType
@@ -84,7 +82,7 @@ def evaluate(
     n_classes: int = 301,
     height: int = 60,
     width: int = 120,
-)-> Dict[str, Any]:
+) -> Dict[str, Any]:
     """
     Contains the training loop.
     """
@@ -113,14 +111,14 @@ def evaluate(
     # Training loop
     _ = cuda_info()
     with torch.no_grad():
-        all_results:Dict[str, Any]={}
+        all_results: Dict[str, Any] = {}
         dataset_names = ["train", "test", "validation"]
         for index, dataset in enumerate(
             [train_dataset, test_dataset, validation_dataset]
         ):
             all_loss = []
             results = []
-            scores:List[List[float]] = []
+            scores: List[List[float]] = []
             if not dataset:
                 continue
             for inputs, labels in tqdm(dataset if dataset else [], desc="Train:"):
@@ -133,7 +131,14 @@ def evaluate(
                 loss = loss_fn(outputs, labels)  # pylint: disable=E1102
                 all_loss.append(loss.item())
                 for label, output in zip(labels, outputs):
-                    scores.append([label[0].item(), label[1].item(), output[0].item(), output[1].item()])
+                    scores.append(
+                        [
+                            label[0].item(),
+                            label[1].item(),
+                            output[0].item(),
+                            output[1].item(),
+                        ]
+                    )
                 predicted = outputs.argmax(dim=1)
                 labels = labels.argmax(dim=1)
                 for metric in metrics:
@@ -144,7 +149,7 @@ def evaluate(
                 results.append(
                     add_label(
                         {
-                            "accuracy": accuracy ,
+                            "accuracy": accuracy,
                             "loss": np.mean(all_loss),
                         },
                         dataset_names[index],
@@ -154,8 +159,12 @@ def evaluate(
             scores = np.array(scores)
             precision = MulticlassPrecision(num_classes=2)
             recall = MulticlassRecall(num_classes=2)
-            precision = precision(torch.from_numpy(scores[:,2:]), torch.from_numpy(scores[:,:2]))
-            recall = recall(torch.from_numpy(scores[:,2:]), torch.from_numpy(scores[:,:2]))
+            precision = precision(
+                torch.from_numpy(scores[:, 2:]), torch.from_numpy(scores[:, :2])
+            )
+            recall = recall(
+                torch.from_numpy(scores[:, 2:]), torch.from_numpy(scores[:, :2])
+            )
             log = {}
             for result in results:
                 log = log | result
@@ -164,12 +173,15 @@ def evaluate(
             logger.info("Precision: %s", precision.item())
             logger.info("Recall: %s", recall.item())
             data = scores
-            genuine = data[data[:,1] == 1.0]
-            imposter = data[data[:,0] == 1.0 ] 
-            savemat(f"results/{model_path.split('/')[-1].split('.')[0]}_{dataset_names[index]}_{datasets[0]}.mat", {"genuine": genuine[:,3], "morphed": imposter[:, 3]})
+            genuine = data[data[:, 1] == 1.0]
+            imposter = data[data[:, 0] == 1.0]
+            savemat(
+                f"results/{model_path.split('/')[-1].split('.')[0]}_{dataset_names[index]}_{datasets[0]}.mat",
+                {"genuine": genuine[:, 3], "morphed": imposter[:, 3]},
+            )
             all_results[dataset_names[index]] = {
-                'accuracy':accuracy,
-                'precision':precision.item(),
-                'recall':recall.item(),
-                    } 
+                "accuracy": accuracy,
+                "precision": precision.item(),
+                "recall": recall.item(),
+            }
         return all_results
