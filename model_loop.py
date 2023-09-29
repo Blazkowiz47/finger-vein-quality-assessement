@@ -72,15 +72,17 @@ def main():
 
     print("Starting evaluation")
 
-    for dataset_model in dataset_list:
-        all_results[model_name] = {}
-        for model in model_type:
-            model = f"models/checkpoints/best_{model}_{model_name}_{dataset_model}.pt"
+    all_results[model_name] = {}
+    for model_t in model_type:
+        all_results[model_name]["best" + model_t] = {}
+        for dataset_model in dataset_list:
+            model = f"models/checkpoints/best_{model_t}_{model_name}_{dataset_model}.pt"
+            all_results[model_name]["best" + model_t] = {}
             for dataset in dataset_list:
                 try:
                     print("Model:", model)
                     print("Dataset:", dataset)
-                    all_results[model_name][model] = evaluate(
+                    all_results[model_name]["best" + model_t][dataset] = evaluate(
                             ["dnp_"+dataset],
                             model,
                             512,
@@ -91,6 +93,6 @@ def main():
                             )
                 except:
                     ...
-    with open("results/loop_result.json", "w+") as fp:
+    with open(f"results/{model_name}.json", "w+") as fp:
         json.dump(all_results, fp) 
 main()
