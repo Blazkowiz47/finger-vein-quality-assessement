@@ -1,3 +1,4 @@
+import argparse
 import json
 import wandb
 import torch
@@ -46,8 +47,18 @@ dataset_list = ["lma", "mipgan_1", "mipgan_2", "stylegan_iwbf"]
 model_type = ["train", "test"]
 all_results = {}
 
-
-def main(train_models: bool = False):
+parser = argparse.ArgumentParser(
+    description="Model Loop Config",
+    add_help=True,
+)
+parser.add_argument(
+    "--train",
+    default=False,
+    type=bool,
+    help="Train the model or just evaluate. by default it just evaluates.",
+)
+def main():
+    args = parser.parse_args()
     act = "gelu"
     epochs = 40 
     pred_type = "conv"
@@ -59,7 +70,7 @@ def main(train_models: bool = False):
     learning_rate = 1e-4
     num_heads = 2
     augment_times = 19
-    if train_models:
+    if args.train:
         for dataset in dataset_list:
             wandb_run_name = f"{model_name}_{dataset}"
             config = get_config(
@@ -157,5 +168,5 @@ def main(train_models: bool = False):
     with open(f"results/{model_name}.json", "w+") as fp:
         json.dump(formatted_results, fp)
 
-
-main()
+if __name__ == '__main__':
+    main()
