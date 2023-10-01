@@ -104,7 +104,7 @@ def evaluate(
             dataset_type=environment,
         )
     else:
-        train_dataset, test_dataset, validation_dataset = dataset
+        train_dataset, test_dataset, validation_dataset = datasets 
 
     model: Module = torch.load(model_path).to(device)
     # logger.info(model)
