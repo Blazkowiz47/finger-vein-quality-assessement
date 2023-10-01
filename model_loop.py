@@ -41,7 +41,7 @@ def prettier(data):
     return results
 
 
-model_name = "vig_attention_pyramid_tiny"
+model_name = "vig_attention_at_last_pyramid_tiny"
 dataset_list = ["lma", "mipgan_1", "mipgan_2", "stylegan_iwbf"]
 model_type = ["train", "test"]
 all_results = {}
@@ -49,7 +49,7 @@ all_results = {}
 
 def main(train_models: bool = False):
     act = "gelu"
-    epochs = 25
+    epochs = 40 
     pred_type = "conv"
     n_classes = 2
     height = 224
