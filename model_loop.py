@@ -144,16 +144,17 @@ def main():
                         try:
                             import matlab
                             import matlab.engine
-                            from scipy.io import load_mat
-                            mat_file_path = f"best_{model_t}_{model_name}_{dataset_model}_{split_type}_dnp_{dataset}.mat"
+                            from scipy.io import loadmat
+                            mat_file_path = f"results/best_{model_t}_{model_name}_{dataset_model}_{split_type}_dnp_{dataset}.mat"
                             eng = matlab.engine.start_matlab()
-                            content = load_mat(mat_file_path)
-                            script_dir = f"./EER"
+                            content = loadmat(mat_file_path)
+                            script_dir = f"/home/ubuntu/finger-vein-quality-assessement/EER"
                             eng.addpath(script_dir)
-                            genuine = matlab.double(content['genuine'])
-                            morphed  = matlab.double(content['morphed'])
-                            eer, far, ffr = eng.EER_DET_Spoof_far(genuine,morphed , 10000, nargout=3)
+                            genuine = matlab.double(content['genuine'].tolist())
+                            morphed  = matlab.double(content['morphed'].tolist())
+                            eer,far,ffr = eng.EER_DET_Spoof_Far(genuine,morphed , matlab.double(10000), nargout=3)
                             all_results[model_name]["best" + model_t][dataset_model][dataset][split_type]['eer'] = eer 
+                            print(f"Split: {split_type} EER:", eer)
                         except Exception as e:
                             print(e)
 
