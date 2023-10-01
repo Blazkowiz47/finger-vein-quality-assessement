@@ -177,8 +177,8 @@ def main():
                             print(e)
 
 
-                except:
-                    print("Error while evaluating")
+                except Exception as e:
+                    print("Error while evaluating:", e)
                 
 
     formatted_results = prettier(all_results)
