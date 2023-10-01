@@ -1,6 +1,7 @@
 """
 Trains everything
 """
+from random import shuffle
 from typing import Any, Dict, Optional
 import numpy as np
 import torch
@@ -22,7 +23,7 @@ from common.data_pipeline.dataset import get_dataset
 from common.train_pipeline.model.model import get_model
 from common.util.logger import logger
 from common.util.data_pipeline.dataset_chainer import DatasetChainer
-from common.util.enums import EnvironmentType
+from common.util.enums import DatasetSplitType, EnvironmentType
 
 # To watch nvidia-smi continuously after every 2 seconds: watch -n 2 nvidia-smi
 
@@ -137,7 +138,7 @@ def train(
     Contains the training loop.
     """
     device = cuda_info()
-    train_dataset, validation_dataset, _ = DatasetChainer(
+    chainer = DatasetChainer(
         datasets=[
             get_dataset(
                 dataset,
@@ -147,11 +148,11 @@ def train(
                 width=width,
             ),
         ],
-    ).get_dataset(
-        batch_size=batch_size,
-        dataset_type=environment,
+        environment=environment,
     )
-    
+    train_dataset = chainer.get_split(DatasetSplitType.TRAIN, batch_size=batch_size, shuffle= True,)
+    test_dataset = chainer.get_split(DatasetSplitType.TEST, batch_size=batch_size, shuffle= True,)
+    validation_dataset = chainer.get_split(DatasetSplitType.VALIDATION, batch_size=batch_size, shuffle= True,)
 
     if continue_model:
         model = torch.load(continue_model).to(device)
@@ -222,7 +223,7 @@ def train(
         if epoch % validate_after_epochs == 0:
             val_loss = []
             with torch.no_grad():
-                for inputs, labels in tqdm(validation_dataset, desc="Validation:"):
+                for inputs, labels in tqdm(test_dataset, desc="Validation:"):
                     if inputs.shape[0] == 1:
                         inputs = torch.cat((inputs, inputs), 0)  # pylint: disable=E1101
                         labels = torch.cat((labels, labels), 0)  # pylint: disable=E1101

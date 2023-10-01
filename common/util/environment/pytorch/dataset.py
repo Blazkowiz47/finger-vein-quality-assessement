@@ -1,13 +1,12 @@
 """
 Dataset generator for pytorch
 """
-from typing import List, Optional, Tuple
-import numpy as np
+from typing import Any, List, Optional 
 from torch.utils.data import DataLoader
 
 
 def generate_dataset(
-        data: List[np.ndarray],
+        data: List[Any],
         batch_size,
         shuffle: bool = True,
         num_workers: int = 2,
@@ -16,7 +15,7 @@ def generate_dataset(
     """
     Creates Dataset loader.
     """
-    dataset_generator = DatasetGenerator(data)
+    dataset_generator = DatasetGenerator(data, total_files= total_files)
     return DataLoader(
             dataset_generator,
             batch_size=batch_size,
@@ -29,11 +28,11 @@ class DatasetGenerator:
     """A generator which gives the dataset sequentially"""
 
     def __init__(
-            self, data: List[Tuple[np.ndarray, np.ndarray]], 
+            self, data: List[Any], 
             total_files: Optional[int] = None,
             ) -> None:
         self.total_files = total_files
-        self.data: List[Tuple[np.ndarray, np.ndarray]] = data
+        self.data: List[Any] = data
 
     def __len__(self):
         if self.total_files:

@@ -9,7 +9,7 @@ import cv2
 import numpy as np
 from common.util.data_pipeline.dataset_loader import DatasetLoaderBase
 from common.util.decorators import reflected
-from common.util.enums import EnvironmentType
+from common.util.enums import DatasetSplitType, EnvironmentType
 from common.util.models.dataset_models import DatasetObject
 
 
@@ -62,16 +62,16 @@ class DatasetLoader(DatasetLoaderBase):
 
     def get_train_files(self) -> List[DatasetObject]:
         files = self._list_dataset(self.morph_type, "ICAO_P2")
-        self.train_files = len(files) *( self.augment_times+1)
+        self.total_files[DatasetSplitType.TRAIN] = len(files) *( self.augment_times+1)
         return files
 
     def get_test_files(self) -> List[DatasetObject]:
         files = self._list_dataset(self.morph_type, "ICAO_P1")
-        self.test_files = len(files) *( self.augment_times+1)
+        self.total_files[DatasetSplitType.TEST]= len(files) *( self.augment_times+1)
         return files
 
     def get_validation_files(self) -> List[DatasetObject]:
-        self.validation_files = 0
+        self.total_files[DatasetSplitType.VALIDATION]= 0
         return []
 
     def augment(self, image: np.ndarray, label: np.ndarray) -> List[np.ndarray]:

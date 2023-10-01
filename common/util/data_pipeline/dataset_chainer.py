@@ -3,7 +3,7 @@
 """
 from itertools import chain
 from importlib import import_module
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 import numpy as np
 from tqdm import tqdm
 from common.util.data_pipeline.dataset_loader import DatasetLoaderBase
@@ -18,64 +18,49 @@ class DatasetChainer:
     Generates a Tensorflow compatible dataset.
     """
 
-    def __init__(self, datasets: List[DatasetLoaderBase]) -> None:
+    def __init__(self, datasets: List[DatasetLoaderBase],
+                 environment: EnvironmentType = EnvironmentType.NUMPY,
+                 ) -> None:
+        self.environment = environment
         self.datasets = datasets
-        self.files: Dict[DatasetSplitType, List[DatasetObject]] = {
-            set_type: [] for set_type in DatasetSplitType
-        }
-        self.compiled_datasets: Dict[DatasetSplitType, List[np.ndarray]] = {}
+        self.total_files: Dict[DatasetSplitType, Optional[int]] = {}
+        self.compiled_datasets: Dict[DatasetSplitType, List[DatasetLoaderBase]] = {}
+        for dataset in datasets:
+            dataset.compile_sets()
 
-    def _compile_all_datasets(self) -> None:
-        """Compiles all the datasets together"""
-        compiled_datasets: Dict[DatasetSplitType, List[List[np.ndarray]]] = {
-            set_type: [] for set_type in DatasetSplitType
-        }
-        for dataset in self.datasets:
-            sets = dataset.compile_sets()
-            for set_type, data in sets.items():
-                compiled_datasets[set_type].append(data)
-                self.files[set_type].extend(dataset.files[set_type])
-        self.compiled_datasets = {
-            set_type: self._concatenate_datasets(set_type, dataset)
-            for set_type, dataset in compiled_datasets.items()
-        }
 
     def _concatenate_datasets(
-        self, set_type: DatasetSplitType, datasets: List[Tuple[np.ndarray]]
-    ) -> List[np.ndarray]:
+        self, split_type: DatasetSplitType, datasets: List[DatasetLoaderBase]
+    ) -> List[DatasetLoaderBase]:
         """Concatenates all the datasets"""
-        logger.info("Concatenating %s set", set_type.value)
-        compiled_dataset: List[np.ndarray] = chain(*datasets)
+        logger.info("Concatenating %s set", split_type.value)
+        files = None
+        for dataset in datasets:
+            if dataset.total_files.get(split_type):
+                if not files:
+                    files = 0
+                files += dataset.total_files[split_type]
+        self.total_files[split_type] = files
+        compiled_dataset: List[Any] = chain( 
+                    *[
+                        dataset.compiled_sets[split_type] 
+                        for dataset in datasets
+                    ]
+                )
         return compiled_dataset
 
-    def _get_dataset_converter(self, dataset_type: EnvironmentType):
+    def _get_dataset_converter(self, dataset_type: EnvironmentType) -> Any:
         module = import_module(f"common.util.environment.{dataset_type.value}.dataset")
         return getattr(module, "generate_dataset", None)
+    
 
-    def _get_splits(
-        self, dataset_type: EnvironmentType, batch_size: int = 1, shuffle: bool = False
-    ) -> Tuple[Any]:
-        dataset_converter = self._get_dataset_converter(dataset_type)
-        return (
-            *[
-                dataset_converter(
-                    self.compiled_datasets[split],
-                    batch_size,
-                    shuffle if not i else None,
-                    total_files=split.total_files,
-                )
-                for i, split in enumerate(self.compiled_datasets)
-            ],
-        )
+    def get_split(
+            self,
+            split_type: DatasetSplitType,
+            batch_size: int = 10,
+            shuffle: bool = False,
+            ) -> Any:
+        concatenated_dataset = self._concatenate_datasets(split_type, self.datasets)
+        dataset_converter = self._get_dataset_converter(self.environment)
+        return dataset_converter(concatenated_dataset, batch_size=batch_size, shuffle=shuffle, total_files=self.total_files[split_type],)
 
-    def get_dataset(
-        self,
-        dataset_type: EnvironmentType = EnvironmentType.NUMPY,
-        batch_size: int = 10,
-        shuffle: bool = False,
-    ) -> Any:
-        self._compile_all_datasets()
-        return self._get_splits(dataset_type, batch_size, shuffle)
-
-    def get_files(self, split_type: DatasetSplitType):
-        return self.files.get(split_type, [])
