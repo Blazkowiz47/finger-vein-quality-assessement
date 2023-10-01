@@ -9,6 +9,9 @@ from common.util.enums import EnvironmentType
 from common.train_pipeline.train import train
 from common.evaluate_pipeline.evaluate import evaluate
 
+import matlab.engine
+import matlab
+from scipy.io import loadmat
 
 def prettier(data):
     """
@@ -122,6 +125,9 @@ def main():
     print("Starting evaluation")
 
     all_results[model_name] = {}
+    eng = matlab.engine.start_matlab()
+    script_dir = f"/home/ubuntu/finger-vein-quality-assessement/EER"
+    eng.addpath(script_dir)
     
     for dataset in dataset_list:
         print("Dataset:", dataset)
@@ -159,12 +165,6 @@ def main():
                                     width,
                                     )
                     try:
-                        import matlab
-                        import matlab.engine
-                        from scipy.io import loadmat
-                        eng = matlab.engine.start_matlab()
-                        script_dir = f"/home/ubuntu/finger-vein-quality-assessement/EER"
-                        eng.addpath(script_dir)
                         for split_type in model_type:
                             mat_file_path = f"results/best_{model_t}_{model_name}_{dataset_model}_{split_type}_dnp_{dataset}.mat"
                             content = loadmat(mat_file_path)
