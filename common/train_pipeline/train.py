@@ -2,12 +2,11 @@
 Trains everything
 """
 from typing import Any, Dict, Optional
-import numpy as np
 import torch
 from torch import optim
-from torch.nn import Module
+from torch.nn import CrossEntropyLoss
+import torch.optim.lr_scheduler as lr_scheduler
 from tqdm import tqdm
-from timm.loss import SoftTargetCrossEntropy
 from torchmetrics import Metric
 from torchmetrics.classification import Accuracy
 import wandb
@@ -26,62 +25,68 @@ from common.util.enums import EnvironmentType
 # To watch nvidia-smi continuously after every 2 seconds: watch -n 2 nvidia-smi
 
 
-def get_train_loss() -> Module:
+def get_train_loss(device: str = "cpu"):
     """
     Gets a loss function for training.
     """
-    return SoftTargetCrossEntropy()
+    if device == "cuda":
+        return CrossEntropyLoss().cuda()
+    return CrossEntropyLoss()
 
 
-def get_test_loss() -> Module:
+def get_test_loss(device: str = "cpu"):
     """
     Gets a loss function for training.
     """
-    return SoftTargetCrossEntropy()
+    if device == "cuda":
+        return CrossEntropyLoss().cuda()
+    return CrossEntropyLoss()
 
 
-def get_val_loss() -> Module:
+def get_val_loss(device: str = "cpu"):
     """
     Gets a loss function for validation.
     """
-    return SoftTargetCrossEntropy()
+    if device == "cuda":
+        return CrossEntropyLoss().cuda()
+    return CrossEntropyLoss()
 
 
-def get_train_metrics(n_classes: int) -> list[Metric]:
+def get_train_metrics(device: str = "cpu") -> list[Metric]:
     """
     Returns list of training metrics.
     """
     return [
         Accuracy(
             task="multiclass",
-            num_classes=n_classes,
-        ),
+            num_classes=301,
+        ).to(device),
         # ConfusionMatrix().to(device),
     ]
 
 
-def get_test_metrics(n_classes: int) -> list[Metric]:
+def get_test_metrics(device: str = "cpu") -> list[Metric]:
     """
     Returns list of testing metrics.
     """
     return [
         Accuracy(
             task="multiclass",
-            num_classes=n_classes,
-        ),
+            num_classes=301,
+        ).to(device),
         # ConfusionMatrix().to(device),
     ]
 
 
-def get_val_metrics(n_classes: int) -> list[Metric]:
+def get_val_metrics(device: str = "cpu") -> list[Metric]:
     """
     Returns list of validation metrics.
     """
     return [
         Accuracy(
             task="multiclass",
-            num_classes=n_classes,
-        ),
+            num_classes=301,
+        ).to(device),
         # ConfusionMatrix().to(device),
     ]
 
@@ -123,14 +128,11 @@ def train(
     batch_size: int = 10,
     epochs: int = 1,
     environment: EnvironmentType = EnvironmentType.PYTORCH,
-    log_on_wandb: Optional[str] = None,
+    log_on_wandb: bool = False,
     validate_after_epochs: int = 5,
-    learning_rate: float = 1e-3,
+    learning_rate: float = 1e-4,
     continue_model: Optional[str] = None,
     augment_times: int = 0,
-    n_classes: int = 301,
-    height: int = 60,
-    width: int = 120,
 ):
     """
     Contains the training loop.
@@ -142,40 +144,33 @@ def train(
                 dataset,
                 environment=environment,
                 augment_times=augment_times,
-                height=height,
-                width=width,
             ),
         ],
     ).get_dataset(
         batch_size=batch_size,
         dataset_type=environment,
     )
-    
 
     if continue_model:
         model = torch.load(continue_model).to(device)
     else:
         model = get_model(config).to(device)
     logger.info(model)
-    optimizer = optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=0.05)
+    optimizer = optim.AdamW(model.parameters(), lr=learning_rate)
+    scheduler = lr_scheduler.CosineAnnealingLR(optimizer)
 
-    train_loss_fn = get_train_loss().to(device)
-    validate_loss_fn = get_val_loss().to(device)
+    train_loss_fn = get_train_loss(device)
+    validate_loss_fn = get_val_loss(device)
 
-    train_metrics = [metric.to(device) for metric in get_train_metrics(n_classes)]
+    train_metrics = get_train_metrics(device)
     # test_metrics = get_test_metrics(device)
-    val_metrics = [metric.to(device) for metric in get_val_metrics(n_classes)]
+    val_metrics = get_val_metrics(device)
     # Training loop
-    best_train_accuracy: float = 0
-    best_test_accuracy: float = 0
+    best_accuracy: float = 0
     _ = cuda_info()
     for epoch in range(1, epochs + 1):
         model.train()
-        training_loss = []
         for inputs, labels in tqdm(train_dataset, desc=f"Epoch {epoch} Training: "):
-            if inputs.shape[0] == 1:
-                inputs = torch.cat((inputs, inputs), 0)  # pylint: disable=E1101
-                labels = torch.cat((labels, labels), 0)  # pylint: disable=E1101
             # start = time.time()
             # with profiler.profile(record_shapes=True) as prof:
             inputs = inputs.cuda().float()
@@ -187,16 +182,15 @@ def train(
             outputs = model(inputs)  # pylint: disable=E1102
             # end = time.time()
             # logger.info("Forward prop. %s", str(end - start))
-            loss = train_loss_fn(outputs, labels)  # pylint: disable=E1102
+            loss = train_loss_fn(outputs, labels)
             # start = time.time()
-            training_loss.append(loss.item())
             loss.backward()
             # end = time.time()
             # logger.info("Backward prop. %s", str(end - start))
             optimizer.step()
+            scheduler.step()
             # start = time.time()
-            predicted = outputs.argmax(dim=1)
-            labels = labels.argmax(dim=1)
+            predicted = (outputs == outputs[outputs.argmax(dim=1, keepdims=True)]) * 1
             for metric in train_metrics:
                 metric.update(predicted, labels)
             # end = time.time()
@@ -204,61 +198,34 @@ def train(
 
         model.eval()
         results = []
-
         for metric in train_metrics:
-            results.append(
-                add_label(
-                    {
-                        "accuracy": metric.compute().item(),
-                        "loss": np.mean(training_loss),
-                    },
-                    "train",
-                )
-            )
+            results.append(add_label({"accuracy": metric.compute()}, "train"))
             metric.reset()
 
         if epoch % validate_after_epochs == 0:
-            val_loss = []
+            val_loss = 0.0
             with torch.no_grad():
                 for inputs, labels in tqdm(validation_dataset, desc="Validation:"):
-                    if inputs.shape[0] == 1:
-                        inputs = torch.cat((inputs, inputs), 0)  # pylint: disable=E1101
-                        labels = torch.cat((labels, labels), 0)  # pylint: disable=E1101
                     inputs = inputs.to(device).float()
                     labels = labels.to(device).float()
                     outputs = model(inputs)  # pylint: disable=E1102
-                    loss = validate_loss_fn(outputs, labels)  # pylint: disable=E1102
-                    val_loss.append(loss.item())
-                    predicted = outputs.argmax(dim=1)
+                    val_loss += validate_loss_fn(outputs, labels)
+                    predicted = (outputs == outputs[outputs.argmax(dim=1)]) * 1
                     labels = labels.argmax(dim=1)
                     for metric in val_metrics:
                         metric.update(predicted, labels)
                 for metric in val_metrics:
                     results.append(
-                        add_label(
-                            {
-                                "accuracy": metric.compute().item(),
-                                "loss": np.mean(val_loss),
-                            },
-                            "test",
-                        )
+                        add_label({"accuracy": metric.compute()}, "validation")
                     )
                     metric.reset()
 
-                if best_test_accuracy < results[1]["test_accuracy"]:
-                    torch.save(
-                        model,
-                        f"models/checkpoints/best_test_{log_on_wandb}.pt",
-                    )
-                    best_test_accuracy = results[1]["test_accuracy"]
-
-        if best_train_accuracy < results[0]["train_accuracy"]:
+        if best_accuracy < results[0]["train_correct"]:
             torch.save(
                 model,
-                f"models/checkpoints/best_train_{log_on_wandb}.pt",
+                f"models/checkpoints/{log_on_wandb}.pt",
             )
-            best_train_accuracy = results[0]["train_accuracy"]
-
+            best_accuracy = results[0]["train_correct"]
         log = {}
         for result in results:
             log = log | result
