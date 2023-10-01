@@ -46,7 +46,7 @@ class DatasetChainer:
         """Concatenates all the datasets"""
         logger.info("Concatenating %s set", set_type.value)
         compiled_dataset: List[np.ndarray] = chain(*datasets)
-        return [data for data in tqdm(compiled_dataset)]
+        return compiled_dataset
 
     def _get_dataset_converter(self, dataset_type: EnvironmentType):
         module = import_module(f"common.util.environment.{dataset_type.value}.dataset")
@@ -62,6 +62,7 @@ class DatasetChainer:
                     self.compiled_datasets[split],
                     batch_size,
                     shuffle if not i else None,
+                    total_files=split.total_files,
                 )
                 for i, split in enumerate(self.compiled_datasets)
             ],

@@ -2,7 +2,7 @@
     Dataset loader for dataset: dnp 
 """
 import os
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 import albumentations as A
 import cv2
@@ -61,12 +61,17 @@ class DatasetLoader(DatasetLoaderBase):
         return result
 
     def get_train_files(self) -> List[DatasetObject]:
-        return self._list_dataset(self.morph_type, "ICAO_P2")
+        files = self._list_dataset(self.morph_type, "ICAO_P2")
+        self.train_files = len(files) *( self.augment_times+1)
+        return files
 
     def get_test_files(self) -> List[DatasetObject]:
-        return self._list_dataset(self.morph_type, "ICAO_P1")
+        files = self._list_dataset(self.morph_type, "ICAO_P1")
+        self.test_files = len(files) *( self.augment_times+1)
+        return files
 
     def get_validation_files(self) -> List[DatasetObject]:
+        self.validation_files = 0
         return []
 
     def augment(self, image: np.ndarray, label: np.ndarray) -> List[np.ndarray]:

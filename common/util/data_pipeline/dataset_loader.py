@@ -6,7 +6,7 @@
 from abc import abstractmethod
 from itertools import chain
 import random
-from typing import Any, Dict, Tuple, List
+from typing import Any, Dict, Optional, Tuple, List
 import numpy as np
 from common.util.enums import DatasetSplitType, EnvironmentType
 
@@ -36,6 +36,9 @@ class DatasetLoaderBase:
         self.files: Dict[DatasetSplitType, List[DatasetObject]] = {}
         self.all_files = None
         self.augment_times = augment_times
+        self.train_files: Optional[int] = None 
+        self.test_files: Optional[int] = None
+        self.validation_files: Optional[int]= None
 
     @abstractmethod
     def get_directory(self) -> str:
