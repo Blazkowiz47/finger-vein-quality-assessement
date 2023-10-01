@@ -124,6 +124,7 @@ def main():
     all_results[model_name] = {}
     
     for dataset in dataset_list:
+        print("Dataset:", dataset)
         train_dataset, test_dataset, validation_dataset = DatasetChainer(
             datasets=[
                 get_dataset(
@@ -146,7 +147,6 @@ def main():
                 all_results[model_name]["best" + model_t][dataset_model] = {}
                 try:
                     print("Model:", model)
-                    print("Dataset:", dataset)
                     all_results[model_name]["best" + model_t][dataset_model][
                             dataset
                             ] = evaluate(
