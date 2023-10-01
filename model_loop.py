@@ -150,7 +150,7 @@ def main():
                     all_results[model_name]["best" + model_t][dataset_model][
                             dataset
                             ] = evaluate(
-                                    [(train_dataset, test_dataset, validation_dataset)],
+                                    (train_dataset, test_dataset, validation_dataset),
                                     model,
                                     512,
                                     EnvironmentType.PYTORCH,

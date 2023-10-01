@@ -74,7 +74,7 @@ def cuda_info():
 
 
 def evaluate(
-    datasets: List[Union[str , Any]],
+    datasets: Union[List[str ], Any],
     model_path: str,
     batch_size: int = 10,
     environment: EnvironmentType = EnvironmentType.PYTORCH,
