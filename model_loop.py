@@ -18,8 +18,6 @@ def prettier(data):
     model_types = ["besttrain", "besttest"]
     datasets = ["lma", "mipgan_1", "mipgan_2", "stylegan_iwbf"]
 
-    model_name = "vig_attention_pyramid_tiny"
-
     model_data = data[model_name]
     for metric in metrics:
         results[metric] = {}
