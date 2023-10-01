@@ -1,5 +1,7 @@
 import argparse
 import json
+from common.data_pipeline.dataset import get_dataset
+from common.util.data_pipeline.dataset_chainer import DatasetChainer
 import wandb
 import torch
 from train import get_config
@@ -120,19 +122,35 @@ def main():
     print("Starting evaluation")
 
     all_results[model_name] = {}
-    for model_t in model_type:
-        all_results[model_name]["best" + model_t] = {}
-        for dataset_model in dataset_list:
-            model = f"models/checkpoints/best_{model_t}_{model_name}_{dataset_model}.pt"
-            all_results[model_name]["best" + model_t][dataset_model] = {}
-            for dataset in dataset_list:
+    
+    for dataset in dataset_list:
+        train_dataset, test_dataset, validation_dataset = DatasetChainer(
+            datasets=[
+                get_dataset(
+                    "dnp_"+dataset,
+                    environment=EnvironmentType.PYTORCH,
+                    augment_times=0,
+                    height=height,
+                    width=width,
+                )
+            ],
+        ).get_dataset(
+            batch_size=batch_size,
+            dataset_type=EnvironmentType.PYTORCH,
+        )
+
+        for model_t in model_type:
+            all_results[model_name]["best" + model_t] = {}
+            for dataset_model in dataset_list:
+                model = f"models/checkpoints/best_{model_t}_{model_name}_{dataset_model}.pt"
+                all_results[model_name]["best" + model_t][dataset_model] = {}
                 try:
                     print("Model:", model)
                     print("Dataset:", dataset)
                     all_results[model_name]["best" + model_t][dataset_model][
                             dataset
                             ] = evaluate(
-                                    ["dnp_" + dataset],
+                                    [(train_dataset, test_dataset, validation_dataset)],
                                     model,
                                     512,
                                     EnvironmentType.PYTORCH,

@@ -1,7 +1,7 @@
 """
 evaluates everything
 """
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Tuple, Union
 import numpy as np
 import torch
 from torch.nn import Module
@@ -74,7 +74,7 @@ def cuda_info():
 
 
 def evaluate(
-    datasets: List[str],
+    datasets: List[Union[str , Any]],
     model_path: str,
     batch_size: int = 10,
     environment: EnvironmentType = EnvironmentType.PYTORCH,
@@ -87,21 +87,24 @@ def evaluate(
     Contains the training loop.
     """
     device = cuda_info()
-    train_dataset, test_dataset, validation_dataset = DatasetChainer(
-        datasets=[
-            get_dataset(
-                dataset,
-                environment=environment,
-                augment_times=augment_times,
-                height=height,
-                width=width,
-            )
-            for dataset in datasets
-        ],
-    ).get_dataset(
-        batch_size=batch_size,
-        dataset_type=environment,
-    )
+    if isinstance(datasets[0], str):
+        train_dataset, test_dataset, validation_dataset = DatasetChainer(
+            datasets=[
+                get_dataset(
+                    dataset,
+                    environment=environment,
+                    augment_times=augment_times,
+                    height=height,
+                    width=width,
+                )
+                for dataset in datasets
+            ],
+        ).get_dataset(
+            batch_size=batch_size,
+            dataset_type=environment,
+        )
+    else:
+        train_dataset, test_dataset, validation_dataset = dataset
 
     model: Module = torch.load(model_path).to(device)
     # logger.info(model)
