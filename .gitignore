@@ -10,3 +10,5 @@ wandb/
 *.npy
 *.mat
 results/*.m
+results/*.json
+
