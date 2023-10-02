@@ -178,10 +178,10 @@ def evaluate(
             logger.info("Precision: %s", precision.item())
             logger.info("Recall: %s", recall.item())
             data = scores
-            genuine = data[data[:, 1] == 1.0]
-            imposter = data[data[:, 0] == 1.0]
+            genuine = data[data[:, 1] == 1.0][:,3]
+            morphed = data[data[:, 0] == 1.0][:,3]
             genuine = matlab.double(genuine.tolist())
-            morphed  = matlab.double(imposter.tolist())
+            morphed  = matlab.double(morphed.tolist())
             eer = None
             if eng:
                 eer,_,_= eng.EER_DET_Spoof_Far(genuine,morphed , matlab.double(10000), nargout=3)
@@ -195,7 +195,7 @@ def evaluate(
                     logger.exception("Cannot initialise matlab engine")
                     savemat(
                         f"results/{model_path.split('/')[-1].split('.')[0]}_{dataset_names[index]}_{datasets[0]}.mat",
-                        {"genuine": genuine[:, 3], "morphed": imposter[:, 3]},
+                        {"genuine": genuine, "morphed": morphed},
                     )
             all_results[dataset_names[index]] = {
                 "accuracy": accuracy,
