@@ -201,6 +201,6 @@ def evaluate(
                 "accuracy": accuracy,
                 "precision": precision.item(),
                 "recall": recall.item(),
-                "eer": eer,
+                "eer": eer/100,
             }
         return all_results
