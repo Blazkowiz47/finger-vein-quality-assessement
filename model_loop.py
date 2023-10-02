@@ -6,12 +6,11 @@ import wandb
 import torch
 from train import get_config
 from common.util.enums import EnvironmentType
+from common.util.logger import logger
 from common.train_pipeline.train import train
 from common.evaluate_pipeline.evaluate import evaluate
-
-import matlab.engine
 import matlab
-from scipy.io import loadmat
+import matlab.engine
 
 def prettier(data):
     """
@@ -124,11 +123,15 @@ def main():
 
     print("Starting evaluation")
 
-    all_results[model_name] = {}
-    eng = matlab.engine.start_matlab()
-    script_dir = f"/home/ubuntu/finger-vein-quality-assessement/EER"
-    eng.addpath(script_dir)
-    
+    all_results = {}
+    eng = None 
+    try: 
+        eng = matlab.engine.start_matlab()
+        script_dir = f"/home/ubuntu/finger-vein-quality-assessement/EER"
+        eng.addpath(script_dir)
+    except:
+        logger.exception("Cannot initialise matlab engine")
+
     for dataset in dataset_list:
         print("Dataset:", dataset)
         train_dataset, test_dataset, validation_dataset = DatasetChainer(
@@ -147,13 +150,15 @@ def main():
         )
 
         for model_t in model_type:
-            all_results[model_name]["best" + model_t] = {}
+            if not all_results.get("best" + model_t):
+                all_results["best" + model_t] = {}
             for dataset_model in dataset_list:
                 model = f"models/checkpoints/best_{model_t}_{model_name}_{dataset_model}.pt"
-                all_results[model_name]["best" + model_t][dataset_model] = {}
+                if not all_results["best" + model_t].get(dataset_model):
+                    all_results["best" + model_t][dataset_model] = {}
                 try:
                     print("Model:", model)
-                    all_results[model_name]["best" + model_t][dataset_model][
+                    all_results["best" + model_t][dataset_model][
                             dataset
                             ] = evaluate(
                                     (train_dataset, test_dataset, validation_dataset),
@@ -163,20 +168,8 @@ def main():
                                     n_classes,
                                     height,
                                     width,
+                                    eng=eng,
                                     )
-                    try:
-                        for split_type in model_type:
-                            mat_file_path = f"results/best_{model_t}_{model_name}_{dataset_model}_{split_type}_dnp_{dataset}.mat"
-                            content = loadmat(mat_file_path)
-                            genuine = matlab.double(content['genuine'].tolist())
-                            morphed  = matlab.double(content['morphed'].tolist())
-                            eer,far,ffr = eng.EER_DET_Spoof_Far(genuine,morphed , matlab.double(10000), nargout=3)
-                            all_results[model_name]["best" + model_t][dataset_model][dataset][split_type]['eer'] = eer 
-                            print(f"Split: {split_type} EER:", eer)
-                    except Exception as e:
-                        print(e)
-
-
                 except Exception as e:
                     print("Error while evaluating:", e)
                 

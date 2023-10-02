@@ -10,7 +10,8 @@ from timm.loss import SoftTargetCrossEntropy
 from torchmetrics import Metric
 from torchmetrics.classification import Accuracy, MulticlassPrecision, MulticlassRecall
 from scipy.io import savemat
-
+import matlab
+import matlab.engine
 # from common.data_pipeline.mmcbnu.dataset import DatasetLoader as mmcbnu
 # from common.data_pipeline.fvusm.dataset import DatasetLoader as fvusm
 from common.data_pipeline.dataset import get_dataset
@@ -82,11 +83,12 @@ def evaluate(
     n_classes: int = 301,
     height: int = 60,
     width: int = 120,
+    eng: Any = None,
 ) -> Dict[str, Any]:
     """
     Contains the training loop.
     """
-    device = cuda_info()
+
     if isinstance(datasets[0], str):
         train_dataset, test_dataset, validation_dataset = DatasetChainer(
             datasets=[
@@ -178,13 +180,27 @@ def evaluate(
             data = scores
             genuine = data[data[:, 1] == 1.0]
             imposter = data[data[:, 0] == 1.0]
-            savemat(
-                f"results/{model_path.split('/')[-1].split('.')[0]}_{dataset_names[index]}_{datasets[0]}.mat",
-                {"genuine": genuine[:, 3], "morphed": imposter[:, 3]},
-            )
+            genuine = matlab.double(genuine.tolist())
+            morphed  = matlab.double(imposter.tolist())
+            eer = None
+            if eng:
+                eer,_,_= eng.EER_DET_Spoof_Far(genuine,morphed , matlab.double(10000), nargout=3)
+                logger.info("EER: %s", eer)
+            else:
+                eng = matlab.engine.start_matlab()
+                try: 
+                    script_dir = f"/home/ubuntu/finger-vein-quality-assessement/EER"
+                    eng.addpath(script_dir)
+                except:
+                    logger.exception("Cannot initialise matlab engine")
+                    savemat(
+                        f"results/{model_path.split('/')[-1].split('.')[0]}_{dataset_names[index]}_{datasets[0]}.mat",
+                        {"genuine": genuine[:, 3], "morphed": imposter[:, 3]},
+                    )
             all_results[dataset_names[index]] = {
                 "accuracy": accuracy,
                 "precision": precision.item(),
                 "recall": recall.item(),
+                "eer": eer,
             }
         return all_results
