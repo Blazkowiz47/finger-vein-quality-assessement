@@ -42,7 +42,7 @@ class DatasetLoader(DatasetLoaderBase):
                 )
 
     def get_directory(self) -> str:
-        return f"~/cluster/nbl-users/Shreyas-Sushrut-Raghu/PostProcess_Data/{self.printer}/{self.process_type}"
+        return f"/home/ubuntu/cluster/nbl-users/Shreyas-Sushrut-Raghu/PostProcess_Data/{self.printer}/{self.process_type}"
 
     def get_name(self) -> str:
         return self.printer + "_" + self.process_type
