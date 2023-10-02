@@ -21,8 +21,7 @@ def prettier(data):
     dataset_type = ["train", "test"]
     model_types = ["besttrain", "besttest"]
     datasets = ["lma", "mipgan_1", "mipgan_2", "stylegan_iwbf"]
-
-    model_data = data[model_name]
+    model_data = data
     for metric in metrics:
         results[metric] = {}
         for trained_on in datasets:

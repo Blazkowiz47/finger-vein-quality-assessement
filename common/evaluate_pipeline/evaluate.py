@@ -88,7 +88,7 @@ def evaluate(
     """
     Contains the training loop.
     """
-
+    device = cuda_info()
     if isinstance(datasets[0], str):
         train_dataset, test_dataset, validation_dataset = DatasetChainer(
             datasets=[
@@ -114,8 +114,8 @@ def evaluate(
 
     metrics = [metric.to(device) for metric in get_metrics(n_classes)]
     # Training loop
-    _ = cuda_info()
     with torch.no_grad():
+
         all_results: Dict[str, Any] = {}
         dataset_names = ["train", "test", "validation"]
         for index, dataset in enumerate(
