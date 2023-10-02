@@ -17,7 +17,7 @@ def prettier(data):
     Converts into better json format
     """
     results = {}
-    metrics = ["accuracy", "precision", "recall"]
+    metrics = ["accuracy", "precision", "recall", "eer"]
     dataset_type = ["train", "test"]
     model_types = ["besttrain", "besttest"]
     datasets = ["lma", "mipgan_1", "mipgan_2", "stylegan_iwbf"]
