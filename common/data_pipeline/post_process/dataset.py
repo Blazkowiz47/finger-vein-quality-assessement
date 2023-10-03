@@ -21,25 +21,25 @@ class DatasetLoader(DatasetLoaderBase):
     """
 
     def __init__(
-            self,
-            printer: Union[Literal["Canon"], Literal["DNP"], Literal["Digital"]],
-            process_type: Union[Literal["After"], Literal["Before"]],
-            environment_type: EnvironmentType = EnvironmentType.PYTORCH,
-            augment_times: int = 8,
-            height: int = 224,
-            width: int = 224,
-            ) -> None:
+        self,
+        printer: Union[Literal["Canon"], Literal["DNP"], Literal["Digital"]],
+        process_type: Union[Literal["After"], Literal["Before"]],
+        environment_type: EnvironmentType = EnvironmentType.PYTORCH,
+        augment_times: int = 8,
+        height: int = 224,
+        width: int = 224,
+    ) -> None:
         self.height = height
         self.width = width
-        self.printer = printer 
+        self.printer = printer
         self.process_type = process_type
         self.classes = ["Mor", "Bon"]
         super().__init__(
-                environment_type=environment_type,
-                included_portion=1, 
-                augment_times=augment_times,
-                is_dataset_already_split=True,
-                )
+            environment_type=environment_type,
+            included_portion=1,
+            augment_times=augment_times,
+            is_dataset_already_split=True,
+        )
 
     def get_directory(self) -> str:
         return f"/home/ubuntu/cluster/nbl-users/Shreyas-Sushrut-Raghu/PostProcess_Data/{self.printer}/{self.process_type}"
@@ -47,10 +47,12 @@ class DatasetLoader(DatasetLoaderBase):
     def get_name(self) -> str:
         return self.printer + "_" + self.process_type
 
-    def _list_dataset(self, split_type:str ) -> List[DatasetObject]:
+    def _list_dataset(self, split_type: str) -> List[DatasetObject]:
         result: List[DatasetObject] = []
         for class_id, class_name in enumerate(self.classes):
-            directory: str = self.get_directory() + "/" + class_name +"/" + split_type + "/Face"
+            directory: str = (
+                self.get_directory() + "/" + class_name + "/" + split_type + "/Face"
+            )
             images = os.listdir(directory)
             for image in images:
                 if image.endswith("png") or image.endswith("png"):
@@ -80,16 +82,18 @@ class DatasetLoader(DatasetLoaderBase):
                 A.RandomBrightnessContrast(p=0.2),
                 A.InvertImg(p=0.05),
                 A.PixelDropout(p=0.02),
+                A.RandomRotate90(p=0.01),
+                A.RandomContrast(p=0.2),
             ],
         )
 
         result: List[np.ndarray] = []
-        for _ in range(self.augment_times ):
+        for _ in range(self.augment_times):
             transformed = transform(image=image)
             transformed_image = transformed["image"]
             transformed_image = (transformed_image - transformed_image.min()) / (
-                    transformed_image.max() - transformed_image.min()
-                    )
+                transformed_image.max() - transformed_image.min()
+            )
             transformed_image = transformed_image.astype(np.float32)
             result.append(transformed_image)
         return result
