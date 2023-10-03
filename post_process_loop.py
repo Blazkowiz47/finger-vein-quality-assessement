@@ -73,7 +73,7 @@ parser.add_argument(
 def main():
     args = parser.parse_args()
     act = "gelu"
-    epochs =  
+    epochs = 100
     pred_type = "conv"
     n_classes = 2
     height = 224
