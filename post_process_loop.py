@@ -169,7 +169,7 @@ def main():
             for dprocess_type in process_types:
                 model = "models/checkpoints/best_"
                 model += f"{model_t}_{model_name}_{dprinter}_{dprocess_type}.pt"
-                wandb_run_name = model.split("_")[-1].split(".")[0]
+                wandb_run_name = model.split("/")[-1].split(".")[0]
                 wandb.init(
                     # set the wandb project where this run will be logged
                     project="finger-vein-recognition",
