@@ -17,46 +17,6 @@ model_name = "vig_attention_at_last_pyramid_tiny"
 printers = ["Canon", "DNP", "Digital"]
 process_types = ["After", "Before"]
 model_type = ["train", "test"]
-all_results = {}
-
-
-def prettier(data):
-    """
-    Converts into better json format
-    """
-    results = {}
-    metrics = ["accuracy", "precision", "recall", "eer"]
-    dataset_type = ["train", "test"]
-    model_types = ["besttrain", "besttest"]
-    model_data = data
-    for metric in metrics:
-        results[metric] = {}
-        for tprinter in printers:
-            results[metric][tprinter] = {}
-            for tprocess_type in process_types:
-                results[metric][tprinter][tprocess_type] = {}
-                for model_type in model_types:
-                    results[metric][tprinter][tprocess_type][model_type] = {}
-                    for split_type in dataset_type:
-                        results[metric][tprinter][tprocess_type][model_type][
-                            split_type
-                        ] = {}
-                        for eprinter in printers:
-                            results[metric][tprinter][tprocess_type][model_type][
-                                split_type
-                            ][eprinter] = {}
-                            for eprocess_type in process_types:
-                                results[metric][tprinter][tprocess_type][model_type][
-                                    split_type
-                                ][eprinter][eprocess_type] = round(
-                                    model_data[model_type][tprinter][tprocess_type][
-                                        eprinter
-                                    ][eprocess_type][split_type][metric]
-                                    * 100,
-                                    3,
-                                )
-    return results
-
 
 parser = argparse.ArgumentParser(
     description="Model Loop Config",
@@ -68,12 +28,18 @@ parser.add_argument(
     type=bool,
     help="Train the model or just evaluate. by default it just evaluates.",
 )
+parser.add_argument(
+    "--epochs",
+    default=40,
+    type=int,
+    help="Number of epochs to train the model. By default ist 40.",
+)
 
 
 def main():
     args = parser.parse_args()
     act = "gelu"
-    epochs = 100
+    epochs = args.epochs
     pred_type = "conv"
     n_classes = 2
     height = 224
@@ -164,7 +130,7 @@ def main():
                 batch_size=batch_size,
                 dataset_type=EnvironmentType.PYTORCH,
             )
-    print(*[f"{i}: {ds}" for i, ds in enumerate(dataset_list)])
+
     for model_t in model_type:
         for dprinter in printers:
             for dprocess_type in process_types:
@@ -188,11 +154,13 @@ def main():
                 index = 0
                 for printer in printers:
                     for process_type in process_types:
-                        (train, test, validation) = all_datasets[printer][process_type]
+                        (train_ds, test_ds, validation_ds) = all_datasets[printer][
+                            process_type
+                        ]
                         try:
                             print("Model:", model)
                             results = evaluate(
-                                (train, test, validation),
+                                (train_ds, test_ds, validation_ds),
                                 model,
                                 256,
                                 EnvironmentType.PYTORCH,
@@ -209,6 +177,8 @@ def main():
                             print("Error while evaluating:", e)
 
                 wandb.finish()
+
+    print(*[f"{i}: {ds}" for i, ds in enumerate(dataset_list)])
 
 
 if __name__ == "__main__":
