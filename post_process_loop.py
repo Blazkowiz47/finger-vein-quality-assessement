@@ -73,14 +73,14 @@ parser.add_argument(
 def main():
     args = parser.parse_args()
     act = "gelu"
-    epochs = 40
+    epochs =  
     pred_type = "conv"
     n_classes = 2
     height = 224
     width = 224
     batch_size = 192
     validate_after_epochs = 5
-    learning_rate = 1e-4
+    learning_rate = 1e-5
     num_heads = 2
     augment_times = 19
     if args.train:
@@ -100,7 +100,7 @@ def main():
                 if wandb_run_name:
                     wandb.init(
                         # set the wandb project where this run will be logged
-                        project="finger-vein-recognition",
+                        project="morph-attack-detection",
                         name=wandb_run_name,
                         config={
                             "architecture": model_name,
@@ -173,7 +173,7 @@ def main():
                 wandb_run_name = model.split("/")[-1].split(".")[0]
                 wandb.init(
                     # set the wandb project where this run will be logged
-                    project="finger-vein-recognition",
+                    project="morph-attack-detection",
                     name=wandb_run_name,
                     config={
                         "architecture": model_t,
