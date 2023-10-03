@@ -12,6 +12,7 @@ from torchmetrics.classification import Accuracy, MulticlassPrecision, Multiclas
 from scipy.io import savemat
 import matlab
 import matlab.engine
+
 # from common.data_pipeline.mmcbnu.dataset import DatasetLoader as mmcbnu
 # from common.data_pipeline.fvusm.dataset import DatasetLoader as fvusm
 from common.data_pipeline.dataset import get_dataset
@@ -75,7 +76,7 @@ def cuda_info():
 
 
 def evaluate(
-    datasets: Union[List[str ], Any],
+    datasets: Union[List[str], Any],
     model_path: str,
     batch_size: int = 10,
     environment: EnvironmentType = EnvironmentType.PYTORCH,
@@ -106,7 +107,7 @@ def evaluate(
             dataset_type=environment,
         )
     else:
-        train_dataset, test_dataset, validation_dataset = datasets 
+        train_dataset, test_dataset, validation_dataset = datasets
 
     model: Module = torch.load(model_path).to(device)
     # logger.info(model)
@@ -115,7 +116,6 @@ def evaluate(
     metrics = [metric.to(device) for metric in get_metrics(n_classes)]
     # Training loop
     with torch.no_grad():
-
         all_results: Dict[str, Any] = {}
         dataset_names = ["train", "test", "validation"]
         for index, dataset in enumerate(
@@ -178,17 +178,19 @@ def evaluate(
             logger.info("Precision: %s", precision.item())
             logger.info("Recall: %s", recall.item())
             data = scores
-            genuine = data[data[:, 1] == 1.0][:,3]
-            morphed = data[data[:, 0] == 1.0][:,3]
+            genuine = data[data[:, 1] == 1.0][:, 3]
+            morphed = data[data[:, 0] == 1.0][:, 3]
             genuine = matlab.double(genuine.tolist())
-            morphed  = matlab.double(morphed.tolist())
+            morphed = matlab.double(morphed.tolist())
             eer = None
             if eng:
-                eer,_,_= eng.EER_DET_Spoof_Far(genuine,morphed , matlab.double(10000), nargout=3)
+                eer, _, _ = eng.EER_DET_Spoof_Far(
+                    genuine, morphed, matlab.double(10000), nargout=3
+                )
                 logger.info("EER: %s", eer)
             else:
                 eng = matlab.engine.start_matlab()
-                try: 
+                try:
                     script_dir = f"/home/ubuntu/finger-vein-quality-assessement/EER"
                     eng.addpath(script_dir)
                 except:
@@ -201,6 +203,6 @@ def evaluate(
                 "accuracy": accuracy,
                 "precision": precision.item(),
                 "recall": recall.item(),
-                "eer": eer/100,
+                "eer": eer,
             }
         return all_results
