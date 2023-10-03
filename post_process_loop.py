@@ -1,6 +1,6 @@
 import argparse
 import json
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, List, Tuple
 from common.data_pipeline.dataset import get_dataset
 from common.util.data_pipeline.dataset_chainer import DatasetChainer
 import wandb
@@ -144,10 +144,11 @@ def main():
         logger.exception("Cannot initialise matlab engine", exc_info=e)
 
     all_datasets: Dict[str, Dict[str, Tuple[Any, Any, Any]]] = {}
-
+    dataset_list: List[str] = []
     for printer in printers:
         all_datasets[printer] = {}
         for process_type in process_types:
+            dataset_list.append(f"{printer}_{process_type}")
             print("Loading Dataset:", printer, process_type)
             all_datasets[printer][process_type] = DatasetChainer(
                 datasets=[
@@ -163,7 +164,7 @@ def main():
                 batch_size=batch_size,
                 dataset_type=EnvironmentType.PYTORCH,
             )
-
+    print(*[f"{i}: {ds}" for i, ds in enumerate(dataset_list)])
     for model_t in model_type:
         for dprinter in printers:
             for dprocess_type in process_types:
@@ -184,6 +185,7 @@ def main():
                 wandb.define_metric("recall", step_metric="evaluated_on")
                 wandb.define_metric("precision", step_metric="evaluated_on")
                 wandb.define_metric("eer", step_metric="evaluated_on")
+                index = 0
                 for printer in printers:
                     for process_type in process_types:
                         (train, test, validation) = all_datasets[printer][process_type]
@@ -199,8 +201,9 @@ def main():
                                 width,
                                 eng=eng,
                             )
-                            results["evaluated_on"] = f"{printer}_{process_type}"
+                            results["evaluated_on"] = index
                             wandb.log(results)
+                            index += 1
 
                         except Exception as e:
                             print("Error while evaluating:", e)
