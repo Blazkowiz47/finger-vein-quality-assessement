@@ -1,5 +1,6 @@
 import argparse
 import json
+from typing import Any, Dict, Tuple
 from common.data_pipeline.dataset import get_dataset
 from common.util.data_pipeline.dataset_chainer import DatasetChainer
 import wandb
@@ -18,6 +19,7 @@ process_types = ["After", "Before"]
 model_type = ["train", "test"]
 all_results = {}
 
+
 def prettier(data):
     """
     Converts into better json format
@@ -32,23 +34,28 @@ def prettier(data):
         for tprinter in printers:
             results[metric][tprinter] = {}
             for tprocess_type in process_types:
-                results[metric][tprinter][tprocess_type]  = {}
+                results[metric][tprinter][tprocess_type] = {}
                 for model_type in model_types:
                     results[metric][tprinter][tprocess_type][model_type] = {}
                     for split_type in dataset_type:
-                        results[metric][tprinter][tprocess_type][model_type][split_type] = {}
+                        results[metric][tprinter][tprocess_type][model_type][
+                            split_type
+                        ] = {}
                         for eprinter in printers:
-                            results[metric][tprinter][tprocess_type][model_type][split_type][eprinter] = {}
+                            results[metric][tprinter][tprocess_type][model_type][
+                                split_type
+                            ][eprinter] = {}
                             for eprocess_type in process_types:
-                                   results[metric][tprinter][tprocess_type][model_type][split_type][eprinter][eprocess_type]  = round(
-                                       model_data[model_type][tprinter][tprocess_type][eprinter][eprocess_type][
-                                           split_type
-                                           ][metric]
-                                       * 100,
-                                       3,
-                                       )
+                                results[metric][tprinter][tprocess_type][model_type][
+                                    split_type
+                                ][eprinter][eprocess_type] = round(
+                                    model_data[model_type][tprinter][tprocess_type][
+                                        eprinter
+                                    ][eprocess_type][split_type][metric]
+                                    * 100,
+                                    3,
+                                )
     return results
-
 
 
 parser = argparse.ArgumentParser(
@@ -61,10 +68,12 @@ parser.add_argument(
     type=bool,
     help="Train the model or just evaluate. by default it just evaluates.",
 )
+
+
 def main():
     args = parser.parse_args()
     act = "gelu"
-    epochs = 40 
+    epochs = 40
     pred_type = "conv"
     n_classes = 2
     height = 224
@@ -126,19 +135,21 @@ def main():
 
     print("Starting evaluation")
 
-    all_results = {}
-    eng = None 
-    try: 
+    eng = None
+    try:
         eng = matlab.engine.start_matlab()
-        script_dir = f"/home/ubuntu/finger-vein-quality-assessement/EER"
+        script_dir = "/home/ubuntu/finger-vein-quality-assessement/EER"
         eng.addpath(script_dir)
-    except:
-        logger.exception("Cannot initialise matlab engine")
+    except Exception as e:
+        logger.exception("Cannot initialise matlab engine", exc_info=e)
+
+    all_datasets: Dict[str, Dict[str, Tuple[Any, Any, Any]]] = {}
 
     for printer in printers:
+        all_datasets[printer] = {}
         for process_type in process_types:
-            print("Dataset:", printer, process_type)
-            train_dataset, test_dataset, validation_dataset = DatasetChainer(
+            print("Loading Dataset:", printer, process_type)
+            all_datasets[printer][process_type] = DatasetChainer(
                 datasets=[
                     get_dataset(
                         f"post_process_{printer}_{process_type}",
@@ -153,35 +164,49 @@ def main():
                 dataset_type=EnvironmentType.PYTORCH,
             )
 
-            for model_t in model_type:
-                if not all_results.get("best" + model_t):
-                    all_results["best" + model_t] = {}
-                for dprinter in printers:
-                    for dprocess_type in process_types:
-                        model = f"models/checkpoints/best_{model_t}_{model_name}_{dprinter}_{dprocess_type}.pt"
-                        if not all_results["best" + model_t].get(dprinter):
-                            all_results["best" + model_t][dprinter] = {}
-                        if not all_results["best" + model_t][dprinter].get(dprocess_type):
-                            all_results["best" + model_t][dprinter][dprocess_type] = {}
+    for model_t in model_type:
+        for dprinter in printers:
+            for dprocess_type in process_types:
+                model = "models/checkpoints/best_"
+                model += f"{model_t}_{model_name}_{dprinter}_{dprocess_type}.pt"
+                wandb_run_name = model.split("_")[-1].split(".")[0]
+                wandb.init(
+                    # set the wandb project where this run will be logged
+                    project="finger-vein-recognition",
+                    name=wandb_run_name,
+                    config={
+                        "architecture": model_t,
+                        "Trained On": f"{dprinter}_{dprocess_type}",
+                    },
+                )
+                wandb.define_metric("evaluated_on")
+                wandb.define_metric("accuracy", step_metric="evaluated_on")
+                wandb.define_metric("recall", step_metric="evaluated_on")
+                wandb.define_metric("precision", step_metric="evaluated_on")
+                wandb.define_metric("eer", step_metric="evaluated_on")
+                for printer in printers:
+                    for process_type in process_types:
+                        (train, test, validation) = all_datasets[printer][process_type]
                         try:
                             print("Model:", model)
-                            all_results["best" + model_t][dprinter][dprocess_type] = evaluate(
-                                    (train_dataset, test_dataset, validation_dataset),
-                                    model,
-                                    512,
-                                    EnvironmentType.PYTORCH,
-                                    n_classes,
-                                    height,
-                                    width,
-                                    eng=eng,
-                                    )
+                            results = evaluate(
+                                (train, test, validation),
+                                model,
+                                256,
+                                EnvironmentType.PYTORCH,
+                                n_classes,
+                                height,
+                                width,
+                                eng=eng,
+                            )
+                            results["evaluated_on"] = f"{printer}_{process_type}"
+                            wandb.log(results)
+
                         except Exception as e:
                             print("Error while evaluating:", e)
 
+                wandb.finish()
 
-    formatted_results = prettier(all_results)
-    with open(f"results/{model_name}_post_process.json", "w+") as fp:
-        json.dump(formatted_results, fp)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
