@@ -184,7 +184,7 @@ def get_config(
             height,
             width,
         )
-        
+
     if config == "vig_attention_at_last_pyramid_tiny":
         return cfgs.vig_attention_at_last_pyramid_tiny(
             act,
@@ -267,5 +267,6 @@ def main():
         wandb.finish()
         torch.cuda.empty_cache()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

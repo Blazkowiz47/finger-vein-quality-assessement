@@ -13,7 +13,7 @@ from common.evaluate_pipeline.evaluate import evaluate
 import matlab
 import matlab.engine
 
-model_name = "vig_attention_at_last_pyramid_tiny"
+model_name = "vig_attention_pyramid_tiny"
 printers = ["Canon", "DNP", "Digital"]
 process_types = ["After", "Before"]
 model_type = ["train", "test"]
@@ -171,11 +171,10 @@ def main():
                             )
                             results["evaluated_on"] = index
                             wandb.log(results)
-                            index += 1
 
                         except Exception as e:
                             print("Error while evaluating:", e)
-
+                        index += 1
                 wandb.finish()
 
     print(*[f"{i}: {ds}" for i, ds in enumerate(dataset_list)])
