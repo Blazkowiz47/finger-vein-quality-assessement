@@ -13,7 +13,6 @@ from common.evaluate_pipeline.evaluate import evaluate
 import matlab
 import matlab.engine
 
-model_name = "vig_attention_pyramid_tiny"
 printers = ["Canon", "DNP", "Digital"]
 process_types = ["After", "Before"]
 model_type = ["train", "test"]
@@ -29,6 +28,12 @@ parser.add_argument(
     help="Train the model or just evaluate. by default it just evaluates.",
 )
 parser.add_argument(
+    "--config",
+    default=None,
+    type=str,
+    help="Model Config.",
+)
+parser.add_argument(
     "--epochs",
     default=40,
     type=int,
@@ -38,6 +43,7 @@ parser.add_argument(
 
 def main():
     args = parser.parse_args()
+    model_name = args.config
     act = "gelu"
     epochs = args.epochs
     pred_type = "conv"

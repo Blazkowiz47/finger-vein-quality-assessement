@@ -82,7 +82,6 @@ class DatasetLoader(DatasetLoaderBase):
                 A.RandomBrightnessContrast(p=0.2),
                 A.InvertImg(p=0.05),
                 A.PixelDropout(p=0.02),
-                A.RandomContrast(p=0.2),
             ],
         )
 
