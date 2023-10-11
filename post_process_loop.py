@@ -40,6 +40,13 @@ parser.add_argument(
     help="Number of epochs to train the model. By default ist 40.",
 )
 
+parser.add_argument(
+    "--continue-from",
+    default=0,
+    type=int,
+    help="Number of epochs to train the model. By default ist 40.",
+)
+
 
 def main():
     args = parser.parse_args()
@@ -52,12 +59,18 @@ def main():
     width = 224
     batch_size = 192
     validate_after_epochs = 5
-    learning_rate = 1e-5
+    learning_rate = 1e-4
     num_heads = 2
     augment_times = 19
+    continue_from = args.continue_from
     if args.train:
+        index = 0
         for printer in printers:
             for process_type in process_types:
+                if continue_from > index:
+                    index += 1
+                    continue
+                index += 1
                 wandb_run_name = f"{model_name}_{printer}_{process_type}"
                 config = get_config(
                     model_name,

@@ -151,7 +151,6 @@ def train(
         batch_size=batch_size,
         dataset_type=environment,
     )
-    
 
     if continue_model:
         model = torch.load(continue_model).to(device)
@@ -159,7 +158,7 @@ def train(
         model = get_model(config).to(device)
     logger.info(model)
     optimizer = optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=0.05)
-    scheduler = lr_scheduler.CosineAnnealingLR(optimizer, 140, eta_min=1e-8)
+    scheduler = lr_scheduler.CosineAnnealingLR(optimizer, epochs, eta_min=1e-8)
     train_loss_fn = get_train_loss().to(device)
     validate_loss_fn = get_val_loss().to(device)
 
@@ -195,7 +194,6 @@ def train(
             # end = time.time()
             # logger.info("Backward prop. %s", str(end - start))
             optimizer.step()
-            scheduler.step()
             # start = time.time()
             predicted = outputs.argmax(dim=1)
             labels = labels.argmax(dim=1)
@@ -204,6 +202,7 @@ def train(
             # end = time.time()
             # logger.info("Metric. %s", str(end - start))
 
+        scheduler.step()
         model.eval()
         results = []
 
