@@ -151,7 +151,6 @@ def train(
         batch_size=batch_size,
         dataset_type=environment,
     )
-    
 
     if continue_model:
         model = torch.load(continue_model).to(device)
@@ -249,14 +248,14 @@ def train(
 
                 if best_test_accuracy < results[1]["test_accuracy"]:
                     torch.save(
-                        model,
+                        model.state_dict(),
                         f"models/checkpoints/best_test_{log_on_wandb}.pt",
                     )
                     best_test_accuracy = results[1]["test_accuracy"]
 
         if best_train_accuracy < results[0]["train_accuracy"]:
             torch.save(
-                model,
+                model.state_dict(),
                 f"models/checkpoints/best_train_{log_on_wandb}.pt",
             )
             best_train_accuracy = results[0]["train_accuracy"]
