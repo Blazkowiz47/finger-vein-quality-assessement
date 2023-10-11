@@ -2,6 +2,8 @@
 evaluates everything
 """
 from typing import Any, Dict, List, Tuple, Union
+from common.train_pipeline.config import ModelConfig
+from common.train_pipeline.model.model import get_model
 import numpy as np
 import torch
 from torch.nn import Module
@@ -20,6 +22,7 @@ from common.data_pipeline.dataset import get_dataset
 from common.util.logger import logger
 from common.util.data_pipeline.dataset_chainer import DatasetChainer
 from common.util.enums import EnvironmentType
+from train import get_config
 
 # To watch nvidia-smi continuously after every 2 seconds: watch -n 2 nvidia-smi
 
@@ -78,6 +81,7 @@ def cuda_info():
 def evaluate(
     datasets: Union[List[str], Any],
     model_path: str,
+    config: ModelConfig,
     batch_size: int = 10,
     environment: EnvironmentType = EnvironmentType.PYTORCH,
     augment_times: int = 0,
@@ -109,7 +113,10 @@ def evaluate(
     else:
         train_dataset, test_dataset, validation_dataset = datasets
 
-    model: Module = torch.load(model_path).to(device)
+    model = get_model(config)
+    model.load_state_dict(torch.load(model_path))
+    model.to(device)
+    model.eval()
     # logger.info(model)
     loss_fn = get_loss().to(device)
 
