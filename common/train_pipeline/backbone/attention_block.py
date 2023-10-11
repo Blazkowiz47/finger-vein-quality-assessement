@@ -69,6 +69,7 @@ class AttentionBlock(Module):
         Forward pass.
         """
         batch, channels, height, width = inputs.shape
+        shortcut = inputs
         inputs = inputs.reshape((batch, channels, -1))
         inputs = inputs.transpose(1, 2)
         key = self.key(inputs)
@@ -77,4 +78,5 @@ class AttentionBlock(Module):
         output, _ = self.attention(query, key, value)
         output = output.transpose(1, 2)
         output = output.reshape((batch, channels, height, width))
+        output = output + shortcut
         return output
