@@ -173,7 +173,7 @@ def main():
                     name=wandb_run_name,
                     config={
                         "architecture": model_t,
-                        "Trained On": f"{dprinter}_{dprocess_type}",
+                        "Trained On": f"{dprinter}_{dmorph_type}",
                     },
                 )
                 wandb.define_metric("evaluated_on")
