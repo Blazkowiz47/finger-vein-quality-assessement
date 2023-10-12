@@ -16,6 +16,7 @@ class ConvStem(Module):
         out_dim=256,
         act="relu",
         bias=True,
+        requires_grad=True,
     ):
         super(ConvStem, self).__init__()
         self.stem = Sequential(
@@ -69,6 +70,8 @@ class ConvStem(Module):
             ),
             BatchNorm2d(out_dim),
         )
+        for parameter in self.stem.parameters():
+            parameter.requires_grad = requires_grad
 
     def forward(self, inputs):
         """

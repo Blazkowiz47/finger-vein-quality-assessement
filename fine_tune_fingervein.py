@@ -5,8 +5,8 @@ calls the train pipeline with configs.
 import argparse
 
 import torch
+from train import get_config
 import wandb
-import common_configs as cfgs
 from common.train_pipeline.train import train
 from common.util.logger import logger
 from common.util.enums import EnvironmentType
@@ -41,12 +41,6 @@ parser.add_argument(
     default="pytorch",
     type=str,
     help="Specify environment. pytorch or tensorflow.",
-)
-parser.add_argument(
-    "--log-on-wandb",
-    type=bool,
-    default=False,
-    help="Whether to log on wandb or not.",
 )
 parser.add_argument(
     "--wandb-run-name",
@@ -131,109 +125,12 @@ parser.add_argument(
     help="Defines width of the image.",
 )
 
-
-def get_config(
-    config: str,
-    act: str,
-    pred_type: str,
-    n_classes: int,
-    num_heads: int,
-    height: int,
-    width: int,
-):
-    """
-    Fetches appropriate config.
-    """
-    if config == "resnet50_grapher_12_conv_config":
-        return cfgs.resnet50_grapher_12_conv_config(
-            act,
-            pred_type,
-            n_classes,
-            height,
-            width,
-        )
-    if config == "resnet50_grapher_attention_12_conv_config":
-        return cfgs.resnet50_grapher_attention_12_conv_config(
-            act,
-            pred_type,
-            n_classes,
-            height,
-            width,
-        )
-    if config == "grapher_6_conv_config":
-        return cfgs.grapher_6_conv_config(
-            act,
-            pred_type,
-            n_classes,
-            height,
-            width,
-        )
-    if config == "grapher_12_conv_config":
-        return cfgs.grapher_12_conv_config(
-            act,
-            pred_type,
-            n_classes,
-            height,
-            width,
-        )
-    if config == "vig_pyramid_tiny":
-        return cfgs.vig_pyramid_tiny(
-            act,
-            pred_type,
-            n_classes,
-            height,
-            width,
-        )
-
-    if config == "pretrained_vig_pyramid_tiny":
-        return cfgs.pretrained_vig_pyramid_tiny(
-            act,
-            pred_type,
-            n_classes,
-            height,
-            width,
-        )
-    if config == "vig_attention_at_last_pyramid_tiny":
-        return cfgs.vig_attention_at_last_pyramid_tiny(
-            act,
-            pred_type,
-            n_classes,
-            num_heads,
-            height,
-            width,
-        )
-
-    if config == "vig_attention_pyramid_tiny":
-        return cfgs.vig_attention_pyramid_tiny(
-            act,
-            pred_type,
-            n_classes,
-            num_heads,
-            height,
-            width,
-        )
-
-    if config == "vig_attention_only_at_last_pyramid_tiny":
-        return cfgs.vig_attention_only_at_last_pyramid_tiny(
-            act,
-            pred_type,
-            n_classes,
-            num_heads,
-            height,
-            width,
-        )
-
-    if config == "pretrained_vig_attention_only_at_last_pyramid_tiny":
-        return cfgs.pretrained_vig_attention_only_at_last_pyramid_tiny(
-            act,
-            pred_type,
-            n_classes,
-            num_heads,
-            height,
-            width,
-        )
-
-    raise ValueError(f"Wrong config: {config}")
+parser.add_argument(
+    "--pretrained-model-path",
+    type=str,
+    default=None,
+    help="Path to pretrained model.",
+)
 
 
 def main():
@@ -287,11 +184,12 @@ def main():
             args.n_classes,
             args.height,
             args.width,
+            args.pretrained_model_path,
         )
     except KeyboardInterrupt:
         pass
 
-    if log_on_wandb:
+    if wandb_run_name:
         wandb.finish()
         torch.cuda.empty_cache()
 

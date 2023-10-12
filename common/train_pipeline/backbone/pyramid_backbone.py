@@ -35,7 +35,7 @@ class PyramidBackbone(Module):
     Pyramid backbone.
     """
 
-    def __init__(self, config: List[PyramidBlockConfig]) -> None:
+    def __init__(self, config: List[PyramidBlockConfig], requires_grad=True) -> None:
         super(PyramidBackbone, self).__init__()
         self.layers: List[Sequential] = []
         for i, block in enumerate(config):
@@ -46,6 +46,8 @@ class PyramidBackbone(Module):
                 )
                 self.layers.append(BatchNorm2d(block.out_channels))
         self.backbone = Sequential(*self.layers)
+        for param in self.backbone.parameters():
+            param.requires_grad = requires_grad
 
     def forward(self, inputs):
         """

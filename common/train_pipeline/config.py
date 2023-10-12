@@ -25,6 +25,7 @@ class BackboneConfig:
 
     backbone_type: str = "isotropic_backbone"
     blocks: List[BackboneBlockConfig] = None
+    requires_grad: bool = True
 
 
 @dataclass

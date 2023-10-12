@@ -22,7 +22,7 @@ class StemConfig:
     in_channels: int = 3
     out_channels: int = 1024
     act: str = "relu"
-    requires_grad: bool = False
+    requires_grad: bool = True
     bias: bool = True
 
 
@@ -42,6 +42,7 @@ def get_stem(config: StemConfig) -> Module:
             out_dim=config.out_channels,
             act=config.act,
             bias=config.bias,
+            requires_grad=config.requires_grad,
         )
     if config.stem_type == "pyramid_3_conv_layer":
         return Pyramid3ConvStem(

@@ -4,6 +4,7 @@
 import os
 from typing import List, Tuple
 
+import albumentations as A
 import cv2
 import numpy as np
 from common.util.data_pipeline.dataset_loader import DatasetLoaderBase
@@ -26,6 +27,8 @@ class DatasetLoader(DatasetLoaderBase):
         validation_size: float = 0.1,
         isDatasetAlreadySplit: bool = True,
         augment_times: int = 0,
+        height: int = 60,
+        width: int = 120,
     ) -> None:
         self.fingers = ["Fore", "Middle", "Ring"]
         self.hands = ["L", "R"]
@@ -37,6 +40,8 @@ class DatasetLoader(DatasetLoaderBase):
             is_dataset_already_split=isDatasetAlreadySplit,
             augment_times=augment_times,
         )
+        self.height = height
+        self.width = width
 
     def get_directory(self) -> str:
         return "./datasets/MMCBNU_6000"
@@ -64,30 +69,29 @@ class DatasetLoader(DatasetLoaderBase):
                         )
         return result
 
-    def augment(self, image):
-        raise NotImplementedError()
+    def augment(self, image: np.ndarray, label: np.ndarray) -> List[np.ndarray]:
+        transform = A.Compose(
+            [
+                A.HorizontalFlip(p=0.25),
+                A.VerticalFlip(p=0.25),
+                A.RandomBrightnessContrast(p=0.2),
+                A.InvertImg(p=0.05),
+                A.PixelDropout(p=0.02),
+            ],
+        )
 
-    def get_test_files(self) -> List[DatasetObject]:
-        dirs = os.listdir(self.get_directory() + "/ROIs")
-        result: List[DatasetObject] = []
-        for sample_id in dirs:
-            for hand in self.hands:
-                for finger in self.fingers:
-                    for image in range(10, 10):
-                        result.append(
-                            DatasetObject(
-                                path=f"{self.get_directory()}/ROIs/{sample_id}/{hand}_{finger}/0{image}.bmp",  # pylint: disable=C0301
-                                name=f"{sample_id}/{hand}_{finger}/0{image}",
-                                metadata={
-                                    "finger": finger,
-                                    "hand": hand,
-                                    "is_augmented": False,
-                                },
-                            )
-                        )
+        result: List[np.ndarray] = []
+        for _ in range(self.augment_times):
+            transformed = transform(image=image)
+            transformed_image = transformed["image"]
+            transformed_image = (transformed_image - transformed_image.min()) / (
+                transformed_image.max() - transformed_image.min()
+            )
+            transformed_image = transformed_image.astype(np.float32)
+            result.append(transformed_image)
         return result
 
-    def get_validation_files(self) -> List[DatasetObject]:
+    def get_test_files(self) -> List[DatasetObject]:
         dirs = os.listdir(self.get_directory() + "/ROIs")
         result: List[DatasetObject] = []
         for sample_id in dirs:
@@ -128,6 +132,9 @@ class DatasetLoader(DatasetLoaderBase):
                     )
         return result
 
+    def get_validation_files(self) -> List[DatasetObject]:
+        return []
+
     def get_files(self) -> List[DatasetObject]:
         dirs = os.listdir(self.get_directory() + "/ROIs")
         result: List[DatasetObject] = []
@@ -152,9 +159,8 @@ class DatasetLoader(DatasetLoaderBase):
         return result
 
     def pre_process(self, data: DatasetObject) -> Tuple[np.ndarray, np.ndarray]:
-        height, width = 100, 200
         image = cv2.imread(data.path, cv2.IMREAD_GRAYSCALE)  # pylint: disable=E1101
-        image = cv2.resize(image, (width, height))  # pylint: disable=E1101
+        image = cv2.resize(image, (self.width, self.height))  # pylint: disable=E1101
         image = (image - image.min()) / (image.max() - image.min())
         image = image.astype("float")
         if EnvironmentType.PYTORCH == self.environment_type:
@@ -167,4 +173,4 @@ class DatasetLoader(DatasetLoaderBase):
         finger: int = self.fingers.index(data.metadata["finger"])
         label[(hand * 100 * 3) + (finger * 100) + user] = 1  # One hot encoding
         # return image, label
-        return np.vstack([image, image, image]), label
+        return image.astype(np.float32), label.astype(np.float32)

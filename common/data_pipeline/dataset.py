@@ -24,11 +24,17 @@ def get_dataset(
     if dataset == "mmcbnu":
         return mmcbnu(
             environment_type=environment,
+            height=height,
+            width=width,
+            augment_times=augment_times,
         )
 
     if dataset == "fvusm":
         return fvusm(
             environment_type=environment,
+            height=height,
+            width=width,
+            augment_times=augment_times,
         )
     if dataset == "layer3output":
         return common_dataset(

@@ -132,6 +132,7 @@ def train(
     n_classes: int = 301,
     height: int = 60,
     width: int = 120,
+    pretrained_model_path: Optional[str] = None,
 ):
     """
     Contains the training loop.
@@ -153,9 +154,13 @@ def train(
     )
 
     if continue_model:
-        model = torch.load(continue_model).to(device)
+        model = get_model(config)
+        model.load_state_dict(torch.load(continue_model))
+        model = model.to(device)
     else:
-        model = get_model(config).to(device)
+        model = get_model(config, pretrained_model_path=pretrained_model_path).to(
+            device
+        )
     logger.info(model)
     optimizer = optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=0.05)
     scheduler = lr_scheduler.CosineAnnealingLR(optimizer, epochs, eta_min=1e-6)
