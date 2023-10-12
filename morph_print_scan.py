@@ -19,9 +19,9 @@ printers = ["dnp"]
 morph_generation_type = [
     "cvmi",
     "lma",
-    "lma_ucbo",
-    "mipgan_1",
-    "mipgan_2",
+    "lmaucbo",
+    "mipgan1",
+    "mipgan2",
     "mordiff",
     "morphpipe",
     "stylegan",
@@ -54,6 +54,12 @@ parser.add_argument(
     type=int,
     help="Number of epochs to train the model. By default ist 40.",
 )
+parser.add_argument(
+    "--continue-from",
+    default=0,
+    type=int,
+    help="Continue train from. Indexed from 0",
+)
 
 
 def main():
@@ -66,7 +72,7 @@ def main():
     height = 224
     width = 224
     batch_size = 192
-    validate_after_epochs = 5
+    validate_after_epochs = 1
     learning_rate = 1e-5
     num_heads = 2
     augment_times = 19
@@ -82,7 +88,9 @@ def main():
     )
     if args.train:
         for printer in printers:
-            for morph_type in morph_generation_type:
+            for index, morph_type in enumerate(morph_generation_type):
+                if index < args.continue_from:
+                    continue
                 wandb_run_name = f"{model_name}_{printer}_{morph_type}"
 
                 if wandb_run_name:

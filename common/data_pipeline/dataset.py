@@ -110,10 +110,6 @@ def get_dataset(
             "morphpipe",
             "stylegan",
         ]
-        if printer not in allowed_printers:
-            raise ValueError(f"Printer not in :{allowed_printers}")
-        if morph_type not in allowed_morph_types:
-            raise ValueError(f"Process type not in :{allowed_morph_types}")
         return morph(
             printer,
             morph_type,
