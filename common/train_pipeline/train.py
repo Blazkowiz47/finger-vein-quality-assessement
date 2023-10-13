@@ -1,7 +1,7 @@
 """
 Trains everything
 """
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 import numpy as np
 import torch
 from torch import optim
@@ -23,6 +23,9 @@ from common.train_pipeline.model.model import get_model
 from common.util.logger import logger
 from common.util.data_pipeline.dataset_chainer import DatasetChainer
 from common.util.enums import EnvironmentType
+from torchmetrics.classification import Accuracy, MulticlassPrecision, MulticlassRecall
+import matlab
+import matlab.engine
 
 # To watch nvidia-smi continuously after every 2 seconds: watch -n 2 nvidia-smi
 
@@ -133,6 +136,7 @@ def train(
     height: int = 60,
     width: int = 120,
     pretrained_model_path: Optional[str] = None,
+    eng: Any = None,
 ):
     """
     Contains the training loop.
@@ -174,6 +178,7 @@ def train(
     best_train_accuracy: float = 0
     best_test_accuracy: float = 0
     _ = cuda_info()
+    scores: List[List[float]] = []
     for epoch in range(1, epochs + 1):
         model.train()
         training_loss = []
@@ -199,6 +204,19 @@ def train(
             # end = time.time()
             # logger.info("Backward prop. %s", str(end - start))
             optimizer.step()
+            for label, output in zip(labels, outputs):
+                for i in range(n_classes):
+                    scores.append(
+                        [
+                            label[i].item(),
+                        ]
+                    )
+                for i in range(n_classes):
+                    scores.append(
+                        [
+                            output[i].item(),
+                        ]
+                    )
             # start = time.time()
             predicted = outputs.argmax(dim=1)
             labels = labels.argmax(dim=1)
@@ -210,6 +228,36 @@ def train(
         scheduler.step()
         model.eval()
         results = []
+        scores = np.array(scores)
+        precision = MulticlassPrecision(num_classes=n_classes)
+        recall = MulticlassRecall(num_classes=n_classes)
+        precision = precision(
+            torch.from_numpy(scores[:, n_classes:]),
+            torch.from_numpy(scores[:, :n_classes]),
+        )
+        recall = recall(
+            torch.from_numpy(scores[:, n_classes:]),
+            torch.from_numpy(scores[:, :n_classes]),
+        )
+        eer = None
+        if n_classes == 2:
+            genuine = scores[scores[:, 1] == 1.0][:, 3]
+            morphed = scores[scores[:, 0] == 1.0][:, 3]
+            genuine = matlab.double(genuine.tolist())
+            morphed = matlab.double(morphed.tolist())
+
+            if eng:
+                eer, _, _ = eng.EER_DET_Spoof_Far(
+                    genuine, morphed, matlab.double(10000), nargout=3
+                )
+                logger.info("EER: %s", eer)
+            else:
+                eng = matlab.engine.start_matlab()
+                try:
+                    script_dir = "/home/ubuntu/finger-vein-quality-assessement/EER"
+                    eng.addpath(script_dir)
+                except Exception:
+                    logger.exception("Cannot initialise matlab engine")
 
         for metric in train_metrics:
             results.append(
@@ -217,6 +265,9 @@ def train(
                     {
                         "accuracy": metric.compute().item(),
                         "loss": np.mean(training_loss),
+                        "precision": precision.item(),
+                        "recall": recall.item(),
+                        "eer": eer if eer else 0,
                     },
                     "train",
                 )
@@ -225,6 +276,7 @@ def train(
 
         if epoch % validate_after_epochs == 0:
             val_loss = []
+            scores = []
             with torch.no_grad():
                 for inputs, labels in tqdm(validation_dataset, desc="Validation:"):
                     if inputs.shape[0] == 1:
@@ -235,16 +287,62 @@ def train(
                     outputs = model(inputs)  # pylint: disable=E1102
                     loss = validate_loss_fn(outputs, labels)  # pylint: disable=E1102
                     val_loss.append(loss.item())
+                    for label, output in zip(labels, outputs):
+                        for i in range(n_classes):
+                            scores.append(
+                                [
+                                    label[i].item(),
+                                ]
+                            )
+                        for i in range(n_classes):
+                            scores.append(
+                                [
+                                    output[i].item(),
+                                ]
+                            )
                     predicted = outputs.argmax(dim=1)
                     labels = labels.argmax(dim=1)
                     for metric in val_metrics:
                         metric.update(predicted, labels)
+                scores = np.array(scores)
+                precision = precision(
+                    torch.from_numpy(scores[:, n_classes:]),
+                    torch.from_numpy(scores[:, :n_classes]),
+                )
+                recall = recall(
+                    torch.from_numpy(scores[:, n_classes:]),
+                    torch.from_numpy(scores[:, :n_classes]),
+                )
+                if n_classes == 2:
+                    genuine = scores[scores[:, 1] == 1.0][:, 3]
+                    morphed = scores[scores[:, 0] == 1.0][:, 3]
+                    genuine = matlab.double(genuine.tolist())
+                    morphed = matlab.double(morphed.tolist())
+                    eer = None
+                    if eng:
+                        eer, _, _ = eng.EER_DET_Spoof_Far(
+                            genuine, morphed, matlab.double(10000), nargout=3
+                        )
+                        logger.info("EER: %s", eer)
+                    else:
+                        eng = matlab.engine.start_matlab()
+                        try:
+                            script_dir = (
+                                "/home/ubuntu/finger-vein-quality-assessement/EER"
+                            )
+                            eng.addpath(script_dir)
+                        except Exception:
+                            logger.exception("Cannot initialise matlab engine")
+
                 for metric in val_metrics:
                     results.append(
                         add_label(
                             {
                                 "accuracy": metric.compute().item(),
                                 "loss": np.mean(val_loss),
+                                "precision": precision.item(),
+                                "recall": recall.item(),
+                                "eer": eer if eer else 0,
                             },
                             "test",
                         )

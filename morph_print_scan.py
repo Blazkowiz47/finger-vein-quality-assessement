@@ -76,6 +76,13 @@ def main():
     learning_rate = 1e-5
     num_heads = 2
     augment_times = 19
+    eng = None
+    try:
+        eng = matlab.engine.start_matlab()
+        script_dir = "/home/ubuntu/finger-vein-quality-assessement/EER"
+        eng.addpath(script_dir)
+    except Exception as e:
+        logger.exception("Cannot initialise matlab engine", exc_info=e)
 
     model_config = get_config(
         model_name,
@@ -121,6 +128,7 @@ def main():
                         n_classes,
                         height,
                         width,
+                        eng=eng,
                     )
                 except KeyboardInterrupt:
                     pass
@@ -130,14 +138,6 @@ def main():
                     torch.cuda.empty_cache()
 
     print("Starting evaluation")
-
-    eng = None
-    try:
-        eng = matlab.engine.start_matlab()
-        script_dir = "/home/ubuntu/finger-vein-quality-assessement/EER"
-        eng.addpath(script_dir)
-    except Exception as e:
-        logger.exception("Cannot initialise matlab engine", exc_info=e)
 
     all_datasets: Dict[str, Dict[str, Tuple[Any, Any, Any]]] = {}
     dataset_list: List[str] = []

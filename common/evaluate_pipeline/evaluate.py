@@ -198,7 +198,7 @@ def evaluate(
             else:
                 eng = matlab.engine.start_matlab()
                 try:
-                    script_dir = f"/home/ubuntu/finger-vein-quality-assessement/EER"
+                    script_dir = "/home/ubuntu/finger-vein-quality-assessement/EER"
                     eng.addpath(script_dir)
                 except:
                     logger.exception("Cannot initialise matlab engine")
