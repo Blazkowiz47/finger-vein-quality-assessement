@@ -93,6 +93,18 @@ def get_dataset(
             height=height,
             width=width,
         )
+
+    if dataset == "enhanced_internal_301_db":
+        return common_dataset(
+            f"datasets/{dataset}",
+            "Enhanced_internal_301",
+            is_dataset_already_split=True,
+            from_numpy=False,
+            augment_times=augment_times,
+            height=height,
+            width=width,
+        )
+
     if dataset == "enhanced_polyu":
         return common_dataset(
             f"datasets/PolyU/Enhanced",

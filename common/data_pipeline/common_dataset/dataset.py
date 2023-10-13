@@ -57,7 +57,7 @@ class DatasetLoader(DatasetLoaderBase):
         Gets all the classes.
         """
         try:
-            classes = os.listdir(self.get_directory() + "/train")
+            classes = os.listdir(self.get_directory() + "/Train")
         except FileNotFoundError:
             classes = os.listdir(self.get_directory())
         return classes
@@ -84,21 +84,21 @@ class DatasetLoader(DatasetLoaderBase):
 
     def get_train_files(self) -> List[DatasetObject]:
         try:
-            return self.loop_through_dir(f"{self.get_directory()}/train")
+            return self.loop_through_dir(f"{self.get_directory()}/Train")
         except FileNotFoundError:
             logger.error("Error reading train dataset.")
             return []
 
     def get_test_files(self) -> List[DatasetObject]:
         try:
-            return self.loop_through_dir(f"{self.get_directory()}/test")
+            return self.loop_through_dir(f"{self.get_directory()}/Test")
         except FileNotFoundError:
             logger.error("Error reading test dataset.")
             return []
 
     def get_validation_files(self) -> List[DatasetObject]:
         try:
-            return self.loop_through_dir(f"{self.get_directory()}/validation")
+            return self.loop_through_dir(f"{self.get_directory()}/Validation")
         except FileNotFoundError:
             logger.error("Error reading validation dataset.")
             return []
