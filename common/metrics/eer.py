@@ -20,17 +20,18 @@ class EER(Metric):
         self.eng = eng
         self.add_state(
             "genuine",
-            default=None,
+            default=torch.tensor(0),
         )
         self.add_state(
             "attack",
-            default=None,
+            default=torch.tensor(0),
         )
         self.genuine_label = genuine_class_label
         self.attack_indices: Optional[List[int]] = None
 
     def update(self, preds: Tensor, target: Tensor):
         _, classes = target.shape
+
         if self.genuine_label:
             for pred, tar in zip(preds, target):
                 if not self.attack_indices:
