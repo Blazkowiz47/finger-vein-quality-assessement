@@ -19,6 +19,7 @@ from common.train_pipeline.config import ModelConfig
 # from common.data_pipeline.fvusm.dataset import DatasetLoader as fvusm
 from common.data_pipeline.dataset import get_dataset
 
+from common.metrics.eer import EER
 from common.train_pipeline.model.model import get_model
 from common.util.logger import logger
 from common.util.data_pipeline.dataset_chainer import DatasetChainer
@@ -51,7 +52,7 @@ def get_val_loss() -> Module:
     return SoftTargetCrossEntropy()
 
 
-def get_train_metrics(n_classes: int) -> list[Metric]:
+def get_train_metrics(n_classes: int, eng: Any) -> list[Metric]:
     """
     Returns list of training metrics.
     """
@@ -60,11 +61,12 @@ def get_train_metrics(n_classes: int) -> list[Metric]:
             task="multiclass",
             num_classes=n_classes,
         ),
+        EER(eng, genuine_class_label=1 if n_classes == 2 else None),
         # ConfusionMatrix().to(device),
     ]
 
 
-def get_test_metrics(n_classes: int) -> list[Metric]:
+def get_test_metrics(n_classes: int, eng: Any) -> list[Metric]:
     """
     Returns list of testing metrics.
     """
@@ -73,11 +75,12 @@ def get_test_metrics(n_classes: int) -> list[Metric]:
             task="multiclass",
             num_classes=n_classes,
         ),
+        EER(eng, genuine_class_label=1 if n_classes == 2 else None),
         # ConfusionMatrix().to(device),
     ]
 
 
-def get_val_metrics(n_classes: int) -> list[Metric]:
+def get_val_metrics(n_classes: int, eng: Any) -> list[Metric]:
     """
     Returns list of validation metrics.
     """
@@ -86,8 +89,12 @@ def get_val_metrics(n_classes: int) -> list[Metric]:
             task="multiclass",
             num_classes=n_classes,
         ),
+        EER(eng, genuine_class_label=1 if n_classes == 2 else None),
         # ConfusionMatrix().to(device),
     ]
+
+
+metric_names: List[str] = ["accuracy", "eer"]
 
 
 def add_label(metric: Dict[str, Any], label: str = "") -> Dict[str, Any]:
@@ -141,6 +148,14 @@ def train(
     """
     Contains the training loop.
     """
+
+    try:
+        eng = matlab.engine.start_matlab()
+        script_dir = "/home/ubuntu/finger-vein-quality-assessement/EER"
+        eng.addpath(script_dir)
+    except Exception:
+        logger.exception("Cannot initialise matlab engine")
+
     device = cuda_info()
     train_dataset, validation_dataset, _ = DatasetChainer(
         datasets=[
@@ -171,9 +186,9 @@ def train(
     train_loss_fn = get_train_loss().to(device)
     validate_loss_fn = get_val_loss().to(device)
 
-    train_metrics = [metric.to(device) for metric in get_train_metrics(n_classes)]
+    train_metrics = [metric.to(device) for metric in get_train_metrics(n_classes, eng)]
     # test_metrics = get_test_metrics(device)
-    val_metrics = [metric.to(device) for metric in get_val_metrics(n_classes)]
+    val_metrics = [metric.to(device) for metric in get_val_metrics(n_classes, eng)]
     # Training loop
     best_train_accuracy: float = 0
     best_test_accuracy: float = 0
@@ -204,79 +219,32 @@ def train(
             # end = time.time()
             # logger.info("Backward prop. %s", str(end - start))
             optimizer.step()
-            for label, output in zip(labels, outputs):
-                for i in range(n_classes):
-                    scores.append(
-                        [
-                            label[i].item(),
-                        ]
-                    )
-                for i in range(n_classes):
-                    scores.append(
-                        [
-                            output[i].item(),
-                        ]
-                    )
+            train_metrics[1].update(outputs, labels)
             # start = time.time()
             predicted = outputs.argmax(dim=1)
             labels = labels.argmax(dim=1)
-            for metric in train_metrics:
-                metric.update(predicted, labels)
+            train_metrics[0].update(predicted, labels)
             # end = time.time()
             # logger.info("Metric. %s", str(end - start))
 
         scheduler.step()
         model.eval()
         results = []
-        scores = np.array(scores)
-        precision = MulticlassPrecision(num_classes=n_classes)
-        recall = MulticlassRecall(num_classes=n_classes)
-        precision = precision(
-            torch.from_numpy(scores[:, n_classes:]),
-            torch.from_numpy(scores[:, :n_classes]),
-        )
-        recall = recall(
-            torch.from_numpy(scores[:, n_classes:]),
-            torch.from_numpy(scores[:, :n_classes]),
-        )
-        eer = None
-        if n_classes == 2:
-            genuine = scores[scores[:, 1] == 1.0][:, 3]
-            morphed = scores[scores[:, 0] == 1.0][:, 3]
-            genuine = matlab.double(genuine.tolist())
-            morphed = matlab.double(morphed.tolist())
-
-            if eng:
-                eer, _, _ = eng.EER_DET_Spoof_Far(
-                    genuine, morphed, matlab.double(10000), nargout=3
-                )
-                logger.info("EER: %s", eer)
-            else:
-                eng = matlab.engine.start_matlab()
-                try:
-                    script_dir = "/home/ubuntu/finger-vein-quality-assessement/EER"
-                    eng.addpath(script_dir)
-                except Exception:
-                    logger.exception("Cannot initialise matlab engine")
-
-        for metric in train_metrics:
-            results.append(
-                add_label(
-                    {
-                        "accuracy": metric.compute().item(),
-                        "loss": np.mean(training_loss),
-                        "precision": precision.item(),
-                        "recall": recall.item(),
-                        "eer": eer if eer else 0,
-                    },
-                    "train",
-                )
+        results.append(
+            add_label(
+                {
+                    "accuracy": train_metrics[0].compute().item(),
+                    "eer": train_metrics[1].compute(),
+                    "loss": np.mean(training_loss),
+                },
+                "train",
             )
+        )
+        for metric in train_metrics:
             metric.reset()
 
         if epoch % validate_after_epochs == 0:
             val_loss = []
-            scores = []
             with torch.no_grad():
                 for inputs, labels in tqdm(validation_dataset, desc="Validation:"):
                     if inputs.shape[0] == 1:
@@ -287,66 +255,24 @@ def train(
                     outputs = model(inputs)  # pylint: disable=E1102
                     loss = validate_loss_fn(outputs, labels)  # pylint: disable=E1102
                     val_loss.append(loss.item())
-                    for label, output in zip(labels, outputs):
-                        for i in range(n_classes):
-                            scores.append(
-                                [
-                                    label[i].item(),
-                                ]
-                            )
-                        for i in range(n_classes):
-                            scores.append(
-                                [
-                                    output[i].item(),
-                                ]
-                            )
+
+                    val_metrics[1].update(outputs, labels)
+
                     predicted = outputs.argmax(dim=1)
                     labels = labels.argmax(dim=1)
-                    for metric in val_metrics:
-                        metric.update(predicted, labels)
-                scores = np.array(scores)
-                precision = precision(
-                    torch.from_numpy(scores[:, n_classes:]),
-                    torch.from_numpy(scores[:, :n_classes]),
-                )
-                recall = recall(
-                    torch.from_numpy(scores[:, n_classes:]),
-                    torch.from_numpy(scores[:, :n_classes]),
-                )
-                if n_classes == 2:
-                    genuine = scores[scores[:, 1] == 1.0][:, 3]
-                    morphed = scores[scores[:, 0] == 1.0][:, 3]
-                    genuine = matlab.double(genuine.tolist())
-                    morphed = matlab.double(morphed.tolist())
-                    eer = None
-                    if eng:
-                        eer, _, _ = eng.EER_DET_Spoof_Far(
-                            genuine, morphed, matlab.double(10000), nargout=3
-                        )
-                        logger.info("EER: %s", eer)
-                    else:
-                        eng = matlab.engine.start_matlab()
-                        try:
-                            script_dir = (
-                                "/home/ubuntu/finger-vein-quality-assessement/EER"
-                            )
-                            eng.addpath(script_dir)
-                        except Exception:
-                            logger.exception("Cannot initialise matlab engine")
+                    val_metrics[0].update(predicted, labels)
 
-                for metric in val_metrics:
-                    results.append(
-                        add_label(
-                            {
-                                "accuracy": metric.compute().item(),
-                                "loss": np.mean(val_loss),
-                                "precision": precision.item(),
-                                "recall": recall.item(),
-                                "eer": eer if eer else 0,
-                            },
-                            "test",
-                        )
+                results.append(
+                    add_label(
+                        {
+                            "accuracy": val_metrics[0].compute().item(),
+                            "loss": np.mean(val_loss),
+                            "eer": val_metrics[1].compute(),
+                        },
+                        "test",
                     )
+                )
+                for metric in val_metrics:
                     metric.reset()
 
                 if best_test_accuracy < results[1]["test_accuracy"]:
@@ -363,7 +289,7 @@ def train(
             )
             best_train_accuracy = results[0]["train_accuracy"]
 
-        log = {}
+        log: Dict[str, Any] = {}
         for result in results:
             log = log | result
         for k, v in log.items():
