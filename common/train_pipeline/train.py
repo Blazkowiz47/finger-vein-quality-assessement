@@ -61,7 +61,7 @@ def get_train_metrics(n_classes: int, eng: Any) -> list[Metric]:
             task="multiclass",
             num_classes=n_classes,
         ),
-        EER(eng, genuine_class_label=1 if n_classes == 2 else None),
+        # EER(eng, genuine_class_label=1 if n_classes == 2 else None),
         # ConfusionMatrix().to(device),
     ]
 
@@ -219,7 +219,7 @@ def train(
             # end = time.time()
             # logger.info("Backward prop. %s", str(end - start))
             optimizer.step()
-            train_metrics[1].update(outputs, labels)
+            # train_metrics[1].update(outputs, labels)
             # start = time.time()
             predicted = outputs.argmax(dim=1)
             labels = labels.argmax(dim=1)
@@ -234,7 +234,7 @@ def train(
             add_label(
                 {
                     "accuracy": train_metrics[0].compute().item(),
-                    "eer": train_metrics[1].compute(),
+                    # "eer": train_metrics[1].compute(),
                     "loss": np.mean(training_loss),
                 },
                 "train",

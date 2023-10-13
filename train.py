@@ -43,12 +43,6 @@ parser.add_argument(
     help="Specify environment. pytorch or tensorflow.",
 )
 parser.add_argument(
-    "--log-on-wandb",
-    type=bool,
-    default=False,
-    help="Whether to log on wandb or not.",
-)
-parser.add_argument(
     "--wandb-run-name",
     type=str,
     default=None,
@@ -84,7 +78,7 @@ parser.add_argument(
 parser.add_argument(
     "--dataset",
     type=str,
-    default="internal_301_db",
+    default=None,
     help="Dataset name.",
 )
 
@@ -291,7 +285,7 @@ def main():
     except KeyboardInterrupt:
         pass
 
-    if log_on_wandb:
+    if wandb_run_name:
         wandb.finish()
         torch.cuda.empty_cache()
 

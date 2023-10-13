@@ -36,6 +36,16 @@ def get_dataset(
             width=width,
             augment_times=augment_times,
         )
+
+    if dataset == "enhanced_fvusm":
+        return fvusm(
+            environment_type=environment,
+            height=height,
+            width=width,
+            augment_times=augment_times,
+            enhanced=True,
+        )
+
     if dataset == "layer3output":
         return common_dataset(
             "datasets/layer3output",
@@ -83,6 +93,28 @@ def get_dataset(
             height=height,
             width=width,
         )
+    if dataset == "enhanced_polyu":
+        return common_dataset(
+            f"datasets/PolyU/Enhanced",
+            "polyu_enhanced",
+            is_dataset_already_split=True,
+            from_numpy=False,
+            augment_times=augment_times,
+            height=height,
+            width=width,
+        )
+
+    if dataset == "polyu":
+        return common_dataset(
+            f"datasets/PolyU",
+            "polyu",
+            is_dataset_already_split=True,
+            from_numpy=False,
+            augment_times=augment_times,
+            height=height,
+            width=width,
+        )
+
     if dataset.startswith("post_process"):
         dataset_split = dataset.split("_")
         printer = dataset_split[2]

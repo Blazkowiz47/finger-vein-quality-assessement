@@ -29,6 +29,7 @@ class DatasetLoader(DatasetLoaderBase):
         height: int = 60,
         width: int = 120,
         augment_times: int = 8,
+        enhanced: bool = False,
     ) -> None:
         self.images = ["01", "02", "03", "04", "05", "06"]
         super().__init__(
@@ -36,15 +37,20 @@ class DatasetLoader(DatasetLoaderBase):
             included_portion=included_portion,
             is_dataset_already_split=True,
         )
+        self.enhanced = enhanced
         self.height = height
         self.width = width
         self.augment_times = augment_times
         self.n_classes = 492
 
     def get_directory(self) -> str:
+        if self.enhanced:
+            return "./datasets/enhanced_fvusm"
         return "./datasets/FV-USM"
 
     def get_name(self) -> str:
+        if self.enhanced:
+            return "Enhanced_FV_USM"
         return "FV_USM"
 
     def get_train_files(self) -> List[DatasetObject]:

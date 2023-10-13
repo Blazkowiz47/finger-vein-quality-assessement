@@ -37,17 +37,24 @@ class EER(Metric):
                 if not self.attack_indices:
                     self.attack_indices = list(range(classes))
                     self.attack_indices.remove(self.genuine_label)
-
-                self.genuine = torch.cat((self.genuine, pred[self.genuine_label]))
-                self.attack = torch.cat((self.attack, pred[self.attack_indices]))
+                if len(self.genuine.shape) == 0:
+                    self.genuine = pred[self.genuine_label]
+                    self.attack = pred[self.attack_indices]
+                else:
+                    self.genuine = torch.cat((self.genuine, pred[self.genuine_label]))
+                    self.attack = torch.cat((self.attack, pred[self.attack_indices]))
 
         else:
             for pred, tar in zip(preds, target):
                 genuine_index = tar == tar.max()
-                self.genuine = torch.cat((self.genuine, pred[genuine_index]))
-                self.attack = torch.cat(
-                    (self.attack, pred[torch.logical_not(genuine_index)])
-                )
+                if len(self.genuine.shape) == 0:
+                    self.genuine = pred[genuine_index]
+                    self.attack = pred[torch.logical_not(genuine_index)]
+                else:
+                    self.genuine = torch.cat((self.genuine, pred[genuine_index]))
+                    self.attack = torch.cat(
+                        (self.attack, pred[torch.logical_not(genuine_index)])
+                    )
 
     def compute(self):
         genuine = self.genuine.detach().cpu().numpy()
