@@ -173,7 +173,7 @@ def main():
                     name=wandb_run_name,
                     config={
                         "architecture": model_t,
-                        "Trained On": f"{dprinter}_{dprocess_type}",
+                        "Trained On": f"{dprinter}_{dmorph_type}",
                     },
                 )
                 wandb.define_metric("evaluated_on")
@@ -183,9 +183,9 @@ def main():
                 wandb.define_metric("eer", step_metric="evaluated_on")
                 index = 0
                 for printer in printers:
-                    for process_type in dmorph_type:
+                    for morph_type in morph_generation_type:
                         (train_ds, test_ds, validation_ds) = all_datasets[printer][
-                            process_type
+                            morph_type
                         ]
                         try:
                             print("Model:", model_path)
