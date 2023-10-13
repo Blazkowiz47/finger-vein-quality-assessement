@@ -43,10 +43,11 @@ class EER(Metric):
 
         else:
             for pred, tar in zip(preds, target):
-                genuine = target == target.max()
-
-                self.genuine = torch.cat((self.genuine, pred[genuine]))
-                self.attack = torch.cat((self.attack, pred[torch.logical_not(genuine)]))
+                genuine_index = tar == tar.max()
+                self.genuine = torch.cat((self.genuine, pred[genuine_index]))
+                self.attack = torch.cat(
+                    (self.attack, pred[torch.logical_not(genuine_index)])
+                )
 
     def compute(self):
         genuine = self.genuine.detach().cpu().numpy()
