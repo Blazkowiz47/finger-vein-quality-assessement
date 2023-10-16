@@ -702,13 +702,6 @@ def vig_pyramid_compact_wo_ffn(
                     r=reduce_ratios[i],
                     n=height * width,
                 ),
-                ffn_config=FFNConfig(
-                    channels[i],
-                    hidden_features=channels[i] * 4,
-                    act=act,
-                    drop_path=drop_path,
-                    bias=bias,
-                ),
             )
         )
         height = height // 4
