@@ -226,8 +226,18 @@ def get_config(
             height,
             width,
         )
+
     if config == "vig_pyramid_compact":
         return cfgs.vig_pyramid_compact(
+            act,
+            pred_type,
+            n_classes,
+            height,
+            width,
+        )
+
+    if config == "vig_pyramid_compact_wo_ffn":
+        return cfgs.vig_pyramid_compact_wo_ffn(
             act,
             pred_type,
             n_classes,
