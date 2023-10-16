@@ -45,7 +45,7 @@ class DatasetLoader(DatasetLoaderBase):
 
     def get_directory(self) -> str:
         if self.enhanced:
-            return "./datasets/enhanced_fvusm"
+            return "datasets/enhanced_fvusm/Enhanced"
         return "./datasets/FV-USM"
 
     def get_name(self) -> str:
@@ -54,7 +54,10 @@ class DatasetLoader(DatasetLoaderBase):
         return "FV_USM"
 
     def get_train_files(self) -> List[DatasetObject]:
-        dirs = os.listdir(self.get_directory() + "/1st_session/extractedvein")
+        cwd = self.get_directory() + "/1st_session"
+        if not self.enhanced:
+            cwd += "/extractedvein"
+        dirs = os.listdir(cwd)
         dirs = [dir for dir in dirs if dir.startswith("vein")]
         dirs.sort()
         logger.info("Total classes: %s", len(dirs))
@@ -63,7 +66,7 @@ class DatasetLoader(DatasetLoaderBase):
             for image in self.images:
                 result.append(
                     DatasetObject(
-                        path=f"{self.get_directory()}/1st_session/extractedvein/{sample_id}/{image}.jpg",
+                        path=f"{cwd}/{sample_id}/{image}.jpg",
                         name=f"{sample_id[4:]}/{image}",
                         label=class_id,
                     )
@@ -73,7 +76,10 @@ class DatasetLoader(DatasetLoaderBase):
 
     def get_test_files(self) -> List[DatasetObject]:
         result: List[DatasetObject] = []
-        dirs = os.listdir(self.get_directory() + "/2nd_session/extractedvein")
+        cwd = self.get_directory() + "/2nd_session"
+        if not self.enhanced:
+            cwd += "/extractedvein"
+        dirs = os.listdir(cwd)
         dirs = [dir for dir in dirs if dir.startswith("vein")]
         dirs.sort()
         logger.info("Total classes: %s", len(dirs))
@@ -81,7 +87,7 @@ class DatasetLoader(DatasetLoaderBase):
             for image in self.images:
                 result.append(
                     DatasetObject(
-                        path=f"{self.get_directory()}/2nd_session/extractedvein/{sample_id}/{image}.jpg",
+                        path=f"{cwd}/{sample_id}/{image}.jpg",
                         name=f"{sample_id[4:]}/{image}",
                         metadata={"finger": ""},
                         label=class_id,

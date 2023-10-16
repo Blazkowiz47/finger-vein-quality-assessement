@@ -57,7 +57,7 @@ class DatasetLoader(DatasetLoaderBase):
         Gets all the classes.
         """
         try:
-            classes = os.listdir(self.get_directory() + "/Train")
+            classes = os.listdir(self.get_directory() + "/train")
         except FileNotFoundError:
             classes = os.listdir(self.get_directory())
         return classes
@@ -73,6 +73,12 @@ class DatasetLoader(DatasetLoaderBase):
         for class_label in self.classes:
             images = os.listdir(f"{directory}/{class_label}")
             for image in images:
+                if (
+                    not image.endswith("bmp")
+                    and not image.endswith("png")
+                    and not image.endswith("jpg")
+                ):
+                    continue
                 result.append(
                     DatasetObject(
                         path=f"{directory}/{class_label}/{image}",
@@ -84,21 +90,21 @@ class DatasetLoader(DatasetLoaderBase):
 
     def get_train_files(self) -> List[DatasetObject]:
         try:
-            return self.loop_through_dir(f"{self.get_directory()}/Train")
+            return self.loop_through_dir(f"{self.get_directory()}/train")
         except FileNotFoundError:
             logger.error("Error reading train dataset.")
             return []
 
     def get_test_files(self) -> List[DatasetObject]:
         try:
-            return self.loop_through_dir(f"{self.get_directory()}/Test")
+            return self.loop_through_dir(f"{self.get_directory()}/test")
         except FileNotFoundError:
             logger.error("Error reading test dataset.")
             return []
 
     def get_validation_files(self) -> List[DatasetObject]:
         try:
-            return self.loop_through_dir(f"{self.get_directory()}/Validation")
+            return self.loop_through_dir(f"{self.get_directory()}/validation")
         except FileNotFoundError:
             logger.error("Error reading validation dataset.")
             return []
@@ -115,6 +121,8 @@ class DatasetLoader(DatasetLoaderBase):
             image = np.load(data.path, allow_pickle=True)
         else:
             image = cv2.imread(data.path, cv2.IMREAD_GRAYSCALE)  # pylint: disable=E1101
+            if image is None:
+                logger.info(data.path)
             if image.shape[0] > image.shape[1]:
                 image = image.transpose()  # pylint: disable=E1101
             image = cv2.resize(  # pylint: disable=E1101
