@@ -70,7 +70,7 @@ class DatasetLoader(DatasetLoaderBase):
         Loops through  a directory.
         """
         result: List[DatasetObject] = []
-        for class_label in self.classes:
+        for index, class_label in enumerate(self.classes):
             images = os.listdir(f"{directory}/{class_label}")
             for image in images:
                 if (
@@ -83,7 +83,7 @@ class DatasetLoader(DatasetLoaderBase):
                     DatasetObject(
                         path=f"{directory}/{class_label}/{image}",
                         name=f"{class_label}/{image.split('.')[0]}",
-                        label=int(class_label),
+                        label=index,
                     )
                 )
         return result
@@ -137,7 +137,7 @@ class DatasetLoader(DatasetLoaderBase):
             image = np.vstack([image, image, image])
 
         label = np.zeros((len(self.classes)))
-        label[data.label - 1] = 1  # One hot encoding
+        label[data.label] = 1  # One hot encoding
         # return image, label
         return image.astype(np.float32), label
 

@@ -669,7 +669,7 @@ def vig_pyramid_compact_wo_ffn(
     predictor (linear)
     """
     total_layers = 6
-    channels: List[int] = [128, 128]
+    channels: List[int] = [128, 256]
     num_of_grapher_units: List[int] = [1, 1]
     num_knn: int = 9
     drop_path: float = 0.0
