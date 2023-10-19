@@ -668,7 +668,7 @@ def vig_pyramid_compact_wo_ffn(
     Grapher followed by ffn [12 blocks]
     predictor (linear)
     """
-    total_layers = 7
+    total_layers = 6
     channels: List[int] = [256, 512]
     num_of_grapher_units: List[int] = [1, 1]
     num_knn: int = 9
@@ -676,7 +676,7 @@ def vig_pyramid_compact_wo_ffn(
     bias: bool = True
     epsilon: float = 0.2
     conv: str = "mr"
-    reduce_ratios: List[int] = [2, 1]
+    reduce_ratios: List[int] = [4, 1]
 
     max_dilation = channels[-1] // num_knn
     blocks: List[PyramidBlockConfig] = []
