@@ -676,7 +676,7 @@ def vig_pyramid_compact_wo_ffn(
     bias: bool = True
     epsilon: float = 0.2
     conv: str = "mr"
-    reduce_ratios: List[int] = [1, 1]
+    reduce_ratios: List[int] = [2, 1]
 
     max_dilation = channels[-1] // num_knn
     blocks: List[PyramidBlockConfig] = []
