@@ -13,63 +13,35 @@ class ConvStem(Module):
     def __init__(
         self,
         in_dim=1,
+        total_layers: int = 5,
         out_dim=256,
         act="relu",
         bias=True,
         requires_grad=True,
     ):
         super(ConvStem, self).__init__()
-        self.stem = Sequential(
-            Conv2d(
-                in_dim,
-                out_dim // 8,
-                3,
-                stride=2,
-                padding=1,
-                bias=bias,
-            ),
-            BatchNorm2d(out_dim // 8),
-            act_layer(act),
-            Conv2d(
-                out_dim // 8,
-                out_dim // 4,
-                3,
-                stride=2,
-                padding=1,
-                bias=bias,
-            ),
-            BatchNorm2d(out_dim // 4),
-            act_layer(act),
-            Conv2d(
-                out_dim // 4,
-                out_dim // 2,
-                3,
-                stride=2,
-                padding=1,
-                bias=bias,
-            ),
-            BatchNorm2d(out_dim // 2),
-            act_layer(act),
-            Conv2d(
-                out_dim // 2,
-                out_dim,
-                3,
-                stride=2,
-                padding=1,
-                bias=bias,
-            ),
-            BatchNorm2d(out_dim),
-            act_layer(act),
-            Conv2d(
-                out_dim,
-                out_dim,
-                3,
-                stride=1,
-                padding=1,
-                bias=bias,
-            ),
-            BatchNorm2d(out_dim),
-        )
+        self.layers = []
+        start_channels = max(out_dim // pow(2, total_layers - 2), in_dim)
+        for layer_number in range(total_layers):
+            self.layers.append(
+                Conv2d(
+                    in_dim,
+                    start_channels,
+                    3,
+                    stride=2,
+                    padding=1,
+                    bias=bias,
+                )
+            )
+            self.layers.append(BatchNorm2d(start_channels))
+            if layer_number + 1 != total_layers:
+                self.layers.append(act_layer(act))
+            in_dim = start_channels
+            start_channels = max(
+                out_dim // pow(2, max(0, total_layers - 3 - layer_number)), in_dim
+            )
+
+        self.stem = Sequential(*self.layers)
         for parameter in self.stem.parameters():
             parameter.requires_grad = requires_grad
 

@@ -21,6 +21,7 @@ class StemConfig:
     resnet_layer: Optional[int] = 3
     in_channels: int = 3
     out_channels: int = 1024
+    total_layers: int = 5
     act: str = "relu"
     requires_grad: bool = True
     bias: bool = True
@@ -41,6 +42,7 @@ def get_stem(config: StemConfig) -> Module:
             in_dim=config.in_channels,
             out_dim=config.out_channels,
             act=config.act,
+            total_layers=config.total_layers,
             bias=config.bias,
             requires_grad=config.requires_grad,
         )
