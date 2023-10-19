@@ -682,15 +682,15 @@ def vig_pyramid_compact_wo_ffn(
     blocks: List[PyramidBlockConfig] = []
     original_height, original_width = height, width
 
-    for i in range(4):
+    for i, channel in enumerate(channels):
         blocks.append(
             PyramidBlockConfig(
-                in_channels=channels[i],
-                out_channels=channels[i + 1] if i + 1 < len(channels) else channels[i],
+                in_channels=channel,
+                out_channels=channels[i + 1] if i + 1 < len(channels) else channel,
                 hidden_dimensions_in_ratio=4,
                 number_of_grapher_ffn_units=num_of_grapher_units[i],
                 grapher_config=GrapherConfig(
-                    in_channels=channels[i],
+                    in_channels=channel,
                     act=act,
                     conv=conv,
                     norm="batch",
