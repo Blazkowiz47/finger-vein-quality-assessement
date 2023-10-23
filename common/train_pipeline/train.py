@@ -193,7 +193,6 @@ def train(
     best_train_accuracy: float = 0
     best_test_accuracy: float = 0
     _ = cuda_info()
-    scores: List[List[float]] = []
     for epoch in range(1, epochs + 1):
         model.train()
         training_loss = []
