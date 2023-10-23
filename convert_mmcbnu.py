@@ -3,8 +3,8 @@ import shutil
 
 from tqdm import tqdm
 
-root_dir = "./datasets/enhanced_mmcbnu/"
-# root_dir = "./datasets/MMCBNU_6000/"
+# root_dir = "./datasets/enhanced_mmcbnu/"
+root_dir = "./datasets/MMCBNU_6000/"
 
 input_dir = os.path.join(root_dir, "ROIs")
 output_dir = os.path.join(root_dir, "oROIs")
