@@ -124,6 +124,12 @@ parser.add_argument(
     default=120,
     help="Defines width of the image.",
 )
+parser.add_argument(
+    "--pretrained-model-path",
+    type=str,
+    default=None,
+    help="Defines pretrained model's path.",
+)
 
 
 def get_config(
@@ -299,6 +305,7 @@ def main():
             args.n_classes,
             args.height,
             args.width,
+            pretrained_model_path=args.pretrained_model_path,
         )
     except KeyboardInterrupt:
         pass

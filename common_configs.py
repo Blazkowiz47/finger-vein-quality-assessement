@@ -583,6 +583,7 @@ def vig_pyramid_compact(
     Grapher followed by ffn [12 blocks]
     predictor (linear)
     """
+    total_layers = 5
     channels: List[int] = [64, 128, 256, 512]
     num_of_grapher_units: List[int] = [1, 1, 1, 1]
     num_knn: int = 9
@@ -593,10 +594,10 @@ def vig_pyramid_compact(
     reduce_ratios: List[int] = [4, 2, 1, 1]
 
     max_dilation = channels[-1] // num_knn
-    blocks: List[PyramidBlockConfig] = []
+    blocks: List[BackboneBlockConfig] = []
     original_height, original_width = height, width
 
-    for i in range(4):
+    for i in range(len(channels)):
         blocks.append(
             PyramidBlockConfig(
                 in_channels=channels[i],
@@ -612,7 +613,7 @@ def vig_pyramid_compact(
                     neighbour_number=min(num_knn, width * height),
                     drop_path=drop_path,
                     max_dilation=max_dilation,
-                    dilation=1.0,
+                    dilation=1,
                     bias=bias,
                     r=reduce_ratios[i],
                     n=height * width,
@@ -636,6 +637,7 @@ def vig_pyramid_compact(
             stem_type="pyramid_3_conv_layer",
             in_channels=3,
             out_channels=channels[0],
+            total_layers=total_layers,
             act=act,
             bias=bias,
         ),

@@ -181,6 +181,11 @@ def train(
             device
         )
     logger.info(model)
+    logger.info("Total parameters: %s", sum(p.numel() for p in model.parameters()))
+    logger.info(
+        "Total trainable parameters: %s",
+        sum(p.numel() for p in model.parameters() if p.requires_grad),
+    )
     optimizer = optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=0.05)
     scheduler = lr_scheduler.CosineAnnealingLR(optimizer, epochs, eta_min=1e-6)
     train_loss_fn = get_train_loss().to(device)

@@ -173,4 +173,6 @@ class DatasetLoader(DatasetLoaderBase):
         finger: int = self.fingers.index(data.metadata["finger"])
         label[(hand * 100 * 3) + (finger * 100) + user] = 1  # One hot encoding
         # return image, label
-        return image.astype(np.float32), label.astype(np.float32)
+        return np.vstack([image, image, image]).astype(np.float32), label.astype(
+            np.float32
+        )

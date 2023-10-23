@@ -28,7 +28,7 @@ class ConvStem(Module):
                     in_dim,
                     start_channels,
                     3,
-                    stride=2,
+                    stride=2 if layer_number + 1 != total_layers else 1,
                     padding=1,
                     bias=bias,
                 )

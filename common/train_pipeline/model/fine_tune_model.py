@@ -6,6 +6,7 @@ from torch.nn import Conv2d, Module, Parameter
 from common.train_pipeline.backbone.backbone import get_backbone
 
 from common.train_pipeline.config import ModelConfig
+from common.train_pipeline.model.custom_model import CustomModel
 from common.train_pipeline.predictor.predictor import get_predictor
 from common.train_pipeline.stem.stem import get_stem
 from common.util.logger import logger
@@ -24,7 +25,10 @@ class FineTuneModel(Module):
             self.predictor = get_predictor(
                 config.predictor_config,
             )
-        self.pretrained_model = torch.load(pretrained_model_path)
+        if config.predictor_config:
+            config.predictor_config.n_classes = 301
+        self.pretrained_model = CustomModel(config)
+        self.pretrained_model.load_state_dict(torch.load(pretrained_model_path))
         for parameter in self.pretrained_model.parameters():
             parameter.requires_grad = False
         self.model_init()
@@ -45,7 +49,7 @@ class FineTuneModel(Module):
         """
         Model init.
         """
-        for module in self.modules():
+        for module in self.predictor.modules():
             if isinstance(module, Conv2d):
                 torch.nn.init.kaiming_normal_(module.weight)
                 module.weight.requires_grad = True
