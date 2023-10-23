@@ -10,9 +10,10 @@ from common.util.enums import EnvironmentType
 
 from common.train_pipeline.model.model import get_model
 from tqdm import tqdm
-
+import numpy as np
 from common.data_pipeline.dataset import get_dataset
 
+from train import get_config
 from common.util.data_pipeline.dataset_chainer import DatasetChainer
 from common.util.enums import EnvironmentType
 from lime import lime_image
@@ -94,7 +95,7 @@ def main():
             get_dataset(
                 dataset,
                 environment=environment,
-                augment_times=args.augment_times,
+                augment_times=0,
                 height=args.height,
                 width=args.width,
             )
@@ -105,7 +106,16 @@ def main():
         dataset_type=environment,
     )
 
-    model = get_model(args.config)
+    config = get_config(
+        "vig_pyramid_compact",
+        "gelu",
+        "conv",
+        args.n_classes,
+        2,
+        args.height,
+        args.width,
+    )
+    model = get_model(config)
     model.load_state_dict(torch.load(args.model_path))
     model.to(device)
     model.eval()
@@ -118,15 +128,16 @@ def main():
         ):
             if not dataset:
                 continue
-            for inputs, labels, i in tqdm(zip(dataset, range(5)), desc="Train:"):
+            for (inputs, labels), i in tqdm(zip(dataset, range(5)), desc="Train:"):
                 if inputs.shape[0] == 1:
                     inputs = torch.cat((inputs, inputs), 0)  # pylint: disable=E1101
                     labels = torch.cat((labels, labels), 0)  # pylint: disable=E1101
-                inputs = inputs.to(device).float()
-                labels = labels.to(device).float()
+                inputs = inputs.to(device).float().numpy()
+                labels = labels.to(device).float().numpy()
+                inputs = np.transpose(inputs, (0, 2, 3, 1))
                 explainer = lime_image.LimeImageExplainer()
-                explanation = explainer(
-                    inputs.numpy(),
+                explanation = explainer.explain_instance(
+                    inputs[0],
                     model,
                     top_labels=5,
                     hide_color=0,
