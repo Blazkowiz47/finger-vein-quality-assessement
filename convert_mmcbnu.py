@@ -3,12 +3,11 @@ import shutil
 
 from tqdm import tqdm
 
-input_dir = (
-    "/home/blazkowiz47/work/finger-vein-quality-assessement/datasets/MMCBNU_6000/ROIs"
-)
-output_dir = (
-    "/home/blazkowiz47/work/finger-vein-quality-assessement/datasets/MMCBNU_6000/oROIs"
-)
+root_dir = "./datasets/enhanced_mmcbnu/"
+# root_dir = "./datasets/MMCBNU_6000/"
+
+input_dir = os.path.join(root_dir, "ROIs")
+output_dir = os.path.join(root_dir, "oROIs")
 
 for subject in tqdm(os.listdir(input_dir)):
     for finger in os.listdir(os.path.join(input_dir, subject)):
@@ -24,3 +23,16 @@ for subject in tqdm(os.listdir(input_dir)):
                 os.path.join(input_dir, subject, finger, image),
                 os.path.join(odir, image),
             )
+
+for class_id in tqdm(os.listdir(output_dir)):
+    images = [
+        x
+        for x in os.listdir(os.path.join(output_dir, class_id))
+        if int(x.split(".")[0]) > 7
+    ]
+    odir = os.path.join(root_dir, "test", class_id)
+    os.makedirs(odir)
+    for image in images:
+        os.replace(os.path.join(output_dir, class_id, image), os.path.join(odir, image))
+
+os.replace(output_dir, os.path.join(root_dir, "train"))
