@@ -22,11 +22,24 @@ def get_dataset(
     Dataset Factory.
     """
     if dataset == "mmcbnu":
-        return mmcbnu(
+        return common_dataset(
+            "datasets/MMCBNU_6000",
+            "mmcbnu",
             environment_type=environment,
+            is_dataset_already_split=True,
+            augment_times=augment_times,
             height=height,
             width=width,
+        )
+    if dataset == "enhanced_mmcbnu":
+        return common_dataset(
+            "datasets/enhanced_mmcbnu",
+            "enhanced_mmcbnu",
+            environment_type=environment,
+            is_dataset_already_split=True,
             augment_times=augment_times,
+            height=height,
+            width=width,
         )
 
     if dataset == "fvusm":

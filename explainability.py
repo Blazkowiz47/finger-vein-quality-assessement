@@ -3,7 +3,7 @@ Main explainability file.
 calls the evaluate pipeline with configs.
 """
 import argparse
-
+from PIL import Image
 import torch
 from common.util.logger import logger
 from common.util.enums import EnvironmentType
@@ -119,7 +119,11 @@ def main():
     model.load_state_dict(torch.load(args.model_path))
     model.to(device)
     model.eval()
+
     # logger.info(model)
+    def model_mod(inputs):
+        inputs = np.transpose(inputs, (0, 3, 1, 2))
+        return model(torch.from_numpy(inputs))
 
     # Training loop
     with torch.no_grad():
@@ -128,17 +132,18 @@ def main():
         ):
             if not dataset:
                 continue
-            for (inputs, labels), i in tqdm(zip(dataset, range(5)), desc="Train:"):
+            i = 0
+            for inputs, labels in tqdm(dataset, desc="Train:"):
                 if inputs.shape[0] == 1:
                     inputs = torch.cat((inputs, inputs), 0)  # pylint: disable=E1101
                     labels = torch.cat((labels, labels), 0)  # pylint: disable=E1101
-                inputs = inputs.to(device).float().numpy()
-                labels = labels.to(device).float().numpy()
+                inputs = inputs.to(device).numpy().astype(np.float32)
+                labels = labels.to(device).numpy().astype(np.float32)
                 inputs = np.transpose(inputs, (0, 2, 3, 1))
                 explainer = lime_image.LimeImageExplainer()
                 explanation = explainer.explain_instance(
                     inputs[0],
-                    model,
+                    model_mod,
                     top_labels=5,
                     hide_color=0,
                     num_samples=1000,
@@ -150,7 +155,17 @@ def main():
                     hide_rest=False,
                 )
                 img_boundry1 = mark_boundaries(temp / 255.0, mask)
-                plt.imshow(img_boundry1)
+                image = np.array(img_boundry1) * 255
+                image = image.astype(np.uint8)
+                im = Image.fromarray(image)
+                im.save(f"{index}_{i}.jpg")
+                image = np.array(inputs[0]) * 255
+                image = image.astype(np.uint8)
+                im = Image.fromarray(image)
+                im.save(f"input_{index}_{i}.jpg")
+                if i == 4:
+                    break
+                i += 1
 
 
 if __name__ == "__main__":
