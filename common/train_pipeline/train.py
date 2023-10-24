@@ -143,6 +143,7 @@ def train(
     height: int = 60,
     width: int = 120,
     pretrained_model_path: Optional[str] = None,
+    pretrained_predictor_classes: Optional[int] = None,
     eng: Any = None,
 ):
     """
@@ -177,9 +178,11 @@ def train(
         model.load_state_dict(torch.load(continue_model))
         model = model.to(device)
     else:
-        model = get_model(config, pretrained_model_path=pretrained_model_path).to(
-            device
-        )
+        model = get_model(
+            config,
+            pretrained_model_path=pretrained_model_path,
+            pretrained_predictor_classes=pretrained_predictor_classes,
+        ).to(device)
     logger.info(model)
     logger.info("Total parameters: %s", sum(p.numel() for p in model.parameters()))
     logger.info(

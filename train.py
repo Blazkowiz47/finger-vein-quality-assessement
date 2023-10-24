@@ -131,6 +131,13 @@ parser.add_argument(
     help="Defines pretrained model's path.",
 )
 
+parser.add_argument(
+    "--pretrained-classes",
+    type=int,
+    default=None,
+    help="Defines pretrained model's predictor_classes.",
+)
+
 
 def get_config(
     config: str,
@@ -306,6 +313,7 @@ def main():
             args.height,
             args.width,
             pretrained_model_path=args.pretrained_model_path,
+            pretrained_predictor_classes=args.pretrained_classes,
         )
     except KeyboardInterrupt:
         pass
