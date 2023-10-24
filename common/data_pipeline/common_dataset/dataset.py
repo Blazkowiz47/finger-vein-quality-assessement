@@ -60,6 +60,7 @@ class DatasetLoader(DatasetLoaderBase):
             classes = os.listdir(self.get_directory() + "/train")
         except FileNotFoundError:
             classes = os.listdir(self.get_directory())
+        classes.sort()
         return classes
 
     def get_name(self) -> str:
