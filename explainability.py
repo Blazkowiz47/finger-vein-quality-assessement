@@ -84,14 +84,25 @@ parser.add_argument(
     help="Defines total images taken for sampling.",
 )
 
+parser.add_argument(
+    "--features",
+    type=int,
+    default=10,
+    help="Defines total features.",
+)
 
-def plot_explainability(images, total_images: int, model, dataset):
+
+def plot_explainability(images, total_images: int, model, dataset, features):
     fig, ax = plt.subplots(total_images, 4)
     explainer = lime_image.LimeImageExplainer()
     for i in range(total_images):
-        image = random.choice(images)
-        inputs, label = dataset.pre_process(image)
-        inputs = np.transpose(inputs, (1, 2, 0))
+        match = False
+        while not match:
+            image = random.choice(images)
+            inputs, label = dataset.pre_process(image)
+            inputs = np.transpose(inputs, (1, 2, 0))
+            output = model(np.expand_dims(inputs, axis=0))
+            match = np.argmax(output) == np.argmax(label)
         explanation = explainer.explain_instance(
             inputs,
             model,
@@ -102,7 +113,7 @@ def plot_explainability(images, total_images: int, model, dataset):
         temp, mask = explanation.get_image_and_mask(
             explanation.top_labels[0],
             positive_only=True,
-            num_features=10,
+            num_features=features,
             hide_rest=False,
         )
         img_boundry1 = mark_boundaries(temp, mask)
@@ -112,7 +123,7 @@ def plot_explainability(images, total_images: int, model, dataset):
         temp, mask = explanation.get_image_and_mask(
             explanation.top_labels[0],
             positive_only=False,
-            num_features=10,
+            num_features=features,
             hide_rest=False,
         )
         img_boundry2 = mark_boundaries(temp, mask)
@@ -166,8 +177,8 @@ def main():
 
     # Training loop
     with torch.no_grad():
-        plot_explainability(train_files, args.images, model_mod, dataset)
-        plot_explainability(test_files, args.images, model_mod, dataset)
+        plot_explainability(train_files, args.images, model_mod, dataset, args.features)
+        plot_explainability(test_files, args.images, model_mod, dataset, args.features)
 
 
 if __name__ == "__main__":
