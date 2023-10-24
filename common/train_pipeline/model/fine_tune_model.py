@@ -36,7 +36,7 @@ class FineTuneModel(Module):
             config.predictor_config.n_classes = pretrained_predictor_classes
         pretrained_model = CustomModel(config)
         pretrained_model.load_state_dict(torch.load(pretrained_model_path))
-        for parameter in self.pretrained_model.parameters():
+        for parameter in pretrained_model.parameters():
             parameter.requires_grad = False
         if pretrained_model.stem:
             self.stem = pretrained_model.stem
