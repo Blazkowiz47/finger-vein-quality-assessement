@@ -14,11 +14,13 @@ import numpy as np
 from common.data_pipeline.dataset import get_dataset
 
 from train import get_config
+from common.train_pipeline.train import cuda_info
 from common.util.data_pipeline.dataset_chainer import DatasetChainer
 from common.util.enums import EnvironmentType
 from lime import lime_image
 from skimage.segmentation import mark_boundaries
 import matplotlib.pyplot as plt
+import random
 
 # python train.py --config="grapher_12_conv_gelu_config" --wandb-run-name="grapher only"
 
@@ -75,6 +77,48 @@ parser.add_argument(
     help="Defines width of the image.",
 )
 
+parser.add_argument(
+    "--images",
+    type=int,
+    default=4,
+    help="Defines total images taken for sampling.",
+)
+
+
+def plot_explainability(images, total_images: int, model, dataset):
+    fig, ax = plt.subplots(total_images, 4)
+    explainer = lime_image.LimeImageExplainer()
+    for i in range(total_images):
+        image = random.choice(images)
+        inputs, label = dataset.pre_process(image)
+        inputs = np.transpose(inputs, (1, 2, 0))
+        explanation = explainer.explain_instance(
+            inputs,
+            model,
+            top_labels=5,
+            hide_color=0,
+            num_samples=1000,
+        )
+        temp, mask = explanation.get_image_and_mask(
+            explanation.top_labels[0],
+            positive_only=True,
+            num_features=10,
+            hide_rest=False,
+        )
+        img_boundry1 = mark_boundaries(temp, mask)
+        ax[i, 0].imshow(temp)
+        ax[i, 1].imshow(mask)
+        ax[i, 2].imshow(img_boundry1)
+        temp, mask = explanation.get_image_and_mask(
+            explanation.top_labels[0],
+            positive_only=False,
+            num_features=10,
+            hide_rest=False,
+        )
+        img_boundry2 = mark_boundaries(temp, mask)
+        ax[i, 3].imshow(img_boundry2)
+    plt.show()
+
 
 def main():
     """
@@ -88,23 +132,16 @@ def main():
         if args.environment == "pytorch"
         else EnvironmentType.TENSORFLOW
     )
-    device = "cpu"
-    datasets = [args.dataset]
-    train_dataset, test_dataset, validation_dataset = DatasetChainer(
-        datasets=[
-            get_dataset(
-                dataset,
-                environment=environment,
-                augment_times=0,
-                height=args.height,
-                width=args.width,
-            )
-            for dataset in datasets
-        ],
-    ).get_dataset(
-        batch_size=batch_size,
-        dataset_type=environment,
+    device = cuda_info()
+    dataset = get_dataset(
+        args.dataset,
+        environment=environment,
+        augment_times=0,
+        height=args.height,
+        width=args.width,
     )
+    train_files = dataset.get_train_files()
+    test_files = dataset.get_test_files()
 
     config = get_config(
         "vig_pyramid_compact",
@@ -120,52 +157,17 @@ def main():
     model.to(device)
     model.eval()
 
-    # logger.info(model)
-    def model_mod(inputs):
-        inputs = np.transpose(inputs, (0, 3, 1, 2))
-        return model(torch.from_numpy(inputs))
+    def model_mod(images):
+        images = np.transpose(images, (0, 3, 1, 2))
+        images = torch.from_numpy(images).to(device)
+        output = model(images)
+        return output.detach().cpu().numpy()
+        # logger.info(model)
 
     # Training loop
     with torch.no_grad():
-        for index, dataset in enumerate(
-            [train_dataset, test_dataset, validation_dataset]
-        ):
-            if not dataset:
-                continue
-            i = 0
-            for inputs, labels in tqdm(dataset, desc="Train:"):
-                if inputs.shape[0] == 1:
-                    inputs = torch.cat((inputs, inputs), 0)  # pylint: disable=E1101
-                    labels = torch.cat((labels, labels), 0)  # pylint: disable=E1101
-                inputs = inputs.to(device).numpy().astype(np.float32)
-                labels = labels.to(device).numpy().astype(np.float32)
-                inputs = np.transpose(inputs, (0, 2, 3, 1))
-                explainer = lime_image.LimeImageExplainer()
-                explanation = explainer.explain_instance(
-                    inputs[0],
-                    model_mod,
-                    top_labels=5,
-                    hide_color=0,
-                    num_samples=1000,
-                )
-                temp, mask = explanation.get_image_and_mask(
-                    explanation.top_labels[0],
-                    positive_only=True,
-                    num_features=5,
-                    hide_rest=False,
-                )
-                img_boundry1 = mark_boundaries(temp / 255.0, mask)
-                image = np.array(img_boundry1) * 255
-                image = image.astype(np.uint8)
-                im = Image.fromarray(image)
-                im.save(f"{index}_{i}.jpg")
-                image = np.array(inputs[0]) * 255
-                image = image.astype(np.uint8)
-                im = Image.fromarray(image)
-                im.save(f"input_{index}_{i}.jpg")
-                if i == 4:
-                    break
-                i += 1
+        plot_explainability(train_files, args.images, model_mod, dataset)
+        plot_explainability(test_files, args.images, model_mod, dataset)
 
 
 if __name__ == "__main__":

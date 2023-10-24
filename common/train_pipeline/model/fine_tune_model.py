@@ -17,8 +17,15 @@ class FineTuneModel(Module):
     Model Wrapper
     """
 
-    def __init__(self, config: ModelConfig, pretrained_model_path: str) -> None:
+    def __init__(
+        self,
+        config: ModelConfig,
+        pretrained_model_path: str,
+        pretrained_predictor_classes: int,
+    ) -> None:
         super(FineTuneModel, self).__init__()
+        self.stem = None
+        self.backbone = None
         self.predictor = None
 
         if config.predictor_config:
@@ -26,19 +33,25 @@ class FineTuneModel(Module):
                 config.predictor_config,
             )
         if config.predictor_config:
-            config.predictor_config.n_classes = 301
-        self.pretrained_model = CustomModel(config)
-        self.pretrained_model.load_state_dict(torch.load(pretrained_model_path))
+            config.predictor_config.n_classes = pretrained_predictor_classes
+        pretrained_model = CustomModel(config)
+        pretrained_model.load_state_dict(torch.load(pretrained_model_path))
         for parameter in self.pretrained_model.parameters():
             parameter.requires_grad = False
+        if pretrained_model.stem:
+            self.stem = pretrained_model.stem
+        if pretrained_model.backbone:
+            self.backbone = pretrained_model.backbone
         self.model_init()
 
     def forward(self, inputs):
         """
         Forward pass.
         """
-        inputs = self.pretrained_model.stem(inputs)
-        inputs = self.pretrained_model.backbone(inputs)
+        if self.stem:
+            inputs = self.stem(inputs)
+        if self.backbone:
+            inputs = self.backbone(inputs)
 
         if self.predictor:
             inputs = self.predictor(inputs)
