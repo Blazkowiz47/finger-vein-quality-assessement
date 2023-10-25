@@ -20,19 +20,19 @@ parser = argparse.ArgumentParser(
 parser.add_argument(
     "-c",
     "--config",
-    default="resnet50_grapher_attention_12_conv_gelu_config",
+    default="vig_pyramid_compact",
     type=str,
     help="Put model config name from common_config",
 )
 parser.add_argument(
     "--epochs",
-    default=10_000,
+    default=50,
     type=int,
     help="Add number of epochs.",
 )
 parser.add_argument(
     "--batch-size",
-    default=16,
+    default=192,
     type=int,
     help="Add batch_size.",
 )
@@ -51,7 +51,7 @@ parser.add_argument(
 parser.add_argument(
     "--validate-after-epochs",
     type=int,
-    default=5,
+    default=1,
     help="Validate after epochs.",
 )
 parser.add_argument(
@@ -71,7 +71,7 @@ parser.add_argument(
 parser.add_argument(
     "--augment-times",
     type=int,
-    default=0,
+    default=9,
     help="Number of augmented images per image",
 )
 
@@ -114,14 +114,14 @@ parser.add_argument(
 parser.add_argument(
     "--height",
     type=int,
-    default=60,
+    default=224,
     help="Defines height of the image.",
 )
 
 parser.add_argument(
     "--width",
     type=int,
-    default=120,
+    default=224,
     help="Defines width of the image.",
 )
 parser.add_argument(

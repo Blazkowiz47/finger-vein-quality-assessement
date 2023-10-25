@@ -200,6 +200,7 @@ def train(
     # Training loop
     best_train_accuracy: float = 0
     best_test_accuracy: float = 0
+    best_eer: float = float("inf")
     _ = cuda_info()
     for epoch in range(1, epochs + 1):
         model.train()
@@ -288,6 +289,12 @@ def train(
                         f"models/checkpoints/best_test_{log_on_wandb}.pt",
                     )
                     best_test_accuracy = results[1]["test_accuracy"]
+                if best_eer > results[1]["test_eer"]:
+                    torch.save(
+                        model.state_dict(),
+                        f"models/checkpoints/best_eer_{log_on_wandb}.pt",
+                    )
+                    best_eer = results[1]["test_eer"]
 
         if best_train_accuracy < results[0]["train_accuracy"]:
             torch.save(
