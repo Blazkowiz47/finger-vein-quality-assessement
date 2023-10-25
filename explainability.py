@@ -97,44 +97,15 @@ parser.add_argument(
 )
 
 
-def plot_explainability_grad_cam(
-    images, total_images: int, model, dataset, features, n_classes: int, device: str
-):
-    fig, ax = plt.subplots(total_images, 2)
-
-    def model_normal(images):
-        images = torch.from_numpy(images).to(device)
-        output = model(images)
-        return output.detach().cpu().numpy()
-        # logger.info(model)
-
-    loss = SoftTargetCrossEntropy()
-
-    for i in range(total_images):
-        match = False
-        while not match:
-            image = random.choice(images)
-            inputs, label = dataset.pre_process(image)
-            output = model_normal(np.expand_dims(inputs, axis=0))
-            match = np.argmax(output) == np.argmax(label)
-        # Grad-Cam explainer
-        target_layers = [model.backbone]
-        input_tensor = torch.from_numpy(np.expand_dims(inputs, axis=0)).to(device)
-        cam = GradCAM(model=model, target_layers=target_layers, use_cuda=True)
-        label = np.argmax(label)
-        targets = [ClassifierOutputTarget(label)]
-        grayscale_cam = cam(input_tensor=input_tensor, targets=targets)
-        grayscale_cam = grayscale_cam[0, :]
-        visualization = show_cam_on_image(
-            np.transpose(inputs, (1, 2, 0)), grayscale_cam, use_rgb=True
-        )
-        ax[i, 0].imshow(np.transpose(inputs, (1, 2, 0)))
-        ax[i, 1].imshow(visualization)
-    plt.show()
-
-
-def plot_explainability_lime(
-    images, total_images: int, model, dataset, features, n_classes: int, device: str
+def plot_explainability(
+    images,
+    total_images: int,
+    model,
+    dataset,
+    features,
+    n_classes: int,
+    device: str,
+    title: str = "Explainability",
 ):
     def model_lime(images):
         images = np.transpose(images, (0, 3, 1, 2))
@@ -149,16 +120,30 @@ def plot_explainability_lime(
         return output.detach().cpu().numpy()
         # logger.info(model)
 
-    fig, ax = plt.subplots(total_images, 4)
+    fig, ax = plt.subplots(total_images, 5)
+    fig.suptitle(title)
     explainer = lime_image.LimeImageExplainer()
 
     for i in range(total_images):
         match = False
         while not match:
             image = random.choice(images)
+            raw_image = Image.open(image.path)
             inputs, label = dataset.pre_process(image)
             output = model_normal(np.expand_dims(inputs, axis=0))
             match = np.argmax(output) == np.argmax(label)
+
+        # Grad-Cam explainer
+        target_layers = [model.backbone]
+        input_tensor = torch.from_numpy(np.expand_dims(inputs, axis=0)).to(device)
+        cam = GradCAM(model=model, target_layers=target_layers, use_cuda=True)
+        label = np.argmax(label)
+        targets = [ClassifierOutputTarget(label)]
+        grayscale_cam = cam(input_tensor=input_tensor, targets=targets)
+        grayscale_cam = grayscale_cam[0, :]
+        visualization = show_cam_on_image(
+            np.transpose(inputs, (1, 2, 0)), grayscale_cam, use_rgb=True
+        )
 
         # Lime Explainer
         inputs = np.transpose(inputs, (1, 2, 0))
@@ -177,8 +162,8 @@ def plot_explainability_lime(
             hide_rest=False,
         )
         img_boundry1 = mark_boundaries(temp, mask)
-        ax[i, 0].imshow(temp)
-        ax[i, 1].imshow(mask)
+        ax[i, 0].imshow(raw_image, cmap="gray")
+        ax[i, 1].imshow(inputs)
         ax[i, 2].imshow(img_boundry1)
         temp, mask = explanation.get_image_and_mask(
             explanation.top_labels[0],
@@ -188,6 +173,12 @@ def plot_explainability_lime(
         )
         img_boundry2 = mark_boundaries(temp, mask)
         ax[i, 3].imshow(img_boundry2)
+        ax[i, 4].imshow(visualization)
+    ax[0, 0].set_title("Original")
+    ax[0, 1].set_title("Resized")
+    ax[0, 2].set_title("Lime positive only")
+    ax[0, 3].set_title("Lime all")
+    ax[0, 4].set_title("Grad CAM")
     plt.show()
 
 
@@ -228,7 +219,8 @@ def main():
     model.to(device)
 
     model.eval()
-    plot_explainability_grad_cam(
+    # Training loop
+    plot_explainability(
         train_files,
         args.images,
         model,
@@ -236,8 +228,9 @@ def main():
         args.features,
         args.n_classes,
         device,
+        title="Lime on train images",
     )
-    plot_explainability_grad_cam(
+    plot_explainability(
         test_files,
         args.images,
         model,
@@ -245,28 +238,8 @@ def main():
         args.features,
         args.n_classes,
         device,
+        title="Lime on test images",
     )
-
-    # Training loop
-    with torch.no_grad():
-        plot_explainability_lime(
-            train_files,
-            args.images,
-            model,
-            dataset,
-            args.features,
-            args.n_classes,
-            device,
-        )
-        plot_explainability_lime(
-            test_files,
-            args.images,
-            model,
-            dataset,
-            args.features,
-            args.n_classes,
-            device,
-        )
 
 
 if __name__ == "__main__":
