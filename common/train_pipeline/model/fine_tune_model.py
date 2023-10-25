@@ -42,6 +42,8 @@ class FineTuneModel(Module):
             self.stem = pretrained_model.stem
         if pretrained_model.backbone:
             self.backbone = pretrained_model.backbone
+        self.pos_embed = pretrained_model.pos_embed
+
         self.model_init()
 
     def forward(self, inputs):
@@ -49,10 +51,11 @@ class FineTuneModel(Module):
         Forward pass.
         """
         if self.stem:
-            inputs = self.stem(inputs)
+            inputs = self.stem(inputs) + self.pos_embed
+        logger.debug("Stem output: %s", inputs.shape)
         if self.backbone:
             inputs = self.backbone(inputs)
-
+        logger.debug("Backbone output: %s", inputs.shape)
         if self.predictor:
             inputs = self.predictor(inputs)
         logger.debug("Predictor output: %s", inputs.shape)
