@@ -104,7 +104,7 @@ def add_label(metric: Dict[str, Any], label: str = "") -> Dict[str, Any]:
     return {f"{label}_{k}": v for k, v in metric.items()}
 
 
-def cuda_info():
+def cuda_info() -> str:
     """
     Prints cuda info.
     """
