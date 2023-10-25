@@ -190,7 +190,7 @@ def train(
         sum(p.numel() for p in model.parameters() if p.requires_grad),
     )
     optimizer = optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=0.05)
-    scheduler = lr_scheduler.CosineAnnealingLR(optimizer, epochs, eta_min=1e-6)
+    scheduler = lr_scheduler.CosineAnnealingLR(optimizer, epochs, eta_min=1e-7)
     train_loss_fn = get_train_loss().to(device)
     validate_loss_fn = get_val_loss().to(device)
 

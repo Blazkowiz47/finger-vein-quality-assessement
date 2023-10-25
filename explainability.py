@@ -228,7 +228,7 @@ def main():
         args.features,
         args.n_classes,
         device,
-        title="Lime on train images",
+        title="Train images",
     )
     plot_explainability(
         test_files,
@@ -238,7 +238,7 @@ def main():
         args.features,
         args.n_classes,
         device,
-        title="Lime on test images",
+        title="Test images",
     )
 
 
