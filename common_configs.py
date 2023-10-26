@@ -683,8 +683,8 @@ def test_vig_custom(
     max_dilation = channels[-1] // num_knn
     blocks: List[BackboneBlockConfig] = []
     original_height, original_width = height, width
-    height = height // int(pow(2, total_layers - 2))
-    width = width // int(pow(2, total_layers - 2))
+    height = height // int(pow(2, total_layers - 1))
+    width = width // int(pow(2, total_layers - 1))
 
     for i, channel in enumerate(channels):
         blocks.append(
@@ -709,8 +709,8 @@ def test_vig_custom(
                 ),
             )
         )
-        height = height // 4
-        width = width // 4
+        height = height // 2
+        width = width // 2
 
     return ModelConfig(
         height=original_height,
