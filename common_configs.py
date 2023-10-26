@@ -657,7 +657,7 @@ def vig_pyramid_compact(
     )
 
 
-def vig_pyramid_compact_wo_ffn(
+def test_vig_custom(
     act: str,
     pred_type: str,
     n_classes: int,
@@ -670,19 +670,21 @@ def vig_pyramid_compact_wo_ffn(
     Grapher followed by ffn [12 blocks]
     predictor (linear)
     """
-    total_layers = 6
+    total_layers = 5
     channels: List[int] = [128, 256]
     num_of_grapher_units: List[int] = [1, 1]
-    num_knn: int = 9
+    num_knn: int = 18
     drop_path: float = 0.0
     bias: bool = True
     epsilon: float = 0.2
     conv: str = "mr"
-    reduce_ratios: List[int] = [4, 1]
+    reduce_ratios: List[int] = [2, 1]
 
     max_dilation = channels[-1] // num_knn
-    blocks: List[PyramidBlockConfig] = []
+    blocks: List[BackboneBlockConfig] = []
     original_height, original_width = height, width
+    height = height // int(pow(2, total_layers - 2))
+    width = width // int(pow(2, total_layers - 2))
 
     for i, channel in enumerate(channels):
         blocks.append(
@@ -700,7 +702,7 @@ def vig_pyramid_compact_wo_ffn(
                     neighbour_number=min(num_knn, width * height),
                     drop_path=drop_path,
                     max_dilation=max_dilation,
-                    dilation=1.0,
+                    dilation=1,
                     bias=bias,
                     r=reduce_ratios[i],
                     n=height * width,
@@ -714,8 +716,8 @@ def vig_pyramid_compact_wo_ffn(
         height=original_height,
         width=original_width,
         stem_config=StemConfig(
-            stem_type="pyramid_3_conv_layer",
-            in_channels=3,
+            stem_type="conv_stem",
+            in_channels=1,
             out_channels=channels[0],
             total_layers=total_layers,
             act=act,

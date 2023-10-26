@@ -29,12 +29,14 @@ class CustomModel(Module):
             self.predictor = get_predictor(
                 config.predictor_config,
             )
+
+        total_layers: int = config.stem_config.total_layers if config.stem_config else 4
         self.pos_embed = Parameter(
             torch.zeros(  # pylint: disable=E1101
                 1,
                 config.stem_config.out_channels,
-                config.height // 4,
-                config.width // 4,
+                config.height // int(pow(2, total_layers - 1)),
+                config.width // int(pow(2, total_layers - 1)),
             )
         )
         self.model_init()
