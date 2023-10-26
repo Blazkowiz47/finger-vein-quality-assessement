@@ -244,3 +244,11 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+x: int = 10
+
+while x < 15:
+    x += 1
+
+print("Done:", x)

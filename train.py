@@ -249,8 +249,8 @@ def get_config(
             width,
         )
 
-    if config == "vig_pyramid_compact_wo_ffn":
-        return cfgs.vig_pyramid_compact_wo_ffn(
+    if config == "test_vig_custom":
+        return cfgs.test_vig_custom(
             act,
             pred_type,
             n_classes,

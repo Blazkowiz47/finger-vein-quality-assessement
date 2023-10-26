@@ -135,7 +135,7 @@ class DatasetLoader(DatasetLoaderBase):
                 image = np.expand_dims(image, axis=0)
             elif EnvironmentType.TENSORFLOW == self.environment_type:
                 image = np.expand_dims(image, axis=-1)
-            image = np.vstack([image, image, image])
+            # image = np.vstack([image, image, image])
 
         label = np.zeros((len(self.classes)))
         label[data.label] = 1  # One hot encoding

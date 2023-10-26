@@ -206,6 +206,9 @@ def train(
         model.train()
         training_loss = []
         for inputs, labels in tqdm(train_dataset, desc=f"Epoch {epoch} Training: "):
+            logger.debug(
+                "Inputs shape: %s, label shape: %s", inputs.shape, labels.shape
+            )
             if inputs.shape[0] == 1:
                 inputs = torch.cat((inputs, inputs), 0)  # pylint: disable=E1101
                 labels = torch.cat((labels, labels), 0)  # pylint: disable=E1101

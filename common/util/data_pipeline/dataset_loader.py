@@ -61,11 +61,11 @@ class DatasetLoaderBase:
 
     def _convert_to_numpy(self, split_type: DatasetSplitType, data: DatasetObject):
         image, label = self.pre_process(data)
-        yield (image, label)
+        yield (image.copy(), label.copy())
         if split_type == DatasetSplitType.TRAIN:
             augmented_images = self.augment(image, label)
             for image in augmented_images:
-                yield (image, label)
+                yield (image.copy(), label.copy())
 
     def _get_generator(
         self,

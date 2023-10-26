@@ -32,11 +32,12 @@ def get_stem(config: StemConfig) -> Module:
     Stem factory.
     """
     if config.stem_type == "pretrained_resnet50":
-        return Resnet50(
-            path=config.pretrained,
-            requires_grad=config.requires_grad,
-            output_layer=config.resnet_layer,
-        )
+        if config.pretrained and config.resnet_layer:
+            return Resnet50(
+                path=config.pretrained,
+                requires_grad=config.requires_grad,
+                output_layer=config.resnet_layer,
+            )
     if config.stem_type == "conv_stem":
         return ConvStem(
             in_dim=config.in_channels,
@@ -53,4 +54,6 @@ def get_stem(config: StemConfig) -> Module:
             act=config.act,
             bias=config.bias,
         )
-    raise NotImplementedError("No such stem has been implemented")
+    raise NotImplementedError(
+        "No such stem has been implemented or theres some error in the config."
+    )
