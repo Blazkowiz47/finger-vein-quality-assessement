@@ -3,6 +3,7 @@ Stem factory.
 """
 from dataclasses import dataclass
 from typing import Optional
+from common.train_pipeline.stem.dsc_stem import DSCStem
 from torch.nn import Module
 from common.train_pipeline.stem.conv_l5 import ConvStem
 from common.train_pipeline.stem.pyramid_3_conv import Pyramid3ConvStem
@@ -53,6 +54,15 @@ def get_stem(config: StemConfig) -> Module:
             out_channels=config.out_channels,
             act=config.act,
             bias=config.bias,
+        )
+    if config.stem_type == "dsc_stem":
+        return DSCStem(
+            in_dim=config.in_channels,
+            out_dim=config.out_channels,
+            act=config.act,
+            total_layers=config.total_layers,
+            bias=config.bias,
+            requires_grad=config.requires_grad,
         )
     raise NotImplementedError(
         "No such stem has been implemented or theres some error in the config."

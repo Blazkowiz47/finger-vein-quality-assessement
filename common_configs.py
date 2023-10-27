@@ -670,8 +670,8 @@ def test_vig_custom(
     Grapher followed by ffn [12 blocks]
     predictor (linear)
     """
-    total_layers = 5
-    channels: List[int] = [128, 256]
+    total_layers = 3
+    channels: List[int] = [64, 128]
     num_of_grapher_units: List[int] = [1, 1]
     num_knn: int = 18
     drop_path: float = 0.0
@@ -716,7 +716,7 @@ def test_vig_custom(
         height=original_height,
         width=original_width,
         stem_config=StemConfig(
-            stem_type="conv_stem",
+            stem_type="dsc_stem",
             in_channels=1,
             out_channels=channels[0],
             total_layers=total_layers,
