@@ -595,7 +595,7 @@ def vig_pyramid_compact(
 
     max_dilation = channels[-1] // num_knn
     blocks: List[BackboneBlockConfig] = []
-    original_height, original_width = height, width
+    original_height, original_width = height // 4, width // 4
 
     for i in range(len(channels)):
         blocks.append(
@@ -625,10 +625,11 @@ def vig_pyramid_compact(
                     drop_path=drop_path,
                     bias=bias,
                 ),
+                shrink_image_conv=i + 1 != len(channels),
             )
         )
-        height = height // 4
-        width = width // 4
+        height = height // 2
+        width = width // 2
 
     return ModelConfig(
         height=original_height,
@@ -671,8 +672,8 @@ def test_vig_custom(
     predictor (linear)
     """
     total_layers = 3
-    channels: List[int] = [64, 128]
-    num_of_grapher_units: List[int] = [1, 1]
+    channels: List[int] = [64, 128, 256, 512]
+    num_of_grapher_units: List[int] = [1, 1, 1, 1]
     num_knn: int = 18
     drop_path: float = 0.0
     bias: bool = True
@@ -707,6 +708,7 @@ def test_vig_custom(
                     r=reduce_ratios[i],
                     n=height * width,
                 ),
+                shrink_image_conv=i + 1 != len(channels),
             )
         )
         height = height // 2

@@ -28,6 +28,7 @@ class PyramidBlockConfig(BackboneBlockConfig):
     ffn_config: Optional[FFNConfig] = None
     number_of_nearest_neighbours: int = 9
     number_of_grapher_ffn_units: int = 2
+    shrink_image_conv: bool = True
 
 
 class PyramidBackbone(Module):
@@ -40,7 +41,7 @@ class PyramidBackbone(Module):
         self.layers: List[Sequential] = []
         for i, block in enumerate(config):
             self.layers.append(self.build_block(block))
-            if i + 1 != len(config):
+            if block.shrink_image_conv:
                 self.layers.append(
                     Conv2d(block.in_channels, block.out_channels, 3, 2, 1)
                 )
