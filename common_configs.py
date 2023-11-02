@@ -692,7 +692,90 @@ def test_vig_custom(
             PyramidBlockConfig(
                 in_channels=channel,
                 out_channels=channels[i + 1] if i + 1 < len(channels) else channel,
-                hidden_dimensions_in_ratio=4,
+                hidden_dimensions_in_ratio=2,
+                number_of_grapher_ffn_units=num_of_grapher_units[i],
+                grapher_config=GrapherConfig(
+                    in_channels=channel,
+                    act=act,
+                    conv=conv,
+                    norm="batch",
+                    epsilon=epsilon,
+                    neighbour_number=min(num_knn, width * height),
+                    drop_path=drop_path,
+                    max_dilation=max_dilation,
+                    dilation=1,
+                    bias=bias,
+                    r=reduce_ratios[i],
+                    n=height * width,
+                ),
+                shrink_image_conv=i + 1 != len(channels),
+            )
+        )
+        height = height // 2
+        width = width // 2
+
+    return ModelConfig(
+        height=original_height,
+        width=original_width,
+        stem_config=StemConfig(
+            stem_type="conv_stem",
+            in_channels=1,
+            out_channels=channels[0],
+            total_layers=total_layers,
+            act=act,
+            bias=bias,
+        ),
+        backbone_config=BackboneConfig(
+            backbone_type="pyramid_backbone",
+            blocks=blocks,
+        ),
+        predictor_config=PredictorConfig(
+            predictor_type=pred_type,
+            in_channels=channels[-1],
+            n_classes=n_classes,
+            act=act,
+            bias=bias,
+            hidden_dims=channels[-1] * 2,
+            dropout=0.0,
+        ),
+    )
+
+
+def test_dsc_custom(
+    act: str,
+    pred_type: str,
+    n_classes: int,
+    height: int,
+    width: int,
+) -> ModelConfig:
+    """
+    Module architecture:
+    Resnet50 till layer 3 (Output 1024*4*8) [FROZEN]
+    Grapher followed by ffn [12 blocks]
+    predictor (linear)
+    """
+    total_layers = 3
+    channels: List[int] = [64, 128, 256, 512]
+    num_of_grapher_units: List[int] = [1, 1, 1, 1]
+    num_knn: int = 18
+    drop_path: float = 0.0
+    bias: bool = True
+    epsilon: float = 0.2
+    conv: str = "mr"
+    reduce_ratios: List[int] = [4, 2, 1, 1]
+
+    max_dilation = channels[-1] // num_knn
+    blocks: List[BackboneBlockConfig] = []
+    original_height, original_width = height, width
+    height = height // int(pow(2, total_layers - 1))
+    width = width // int(pow(2, total_layers - 1))
+
+    for i, channel in enumerate(channels):
+        blocks.append(
+            PyramidBlockConfig(
+                in_channels=channel,
+                out_channels=channels[i + 1] if i + 1 < len(channels) else channel,
+                hidden_dimensions_in_ratio=2,
                 number_of_grapher_ffn_units=num_of_grapher_units[i],
                 grapher_config=GrapherConfig(
                     in_channels=channel,

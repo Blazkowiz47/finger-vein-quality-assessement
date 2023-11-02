@@ -190,7 +190,7 @@ def train(
         sum(p.numel() for p in model.parameters() if p.requires_grad),
     )
     optimizer = optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=0.05)
-    scheduler = lr_scheduler.CosineAnnealingLR(optimizer, epochs, eta_min=1e-7)
+    scheduler = lr_scheduler.CosineAnnealingLR(optimizer, epochs, eta_min=1e-5)
     train_loss_fn = get_train_loss().to(device)
     validate_loss_fn = get_val_loss().to(device)
 
@@ -313,5 +313,9 @@ def train(
             logger.info("%s: %s", k, v)
         if log_on_wandb:
             wandb.log(log)
+
+        logger.info("Best EER:%s", best_eer)
+        logger.info("Best test accuracy:%s", best_test_accuracy)
+        logger.info("Best train accuracy:%s", best_train_accuracy)
 
     model.train()

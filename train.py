@@ -258,6 +258,14 @@ def get_config(
             width,
         )
 
+    if config == "test_dsc_custom":
+        return cfgs.test_dsc_custom(
+            act,
+            pred_type,
+            n_classes,
+            height,
+            width,
+        )
     raise ValueError(f"Wrong config: {config}")
 
 

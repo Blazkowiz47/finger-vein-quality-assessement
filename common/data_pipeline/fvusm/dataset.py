@@ -133,6 +133,4 @@ class DatasetLoader(DatasetLoaderBase):
             image = image.reshape((self.height, self.width, 1))
         label = np.zeros((self.n_classes,))
         label[data.label] = 1
-        return np.vstack([image, image, image]).astype(np.float32), label.astype(
-            np.float32
-        )
+        return image.astype(np.float32), label.astype(np.float32)

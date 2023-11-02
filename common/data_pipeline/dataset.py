@@ -122,7 +122,7 @@ def get_dataset(
 
     if dataset == "enhanced_polyu":
         return common_dataset(
-            f"datasets/PolyU/Enhanced",
+            f"datasets/enhanced_polyu",
             "polyu_enhanced",
             is_dataset_already_split=True,
             from_numpy=False,
@@ -133,7 +133,7 @@ def get_dataset(
 
     if dataset == "polyu":
         return common_dataset(
-            f"datasets/PolyU",
+            f"datasets/polyu",
             "polyu",
             is_dataset_already_split=True,
             from_numpy=False,
