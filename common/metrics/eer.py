@@ -59,7 +59,7 @@ class EER(Metric):
     def compute(self):
         genuine = self.genuine.detach().cpu().numpy()
         morphed = self.attack.detach().cpu().numpy()
-        eer, far, _ = self.eng.EER_DET_Spoof_Far(
+        eer, far, ffr = self.eng.EER_DET_Spoof_Far(
             genuine, morphed, matlab.double(10000), nargout=3
         )
-        return (eer, far)
+        return (eer, far, ffr)

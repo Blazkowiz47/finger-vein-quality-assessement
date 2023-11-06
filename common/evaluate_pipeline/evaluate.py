@@ -151,9 +151,14 @@ def evaluate(
                 metrics[0].update(predicted, labels)
 
             accuracy = metrics[0].compute().item()
-            eer, far = metrics[1].compute().item()
+            eer, far, ffr = metrics[1].compute()
             logger.info("Evaluation results: %s", dataset_names[index])
-            logger.info("EER: %s\nFAR: %s", eer, far)
+            logger.info(
+                "EER: %s\nFAR: %s\nFFR: %s",
+                eer,
+                np.array(far).shape,
+                np.array(ffr).shape,
+            )
             for metric in metrics:
                 metric.reset()
 
@@ -161,5 +166,6 @@ def evaluate(
                 "accuracy": accuracy,
                 "eer": eer,
                 "far": far,
+                "ffr": ffr,
             }
         return all_results

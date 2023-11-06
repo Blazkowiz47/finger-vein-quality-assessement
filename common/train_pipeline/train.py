@@ -272,7 +272,7 @@ def train(
                     predicted = outputs.argmax(dim=1)
                     labels = labels.argmax(dim=1)
                     val_metrics[0].update(predicted, labels)
-                eer, far = val_metrics[1].compute()
+                eer, far, ffr = val_metrics[1].compute()
                 results.append(
                     add_label(
                         {
