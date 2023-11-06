@@ -79,12 +79,11 @@ def cuda_info():
 
 
 def evaluate(
-    datasets: Union[List[str], Any],
+    datasets: Union[str, Any],
     model_path: str,
     config: ModelConfig,
     batch_size: int = 10,
     environment: EnvironmentType = EnvironmentType.PYTORCH,
-    augment_times: int = 0,
     n_classes: int = 301,
     height: int = 60,
     width: int = 120,
@@ -94,17 +93,16 @@ def evaluate(
     Contains the training loop.
     """
     device = cuda_info()
-    if isinstance(datasets[0], str):
+    if isinstance(datasets, str):
         train_dataset, test_dataset, validation_dataset = DatasetChainer(
             datasets=[
                 get_dataset(
-                    dataset,
+                    datasets,
                     environment=environment,
-                    augment_times=augment_times,
+                    augment_times=0,
                     height=height,
                     width=width,
                 )
-                for dataset in datasets
             ],
         ).get_dataset(
             batch_size=batch_size,
@@ -114,8 +112,8 @@ def evaluate(
         train_dataset, test_dataset, validation_dataset = datasets
 
     model = get_model(config)
-    model.load_state_dict(torch.load(model_path))
     model.to(device)
+    model.load_state_dict(torch.load(model_path, map_location=device))
     model.eval()
     # logger.info(model)
     loss_fn = get_loss().to(device)

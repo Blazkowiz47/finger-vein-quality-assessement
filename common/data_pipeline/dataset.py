@@ -204,4 +204,4 @@ def get_dataset(
             height=height,
             width=width,
         )
-    raise ValueError("Dataset Not Implemented")
+    raise ValueError(f'Dataset "{dataset}" Not Implemented')
