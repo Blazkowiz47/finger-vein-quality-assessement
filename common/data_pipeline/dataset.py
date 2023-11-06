@@ -142,6 +142,28 @@ def get_dataset(
             width=width,
         )
 
+    if dataset == "enhanced_vera":
+        return common_dataset(
+            f"datasets/enhanced_vera",
+            "vera_enhanced",
+            is_dataset_already_split=True,
+            from_numpy=False,
+            augment_times=augment_times,
+            height=height,
+            width=width,
+        )
+
+    if dataset == "vera":
+        return common_dataset(
+            f"datasets/VERA",
+            "vera",
+            is_dataset_already_split=True,
+            from_numpy=False,
+            augment_times=augment_times,
+            height=height,
+            width=width,
+        )
+
     if dataset.startswith("post_process"):
         dataset_split = dataset.split("_")
         printer = dataset_split[2]
