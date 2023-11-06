@@ -34,15 +34,16 @@ def get_loss() -> Module:
     return SoftTargetCrossEntropy()
 
 
-def get_metrics(n_classes: int) -> list[Metric]:
+def get_metrics(n_classes: int, eng: Any) -> list[Metric]:
     """
-    Returns list of metrics.
+    Returns list of validation metrics.
     """
     return [
         Accuracy(
             task="multiclass",
             num_classes=n_classes,
         ),
+        EER(eng, genuine_class_label=1 if n_classes == 2 else None),
         # ConfusionMatrix().to(device),
     ]
 
@@ -87,11 +88,17 @@ def evaluate(
     n_classes: int = 301,
     height: int = 60,
     width: int = 120,
-    eng: Any = None,
 ) -> Dict[str, Any]:
     """
     Contains the training loop.
     """
+    eng = matlab.engine.start_matlab()
+    try:
+        script_dir = "./EER"
+        eng.addpath(script_dir)
+    except Exception:
+        logger.exception("Cannot initialise matlab engine")
+
     device = cuda_info()
     if isinstance(datasets, str):
         train_dataset, test_dataset, validation_dataset = DatasetChainer(
@@ -117,8 +124,7 @@ def evaluate(
     model.eval()
     # logger.info(model)
     loss_fn = get_loss().to(device)
-
-    metrics = [metric.to(device) for metric in get_metrics(n_classes)]
+    metrics = [metric.to(device) for metric in get_metrics(n_classes, eng)]
     # Training loop
     with torch.no_grad():
         all_results: Dict[str, Any] = {}
@@ -127,8 +133,6 @@ def evaluate(
             [train_dataset, test_dataset, validation_dataset]
         ):
             all_loss = []
-            results = []
-            scores: List[List[float]] = []
             if not dataset:
                 continue
             for inputs, labels in tqdm(dataset if dataset else [], desc="Train:"):
@@ -140,76 +144,20 @@ def evaluate(
                 outputs = model(inputs)  # pylint: disable=E1102
                 loss = loss_fn(outputs, labels)  # pylint: disable=E1102
                 all_loss.append(loss.item())
-                for label, output in zip(labels, outputs):
-                    scores.append(
-                        [
-                            label[0].item(),
-                            label[1].item(),
-                            output[0].item(),
-                            output[1].item(),
-                        ]
-                    )
+                metrics[1].update(outputs, labels)
                 predicted = outputs.argmax(dim=1)
                 labels = labels.argmax(dim=1)
-                for metric in metrics:
-                    metric.update(predicted, labels)
-            accuracy = None
+                metrics[0].update(predicted, labels)
+
+            accuracy = metrics[0].compute().item()
+            eer, far = metrics[1].compute().item()
+            logger.info("Evaluation results: %s", dataset_names[index])
+            logger.info("EER: %s\nFAR: %s", eer, far)
             for metric in metrics:
-                accuracy = metric.compute().item()
-                results.append(
-                    add_label(
-                        {
-                            "accuracy": accuracy,
-                            "loss": np.mean(all_loss),
-                        },
-                        dataset_names[index],
-                    )
-                )
                 metric.reset()
-            scores = np.array(scores)
-            precision = MulticlassPrecision(num_classes=2)
-            recall = MulticlassRecall(num_classes=2)
-            precision = precision(
-                torch.from_numpy(scores[:, 2:]), torch.from_numpy(scores[:, :2])
-            )
-            recall = recall(
-                torch.from_numpy(scores[:, 2:]), torch.from_numpy(scores[:, :2])
-            )
-            log = {}
-            for result in results:
-                log = log | result
-            for k, v in log.items():
-                logger.info("%s: %s", k, v)
-            logger.info("Precision: %s", precision.item())
-            logger.info("Recall: %s", recall.item())
-            data = scores
-            genuine = data[data[:, 1] == 1.0][:, 3]
-            morphed = data[data[:, 0] == 1.0][:, 3]
-            genuine = matlab.double(genuine.tolist())
-            morphed = matlab.double(morphed.tolist())
-            eer = None
-            far = None
-            if eng:
-                eer, far, _ = eng.EER_DET_Spoof_Far(
-                    genuine, morphed, matlab.double(10000), nargout=3
-                )
-                logger.info("EER: %s", eer)
-                logger.info("FAR: %s", far)
-            else:
-                eng = matlab.engine.start_matlab()
-                try:
-                    script_dir = "./EER"
-                    eng.addpath(script_dir)
-                except:
-                    logger.exception("Cannot initialise matlab engine")
-                    savemat(
-                        f"results/{model_path.split('/')[-1].split('.')[0]}_{dataset_names[index]}_{datasets[0]}.mat",
-                        {"genuine": genuine, "morphed": morphed},
-                    )
+
             all_results[dataset_names[index]] = {
                 "accuracy": accuracy,
-                "precision": precision.item(),
-                "recall": recall.item(),
                 "eer": eer,
                 "far": far,
             }
