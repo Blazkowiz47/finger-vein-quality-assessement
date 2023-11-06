@@ -62,4 +62,5 @@ class EER(Metric):
         eer, far, ffr = self.eng.EER_DET_Spoof_Far(
             genuine, morphed, matlab.double(10000), nargout=3
         )
+        _, _, _ = self.eng.Plot_ROC(genuine, morphed, matlab.double(10000), nargout=3)
         return (eer, far, ffr)
