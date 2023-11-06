@@ -190,15 +190,17 @@ def evaluate(
             genuine = matlab.double(genuine.tolist())
             morphed = matlab.double(morphed.tolist())
             eer = None
+            far = None
             if eng:
-                eer, _, _ = eng.EER_DET_Spoof_Far(
+                eer, far, _ = eng.EER_DET_Spoof_Far(
                     genuine, morphed, matlab.double(10000), nargout=3
                 )
                 logger.info("EER: %s", eer)
+                logger.info("FAR: %s", far)
             else:
                 eng = matlab.engine.start_matlab()
                 try:
-                    script_dir = "/home/ubuntu/finger-vein-quality-assessement/EER"
+                    script_dir = ",/EER"
                     eng.addpath(script_dir)
                 except:
                     logger.exception("Cannot initialise matlab engine")
@@ -211,5 +213,6 @@ def evaluate(
                 "precision": precision.item(),
                 "recall": recall.item(),
                 "eer": eer,
+                "far": far,
             }
         return all_results

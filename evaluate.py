@@ -6,8 +6,8 @@ import argparse
 
 import torch
 import wandb
-import common_configs as cfgs
 from common.evaluate_pipeline.evaluate import evaluate
+from train import get_config
 from common.util.logger import logger
 from common.util.enums import EnvironmentType
 
@@ -19,11 +19,20 @@ parser = argparse.ArgumentParser(
 )
 
 parser.add_argument(
+    "-c",
+    "--config",
+    default=None,
+    type=str,
+    help="Give model config.",
+)
+
+parser.add_argument(
     "--model-path",
     default=None,
     type=str,
     help="Give model path for evaluation.",
 )
+
 parser.add_argument(
     "--batch-size",
     default=16,
@@ -51,18 +60,31 @@ parser.add_argument(
     help="Defines total classes to predict.",
 )
 
+parser.add_argument(
+    "--act",
+    type=str,
+    default="gelu",
+    help="Activation type",
+)
+
+parser.add_argument(
+    "--pred-type",
+    type=str,
+    default="conv",
+    help="Predictor type",
+)
 
 parser.add_argument(
     "--height",
     type=int,
-    default=60,
+    default=224,
     help="Defines height of the image.",
 )
 
 parser.add_argument(
     "--width",
     type=int,
-    default=120,
+    default=224,
     help="Defines width of the image.",
 )
 
@@ -79,10 +101,20 @@ def main():
         if args.environment == "pytorch"
         else EnvironmentType.TENSORFLOW
     )
+    config = get_config(
+        args.config,
+        args.act,
+        args.pred_type,
+        args.n_classes,
+        2,
+        args.height,
+        args.width,
+    )
     try:
         evaluate(
-            [args.dataset],
+            args.dataset,
             args.model_path,
+            config,
             batch_size,
             environment,
             args.n_classes,
