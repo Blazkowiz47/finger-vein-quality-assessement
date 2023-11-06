@@ -198,7 +198,7 @@ def evaluate(
             else:
                 eng = matlab.engine.start_matlab()
                 try:
-                    script_dir = ",/EER"
+                    script_dir = "./EER"
                     eng.addpath(script_dir)
                 except:
                     logger.exception("Cannot initialise matlab engine")
