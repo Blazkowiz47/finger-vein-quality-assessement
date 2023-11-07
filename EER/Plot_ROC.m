@@ -115,12 +115,13 @@ confInterOP = OP-100*FRRconfMIN(tmpOP);
 %%%%% plotting of curves
 
 %%%%%%%    FAR vs FRR
-figure(1);
+f = figure(1);
 plot (x,FRR,'r');
 % hold on;plot (x,FAR,'b');
 xlabel ('Threshold');
 ylabel ('Error');
 title ('FAR vs FRR graph');
+exportgraphics(f, "FAR-FRR_graph.png");
 
 %%%%    interpolation for the plotting
 equaX=x(tmps)*(FRR(tmps+1)-FAR(tmps+1))+x(tmps+1)*(FAR(tmps)-FRR(tmps));
@@ -129,7 +130,7 @@ threshold=equaX/equaY;
 EERplot=threshold*(FAR(tmps)-FAR(tmps+1))/(x(tmps)-x(tmps+1))+(x(tmps)*FAR(tmps+1)-x(tmps+1)*FAR(tmps))/(x(tmps)-x(tmps+1));
 
 %%%%    ROC curve
-figure(2);
+f = figure(2);
 plot (FAR,100-FRR,'r');
 xlabel ('Impostor Attempts Accepted = FAR (%)');
 ylabel ('Genuine Attempts Accepted = 1-FRR (%)');
@@ -137,14 +138,16 @@ title ('ROC curve');
 hold on;scatter (EERplot,100-EERplot,'ok');
 hold on;scatter (FAR(tmpOP),100-FRR(tmpOP),'xk');
 axis([0 50 50 100]);
+exportgraphics(f, "ROCCurve.png");
 
 %%%%      DET curve
-figure(3);
-plot(0.36, FRR,'b',2)
-h = Plot_DET(FRR/100,FAR/100,'r',2);
+f = figure(3);
+plot(0.36, FRR,'b')
+h = Plot_DET(FRR/100,FAR/100,'r');
 hold on; Plot_DET(0.36,0.36,'ok');
 hold on; Plot_DET(FRR(37)/100,FAR(37)/100,'ok');
 title ('DET curve');
 
+exportgraphics(f, "DETCurve.png");
 
 

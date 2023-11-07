@@ -129,10 +129,8 @@ def evaluate(
     # Training loop
     with torch.no_grad():
         all_results: Dict[str, Any] = {}
-        dataset_names = ["train", "test", "validation"]
-        for index, dataset in enumerate(
-            [train_dataset, test_dataset, validation_dataset]
-        ):
+        dataset_names = ["test", "validation"]
+        for index, dataset in enumerate([test_dataset, validation_dataset]):
             all_loss = []
             if not dataset:
                 continue

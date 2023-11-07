@@ -3,6 +3,7 @@ Main evaluating file.
 calls the evaluate pipeline with configs.
 """
 import argparse
+import time
 
 import torch
 import wandb
