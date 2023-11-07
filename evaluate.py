@@ -3,10 +3,7 @@ Main evaluating file.
 calls the evaluate pipeline with configs.
 """
 import argparse
-import time
 
-import torch
-import wandb
 from common.evaluate_pipeline.evaluate import evaluate
 from train import get_config
 from common.util.logger import logger
