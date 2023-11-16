@@ -101,6 +101,11 @@ def evaluate(
         logger.exception("Cannot initialise matlab engine")
 
     device = cuda_info()
+    model = get_model(config)
+    model.to(device)
+    model.load_state_dict(torch.load(model_path, map_location=device))
+    print(model)
+
     if isinstance(datasets, str):
         train_dataset, test_dataset, validation_dataset = DatasetChainer(
             datasets=[
@@ -119,9 +124,6 @@ def evaluate(
     else:
         train_dataset, test_dataset, validation_dataset = datasets
 
-    model = get_model(config)
-    model.to(device)
-    model.load_state_dict(torch.load(model_path, map_location=device))
     model.eval()
     # logger.info(model)
     loss_fn = get_loss().to(device)
@@ -149,21 +151,20 @@ def evaluate(
                 metrics[0].update(predicted, labels)
 
             accuracy = metrics[0].compute().item()
-            eer, far, ffr = metrics[1].compute()
+            eer, best_one, best_pointone, best_pointzerone = metrics[1].compute()
             logger.info("Evaluation results: %s", dataset_names[index])
-            logger.info(
-                "EER: %s\nFAR: %s\nFFR: %s",
-                eer,
-                np.array(far).shape,
-                np.array(ffr).shape,
-            )
+            logger.info("EER: %s", eer)
+            logger.info("Best TAR 1: %s", best_one)
+            logger.info("Best TAR 0.1: %s", best_pointone)
+            logger.info("Best TAR 0.01: %s", best_pointzerone)
             for metric in metrics:
                 metric.reset()
 
             all_results[dataset_names[index]] = {
                 "accuracy": accuracy,
                 "eer": eer,
-                "far": far,
-                "ffr": ffr,
+                "tar1": best_one,
+                "tar0.1": best_pointone,
+                "tar0.01": best_pointzerone,
             }
         return all_results

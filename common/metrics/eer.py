@@ -5,6 +5,7 @@ from typing import Any, List, Optional
 
 import matlab
 import matlab.engine
+import numpy as np
 import torch
 from torch import Tensor
 from torchmetrics import Metric
@@ -62,5 +63,7 @@ class EER(Metric):
         eer, far, ffr = self.eng.EER_DET_Spoof_Far(
             genuine, morphed, matlab.double(10000), nargout=3
         )
+        ffr = np.array(ffr)
+        ffr = ffr[0]
         _, _, _ = self.eng.Plot_ROC(genuine, morphed, matlab.double(10000), nargout=3)
-        return (eer, far, ffr)
+        return (eer, 100 - far[0][100], 100 - far[0][10], 100 - far[0][1])

@@ -254,6 +254,8 @@ def train(
         for metric in train_metrics:
             metric.reset()
 
+        best_one, best_pointone, best_pointzerone = None, None, None
+
         if epoch % validate_after_epochs == 0:
             val_loss = []
             with torch.no_grad():
@@ -272,14 +274,16 @@ def train(
                     predicted = outputs.argmax(dim=1)
                     labels = labels.argmax(dim=1)
                     val_metrics[0].update(predicted, labels)
-                eer, far, ffr = val_metrics[1].compute()
+                eer, one, pointone, pointzeroone = val_metrics[1].compute()
                 results.append(
                     add_label(
                         {
                             "accuracy": val_metrics[0].compute().item(),
                             "loss": np.mean(val_loss),
                             "eer": eer,
-                            "tar": 100 - far,
+                            "tar1": one,
+                            "tar0.1": pointone,
+                            "tar0.01": pointzeroone,
                         },
                         "test",
                     )
@@ -299,6 +303,9 @@ def train(
                         f"models/checkpoints/best_eer_{log_on_wandb}.pt",
                     )
                     best_eer = results[1]["test_eer"]
+                    best_one = results[1]["test_tar1"]
+                    best_pointone = results[1]["test_tar0.1"]
+                    best_pointzerone = results[1]["test_tar0.01"]
 
         if best_train_accuracy < results[0]["train_accuracy"]:
             torch.save(
@@ -316,6 +323,9 @@ def train(
             wandb.log(log)
 
         logger.info("Best EER:%s", best_eer)
+        logger.info("Best TAR 1: %s", best_one)
+        logger.info("Best TAR 0.1: %s", best_pointone)
+        logger.info("Best TAR 0.01: %s", best_pointzerone)
         logger.info("Best test accuracy:%s", best_test_accuracy)
         logger.info("Best train accuracy:%s", best_train_accuracy)
 

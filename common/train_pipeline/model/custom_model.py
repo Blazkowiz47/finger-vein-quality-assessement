@@ -46,7 +46,8 @@ class CustomModel(Module):
         Forward pass.
         """
         if self.stem:
-            inputs = self.stem(inputs) + self.pos_embed
+            stem_output = self.stem(inputs)
+            inputs = stem_output + self.pos_embed
         logger.debug("Stem output: %s", inputs.shape)
         if self.backbone:
             inputs = self.backbone(inputs)
