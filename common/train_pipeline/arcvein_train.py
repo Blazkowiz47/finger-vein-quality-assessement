@@ -2,6 +2,7 @@
 Trains everything
 """
 from typing import Any, Dict, List, Optional
+from itertools import chain
 import numpy as np
 import torch
 from torch import optim
@@ -152,9 +153,14 @@ def train(
 
     loss_fn = ArcCosineLoss(n_classes)
     model = ArcVein()
+
     if continue_model:
         model.load_state_dict(torch.load(continue_model))
         loss_fn.load_state_dict(torch.load(continue_model.split(".")[0] + "_loss.pt"))
+
+    if pretrained_model_path:
+        model.load_state_dict(torch.load(pretrained_model_path))
+
     model.to(device)
     loss_fn.to(device)
     logger.info(model)
@@ -163,7 +169,13 @@ def train(
         "Total trainable parameters: %s",
         sum(p.numel() for p in model.parameters() if p.requires_grad),
     )
-    optimizer = optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=0.05)
+    optimizer = optim.AdamW(
+        loss_fn.parameters()
+        if pretrained_model_path
+        else chain(model.parameters(), loss_fn.parameters()),
+        lr=learning_rate,
+        weight_decay=0.05,
+    )
     scheduler = lr_scheduler.CosineAnnealingLR(optimizer, epochs, eta_min=1e-5)
 
     train_metrics = [metric.to(device) for metric in get_train_metrics(n_classes, eng)]
@@ -174,8 +186,13 @@ def train(
     best_test_accuracy: float = 0
     best_eer: float = float("inf")
     _ = cuda_info()
+
     for epoch in range(1, epochs + 1):
-        model.train()
+        if pretrained_model_path:
+            model.eval()
+        else:
+            model.train()
+        loss_fn.train()
         training_loss = []
         for inputs, labels in tqdm(train_dataset, desc=f"Epoch {epoch} Training: "):
             logger.debug(
@@ -192,7 +209,11 @@ def train(
             # logger.info("Leaded data on cuda. %s", str(end - start))
             optimizer.zero_grad()
             # start = time.time()
-            outputs = model(inputs)  # pylint: disable=E1102
+            if pretrained_model_path:
+                with torch.no_grad():
+                    outputs = model(inputs)  # pylint: disable=E1102
+            else:
+                outputs = model(inputs)  # pylint: disable=E1102
             # end = time.time()
             # logger.info("Forward prop. %s", str(end - start))
             loss, outputs = loss_fn(
@@ -214,6 +235,7 @@ def train(
 
         scheduler.step()
         model.eval()
+        loss_fn.eval()
         results = []
         results.append(
             add_label(
