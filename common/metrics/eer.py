@@ -63,6 +63,8 @@ class EER(Metric):
         eer, far, ffr = self.eng.EER_DET_Spoof_Far(
             genuine, morphed, matlab.double(10000), nargout=3
         )
+        far = np.array(far)
+        ffr = np.array(ffr)
         one = np.argmin(np.abs(far - 1))
         pointone = np.argmin(np.abs(far - 0.1))
         pointzeroone = np.argmin(np.abs(far - 0.01))
