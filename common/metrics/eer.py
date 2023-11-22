@@ -63,7 +63,13 @@ class EER(Metric):
         eer, far, ffr = self.eng.EER_DET_Spoof_Far(
             genuine, morphed, matlab.double(10000), nargout=3
         )
-        ffr = np.array(ffr)
-        ffr = ffr[0]
+        one = np.argmin(np.abs(far - 1))
+        pointone = np.argmin(np.abs(far - 0.1))
+        pointzeroone = np.argmin(np.abs(far - 0.01))
         _, _, _ = self.eng.Plot_ROC(genuine, morphed, matlab.double(10000), nargout=3)
-        return (eer, 100 - far[0][100], 100 - far[0][10], 100 - far[0][1])
+        return (
+            eer,
+            100 - ffr[0][one],
+            100 - ffr[0][pointone],
+            100 - ffr[0][pointzeroone],
+        )
