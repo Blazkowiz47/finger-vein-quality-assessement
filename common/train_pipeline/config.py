@@ -31,9 +31,10 @@ class BackboneConfig:
 @dataclass
 class ModelConfig:
     """
-    COntains Default training configurations.
+    Contains Default training configurations.
     """
 
+    arcvein: bool = False
     stem_config: Optional[StemConfig] = None
     backbone_config: Optional[BackboneConfig] = None
     predictor_config: Optional[PredictorConfig] = None

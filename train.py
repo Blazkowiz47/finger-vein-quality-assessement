@@ -6,8 +6,10 @@ import argparse
 
 import torch
 import wandb
+from common.train_pipeline.config import ModelConfig
 import common_configs as cfgs
 from common.train_pipeline.train import train
+from common.train_pipeline.arcvein_train import train as arc_train
 from common.util.logger import logger
 from common.util.enums import EnvironmentType
 
@@ -147,42 +149,15 @@ def get_config(
     num_heads: int,
     height: int,
     width: int,
-):
+) -> ModelConfig:
     """
     Fetches appropriate config.
     """
-    if config == "resnet50_grapher_12_conv_config":
-        return cfgs.resnet50_grapher_12_conv_config(
-            act,
-            pred_type,
-            n_classes,
-            height,
-            width,
-        )
-    if config == "resnet50_grapher_attention_12_conv_config":
-        return cfgs.resnet50_grapher_attention_12_conv_config(
-            act,
-            pred_type,
-            n_classes,
-            height,
-            width,
-        )
-    if config == "grapher_6_conv_config":
-        return cfgs.grapher_6_conv_config(
-            act,
-            pred_type,
-            n_classes,
-            height,
-            width,
-        )
-    if config == "grapher_12_conv_config":
-        return cfgs.grapher_12_conv_config(
-            act,
-            pred_type,
-            n_classes,
-            height,
-            width,
-        )
+    if config == "arcvein":
+        cfg = ModelConfig()
+        cfg.arcvein = True
+        return cfg
+
     if config == "vig_pyramid_tiny":
         return cfgs.vig_pyramid_tiny(
             act,
@@ -306,23 +281,42 @@ def main():
             },
         )
     try:
-        train(
-            config,
-            args.dataset,
-            batch_size,
-            epochs,
-            environment,
-            wandb_run_name,
-            args.validate_after_epochs,
-            args.learning_rate,
-            args.continue_model,
-            args.augment_times,
-            args.n_classes,
-            args.height,
-            args.width,
-            pretrained_model_path=args.pretrained_model_path,
-            pretrained_predictor_classes=args.pretrained_classes,
-        )
+        if args.config == "arcvein":
+            arc_train(
+                config,
+                args.dataset,
+                batch_size,
+                epochs,
+                environment,
+                wandb_run_name,
+                args.validate_after_epochs,
+                args.learning_rate,
+                args.continue_model,
+                args.augment_times,
+                args.n_classes,
+                args.height,
+                args.width,
+                pretrained_model_path=args.pretrained_model_path,
+                pretrained_predictor_classes=args.pretrained_classes,
+            )
+        else:
+            train(
+                config,
+                args.dataset,
+                batch_size,
+                epochs,
+                environment,
+                wandb_run_name,
+                args.validate_after_epochs,
+                args.learning_rate,
+                args.continue_model,
+                args.augment_times,
+                args.n_classes,
+                args.height,
+                args.width,
+                pretrained_model_path=args.pretrained_model_path,
+                pretrained_predictor_classes=args.pretrained_classes,
+            )
     except KeyboardInterrupt:
         pass
 
