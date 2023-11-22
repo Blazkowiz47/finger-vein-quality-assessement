@@ -186,6 +186,7 @@ def train(
     # Training loop
     best_train_accuracy: float = 0
     best_test_accuracy: float = 0
+    best_one, best_pointone, best_pointzerone = None, None, None
     best_eer: float = float("inf")
     _ = cuda_info()
 
@@ -251,8 +252,6 @@ def train(
         )
         for metric in train_metrics:
             metric.reset()
-
-        best_one, best_pointone, best_pointzerone = None, None, None
 
         if epoch % validate_after_epochs == 0:
             val_loss = []
