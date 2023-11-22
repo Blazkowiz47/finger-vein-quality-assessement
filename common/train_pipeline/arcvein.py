@@ -17,8 +17,11 @@ from torch.nn import (
 
 
 class ArcCosineLoss(Module):
-    def __init__(self, n_classes: int, lmbda: float = 0.01) -> None:
+    def __init__(
+        self, n_classes: int, lmbda: float = 0.01, fine_tune: bool = False
+    ) -> None:
         super(ArcCosineLoss, self).__init__()
+        self.fine_tune = fine_tune
         self.lmbda = lmbda
         self.softmax = LogSoftmax(dim=1)
         self.ls = NLLLoss()
@@ -30,6 +33,10 @@ class ArcCosineLoss(Module):
         sfmx = self.softmax(sfmx)
         label = torch.argmax(label, dim=1)
         ls = self.ls(sfmx, label)
+
+        if self.fine_tune:
+            return ls, sfmx
+
         npred = pred / torch.sqrt(torch.sum(pred**2, dim=1, keepdim=True))
         self.centroids.requires_grad = is_critic
         ncent = self.centroids / torch.sqrt(

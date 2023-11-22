@@ -151,7 +151,9 @@ def train(
         dataset_type=environment,
     )
 
-    loss_fn = ArcCosineLoss(n_classes)
+    loss_fn = ArcCosineLoss(
+        n_classes, fine_tune=True if pretrained_model_path else False
+    )
     model = ArcVein()
 
     if continue_model:
