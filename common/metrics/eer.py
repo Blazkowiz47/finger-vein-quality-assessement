@@ -68,7 +68,7 @@ class EER(Metric):
         one = np.argmin(np.abs(far - 1))
         pointone = np.argmin(np.abs(far - 0.1))
         pointzeroone = np.argmin(np.abs(far - 0.01))
-        _, _, _ = self.eng.Plot_ROC(genuine, morphed, matlab.double(10000), nargout=3)
+        # _, _, _ = self.eng.Plot_ROC(genuine, morphed, matlab.double(10000), nargout=3)
         return (
             eer,
             100 - ffr[0][one],
