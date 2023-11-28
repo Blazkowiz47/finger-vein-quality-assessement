@@ -747,6 +747,7 @@ def test_dsc_custom(
     n_classes: int,
     height: int,
     width: int,
+    total_layers: int = 3,
 ) -> ModelConfig:
     """
     Module architecture:
@@ -754,7 +755,6 @@ def test_dsc_custom(
     Grapher followed by ffn [12 blocks]
     predictor (linear)
     """
-    total_layers = 3
     channels: List[int] = [64, 128, 256, 512]
     num_of_grapher_units: List[int] = [1, 1, 1, 1]
     num_knn: int = 18

@@ -158,20 +158,6 @@ def train(
         logger.exception("Cannot initialise matlab engine")
 
     device = cuda_info()
-    train_dataset, validation_dataset, _ = DatasetChainer(
-        datasets=[
-            get_dataset(
-                dataset,
-                environment=environment,
-                augment_times=augment_times,
-                height=height,
-                width=width,
-            ),
-        ],
-    ).get_dataset(
-        batch_size=batch_size,
-        dataset_type=environment,
-    )
 
     if continue_model:
         model = get_model(config)
@@ -189,6 +175,22 @@ def train(
         "Total trainable parameters: %s",
         sum(p.numel() for p in model.parameters() if p.requires_grad),
     )
+
+    train_dataset, validation_dataset, _ = DatasetChainer(
+        datasets=[
+            get_dataset(
+                dataset,
+                environment=environment,
+                augment_times=augment_times,
+                height=height,
+                width=width,
+            ),
+        ],
+    ).get_dataset(
+        batch_size=batch_size,
+        dataset_type=environment,
+    )
+
     optimizer = optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=0.05)
     scheduler = lr_scheduler.CosineAnnealingLR(optimizer, epochs, eta_min=1e-5)
     train_loss_fn = get_train_loss().to(device)

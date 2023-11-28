@@ -56,22 +56,24 @@ class DSCStem(Module):
     ):
         super(DSCStem, self).__init__()
         self.layers = []
-        start_channels = max(out_dim // pow(2, total_layers - 1), in_dim)
+        start_channels = 16
         for layer_number in range(total_layers):
             self.layers.append(
                 DSCModule(
                     in_dim,
                     start_channels,
                     3,
-                    stride=2 if layer_number + 1 != total_layers else 1,
+                    stride=2 if layer_number < 2 != total_layers else 1,
                     bias=bias,
                 )
             )
             self.layers.append(BatchNorm2d(start_channels))
-            if layer_number + 1 != total_layers:
+            if layer_number < 2:
                 self.layers.append(act_layer(act))
-            in_dim = start_channels
-            start_channels = start_channels * 2
+                in_dim = start_channels
+                start_channels = start_channels * 2
+            else:
+                in_dim = start_channels
 
         self.stem = Sequential(*self.layers)
         for parameter in self.stem.parameters():

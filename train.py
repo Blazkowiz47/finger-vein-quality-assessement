@@ -140,6 +140,13 @@ parser.add_argument(
     help="Defines pretrained model's predictor_classes.",
 )
 
+parser.add_argument(
+    "--total-layers",
+    type=int,
+    default=3,
+    help="TOTAL LAYERS FOR DSC STEM",
+)
+
 
 def get_config(
     config: str,
@@ -149,6 +156,7 @@ def get_config(
     num_heads: int,
     height: int,
     width: int,
+    total_layers: int,
 ) -> ModelConfig:
     """
     Fetches appropriate config.
@@ -240,6 +248,7 @@ def get_config(
             n_classes,
             height,
             width,
+            total_layers,
         )
     raise ValueError(f"Wrong config: {config}")
 
@@ -266,6 +275,7 @@ def main():
         args.num_heads,
         args.height,
         args.width,
+        args.total_layers,
     )
     if wandb_run_name:
         wandb.init(
