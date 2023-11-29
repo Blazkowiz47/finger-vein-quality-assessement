@@ -63,7 +63,7 @@ class DSCStem(Module):
                     in_dim,
                     start_channels,
                     3,
-                    stride=2 if layer_number < 2 != total_layers else 1,
+                    stride=2 if layer_number < 2 else 1,
                     bias=bias,
                 )
             )

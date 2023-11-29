@@ -86,6 +86,13 @@ parser.add_argument(
     help="Defines width of the image.",
 )
 
+parser.add_argument(
+    "--total-layers",
+    type=int,
+    default=3,
+    help="TOTAL LAYERS FOR DSC STEM",
+)
+
 
 def main():
     """
@@ -107,6 +114,7 @@ def main():
         2,
         args.height,
         args.width,
+        args.total_layers,
     )
     try:
         evaluate(

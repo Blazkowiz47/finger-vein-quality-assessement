@@ -767,8 +767,8 @@ def test_dsc_custom(
     max_dilation = channels[-1] // num_knn
     blocks: List[BackboneBlockConfig] = []
     original_height, original_width = height, width
-    height = height // int(pow(2, total_layers - 1))
-    width = width // int(pow(2, total_layers - 1))
+    height = height // int(pow(2, 2))
+    width = width // int(pow(2, 2))
 
     for i, channel in enumerate(channels):
         blocks.append(

@@ -35,8 +35,8 @@ class CustomModel(Module):
             torch.zeros(  # pylint: disable=E1101
                 1,
                 config.stem_config.out_channels,
-                config.height // int(pow(2, total_layers - 1)),
-                config.width // int(pow(2, total_layers - 1)),
+                config.height // int(pow(2, 3 - 1)),
+                config.width // int(pow(2, 3 - 1)),
             )
         )
         self.model_init()
