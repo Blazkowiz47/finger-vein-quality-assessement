@@ -2,6 +2,7 @@
 Contains various predictors.
 """
 from dataclasses import dataclass
+import torch
 from torch.nn.functional import adaptive_avg_pool2d
 from torch.nn import BatchNorm2d, Conv2d, Dropout, Linear, Module, Sequential, Softmax
 
@@ -51,6 +52,7 @@ class ConvPredictor(Module):
         self.fc1 = Linear(config.hidden_dims, config.n_classes)
 
         self.softmax = Softmax(dim=1)
+        self.model_init()
 
     def forward(self, inputs):
         """Forward pass."""
@@ -59,6 +61,18 @@ class ConvPredictor(Module):
         inputs = self.fc1(inputs)
         inputs = self.softmax(inputs)
         return inputs
+
+    def model_init(self):
+        """
+        Model init.
+        """
+        for module in self.predictor.modules():
+            if isinstance(module, Conv2d):
+                torch.nn.init.kaiming_normal_(module.weight)
+                module.weight.requires_grad = True
+                if module.bias is not None:
+                    module.bias.data.zero_()
+                    module.bias.requires_grad = True
 
 
 class LinPredictor(Module):

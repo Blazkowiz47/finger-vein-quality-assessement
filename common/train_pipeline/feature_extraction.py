@@ -1,17 +1,13 @@
 """
 Trains everything
 """
-from typing import Any, Dict, List, Optional
+from typing import Any, List, Optional
 import numpy as np
 import torch
-from torch import optim
-from torch.nn import Module
+from torch.nn import CosineSimilarity
+from torch.nn.functional import adaptive_avg_pool2d
 from torch.optim import lr_scheduler as lr_scheduler
 from tqdm import tqdm
-from timm.loss import SoftTargetCrossEntropy
-from torchmetrics import Metric
-from torchmetrics.classification import Accuracy
-import wandb
 
 # from common.data_pipeline.mmcbnu.dataset import DatasetLoader as mmcbnu
 from common.train_pipeline.config import ModelConfig
@@ -19,90 +15,14 @@ from common.train_pipeline.config import ModelConfig
 # from common.data_pipeline.fvusm.dataset import DatasetLoader as fvusm
 from common.data_pipeline.dataset import get_dataset
 
-from common.metrics.eer import EER
 from common.train_pipeline.model.model import get_model
-from common.train_pipeline.predictor.predictor import PredictorConfig, get_predictor
 from common.util.logger import logger
 from common.util.data_pipeline.dataset_chainer import DatasetChainer
 from common.util.enums import EnvironmentType
-from torchmetrics.classification import Accuracy, MulticlassPrecision, MulticlassRecall
 import matlab
 import matlab.engine
 
 # To watch nvidia-smi continuously after every 2 seconds: watch -n 2 nvidia-smi
-
-
-def get_train_loss() -> Module:
-    """
-    Gets a loss function for training.
-    """
-    return SoftTargetCrossEntropy()
-
-
-def get_test_loss() -> Module:
-    """
-    Gets a loss function for training.
-    """
-    return SoftTargetCrossEntropy()
-
-
-def get_val_loss() -> Module:
-    """
-    Gets a loss function for validation.
-    """
-    return SoftTargetCrossEntropy()
-
-
-def get_train_metrics(n_classes: int, eng: Any) -> list[Metric]:
-    """
-    Returns list of training metrics.
-    """
-    return [
-        Accuracy(
-            task="multiclass",
-            num_classes=n_classes,
-        ),
-        # EER(eng, genuine_class_label=1 if n_classes == 2 else None),
-        # ConfusionMatrix().to(device),
-    ]
-
-
-def get_test_metrics(n_classes: int, eng: Any) -> list[Metric]:
-    """
-    Returns list of testing metrics.
-    """
-    return [
-        Accuracy(
-            task="multiclass",
-            num_classes=n_classes,
-        ),
-        EER(eng, genuine_class_label=1 if n_classes == 2 else None),
-        # ConfusionMatrix().to(device),
-    ]
-
-
-def get_val_metrics(n_classes: int, eng: Any) -> list[Metric]:
-    """
-    Returns list of validation metrics.
-    """
-    return [
-        Accuracy(
-            task="multiclass",
-            num_classes=n_classes,
-        ),
-        EER(eng, genuine_class_label=1 if n_classes == 2 else None),
-        # ConfusionMatrix().to(device),
-    ]
-
-
-metric_names: List[str] = ["accuracy", "eer"]
-
-
-def add_label(metric: Dict[str, Any], label: str = "") -> Dict[str, Any]:
-    """
-    Adds provided label as prefix to the keys in the metric dictionary.
-    """
-    return {f"{label}_{k}": v for k, v in metric.items()}
 
 
 def cuda_info() -> str:
@@ -182,7 +102,7 @@ def train(
             get_dataset(
                 dataset,
                 environment=environment,
-                augment_times=augment_times,
+                augment_times=0,
                 height=height,
                 width=width,
             ),
@@ -192,160 +112,87 @@ def train(
         dataset_type=environment,
     )
 
-    optimizer = optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=0.05)
-    scheduler = lr_scheduler.CosineAnnealingLR(optimizer, epochs, eta_min=1e-5)
-    train_loss_fn = get_train_loss().to(device)
-    validate_loss_fn = get_val_loss().to(device)
-
-    train_metrics = [metric.to(device) for metric in get_train_metrics(n_classes, eng)]
-    # test_metrics = get_test_metrics(device)
-    val_metrics = [metric.to(device) for metric in get_val_metrics(n_classes, eng)]
-    # Training loop
-    best_train_accuracy: float = 0
-    best_test_accuracy: float = 0
-    best_eer: float = float("inf")
-    best_one, best_pointone, best_pointzerone = None, None, None
     _ = cuda_info()
-    all_inputs = []
-    all_labels = []
-
-    for inputs, labels in train_dataset:
-        inputs = inputs.cuda().float()
-        inputs = model.stem(inputs)
-        inputs = model.backbone(inputs)
-        all_inputs.append(inputs.detach().cpu())
-        all_labels.append(labels)
-
-    if not config.predictor_config:
-        raise ValueError("No Predictor config")
-
-    predictor = get_predictor(config.predictor_config)
-    predictor.to(device)
-    for epoch in range(1, epochs + 1):
-        model.train()
-        training_loss = []
-        for inputs, labels in tqdm(
-            zip(all_inputs, all_labels), desc=f"Epoch {epoch} Training: "
-        ):
-            logger.debug(
-                "Inputs shape: %s, label shape: %s", inputs.shape, labels.shape
-            )
-            if inputs.shape[0] == 1:
-                inputs = torch.cat((inputs, inputs), 0)  # pylint: disable=E1101
-                labels = torch.cat((labels, labels), 0)  # pylint: disable=E1101
-            # start = time.time()
-            # with profiler.profile(record_shapes=True) as prof:
+    enroll_x = []
+    enroll_y = []
+    probe_x = []
+    probe_y = []
+    model.eval()
+    with torch.no_grad():
+        for inputs, labels in tqdm(train_dataset, desc="Compiling the features"):
             inputs = inputs.cuda().float()
-            labels = labels.cuda().float()
-            # end = time.time()
-            # logger.info("Leaded data on cuda. %s", str(end - start))
-            optimizer.zero_grad()
-            # start = time.time()
-            outputs = predictor(inputs)  # pylint: disable=E1102
-            # end = time.time()
-            # logger.info("Forward prop. %s", str(end - start))
-            loss = train_loss_fn(outputs, labels)  # pylint: disable=E1102
-            # start = time.time()
-            training_loss.append(loss.item())
-            loss.backward()
-            # end = time.time()
-            # logger.info("Backward prop. %s", str(end - start))
-            optimizer.step()
-            # train_metrics[1].update(outputs, labels)
-            # start = time.time()
-            predicted = outputs.argmax(dim=1)
-            labels = labels.argmax(dim=1)
-            train_metrics[0].update(predicted, labels)
-            # end = time.time()
-            # logger.info("Metric. %s", str(end - start))
+            inputs = model.stem(inputs)
+            inputs = model.backbone(inputs)
+            inputs = adaptive_avg_pool2d(inputs, 1)
+            inputs = inputs.squeeze()
+            inputs = inputs / torch.sqrt(torch.square(inputs)).sum()
+            enroll_x.append(inputs.detach().cpu())
+            enroll_y.append(labels)
 
-        scheduler.step()
-        model.eval()
-        results = []
-        results.append(
-            add_label(
-                {
-                    "accuracy": train_metrics[0].compute().item(),
-                    # "eer": train_metrics[1].compute(),
-                    "loss": np.mean(training_loss),
-                },
-                "train",
-            )
+        for inputs, labels in tqdm(validation_dataset, desc="Validation:"):
+            inputs = inputs.cuda().float()
+            inputs = model.stem(inputs)
+            inputs = model.backbone(inputs)
+            inputs = adaptive_avg_pool2d(inputs, 1)
+            inputs = inputs.squeeze()
+            inputs = inputs / torch.sqrt(torch.square(inputs)).sum()
+            probe_x.append(inputs.detach().cpu())
+            probe_y.append(labels)
+
+        enroll_x = torch.cat(enroll_x)
+        enroll_y = torch.cat(enroll_y)
+        probe_x = torch.cat(probe_x)
+        probe_y = torch.cat(probe_y)
+        ### Do the genuine score comparisons here
+        cosineg: List[float] = []
+        cosinem: List[float] = []
+        genuine: List[float] = []
+        morphed: List[float] = []
+        for i, (x, y) in enumerate(zip(enroll_x, enroll_y)):
+            for j, (p, py) in enumerate(zip(probe_x, probe_y)):
+                if torch.argmax(y) == torch.argmax(py):
+                    # Genuine
+                    genuine.append((x - p).square().sqrt().sum().item())
+                    cosineg.append(CosineSimilarity(0)(x, p))
+                else:
+                    # Imposter
+                    morphed.append((x - p).square().sqrt().sum().item())
+                    cosinem.append(CosineSimilarity(0)(x, p))
+
+        genuine = np.array(genuine)
+        genuine = (genuine - genuine.min()) / (genuine.max() - genuine.min())
+        morphed = np.array(morphed)
+        morphed = (morphed - morphed.min()) / (morphed.max() - morphed.min())
+        morphed = 1 - morphed
+        eer, far, ffr = eng.EER_DET_Spoof_Far(
+            genuine, morphed, matlab.double(10000), nargout=3
         )
-        for metric in train_metrics:
-            metric.reset()
+        far = np.array(far)
+        ffr = np.array(ffr)
+        one = np.argmin(np.abs(far - 1))
+        pointone = np.argmin(np.abs(far - 0.1))
+        pointzeroone = np.argmin(np.abs(far - 0.01))
+        print("For euclidean distance")
+        print("EER:", eer)
+        print("TAR 1%:", one)
+        print("TAR 0.1%:", pointone)
+        print("TAR 0.01%:", pointzeroone)
 
-        if epoch % validate_after_epochs == 0:
-            val_loss = []
-            with torch.no_grad():
-                for inputs, labels in tqdm(validation_dataset, desc="Validation:"):
-                    if inputs.shape[0] == 1:
-                        inputs = torch.cat((inputs, inputs), 0)  # pylint: disable=E1101
-                        labels = torch.cat((labels, labels), 0)  # pylint: disable=E1101
-                    inputs = inputs.to(device).float()
-                    labels = labels.to(device).float()
-                    outputs = predictor(inputs)  # pylint: disable=E1102
-                    loss = validate_loss_fn(outputs, labels)  # pylint: disable=E1102
-                    val_loss.append(loss.item())
-
-                    val_metrics[1].update(outputs, labels)
-
-                    predicted = outputs.argmax(dim=1)
-                    labels = labels.argmax(dim=1)
-                    val_metrics[0].update(predicted, labels)
-                eer, one, pointone, pointzeroone = val_metrics[1].compute()
-                results.append(
-                    add_label(
-                        {
-                            "accuracy": val_metrics[0].compute().item(),
-                            "loss": np.mean(val_loss),
-                            "eer": eer,
-                            "tar1": one,
-                            "tar0.1": pointone,
-                            "tar0.01": pointzeroone,
-                        },
-                        "test",
-                    )
-                )
-                for metric in val_metrics:
-                    metric.reset()
-
-                if best_test_accuracy < results[1]["test_accuracy"]:
-                    torch.save(
-                        predictor.state_dict(),
-                        f"models/checkpoints/best_test_{log_on_wandb}.pt",
-                    )
-                    best_test_accuracy = results[1]["test_accuracy"]
-                if best_eer > results[1]["test_eer"]:
-                    torch.save(
-                        predictor.state_dict(),
-                        f"models/checkpoints/best_eer_{log_on_wandb}.pt",
-                    )
-                    best_eer = results[1]["test_eer"]
-                    best_one = results[1]["test_tar1"]
-                    best_pointone = results[1]["test_tar0.1"]
-                    best_pointzerone = results[1]["test_tar0.01"]
-
-        if best_train_accuracy < results[0]["train_accuracy"]:
-            torch.save(
-                predictor.state_dict(),
-                f"models/checkpoints/best_train_{log_on_wandb}.pt",
-            )
-            best_train_accuracy = results[0]["train_accuracy"]
-
-        log: Dict[str, Any] = {}
-        for result in results:
-            log = log | result
-        for k, v in log.items():
-            logger.info("%s: %s", k, v)
-        if log_on_wandb:
-            wandb.log(log)
-
-        logger.info("Best EER:%s", best_eer)
-        logger.info("Best TAR 1: %s", best_one)
-        logger.info("Best TAR 0.1: %s", best_pointone)
-        logger.info("Best TAR 0.01: %s", best_pointzerone)
-        logger.info("Best test accuracy:%s", best_test_accuracy)
-        logger.info("Best train accuracy:%s", best_train_accuracy)
-
-    model.train()
+        genuine = np.array(cosineg)
+        genuine = (genuine - genuine.min()) / (genuine.max() - genuine.min())
+        morphed = np.array(cosinem)
+        morphed = (morphed - morphed.min()) / (morphed.max() - morphed.min())
+        morphed = 1 - morphed
+        eer, far, ffr = eng.EER_DET_Spoof_Far(
+            genuine, morphed, matlab.double(10000), nargout=3
+        )
+        far = np.array(far)
+        ffr = np.array(ffr)
+        one = np.argmin(np.abs(far - 1))
+        pointone = np.argmin(np.abs(far - 0.1))
+        pointzeroone = np.argmin(np.abs(far - 0.01))
+        print("For cosine similarity")
+        print("EER:", eer)
+        print("TAR 1%:", one)
+        print("TAR 0.1%:", pointone)
+        print("TAR 0.01%:", pointzeroone)
