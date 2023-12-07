@@ -125,7 +125,6 @@ def train(
             inputs = model.backbone(inputs)
             inputs = adaptive_avg_pool2d(inputs, 1)
             inputs = inputs.squeeze()
-            inputs = inputs / torch.sqrt(torch.square(inputs)).sum()
             enroll_x.append(inputs.detach().cpu())
             enroll_y.append(labels)
 
@@ -135,7 +134,6 @@ def train(
             inputs = model.backbone(inputs)
             inputs = adaptive_avg_pool2d(inputs, 1)
             inputs = inputs.squeeze()
-            inputs = inputs / torch.sqrt(torch.square(inputs)).sum()
             probe_x.append(inputs.detach().cpu())
             probe_y.append(labels)
 
@@ -148,7 +146,7 @@ def train(
         cosinem: List[float] = []
         genuine: List[float] = []
         morphed: List[float] = []
-        for i, (x, y) in enumerate(zip(enroll_x, enroll_y)):
+        for i, (x, y) in tqdm(enumerate(zip(enroll_x, enroll_y))):
             for j, (p, py) in enumerate(zip(probe_x, probe_y)):
                 if torch.argmax(y) == torch.argmax(py):
                     # Genuine
