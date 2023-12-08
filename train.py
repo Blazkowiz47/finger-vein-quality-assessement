@@ -322,7 +322,7 @@ def main():
                 pretrained_predictor_classes=args.pretrained_classes,
             )
         else:
-            train(
+            eer, tar1, tar01, tar001 = train(
                 config,
                 args.dataset,
                 batch_size,
@@ -339,6 +339,18 @@ def main():
                 pretrained_model_path=args.pretrained_model_path,
                 pretrained_predictor_classes=args.pretrained_classes,
             )
+            import json
+
+            with open(f"results/{wandb_run_name}.json", "w+") as fp:
+                json.dump(
+                    {
+                        "eer": eer,
+                        "1": tar1,
+                        "0.1": tar01,
+                        "0.01": tar001,
+                    },
+                    fp,
+                )
     except KeyboardInterrupt:
         pass
 

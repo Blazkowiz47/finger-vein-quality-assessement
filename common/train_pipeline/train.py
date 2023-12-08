@@ -330,4 +330,4 @@ def train(
         logger.info("Best test accuracy:%s", best_test_accuracy)
         logger.info("Best train accuracy:%s", best_train_accuracy)
 
-    model.train()
+    return best_eer, best_one, best_pointone, best_pointzerone
