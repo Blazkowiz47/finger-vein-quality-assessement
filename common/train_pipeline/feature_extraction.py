@@ -1,6 +1,7 @@
 """
 Trains everything
 """
+from multiprocessing import Pool
 from typing import Any, List, Optional
 import numpy as np
 import torch
@@ -146,16 +147,32 @@ def train(
         cosinem: List[float] = []
         genuine: List[float] = []
         morphed: List[float] = []
-        for i, (x, y) in tqdm(enumerate(zip(enroll_x, enroll_y))):
-            for j, (p, py) in enumerate(zip(probe_x, probe_y)):
+
+        def get_distances(x, y):
+            genuine_euclidean, genuine_cosine, morphed_euclidean, morphed_cosine = (
+                [],
+                [],
+                [],
+                [],
+            )
+            for p, py in zip(probe_x, probe_y):
                 if torch.argmax(y) == torch.argmax(py):
                     # Genuine
-                    genuine.append((x - p).square().sqrt().sum().item())
-                    cosineg.append(CosineSimilarity(0)(x, p))
+                    genuine_euclidean.append((x - p).square().sqrt().sum().item())
+                    genuine_cosine.append(CosineSimilarity(0)(x, p))
                 else:
                     # Imposter
-                    morphed.append((x - p).square().sqrt().sum().item())
-                    cosinem.append(CosineSimilarity(0)(x, p))
+                    morphed_euclidean.append((x - p).square().sqrt().sum().item())
+                    morphed_cosine.append(CosineSimilarity(0)(x, p))
+            return genuine_euclidean, morphed_euclidean, genuine_cosine, morphed_cosine
+
+        with Pool(24) as p:
+            result = p.map(get_distances, zip(enroll_x, enroll_y))
+            for ge, me, gc, mc in result:
+                genuine.extend(ge)
+                morphed.extend(me)
+                cosineg.extend(gc)
+                cosinem.extend(mc)
 
         genuine = np.array(genuine)
         genuine = (genuine - genuine.min()) / (genuine.max() - genuine.min())
