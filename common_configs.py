@@ -1,7 +1,7 @@
 """
 Common model configs.
 """
-from typing import Any, List
+from typing import Any, List, Optional
 import torch
 from common.gcn_lib.torch_vertex import GrapherConfig
 from common.train_pipeline.backbone.attention_block import AttentionBlockConfig
@@ -748,15 +748,15 @@ def test_dsc_custom(
     height: int,
     width: int,
     total_layers: int = 3,
+    grapher_units: Optional[List[int]] = None,
 ) -> ModelConfig:
     """
     Module architecture:
-    Resnet50 till layer 3 (Output 1024*4*8) [FROZEN]
-    Grapher followed by ffn [12 blocks]
+    Grapher
     predictor (linear)
     """
     channels: List[int] = [64, 128, 256, 512]
-    num_of_grapher_units: List[int] = [1, 1, 1, 1]
+    num_of_grapher_units: List[int] = grapher_units if grapher_units else [1, 1, 1, 1]
     num_knn: int = 18
     drop_path: float = 0.0
     bias: bool = True

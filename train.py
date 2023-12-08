@@ -148,6 +148,14 @@ parser.add_argument(
 )
 
 
+parser.add_argument(
+    "--grapher-units",
+    type=str,
+    default="1,1,1,1",
+    help="Number of grapher units",
+)
+
+
 def get_config(
     config: str,
     act: str,
@@ -157,6 +165,7 @@ def get_config(
     height: int,
     width: int,
     total_layers: int,
+    grapher_units: str,
 ) -> ModelConfig:
     """
     Fetches appropriate config.
@@ -242,6 +251,7 @@ def get_config(
         )
 
     if config == "test_dsc_custom":
+        graphers = [int(x) for x in grapher_units.split(",")]
         return cfgs.test_dsc_custom(
             act,
             pred_type,
@@ -249,6 +259,7 @@ def get_config(
             height,
             width,
             total_layers,
+            grapher_units=graphers,
         )
     raise ValueError(f"Wrong config: {config}")
 
@@ -276,6 +287,7 @@ def main():
         args.height,
         args.width,
         args.total_layers,
+        args.grapher_units,
     )
     if wandb_run_name:
         wandb.init(
