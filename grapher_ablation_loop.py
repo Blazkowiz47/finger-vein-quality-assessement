@@ -23,19 +23,19 @@ parser = argparse.ArgumentParser(
 parser.add_argument(
     "-c",
     "--config",
-    default="vig_pyramid_compact",
+    default="test_dsc_custom",
     type=str,
     help="Put model config name from common_config",
 )
 parser.add_argument(
     "--epochs",
-    default=50,
+    default=30,
     type=int,
     help="Add number of epochs.",
 )
 parser.add_argument(
     "--batch-size",
-    default=192,
+    default=32,
     type=int,
     help="Add batch_size.",
 )
@@ -74,14 +74,14 @@ parser.add_argument(
 parser.add_argument(
     "--augment-times",
     type=int,
-    default=9,
+    default=4,
     help="Number of augmented images per image",
 )
 
 parser.add_argument(
     "--dataset",
     type=str,
-    default=None,
+    default="internal_301_db",
     help="Dataset name.",
 )
 
@@ -144,7 +144,7 @@ parser.add_argument(
 parser.add_argument(
     "--total-layers",
     type=int,
-    default=3,
+    default=5,
     help="TOTAL LAYERS FOR DSC STEM",
 )
 
@@ -153,6 +153,13 @@ parser.add_argument(
     "--grapher-units",
     type=str,
     default="1,1,1,1",
+    help="Number of grapher units",
+)
+
+parser.add_argument(
+    "--reversed",
+    type=bool,
+    default=False,
     help="Number of grapher units",
 )
 
@@ -262,17 +269,28 @@ def get_config(
             total_layers,
             grapher_units=graphers,
         )
+
+    if config == "test_dsc_wo_grapher":
+        return cfgs.test_dsc_wo_grapher(
+            act,
+            pred_type,
+            n_classes,
+            height,
+            width,
+            total_layers,
+        )
+
     raise ValueError(f"Wrong config: {config}")
 
 
-def get_graphers() -> List[str]:
+def get_graphers(reverse: bool = False) -> List[str]:
     options: List[int] = [1, 2, 4, 6]
     result: List[str] = []
     for l1 in options:
         for l2 in options:
-            for l3 in options:
-                for l4 in options:
-                    result.append(f"{l1},{l2},{l3},{l4}")
+            result.append(f"{l1},{l2},6,2")
+    if reverse:
+        return list(reversed(result))
     return result
 
 
@@ -289,10 +307,11 @@ def main():
         if args.environment == "pytorch"
         else EnvironmentType.TENSORFLOW
     )
-    wandb_run_name = args.wandb_run_name
-    for grapher_layers in get_graphers():
+    owandb_run_name = args.wandb_run_name
+
+    for i, grapher_layers in enumerate(get_graphers(args.reversed)):
         try:
-            wandb_run_name += "_"
+            wandb_run_name = owandb_run_name + "_"
             wandb_run_name += grapher_layers
             if wandb_run_name:
                 wandb.init(
