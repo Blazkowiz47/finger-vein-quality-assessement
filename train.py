@@ -151,7 +151,7 @@ parser.add_argument(
 parser.add_argument(
     "--grapher-units",
     type=str,
-    default="1,1,1,1",
+    default="2,1,6,2",
     help="Number of grapher units",
 )
 
@@ -269,6 +269,28 @@ def get_config(
             height,
             width,
             total_layers,
+        )
+
+    if config == "test_wo_dsc_wo_grapher":
+        return cfgs.test_wo_dsc_wo_grapher(
+            act,
+            pred_type,
+            n_classes,
+            height,
+            width,
+            total_layers,
+        )
+
+    if config == "test_wo_dsc_custom":
+        graphers = [int(x) for x in grapher_units.split(",")]
+        return cfgs.test_wo_dsc_custom(
+            act,
+            pred_type,
+            n_classes,
+            height,
+            width,
+            total_layers,
+            grapher_units=graphers,
         )
     raise ValueError(f"Wrong config: {config}")
 

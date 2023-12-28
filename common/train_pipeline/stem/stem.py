@@ -26,6 +26,7 @@ class StemConfig:
     act: str = "relu"
     requires_grad: bool = True
     bias: bool = True
+    without_dsc: bool = False
 
 
 def get_stem(config: StemConfig) -> Module:
@@ -63,6 +64,7 @@ def get_stem(config: StemConfig) -> Module:
             total_layers=config.total_layers,
             bias=config.bias,
             requires_grad=config.requires_grad,
+            remove_dsc=config.without_dsc,
         )
     raise NotImplementedError(
         "No such stem has been implemented or theres some error in the config."

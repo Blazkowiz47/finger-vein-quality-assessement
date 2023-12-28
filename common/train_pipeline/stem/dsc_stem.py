@@ -11,6 +11,7 @@ class DSCModule(Module):
         out_channels: int,
         kernel: int = 3,
         stride=1,
+        remove_dsc: bool = False,
         bias=True,
     ) -> None:
         super(DSCModule, self).__init__()
@@ -22,22 +23,27 @@ class DSCModule(Module):
             padding=1,
             bias=bias,
         )
-        self.xdsc = DSConv_pro(in_channels, out_channels, morph=0)
-        self.ydsc = DSConv_pro(in_channels, out_channels, morph=1)
+        if not remove_dsc:
+            self.xdsc = DSConv_pro(in_channels, out_channels, morph=0)
+            self.ydsc = DSConv_pro(in_channels, out_channels, morph=1)
+
         self.enc = Conv2d(
-            out_channels * 3,
+            out_channels if remove_dsc else out_channels * 3,
             out_channels,
             kernel,
             stride=stride,
             padding=1,
             bias=bias,
         )
+        self.remove_dsc = remove_dsc
 
     def forward(self, inputs):
         c = self.conv(inputs)
-        x = self.xdsc(inputs)
-        y = self.ydsc(inputs)
-        return self.enc(torch.cat([c, x, y], dim=1))
+        if not self.remove_dsc:
+            x = self.xdsc(inputs)
+            y = self.ydsc(inputs)
+            return self.enc(torch.cat([c, x, y], dim=1))
+        return self.enc(c)
 
 
 class DSCStem(Module):
@@ -51,6 +57,7 @@ class DSCStem(Module):
         total_layers: int = 2,
         out_dim=256,
         act="relu",
+        remove_dsc: bool = False,
         bias=True,
         requires_grad=True,
     ):
@@ -65,6 +72,7 @@ class DSCStem(Module):
                     3,
                     stride=2 if layer_number < 2 else 1,
                     bias=bias,
+                    remove_dsc=remove_dsc,
                 )
             )
             self.layers.append(BatchNorm2d(start_channels))
