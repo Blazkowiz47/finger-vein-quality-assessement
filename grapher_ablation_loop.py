@@ -288,6 +288,8 @@ def get_graphers(reverse: bool = False) -> List[str]:
     result: List[str] = []
     for l1 in options:
         for l2 in options:
+            if l1 == l2 and l1 == 1:
+                continue
             result.append(f"{l1},{l2},6,2")
     if reverse:
         return list(reversed(result))

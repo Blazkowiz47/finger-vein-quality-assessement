@@ -28,13 +28,13 @@ parser.add_argument(
 )
 parser.add_argument(
     "--epochs",
-    default=50,
+    default=30,
     type=int,
     help="Add number of epochs.",
 )
 parser.add_argument(
     "--batch-size",
-    default=192,
+    default=32,
     type=int,
     help="Add batch_size.",
 )
@@ -73,14 +73,14 @@ parser.add_argument(
 parser.add_argument(
     "--augment-times",
     type=int,
-    default=9,
+    default=4,
     help="Number of augmented images per image",
 )
 
 parser.add_argument(
     "--dataset",
     type=str,
-    default=None,
+    default="internal_301_db",
     help="Dataset name.",
 )
 
@@ -143,7 +143,7 @@ parser.add_argument(
 parser.add_argument(
     "--total-layers",
     type=int,
-    default=3,
+    default=5,
     help="TOTAL LAYERS FOR DSC STEM",
 )
 
@@ -260,6 +260,15 @@ def get_config(
             width,
             total_layers,
             grapher_units=graphers,
+        )
+    if config == "test_dsc_wo_grapher":
+        return cfgs.test_dsc_wo_grapher(
+            act,
+            pred_type,
+            n_classes,
+            height,
+            width,
+            total_layers,
         )
     raise ValueError(f"Wrong config: {config}")
 
